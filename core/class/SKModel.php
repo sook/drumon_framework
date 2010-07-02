@@ -73,6 +73,13 @@ abstract class SKModel {
 	 * @name $usesColumns
 	 */
 	private $usesColumns = array('trash' => '`deleted` = 0', 'status' => '`status` = 1');
+	
+	/** 
+	 * Falta
+	 *
+	 * @access private
+	 * @name $usesColumns
+	 */
 	private $noFlagTables = array('core_comments');
 
 	// Faz o cache de tags ou dos selectors.
