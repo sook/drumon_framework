@@ -65,6 +65,13 @@ abstract class SKModel {
 	 * @name $uses
 	 */
 	protected $uses = array();
+	
+	/** 
+	 * Lista os parâmetros utilizados pela cláusula WHERE
+	 *
+	 * @access private
+	 * @name $usesColumns
+	 */
 	private $usesColumns = array('trash' => '`deleted` = 0', 'status' => '`status` = 1');
 	private $noFlagTables = array('core_comments');
 
