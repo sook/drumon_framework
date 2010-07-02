@@ -25,7 +25,7 @@ class Benchmark {
 	private $time = array();
 
 	/**
-	 * Função construtora
+	 * Construtor
 	 *
 	 * @access private
 	 * @return void

@@ -1,18 +1,33 @@
 <?
 /**
  * Helper's para trabalhar com HTML
+ *
  * @author Sook contato@sook.com.br
- * @package default
+ * @package helpers
  */
 class HtmlHelper extends SKHelper {
-
+	/** 
+	 * Armazena o nome dos arquivos css
+	 *
+	 * @access private
+	 * @name $styleSheets
+	 */
 	private $styleSheets = array();
+	
+	/** 
+	 * Armazena o nome dos arquivos javascript
+	 *
+	 * @access private
+	 * @name $javascripts
+	 */
 	private $javascripts = array();
+	
 	/**
-	 * Retorna a url incremntada de alguma String
+	 * Retorna a url incremntada de alguma string
+	 *
 	 * @access public
-	 * @param String $v
-	 * @return String
+	 * @param string $v
+	 * @return string
 	 */
 	function url($v){
 		return APP_URL.$v;
@@ -20,8 +35,9 @@ class HtmlHelper extends SKHelper {
 
 	/**
 	 * Gera uma tag Link em HTML
+	 *
 	 * @access public
-	 * @return String
+	 * @return string
 	 */
 	function link() {
 		$args = func_get_args();
@@ -36,9 +52,10 @@ class HtmlHelper extends SKHelper {
 
 	/**
 	 * Retorna pasta de módulos
+	 *
 	 * @access public
-	 * @param String $v
-	 * @return String
+	 * @param string $v
+	 * @return string
 	 */
 	function module_path($v){
 		return MODULES_PATH.$v;
@@ -46,9 +63,10 @@ class HtmlHelper extends SKHelper {
 
 	/**
 	 * Retorna pasta de imagens
+	 *
 	 * @access public
-	 * @param String $v
-	 * @return String
+	 * @param string $v
+	 * @return string
 	 */
 	function image_path($v){
 		return IMAGES_PATH.$v;
@@ -56,10 +74,11 @@ class HtmlHelper extends SKHelper {
 
 	/**
 	 * Retorna a listagem em html dos arquivos css
+	 *
 	 * @access public
-	 * @param Array $files
-	 * @param Boolean $inline
-	 * @return Array
+	 * @param array $files
+	 * @param boolean $inline
+	 * @return array
 	 */
 	function addcss($files, $inline = false) {
 		$files = is_array($files) ? $files : array($files);
@@ -77,9 +96,10 @@ class HtmlHelper extends SKHelper {
 
 	/**
 	 * Insere o código html para inserção dos arquivos css
+	 *
 	 * @access public
-	 * @param Array $files
-	 * @return String
+	 * @param array $files
+	 * @return string
 	 */
 	// Print the css on page.
 	function showcss($files) {

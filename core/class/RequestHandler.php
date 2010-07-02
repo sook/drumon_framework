@@ -57,7 +57,7 @@ class RequestHandler {
 	public $method;
 
 	/**
-	 * Construtor
+	 * Carrega a rota através da função getRoute
 	 *
 	 * @param array $route 
 	 * @param string $app_root

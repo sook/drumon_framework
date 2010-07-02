@@ -6,10 +6,37 @@
  * @author Sook contato@sook.com.br
  */
 class SKTemplate{
-
+	
+	/** 
+	 * FAlta.
+	 *
+	 * @access private
+	 * @name $variables
+	 */
 	private $variables   = array();
+	
+	/** 
+	 * Armazena o status de utilização da livraria gzip
+	 *
+	 * @access public
+	 * @name $gzip
+	 */
 	public $gzip       	 = true;
+	
+	/** 
+	 * Armazena o diretório padrão das partials
+	 *
+	 * @access public
+	 * @name $partial_path
+	 */
 	public $partial_path = 'partials/';
+	
+	/** 
+	 * Contém os parâmetros passados na requisição HTTP (GET e POST)
+	 *
+	 * @access public
+	 * @name $params
+	 */
 	public $params = array();
 
 	/**

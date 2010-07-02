@@ -1,16 +1,18 @@
 <?
 /**
  * Helper's para trabalhar com data
+ *
  * @author Sook contato@sook.com.br
- * @package default
+ * @package helpers
  */
 class DateHelper extends SKHelper {
 	/**
 	 * Retorna data em forma escrita
 	 * Exemplo: 29 de month de 2009
+	 *
 	 * @access public
-	 * @param Date $date
-	 * @return String
+	 * @param string $date Data a ser processada
+	 * @return string
 	 */
 	function inWordsOld ($date) {
 		$date = explode(' ', $date);
@@ -24,9 +26,10 @@ class DateHelper extends SKHelper {
 
 	/**
 	 * Retorna a data em formato Português Brasileiro
+	 *
 	 * @access public
-	 * @param Date $date
-	 * @return Datetime
+	 * @param string $date Data a ser processada
+	 * @return time
 	 */
 	function inWords($date) {
 		if($this->i18n['lang'] === 'pt-br'){
@@ -36,10 +39,10 @@ class DateHelper extends SKHelper {
 	}
 
 	/**
-	 * Extrae o tempo de uma data
+	 * Extrai o tempo de uma data
 	 * @access public
-	 * @param Datetime $date
-	 * @return Datetime
+	 * @param string $date Data a ser processada
+	 * @return string
 	 */
 	function time ($date) {
 		$date = explode(' ', $date);
@@ -48,10 +51,10 @@ class DateHelper extends SKHelper {
 	}
 
 	/**
-	 * Mostra data caso ela seja nula
+	 * Mostra data
 	 * @access public
-	 * @param Datetime $date
-	 * @return Datetime
+	 * @param string $date Data a ser processada
+	 * @return string
 	 */
 	function show($date = null) {
 		$format = str_replace("%", "", $this->i18n['date']['default']);

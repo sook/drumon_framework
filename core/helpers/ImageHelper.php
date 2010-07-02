@@ -1,13 +1,15 @@
 <?
 /**
  * Helper's para trabalhar com imagens
+ *
  * @author Sook contato@sook.com.br
- * @package default
+ * @package helpers
  */
 class ImageHelper extends SKHelper {
 
 	/**
 	 * Retorna código html da imagem redimensionada
+	 *
 	 * @access public
 	 * @param String $image
 	 * @param String $height
@@ -27,6 +29,7 @@ class ImageHelper extends SKHelper {
 
 	/**
 	 * Retorna imagem do site gravatar através do fornecimento do email
+	 *
 	 * @access public
 	 * @param string $email
 	 * @param string $default

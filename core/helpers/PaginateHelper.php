@@ -1,14 +1,16 @@
 <?php
 /**
  * Classe de paginação que será utilizada para listagem dos módulos.
+ *
  * @author Sook contato@sook.com.br
- * @package default
+ * @package helpers
  */
 class PaginateHelper extends SKHelper {
 
 	/**
-	 * @ignore
 	 * Função construtora
+	 *
+	 * @param string $i18n
 	 * @access public
 	 * @param array $method
 	 */
@@ -18,9 +20,10 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Verifica a existência de paginação
-	 * @access Public
+	 *
+	 * @access public
 	 * @param object $page
-	 * @return boolean
+	 * @return bool
 	 */
 	public function hasPage($page) {
 		return $page->hasPage();
@@ -28,9 +31,10 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Verifica a existência de próxima página
-	 * @access Public
+	 *
+	 * @access public
 	 * @param object $page
-	 * @return boolean
+	 * @return bool
 	 */
 	public function hasNext($page) {
 		return $page->hasNextPage();
@@ -38,9 +42,10 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Verifica a existência de página anterior
-	 * @access Public
+	 *
+	 * @access public
 	 * @param object $page
-	 * @return boolean
+	 * @return bool
 	 */
 	public function hasPrev($page) {
 		return $page->hasPrevPage();
@@ -48,9 +53,10 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Retorna o número da página atual
-	 * @access Public
+	 *
+	 * @access public
 	 * @param object $page
-	 * @return Integer
+	 * @return int
 	 */
 	public function current($page) {
 		return $page->currentPage;
@@ -58,7 +64,8 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Retorna a URL da próxima página
-	 * @access Public
+	 *
+	 * @access public
 	 * @param object $page
 	 * @return string
 	 */
@@ -68,6 +75,7 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Retorna a URL da página anterior
+	 *
 	 * @access Public
 	 * @param object $page
 	 * @param string $url
@@ -79,7 +87,8 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Retorna a URL da ultima página
-	 * @access Public
+	 *
+	 * @access public
 	 * @param object $page
 	 * @param string $url
 	 * @return string
@@ -90,7 +99,8 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Retorna a paginação em html
-	 * @access Public
+	 *
+	 * @access public
 	 * @param object $page
 	 * @param array $options
 	 * @return string
@@ -119,7 +129,8 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Retorna a paginação anterior em html
-	 * @access Public
+	 *
+	 * @access public
 	 * @param object $page
 	 * @param array $options
 	 * @return string
@@ -143,7 +154,8 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Retorna a paginação em html
-	 * @access Public
+	 *
+	 * @access public
 	 * @param object $page
 	 * @param array $options
 	 * @return string
@@ -184,7 +196,8 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Retorna a próxima paginação em relação a atual
-	 * @access Public
+	 *
+	 * @access public
 	 * @param object $page
 	 * @param array $options
 	 * @return string
@@ -208,7 +221,8 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Retorna as informações de geração de paginação
-	 * @access Public
+	 *
+	 * @access public
 	 * @param object $page
 	 * @return string
 	 */
@@ -240,8 +254,9 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Retorna a URL formatada
-	 * @access Public
-	 * @param Integer $pageNumber
+	 *
+	 * @access public
+	 * @param integer $pageNumber
 	 * @param string $url
 	 * @return string
 	 */
@@ -256,6 +271,7 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Retorna o fullpath da pagina com as variaveis get
+	 *
 	 * @access public.
 	 * return string.
 	 */
@@ -268,7 +284,7 @@ class PaginateHelper extends SKHelper {
 
 	/**
 	 * Remove um texto de outro texto
-	 * @ignore
+	 *
 	 * @access public.
 	 * @param string $1
 	 * @param string $2
@@ -277,4 +293,5 @@ class PaginateHelper extends SKHelper {
 	private function strleft($s1, $s2) {
 		return substr($s1, 0, strpos($s1, $s2));
 	}
-}?>
+}
+?>

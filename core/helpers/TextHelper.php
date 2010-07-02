@@ -1,12 +1,14 @@
 <?
 /**
  * Helper's para trabalhar com texto
+ *
  * @author Sook contato@sook.com.br
- * @package default
+ * @package helpers
  */
 class TextHelper extends SKHelper {
 	/**
 	 * Normalisa a String retirando acentos e caracteres especiais
+	 *
 	 * @access public
 	 * @param string $string
 	 * @param string $space
@@ -32,6 +34,7 @@ class TextHelper extends SKHelper {
 
 	/**
 	 * Faz truncamento em uma string
+	 *
 	 * @access public
 	 * @param string $text
 	 * @param integer $limit
@@ -51,6 +54,7 @@ class TextHelper extends SKHelper {
 
 	/**
 	 * Adiciona um link no final de um post para leitura completa do post
+	 *
 	 * @access public
 	 * @param string $post
 	 * @param string $read_more
@@ -67,6 +71,7 @@ class TextHelper extends SKHelper {
 
 	/**
 	 * Procura Tags de usuário twitter e hasttags para consulta no twitter e adiciona link na tag encontrada
+	 *
 	 * @access public
 	 * @param string $text
 	 * @return string
@@ -81,6 +86,7 @@ class TextHelper extends SKHelper {
 
 	/**
 	 * Destaques uma determinada frase em um texto. Você pode especificar qualquer expressão no marcador para a frase encontrada
+	 *
 	 * @access public
 	 * @param string $text Text to search the phrase in
 	 * @param string $phrase The phrase that will be searched

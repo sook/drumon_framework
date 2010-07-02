@@ -2,15 +2,16 @@
 /**
  * Classe de Utilitários
  *
- * @package default
+ * @package class
  * @author Sook contato@sook.com.br
  */
 
 class Utils {
 	/**
 	 * Checa Email
+	 *
 	 * @access public
-	 * @param string $eMailAddress
+	 * @param string $eMailAddress Email a ser verificado
 	 * @return boolean
 	 */
 	public static function checkEmail($eMailAddress) {
@@ -22,11 +23,12 @@ class Utils {
 
 	/**
 	 * Envia Email
+	 *
 	 * @access public
-	 * @param string $nome
-	 * @param string $to
-	 * @param string $subject
-	 * @param string $content
+	 * @param string $name Nome de rementente do email
+	 * @param string $to Email destinatário
+	 * @param string $subject Assunto 
+	 * @param string $content Conteúdo do email
 	 * @return boolean
 	 */
 	public static function mail($name,$to,$subject,$content) {
@@ -40,3 +42,4 @@ class Utils {
 		}
 	}
 }
+?>

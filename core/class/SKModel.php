@@ -9,6 +9,7 @@ require(CORE."/class/SKDatabase.php");
  * @author Sook contato@sook.com.br
  */
 abstract class SKModel {
+// TODO Comentar $noFlagTables
 	
 	/**
      *  Define não publicado qualquer registro do banco
@@ -75,10 +76,10 @@ abstract class SKModel {
 	private $usesColumns = array('trash' => '`deleted` = 0', 'status' => '`status` = 1');
 	
 	/** 
-	 * Falta
+	 * FAlta.
 	 *
 	 * @access private
-	 * @name $usesColumns
+	 * @name $noFlagTables
 	 */
 	private $noFlagTables = array('core_comments');
 

@@ -6,7 +6,12 @@
  * @subpackage behaviors
  */
 abstract class AppBehavior {
-
+	/** 
+	 * Armazena o nome do modelo
+	 *
+	 * @access protected
+	 * @name $model
+	 */
 	protected $model;
 
 	/**

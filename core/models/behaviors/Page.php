@@ -7,10 +7,44 @@
  */
 class Page extends AppBehavior {
 
+	/** 
+	 * Armazena o total de registros
+	 *
+	 * @access public
+	 * @name $totalRecords
+	 */
 	public $totalRecords = 0;
+	
+	/** 
+	 * Armazena o valor da página atual
+	 *
+	 * @access public
+	 * @name $currentPage
+	 */
 	public $currentPage;
+	
+	/** 
+	 * Armazena o total de páginas
+	 *
+	 * @access public
+	 * @name $totalPages
+	 */
 	public $totalPages;
+	
+	/** 
+	 * Armazena o valor de registros por página
+	 *
+	 * @access public
+	 * @name $perPage
+	 */
 	public $perPage;
+	
+	/** 
+	 * Armazena o resultado de uma consulta
+	 *
+	 * @access public
+	 * @name $results
+	 */
 	public $results;
 
 	/**
