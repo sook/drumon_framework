@@ -1,0 +1,431 @@
+<?php
+require(CORE."/class/SKDatabase.php");
+
+/**
+ * ORM de integração com o CMS Sook
+ *
+ * @package class
+ * @abstract
+ * @author Sook contato@sook.com.br
+ */
+abstract class SKModel {
+	
+	/**
+     *  Define não publicado qualquer registro do banco
+     */
+	const NO_PUBLISHED = 0;
+	
+	/**
+     *  Define publicado qualquer registro do banco
+     */
+	const PUBLISHED = 1;
+	
+	/**
+     *  Define a situação que o registro estar na lixeira
+     */
+	const DRAFT = 2;
+
+	/** 
+	 * Seta os parâmetros padrões para serem usados nas instruções sql
+	 *
+	 * @access public
+	 * @name $params
+	 */
+	public $params = array('fields' => '*', 'where' => 1, 'join' => '', 'order' => '`order` DESC','group_by'=>'','include'=>array());
+
+	/** 
+	 * Lista com as funções importadas do Behavior
+	 *
+	 * @access private
+	 * @name $imported_functions
+	 */
+	private $imported_functions = array();
+	
+	/** 
+	 * Mantém a referência da classe SKDatabase
+	 *
+	 * @access public
+	 * @name $connection
+	 */
+	public $connection;
+
+	/** 
+	 * Quantidade de registro por página
+	 *
+	 * @access public
+	 * @name $perPage
+	 */
+	public $perPage = 10;
+
+	/** 
+	 * Lista de comportamentos que estarão sendo utilizados no módulo
+	 * Opções: array('trash','status')
+	 *
+	 * @access protected
+	 * @name $uses
+	 */
+	protected $uses = array();
+	private $usesColumns = array('trash' => '`deleted` = 0', 'status' => '`status` = 1');
+	private $noFlagTables = array('core_comments');
+
+	// Faz o cache de tags ou dos selectors.
+	protected $cache = array();
+
+	protected $table = "";
+	protected $primaryKey = "id";
+
+
+	/**
+	 * Construtor
+	 * @access public
+	 * @return void
+	 */
+	public function __construct() {
+		$this->connection = SKDatabase::getInstance();
+		if(empty($this->table)) {
+			$this->table = strtolower(get_class($this));
+		}
+	}
+
+	/**
+	 * Chama métodos behaviors
+	 * @access public
+	 * @param array $method
+	 * @param array $args
+	 * @return mixed
+	 */
+	public function __call($method, $args) {
+		// Verifica se realmente existe o método desejado
+		if(array_key_exists($method, $this->imported_functions)) {
+//			$args[] = $this;
+			return call_user_func_array(array($this->imported_functions[$method], $method), $args);
+		}
+		throw new Exception ('Verifique se você chamou o método import no modelo: ' . $method);
+	}
+
+	/**
+	 * Importa as funções existentes da classe passada por parâmetro, que pertence a um behaviors. Simula herança múltipla.
+	 * @access protected
+	 * @param string $class
+	 * @return void
+	 */
+	protected function imports($class) {
+		require_once CORE."/models/behaviors/".$class.".php";
+
+		//Instância o objeto correspondente a classe passada.
+		$new_import = new $class(&$this);
+
+		//Obtém os métodos da classe
+		$import_functions = get_class_methods($new_import);
+
+		//Adiciona os métodos da classe informada
+		foreach($import_functions as $function_name) {
+			$this->imported_functions[$function_name] = &$new_import;
+		}
+	}
+
+	/**
+	 * Executa uma query (SELECT), aplicando o método <b>mysql_fetch_assoc()</b>
+	 * @access public
+	 * @param string $sql query a ser executada
+	 * @return array
+	 */
+	public function query($sql) {
+		return $this->connection->find($sql);
+	}
+
+	/**
+	 * Executa o comando sql informado
+	 * @access public
+	 * @param string $sql query a ser executada
+	 * @return mixed
+	 */
+	public function execute($sql) {
+		return $this->connection->query($sql);
+	}
+
+	/**
+	 * Busca todos os registros<br/>
+	 * <code>
+	 *		$post = new Post();
+	 *		$posts = $post->findAll(array(
+	 * 			'fields' => 'id,title',
+	 * 			'include' => array('tags','comments_number','photos','selector'),
+	 * 			'selector' => 'category=car',
+	 * 			'tags' => 'php,html',
+	 * 			'where' => 'title = "danillo"',
+	 * 			'limit' => 10,
+	 * 			'order' => 'id DESC'
+	 *		));
+	 * </code>
+
+	 * @access public
+	 * @param array $params (Opcional) <br/>
+	 * fields => Nomes das colunas separados por vírgula que retornarão no resultado da consulta sql. Se vazio retorna todos os campos. <br/>
+	 * include => Funções seletoras auxiliares incluídas para fazer consultas padronizadas e distintas por um atributo.<br/>
+	 * selector => Nome das colunas que servirão para distinguir os dados através de categrias.<br/>
+	 * tags => Tags (strings) para filtrar as consulas por determinados atributos.<br/>
+	 * where => Usada para extrair apenas os registros que satisfazem o critério especificado.<br/>
+	 * limit => Usada para extrair os registros limitando a uma quantidade de resultados.<br/>
+	 * order => Usada para ordernar os registros.<br/>
+	 * @return mixed array com os valores do(s) elemento(s) consultado(s) ou false caso não encontre nenhum elemento
+	 */
+	public function findAll($params = array()) {
+		$params = array_merge($this->params, $params);
+
+		$this->addBehaviorsContent(&$params);
+
+		$sql = "SELECT ".$params['fields']." FROM ".$this->table;
+		$sql .= " ".$params['join']." ";
+		$sql .=	" WHERE ".$this->getStringWhere($params['where']);
+		$sql .= " ".$params['group_by'];
+		$sql .= " ORDER BY ".$params['order'];
+		$sql .= (!empty($params['limit'])? " LIMIT ".$params['limit']:"");
+
+		//fb($sql);
+		$records = $this->connection->find_with_key($sql,$this->primaryKey);
+
+		$record_size = count($records);
+		if($record_size === 0){
+			return false;
+		}
+
+		//Se não tiver algum include já retorna.
+		if(count($params['include']) === 0){
+			return $records;
+		}
+
+		//Adiciona novos atributos do cms ao registro.
+		$ids = array();
+		foreach ($records as $record) {
+			$ids[] = "'".$record['id']."'";
+		}
+
+		$ids = join(',',$ids);
+
+		//Inclui nos registros seus selects e options.
+		if(in_array('selector',$params['include'])) {
+			// Se já houver selects não consulta
+			if(isset($this->cache['selects'])) {
+				$selects = $this->cache['selects'];
+				$name = get_class($this);
+				if(!empty($this->name)) $name = $this->name;
+				$recordType = "Modules::".$name;
+
+				$selects = $this->connection->find('SELECT * FROM core_select_options_records WHERE record_type = \''.$recordType.'\' AND record_id IN ('.$ids.')');
+			}
+			foreach ($selects as $select) {
+				if(is_array($records[$select['record_id']]['selects'])){
+					$records[$select['record_id']]['selects'][$select['select_type_alias']] = $select['select_option_name'];
+				}else{
+					$records[$select['record_id']]['selects'] = array($select['select_type_alias'] => $select['select_option_name']);
+				}
+			}
+		}
+		//Adiciona as tags ao resultado
+		if(in_array('tags',$params['include'])){
+			// Busca as tags de cada registro.
+			$name = get_class($this);
+			if(!empty($this->name)) $name = $this->name;
+			$recordType = "Modules::".$name;
+			$tags = $this->connection->find('SELECT * FROM core_module_records_tags WHERE record_type = \''.$recordType.'\' AND record_id IN ('.$ids.')');
+
+			// Seta as tags nos registros como array vazio
+			foreach ($records as $key => $value) {
+				$records[$key]['tags'] = array();
+			}
+
+			// Junta as tags ao registro.
+			foreach ($tags as $tag) {
+				if(is_array($records[$tag['record_id']]['tags'])) {
+					$records[$tag['record_id']]['tags'][$tag['core_tag_id']] = $tag['tag_name'];
+				}else {
+					$records[$tag['record_id']]['tags'] = array($tag['core_tag_id'] => $tag['tag_name']);
+				}
+			}
+		}
+
+		//TODO: Usar array_filter
+		if(in_array('photos',$params['include'])){
+			$ids = array();
+			foreach ($records as $record) {
+				$ids[] = "'".$record['gallery_id']."'";
+			}
+			$ids = join(',',$ids);
+
+			$recordType = "Modules::".$this->getModelName();
+			$photos = $this->connection->find('SELECT * FROM core_images WHERE gallery_id IN ('.$ids.')');
+			$gallery_ids = array();
+			foreach ($photos as $photo) {
+				$gallery_ids[] = $photo['gallery_id'];
+			}
+			$gallery_ids = array_unique($gallery_ids);
+
+			// Seta as photos nos registros como array vazio
+			foreach ($records as $key => $value) {
+				$photos = $this->filterByValue($photos,'gallery_id',$records[$key]['gallery_id']);
+
+				// Adiciona o campo url na foto.
+				foreach ($photos as $k => $value) {
+					$photos[$k]['url'] = MODULES_PATH.$this->table.'/'.$records[$key]['id'].'/'.$records[$key]['gallery_id'].'/sk_'.$value['id'].$value['extension'];
+				}
+				$records[$key]['photos'] = $photos;
+			}
+		}
+
+		// Adiciona o numero de comentários.
+		if(in_array('comments_number',$params['include'])){
+			$name = get_class($this);
+			if(!empty($this->name)) {
+				$name = $this->name;
+			}
+			$recordType = "Modules::".$name;
+			$sql = 'SELECT record_id, count(*) as count FROM `core_comments` WHERE record_type = \''.$recordType.'\' AND record_id IN ('.$ids.')  AND published = 1 GROUP BY `record_id`';
+			$counts_comments = $this->connection->find_with_key($sql,'record_id');
+			// Seta as tags nos registros como array vazio
+			foreach ($records as $key => $value) {
+				$records[$key]['comments_number'] = 0;
+			}
+			foreach ($counts_comments as $key => $value) {
+				$records[$key]['comments_number'] = $value['count'];
+			}
+		}
+		return $records;
+	}
+
+	/**
+	 * Obtém o nome do modelo
+	 * @access public
+	 * @return string
+	 */
+	public function getModelName() {
+		$name = get_class($this);
+		if(!empty($this->name)) {
+			$name = $this->name;
+		}
+		return ucfirst(strtolower(preg_replace('/(?<=\\w)([A-Z])/', '_\\1', $name)));
+	}
+
+	/**
+	 * Cria a cláusula WHERE aos valores a serem utilizados pelos módulos
+	 * @access public
+	 * @param array $paramWhere
+	 * @return string
+	 */
+	public function getStringWhere($paramWhere) {
+		if (!in_array($this->table, $this->noFlagTables)) {
+			foreach ($this->uses as $key) {
+				$paramWhere .= " AND ".$this->usesColumns[$key];
+			}
+		}
+		return $paramWhere;
+	}
+
+	/**
+	 * Procura o primeiro resultado na tabela
+	 *     $post = new Post();<br/>
+	 *     $posts = $post->findFirst(1, {@link findAll() array(...)}<br/>
+	 * @access public
+	 * @param array $param
+	 * @return mixed array com os valores do elemento consultado ou false caso não encontre nenhum elemento
+	 */
+	public function findFirst($params = array()) {
+		$params = array_merge($this->params, $params);
+		$params['limit'] = 1;
+		$record = $this->findAll($params);
+		if(!$record) return false;
+		return array_pop($record);
+	}
+
+	//TODO Mudar para o local melhor (Classe de banco de dados ou algum helper)
+	/**
+	 * Proteção e omissão de valores
+	 * @access public
+	 * @param array $paramWhere
+	 * @return string
+	 */
+	public static function protect($value) {
+		if (get_magic_quotes_gpc()) {
+			$value = stripslashes($value);
+		}
+		if (is_numeric($value)) {
+			 return "'".$value."'";
+		}
+		return "'".mysql_real_escape_string($value)."'";
+	}
+
+	/**
+	 * Busca um registro
+	 *     $post = new Post();<br/>
+	 *     $posts = $post->find(1, {@link findAll() array(...)})<br/>
+	 * @access public
+	 * @param int|string $id código do registro a ser consultado.
+	 * @param array $params
+	 * @return mixed array com os valores do elemento consultado ou false caso não encontre nenhum elemento
+	 */
+	public function find($id, $params = array()) {
+		$params['where'] = $this->table.".".$this->primaryKey." = ".SKModel::protect($id). (!empty($params['where'])? " AND ".$params['where']:"");
+		$params['limit'] = 1;
+		$record = $this->findAll($params);
+		if(!$record) return false;
+		return array_pop($record);
+	}
+
+	/**
+	 * Salva dados no banco de dados
+	 * <code>
+	 * 	$post = new Post();<br/>
+	 * 	$post->save(array('coluna1'=>'valor1','coluna2'=>'valor2'));
+	 * </code>
+	 * @access public
+	 * @param array $data
+	 * @return mixed int com o número do novo registro, aplicando o método <b>mysql_insert_id()</b> ou false caso nada tenha ocorrido
+	 */
+	public function save($data) {
+		return $this->connection->save($this->table, $data);
+	}
+
+	/**
+	 * Adiciona o modelo na query que esteja utilizando behaviors
+	 * @ignore
+	 * @access public
+	 * @param array $params
+	 * @return boolean
+	 */
+	public function addBehaviorsContent(&$params) {
+		// SELECTS
+		if (!empty($params['select'])) {
+			if(!$this->cache['selects'] = $this->findAllModelsUsingSelector(&$params)) {
+				return false;
+			}
+		}
+		// TAGS
+		if (!empty($params['tags'])) {
+			if(!$this->cache['tags'] = $this->findAllWithTags(&$params)){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Função para filtrar valores de arrays multiplos
+	 * @ignore
+	 * @access public
+	 * @param string $sql
+	 * @return array
+	 */
+	private function filterByValue ($array, $index, $value) {
+		$newarray = array();
+		if(is_array($array) && count($array)>0) {
+			foreach(array_keys($array) as $key){
+				$temp[$key] = $array[$key][$index];
+				if ($temp[$key] == $value) {
+					$newarray[$key] = $array[$key];
+				}
+			}
+		}
+		return $newarray;
+	}
+}
+?>
