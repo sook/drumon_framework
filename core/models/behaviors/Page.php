@@ -1,6 +1,7 @@
 <?
 /**
  * Classe paginação dos model's
+ *
  * @author Sook contato@sook.com.br
  * @package models
  * @subpackage behaviors
@@ -49,18 +50,20 @@ class Page extends AppBehavior {
 
 	/**
 	 * Procura comentários
+	 *
 	 * @access public
-	 * @param integer $pages
-	 * @param array $params
+	 * @param int $pages Quantidade de páginas
+	 * @param array $params Parâmetros a serem utilizados pela cláusula WHERE
 	 * @return array
 	 */
 	function paginate($page = 0, $params = array()) {
-		if(!isset($page)) $page = 1;
+		if(!isset($page)) {
+			$page = 1;
+		}
 		// Pega o numero de registro por página.
 		$this->perPage = empty($params['perPage']) ? $this->model->perPage: $params['perPage'];
 		$params = array_merge($this->model->params, $params);
 		$this->model->addBehaviorsContent(&$params);
-
 
 		// Total de registros no banco do módulo passado com parametro
 		$totalRecords = $this->model->query("SELECT COUNT(*) as count_all FROM ".$this->model->table." WHERE ".$this->model->getStringWhere($params['where']));
@@ -91,7 +94,8 @@ class Page extends AppBehavior {
 	}
 
 	/**
-	 * Carrega páginas
+	 * Retorna a paginação
+	 *
 	 * @access public
 	 * @return array
 	 */
@@ -105,6 +109,7 @@ class Page extends AppBehavior {
 	}
 	/**
 	 * Retorna qual é a próxima página
+	 *
 	 * @access public
 	 * @return boolean
 	 */
@@ -117,6 +122,7 @@ class Page extends AppBehavior {
 
 	/**
 	 * Verifica a existência de página anterior
+	 *
 	 * @access public
 	 * @return boolean
 	 */
@@ -126,8 +132,9 @@ class Page extends AppBehavior {
 
 	/**
 	 * Retorna a próxima página
+	 *
 	 * @access public
-	 * @return integer
+	 * @return int
 	 */
 	function getNextPage() {
 		return $this->currentPage + 1;
@@ -135,8 +142,9 @@ class Page extends AppBehavior {
 
 	/**
 	 * Retorna a página anterior
+	 *
 	 * @access public
-	 * @return integer
+	 * @return int
 	 */
 	function getPrevPage() {
 		return $this->currentPage - 1;
@@ -144,8 +152,9 @@ class Page extends AppBehavior {
 
 	/**
 	 * Retorna a ultima página
+	 *
 	 * @access public
-	 * @return integer
+	 * @return int
 	 */
 	function getLastPage() {
 		$nPagina = count($this->getPages());
@@ -154,6 +163,7 @@ class Page extends AppBehavior {
 
 	/**
 	 * Verifica a existência de paginação
+	 *
 	 * @access public
 	 * @return array
 	 */

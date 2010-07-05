@@ -6,7 +6,12 @@
  * @author Sook contato@sook.com.br
  */
 class Download {
-
+	/**  
+	 * Lista com os tipos de arquivos permitidos
+	 *
+	 * @access private
+	 * @name $allowedExt
+	 */
 	private $allowedExt = array (
 		  // archives
 		  'zip' => 'application/zip',
@@ -37,8 +42,21 @@ class Download {
 		  'mov' => 'video/quicktime',
 		  'avi' => 'video/x-msvideo'
 		);
-
+	
+	/**  
+	 * Armazena o arquivo de log dos downloads
+	 *
+	 * @access private
+	 * @name $logFile
+	 */
 	private $logFile = "downloads.log";
+	
+	/**  
+	 * Armazena a situação de utilização do log
+	 *
+	 * @access private
+	 * @name $hasLog
+	 */
 	private $hasLog = false;
 
 	/**

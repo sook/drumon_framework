@@ -1,6 +1,20 @@
 <?php
+/**
+ * Classe para tags dos models
+ *
+ * @author Sook contato@sook.com.br
+ * @package models
+ * @subpackage behaviors
+ */
 class Tag extends AppBehavior {
-	
+
+	/**
+	 * Retorna uma query com o id e o nome das tags do modelo
+	 *
+	 * @access public
+	 * @param int $id
+	 * @return array
+	 */
 	public function getTags($id) {
 		$recordType = "Modules::".get_class($this->model);
 		$sql = "SELECT t.id, t.name 
@@ -11,7 +25,13 @@ class Tag extends AppBehavior {
 		return $this->model->query($sql);
 	}
 	
-	
+	/**
+	 * Realiza uma consulta retornando registros que contenham a tag específicada
+	 *
+	 * @access public
+	 * @param array $params
+	 * @return array
+	 */
 	public function findAllWithTags(&$params) {
 		$name = get_class($this->model);
 		if(!empty($this->model->name)) $name = $this->model->name;
@@ -43,3 +63,4 @@ class Tag extends AppBehavior {
 		return $result_tags;
 	}
 }
+?>

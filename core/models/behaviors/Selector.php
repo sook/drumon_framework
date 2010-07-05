@@ -1,12 +1,20 @@
 <?php
 /**
- * Classe para selects dos model's
+ * Classe para selects dos models
+ *
  * @author Sook contato@sook.com.br
  * @package models
  * @subpackage behaviors
  */
 class Selector extends AppBehavior {
-
+	
+	/**
+	 * Busca todos os registros para o model
+	 *
+	 * @access public
+	 * @param array $params 
+	 * @return array
+	 */
 	public function findAllModelsUsingSelector(&$params) {
 
 		// Obtem o tipo do registro.(polymorphic)
@@ -43,15 +51,18 @@ class Selector extends AppBehavior {
 		// Usado para aproveitar no include.
 		return $result_selector;
 	}
-
-
-
-
-
+	
+	/**
+	 * Busca todos os registros para o model
+	 *
+	 * @access private
+	 * @param array $label
+	 * @return string
+	 */
 	private function getWhereLabel($label) {
 		$values = explode("=",$label);
 		return " (op.`core_select_alias` = '".$values[0]."' AND op.`alias` = '".$values[1]."') ";
 	}
 
 }
-
+?>
