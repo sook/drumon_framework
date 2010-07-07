@@ -8,7 +8,7 @@
 class SKTemplate{
 	
 	/** 
-	 * FAlta.
+	 * Variáveis incluídas para serem utilizadas na view
 	 *
 	 * @access private
 	 * @name $variables
@@ -89,7 +89,7 @@ class SKTemplate{
 	/**
 	 * Obtém a variável especificada atribuída.
 	 *
-	 * @param   string $name
+	 * @param   string $name Nome da variável
 	 * @return  mixed
 	 */
 	public function get($name)	{
@@ -99,8 +99,8 @@ class SKTemplate{
 	/**
 	 * Adiciona valores ao índice de $variables[$name]
 	 *
-	 * @param string $name
-	 * @param mixed $value
+	 * @param string $name Nome da variável
+	 * @param mixed $value Valor a ser atribuido a variável 
 	 * @return void
 	 */
 	public function add($name, $value) {
@@ -128,6 +128,7 @@ class SKTemplate{
 
 	/**
 	 * Carrega o conteúdo dos índices de $variables
+	 *
 	 * @param   string  $name Nome do índice
 	 * @param   string  $filename Arquivo correspondente ao índice
 	 * @return  string
@@ -143,7 +144,7 @@ class SKTemplate{
 	 * Analisa o arquivo especificado $filename com um array $dados
 	 * Ideal para analisar pedaços de código
 	 *
-	 * @param   string  $filename
+	 * @param   string  $filename Arquivo da página a ser renderizada
 	 * @param   array   $data
 	 * @return  string
 	 */

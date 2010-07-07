@@ -63,8 +63,8 @@ class Benchmark {
 	/**
 	 * Obtém uma listagem dos tempos das funcionalidades (Início e Fim)
 	 * 
-	 * @static
 	 * @access public
+	 * @static
 	 * @return mixed
 	 */
 	public static function getListTime() {

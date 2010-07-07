@@ -8,7 +8,7 @@
 class PaginateHelper extends SKHelper {
 
 	/**
-	 * Função construtora
+	 * Carrega a classe definindo seu idioma
 	 *
 	 * @param string $i18n
 	 * @access public

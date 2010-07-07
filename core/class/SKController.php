@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Controlador principal do framework
+ * Classe abstrata que fornece suporte a classe base de controlador
  *
  * @package class
  * @abstract
@@ -66,9 +66,12 @@ abstract class SKController {
 	protected $params = array();
 
 	/**
-	 * Construtor
+	 * Instancia um novo template com as configurações, parâmetros e idioma padrões
 	 *
 	 * @access public
+	 * @param $request
+	 * @param $i18n
+	 * @param $config
 	 * @return void
 	 */
 	public function __construct($request,$i18n,$config){

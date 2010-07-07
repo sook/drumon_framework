@@ -33,26 +33,6 @@ class TextHelper extends SKHelper {
 	}
 
 	/**
-	 * Faz truncamento em uma string
-	 *
-	 * @access public
-	 * @param string $text
-	 * @param integer $limit
-	 * @param string $ending
-	 * @return string
-	 */
-	// deprecated
-	function truncate_old($text, $limit = 25, $ending = '...') {
-		if (strlen($text) > $limit) {
-			$text = strip_tags($text);
-			$text = substr($text, 0, $limit);
-			$text = substr($text, 0, -(strlen(strrchr($text, ' '))));
-			$text = $text . $ending;
-		}
-		return $text;
-	}
-
-	/**
 	 * Adiciona um link no final de um post para leitura completa do post
 	 *
 	 * @access public
@@ -176,94 +156,94 @@ class TextHelper extends SKHelper {
 	 * @return string
 	 * @access public
 	 */
-		function truncate($text, $length = 100, $options = array()) {
-			$default = array(
-				'ending' => '...', 'exact' => true, 'html' => false
-			);
-			$options = array_merge($default, $options);
-			extract($options);
+	function truncate($text, $length = 100, $options = array()) {
+		$default = array(
+			'ending' => '...', 'exact' => true, 'html' => false
+		);
+		$options = array_merge($default, $options);
+		extract($options);
 
-			if ($html) {
-				if (mb_strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
-					return $text;
+		if ($html) {
+			if (mb_strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
+				return $text;
+			}
+			$totalLength = mb_strlen(strip_tags($ending));
+			$openTags = array();
+			$truncate = '';
+
+			preg_match_all('/(<\/?([\w+]+)[^>]*>)?([^<>]*)/', $text, $tags, PREG_SET_ORDER);
+			foreach ($tags as $tag) {
+				if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
+					if (preg_match('/<[\w]+[^>]*>/s', $tag[0])) {
+						array_unshift($openTags, $tag[2]);
+					} else if (preg_match('/<\/([\w]+)[^>]*>/s', $tag[0], $closeTag)) {
+						$pos = array_search($closeTag[1], $openTags);
+						if ($pos !== false) {
+							array_splice($openTags, $pos, 1);
+						}
+					}
 				}
-				$totalLength = mb_strlen(strip_tags($ending));
-				$openTags = array();
-				$truncate = '';
+				$truncate .= $tag[1];
 
-				preg_match_all('/(<\/?([\w+]+)[^>]*>)?([^<>]*)/', $text, $tags, PREG_SET_ORDER);
-				foreach ($tags as $tag) {
-					if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
-						if (preg_match('/<[\w]+[^>]*>/s', $tag[0])) {
-							array_unshift($openTags, $tag[2]);
-						} else if (preg_match('/<\/([\w]+)[^>]*>/s', $tag[0], $closeTag)) {
-							$pos = array_search($closeTag[1], $openTags);
-							if ($pos !== false) {
-								array_splice($openTags, $pos, 1);
+				$contentLength = mb_strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $tag[3]));
+				if ($contentLength + $totalLength > $length) {
+					$left = $length - $totalLength;
+					$entitiesLength = 0;
+					if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', $tag[3], $entities, PREG_OFFSET_CAPTURE)) {
+						foreach ($entities[0] as $entity) {
+							if ($entity[1] + 1 - $entitiesLength <= $left) {
+								$left--;
+								$entitiesLength += mb_strlen($entity[0]);
+							} else {
+								break;
 							}
 						}
 					}
-					$truncate .= $tag[1];
 
-					$contentLength = mb_strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $tag[3]));
-					if ($contentLength + $totalLength > $length) {
-						$left = $length - $totalLength;
-						$entitiesLength = 0;
-						if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', $tag[3], $entities, PREG_OFFSET_CAPTURE)) {
-							foreach ($entities[0] as $entity) {
-								if ($entity[1] + 1 - $entitiesLength <= $left) {
-									$left--;
-									$entitiesLength += mb_strlen($entity[0]);
-								} else {
-									break;
-								}
-							}
-						}
-
-						$truncate .= mb_substr($tag[3], 0 , $left + $entitiesLength);
-						break;
-					} else {
-						$truncate .= $tag[3];
-						$totalLength += $contentLength;
-					}
-					if ($totalLength >= $length) {
-						break;
-					}
-				}
-			} else {
-				if (mb_strlen($text) <= $length) {
-					return $text;
+					$truncate .= mb_substr($tag[3], 0 , $left + $entitiesLength);
+					break;
 				} else {
-					$truncate = mb_substr($text, 0, $length - mb_strlen($ending));
+					$truncate .= $tag[3];
+					$totalLength += $contentLength;
+				}
+				if ($totalLength >= $length) {
+					break;
 				}
 			}
-			if (!$exact) {
-				$spacepos = mb_strrpos($truncate, ' ');
-				if (isset($spacepos)) {
-					if ($html) {
-						$bits = mb_substr($truncate, $spacepos);
-						preg_match_all('/<\/([a-z]+)>/', $bits, $droppedTags, PREG_SET_ORDER);
-						if (!empty($droppedTags)) {
-							foreach ($droppedTags as $closingTag) {
-								if (!in_array($closingTag[1], $openTags)) {
-									array_unshift($openTags, $closingTag[1]);
-								}
+		} else {
+			if (mb_strlen($text) <= $length) {
+				return $text;
+			} else {
+				$truncate = mb_substr($text, 0, $length - mb_strlen($ending));
+			}
+		}
+		if (!$exact) {
+			$spacepos = mb_strrpos($truncate, ' ');
+			if (isset($spacepos)) {
+				if ($html) {
+					$bits = mb_substr($truncate, $spacepos);
+					preg_match_all('/<\/([a-z]+)>/', $bits, $droppedTags, PREG_SET_ORDER);
+					if (!empty($droppedTags)) {
+						foreach ($droppedTags as $closingTag) {
+							if (!in_array($closingTag[1], $openTags)) {
+								array_unshift($openTags, $closingTag[1]);
 							}
 						}
 					}
-					$truncate = mb_substr($truncate, 0, $spacepos);
 				}
+				$truncate = mb_substr($truncate, 0, $spacepos);
 			}
-			$truncate .= $ending;
-
-			if ($html) {
-				foreach ($openTags as $tag) {
-					$truncate .= '</'.$tag.'>';
-				}
-			}
-
-			return $truncate;
 		}
+		$truncate .= $ending;
+
+		if ($html) {
+			foreach ($openTags as $tag) {
+				$truncate .= '</'.$tag.'>';
+			}
+		}
+
+		return $truncate;
+	}
 
 	/**
 	 * Extrai um trecho do texto em torno da frase com um número de caracteres de cada lado determinado pelo raio
@@ -275,41 +255,41 @@ class TextHelper extends SKHelper {
 	 * @return string
 	 * @access public
 	 */
-		function excerpt($text, $phrase, $radius = 100, $ending = '...') {
-			if (empty($text) or empty($phrase)) {
-				return $this->truncate($text, $radius * 2, array('ending' => $ending));
-			}
-
-			$phraseLen = mb_strlen($phrase);
-			if ($radius < $phraseLen) {
-				$radius = $phraseLen;
-			}
-
-			$pos = mb_strpos(mb_strtolower($text), mb_strtolower($phrase));
-
-			$startPos = 0;
-			if ($pos > $radius) {
-				$startPos = $pos - $radius;
-			}
-
-			$textLen = mb_strlen($text);
-
-			$endPos = $pos + $phraseLen + $radius;
-			if ($endPos >= $textLen) {
-				$endPos = $textLen;
-			}
-
-			$excerpt = mb_substr($text, $startPos, $endPos - $startPos);
-			if ($startPos != 0) {
-				$excerpt = substr_replace($excerpt, $ending, 0, $phraseLen);
-			}
-
-			if ($endPos != $textLen) {
-				$excerpt = substr_replace($excerpt, $ending, -$phraseLen);
-			}
-
-			return $excerpt;
+	function excerpt($text, $phrase, $radius = 100, $ending = '...') {
+		if (empty($text) or empty($phrase)) {
+			return $this->truncate($text, $radius * 2, array('ending' => $ending));
 		}
+
+		$phraseLen = mb_strlen($phrase);
+		if ($radius < $phraseLen) {
+			$radius = $phraseLen;
+		}
+
+		$pos = mb_strpos(mb_strtolower($text), mb_strtolower($phrase));
+
+		$startPos = 0;
+		if ($pos > $radius) {
+			$startPos = $pos - $radius;
+		}
+
+		$textLen = mb_strlen($text);
+
+		$endPos = $pos + $phraseLen + $radius;
+		if ($endPos >= $textLen) {
+			$endPos = $textLen;
+		}
+
+		$excerpt = mb_substr($text, $startPos, $endPos - $startPos);
+		if ($startPos != 0) {
+			$excerpt = substr_replace($excerpt, $ending, 0, $phraseLen);
+		}
+
+		if ($endPos != $textLen) {
+			$excerpt = substr_replace($excerpt, $ending, -$phraseLen);
+		}
+
+		return $excerpt;
+	}
 
 	/**
 	 * Cria uma lista separada por vírgulas, onde os dois últimos itens são unidas com 'e', formando natural Inglês
@@ -320,13 +300,13 @@ class TextHelper extends SKHelper {
 	 * @return string
 	 * @access public
 	 */
-		function toList($list, $and = 'and', $separator = ', ') {
-			if (count($list) > 1) {
-				return implode($separator, array_slice($list, null, -1)) . ' ' . $and . ' ' . array_pop($list);
-			} else {
-				return array_pop($list);
-			}
+	function toList($list, $and = 'and', $separator = ', ') {
+		if (count($list) > 1) {
+			return implode($separator, array_slice($list, null, -1)) . ' ' . $and . ' ' . array_pop($list);
+		} else {
+			return array_pop($list);
 		}
+	}
 
 	/**
 	 * Traduz o Texto usando o i18n

@@ -1,10 +1,11 @@
 <?
 /**
- * Helper's para trabalhar com HTML
+ * Helper para trabalhar com HTML
  *
  * @author Sook contato@sook.com.br
  * @package helpers
  */
+ // TODO: Alterar nome da função para padrão CamelCase
 class HtmlHelper extends SKHelper {
 	/** 
 	 * Armazena o nome dos arquivos css
@@ -73,7 +74,7 @@ class HtmlHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna a listagem em html dos arquivos css
+	 * Adiciona o arquivo css a ser inserido no código HTML
 	 *
 	 * @access public
 	 * @param array $files
@@ -95,7 +96,7 @@ class HtmlHelper extends SKHelper {
 	}
 
 	/**
-	 * Insere o código html para inserção dos arquivos css
+	 * Retorna o código html dos arquivos css inseridos
 	 *
 	 * @access public
 	 * @param array $files
@@ -111,26 +112,15 @@ class HtmlHelper extends SKHelper {
 		}
 		return $result;
 	}
-
-	// Insert stylesheets files.
-	// @deprecated
-	function css($files) {
-		$this->addcss($files);
-	}
-
-	// Print the stylesheets on page.
-	// @deprecated
-	function styleSheets($files) {
-		return $this->showcss($files);
-	}
-
-	// Insert javascript files
-	// @deprecated
-	function js($files) {
-		$this->addjs($files,true);
-	}
-
-
+	
+	/**
+	 * Adiciona o arquivo javascript a ser inserido no código HTML
+	 *
+	 * @access public
+	 * @param array $files
+	 * @param boolean $inline
+	 * @return string
+	 */
 	function addjs($files, $inline = false) {
 		$files = is_array($files) ? $files : array($files);
 
@@ -145,7 +135,13 @@ class HtmlHelper extends SKHelper {
 		$this->javascripts = array_merge($this->javascripts, $files);
 	}
 
-	// Print the css on page.
+	/**
+	 * Retorna o código html dos arquivos javascripts inseridos
+	 *
+	 * @access public
+	 * @param array $files
+	 * @return string
+	 */
 	function showjs($files = array()) {
 		$files = is_array($files) ? $files : array($files);
 		$result = '';

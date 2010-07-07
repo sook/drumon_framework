@@ -6,10 +6,28 @@
  * @package models
  */
 class ModulePoll extends AppModel {
-
+	/** 
+	 * Armazena o nome da tabela a ser utilizada pelo módulo
+	 *
+	 * @access public
+	 * @name $table
+	 */
 	public $table = "polls";
+	
+	/** 
+	 * Armazena uma lista de funcionalidades que o módulo irá dispor
+	 *
+	 * @access protected
+	 * @name $uses
+	 */
 	protected $uses = array('trash','status');
-
+	
+	/**
+	 * Adiciona os comportamentos do módulo
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function __construct() {
 		parent::__construct();
 		//$this->imports('Page');
@@ -18,6 +36,13 @@ class ModulePoll extends AppModel {
 		//$this->imports('Comment');
 	}
 	
+	/**
+	 * Busca as respostas da enquete específica
+	 *
+	 * @access public
+	 * @param array $params
+	 * @return array
+	 */
 	public function findAll($params = array()) {
 		$polls = parent::findAll($params);
 		if(!$polls) return false;

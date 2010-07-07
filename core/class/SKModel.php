@@ -2,28 +2,28 @@
 require(CORE."/class/SKDatabase.php");
 
 /**
- * ORM de integração com o CMS Sook
+ * Classe abstrata que fornece suporte a classe base de modelo, para integração com o Sook CMS
  *
  * @package class
- * @abstract
+ * @abstract 
  * @author Sook contato@sook.com.br
  */
 abstract class SKModel {
 // TODO Comentar $noFlagTables
 	
 	/**
-     *  Define não publicado qualquer registro do banco
-     */
+	 *  Define não publicado qualquer registro do banco
+	 */
 	const NO_PUBLISHED = 0;
 	
 	/**
-     *  Define publicado qualquer registro do banco
-     */
+	 *  Define publicado qualquer registro do banco
+	 */
 	const PUBLISHED = 1;
 	
 	/**
-     *  Define a situação que o registro estar na lixeira
-     */
+	 *  Define a situação que o registro estar na lixeira
+	 */
 	const DRAFT = 2;
 
 	/** 
@@ -76,22 +76,41 @@ abstract class SKModel {
 	private $usesColumns = array('trash' => '`deleted` = 0', 'status' => '`status` = 1');
 	
 	/** 
-	 * FAlta.
+	 * @ignore
 	 *
 	 * @access private
 	 * @name $noFlagTables
 	 */
 	private $noFlagTables = array('core_comments');
 
-	// Faz o cache de tags ou dos selectors.
+	/** 
+	 * Cache da consulta realizada pelo parâmetro selector evitando nova consulta no include do find
+	 *
+	 * @access protected
+	 * @name $cache
+	 */
 	protected $cache = array();
-
+	
+	/** 
+	 * Nome da tabela do modelo
+	 *
+	 * @access protected
+	 * @name $table
+	 */
 	protected $table = "";
+	
+	/** 
+	 * Nome da chave primaria do modelo
+	 *
+	 * @access protected
+	 * @name $primaryKey
+	 */
 	protected $primaryKey = "id";
 
 
 	/**
-	 * Construtor
+	 * Obtém a conexão com o banco de dados e define o nome da tabela automático caso a variável $table não esteja definida
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -104,8 +123,9 @@ abstract class SKModel {
 
 	/**
 	 * Chama métodos behaviors
+	 *
 	 * @access public
-	 * @param array $method
+	 * @param array $method 
 	 * @param array $args
 	 * @return mixed
 	 */
@@ -120,8 +140,9 @@ abstract class SKModel {
 
 	/**
 	 * Importa as funções existentes da classe passada por parâmetro, que pertence a um behaviors. Simula herança múltipla.
+	 *
 	 * @access protected
-	 * @param string $class
+	 * @param string $class Nome da classe a ser importada
 	 * @return void
 	 */
 	protected function imports($class) {
@@ -141,6 +162,7 @@ abstract class SKModel {
 
 	/**
 	 * Executa uma query (SELECT), aplicando o método <b>mysql_fetch_assoc()</b>
+	 *
 	 * @access public
 	 * @param string $sql query a ser executada
 	 * @return array
@@ -160,7 +182,9 @@ abstract class SKModel {
 	}
 
 	/**
-	 * Busca todos os registros<br/>
+	 * Busca todos os registros
+	 * 
+	 * Exemplo:
 	 * <code>
 	 *		$post = new Post();
 	 *		$posts = $post->findAll(array(
@@ -341,7 +365,7 @@ abstract class SKModel {
 	 *     $post = new Post();<br/>
 	 *     $posts = $post->findFirst(1, {@link findAll() array(...)}<br/>
 	 * @access public
-	 * @param array $param
+	 * @param array $param Parâmetros da Consulta
 	 * @return mixed array com os valores do elemento consultado ou false caso não encontre nenhum elemento
 	 */
 	public function findFirst($params = array()) {
@@ -356,7 +380,8 @@ abstract class SKModel {
 	/**
 	 * Proteção e omissão de valores
 	 * @access public
-	 * @param array $paramWhere
+	 * @static
+	 * @param array $value
 	 * @return string
 	 */
 	public static function protect($value) {
@@ -404,7 +429,7 @@ abstract class SKModel {
 	 * Adiciona o modelo na query que esteja utilizando behaviors
 	 * @ignore
 	 * @access public
-	 * @param array $params
+	 * @param array $params Parâmetros da query
 	 * @return boolean
 	 */
 	public function addBehaviorsContent(&$params) {
@@ -425,9 +450,10 @@ abstract class SKModel {
 
 	/**
 	 * Função para filtrar valores de arrays multiplos
-	 * @ignore
-	 * @access public
-	 * @param string $sql
+	 * @access private
+	 * @param array $array
+	 * @param string $index
+	 * @param string $value
 	 * @return array
 	 */
 	private function filterByValue ($array, $index, $value) {

@@ -15,7 +15,8 @@ abstract class AppBehavior {
 	protected $model;
 
 	/**
-	 * Construtor
+	 * Instancia o model
+	 *
 	 * @param string $model Modelo
 	 * @access public
 	 * @return void
@@ -24,4 +25,4 @@ abstract class AppBehavior {
 		$this->model = $model;
 	}
 }
-
+?>

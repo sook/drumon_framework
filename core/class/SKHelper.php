@@ -20,7 +20,7 @@ abstract class SKHelper {
 	/**
 	 * Construtora da Classe
 	 * @access public
-	 * @param String $i18n
+	 * @param string $i18n Referência da variável com os dados de internacionalização
 	 * @return void
 	 */
 	public function __construct($i18n){
@@ -30,10 +30,10 @@ abstract class SKHelper {
 	/**
 	 * Sprintf para utilização com array
 	 * @access public
-	 * @param String $str
-	 * @param Array $vars
-	 ) @param String $char
-	 * @return String
+	 * @param string $str
+	 * @param array $vars
+	 ) @param string $char
+	 * @return string
 	 */
 	public function sprintf2($str='', $vars=array(), $char='%') {
 	    if (!$str) return '';
@@ -44,7 +44,5 @@ abstract class SKHelper {
 	    }
 	    return $str;
 	}
-
-
 }
 ?>

@@ -59,8 +59,8 @@ class RequestHandler {
 	/**
 	 * Carrega a rota através da função getRoute
 	 *
-	 * @param array $route 
-	 * @param string $app_root
+	 * @param array $route Rota para redirecionamento de página
+	 * @param string $app_root Endereço da pasta app do site
 	 * @access public
 	 * @return void
 	 */
@@ -83,8 +83,8 @@ class RequestHandler {
 	 * Procura pela rota depois retorna a mesma
 	 *
 	 * @access public
-	 * @param string $app_root
-	 * @param array $route
+	 * @param string $app_root Endereço da pasta app do site
+	 * @param array $route Rota para redirecionamento de página
 	 * @return mixed
 	 */
 	public function getRoute($route, $app_root) {
@@ -119,7 +119,7 @@ class RequestHandler {
 			}
 
 			$uri[0] = substr($uri[0],1);
-      $uri_parts = explode('/', $uri[0]);
+			$uri_parts = explode('/', $uri[0]);
 			foreach ($route_list as $route => $values) {
 				$route = substr($route,1);
 				$route_parts = explode('/', $route);
@@ -157,10 +157,10 @@ class RequestHandler {
 	 *
 	 * @access public
 	 * @param string $location URL of the redirect location
-     * @param code $code HTTP status code to be sent with the header
-     * @param boolean $exit to end the application
-     * @param array $headerBefore Headers to be sent before header("Location: some_url_address");
-     * @param array $headerAfter Headers to be sent after header("Location: some_url_address");
+	 * @param code $code HTTP status code to be sent with the header
+	 * @param boolean $exit to end the application
+	 * @param array $headerBefore Headers to be sent before header("Location: some_url_address");
+	 * @param array $headerAfter Headers to be sent after header("Location: some_url_address");
 	 * @return void
 	 */
 	public static function redirect($location, $code=302, $exit=true, $headerBefore=NULL, $headerAfter=NULL){
@@ -179,10 +179,10 @@ class RequestHandler {
 	}
 
 	/**
-	 * Remove slash do ultimo caractere
+	 * Remove slash(/) do ultimo caractere
 	 *
 	 * @access public
-	 * @param string $str
+	 * @param string $str String a ser trabalhada
 	 * @return string
 	 */
 	protected function strip_slash($str) {

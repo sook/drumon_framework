@@ -6,11 +6,22 @@
  * @package models
  */
 class ModuleCustomSelector extends AppModel {
-
+	
+	/**
+	 * Adiciona os comportamentos do módulo
+	 *
+	 * @access public
+	 * @return void
+	 */
+	 
 	public $table = "core_select_options_records";
-	//protected $uses = array('trash','status');
-	//protected $
-
+	
+	/**
+	 * Adiciona os comportamentos do módulo
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function __construct() {
 		parent::__construct();
 		//$this->imports('Page');

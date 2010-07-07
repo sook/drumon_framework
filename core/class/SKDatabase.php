@@ -118,6 +118,7 @@ class SKDatabase {
 	 * @param string $sql query a ser executada
 	 * @return mixed
 	 */
+	 // TODO: Refatorar nome do método.
 	public function find_with_key($sql,$key){
 		$rows = array();
 		$result = $this->query($sql);
