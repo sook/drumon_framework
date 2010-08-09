@@ -42,7 +42,7 @@ class Comment extends AppBehavior {
 	 * @param array $data Campos de comentário a serem salvos
 	 * @return array
 	 */
-	 //TODO: Executar SQL Diretamente, e verificar a necessidade da variável noFlags em SKModel
+	 //TODO: Executar SQL Diretamente, e verificar a necessidade da variável noFlags em DrumonModel
 	public function saveComment($data) {
 		$recordType = "Modules::".get_class($this->model);
 		$this->model->table = "core_comments";

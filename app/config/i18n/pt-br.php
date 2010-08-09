@@ -25,6 +25,5 @@
 			'all' => 'Mostrando todos os %value registros',
 			'range' => 'Mostrando %from - %to de %all registros'
 		)
-		
 	);
 ?>

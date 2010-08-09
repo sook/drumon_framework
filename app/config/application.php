@@ -1,25 +1,22 @@
 <?
-	/** Ambientes da aplicação
-	 * development - Usado durante desenvolvimento da sua applicação.
-	 * production - Usado quando sua aplicação está em produção em um servidor.
+	/** 
+	 * Application Enviroment
+	 * development - Usado durante desenvolvimento da sua aplicação.
+	 * production - Set your app to production mode.
 	 */
 	define('ENV','development');
-
-	// Application Paths
-	define('CSS_PATH', APP_URL.'/public/css/');
-	define('JAVASCRIPTS_PATH',APP_URL.'/public/javascripts/');
-	define('IMAGES_PATH',APP_URL.'/public/images/');
-	define('MODULES_PATH', APP_URL.'/public/modules/');
 	
+	// Your app language
+	// Set false to disable
+	define('LANGUAGE','pt-br');
 	
-	// Define a linguagem da aplicação
-	$config['language'] = 'pt-br';
+	// Default Helpers
+	//define('DEFAULT_HELPERS','');
+	define('DEFAULT_HELPERS','Html,Date,Text');
 	
-	// Define os helpers do core padrões
-	// $config['default_helpers'] = array('Html','Date','Text','Image','Paginate');
-	$config['default_helpers'] = array('Html','Date','Text');
+	// Set 404 Error page. 
+	define('ERROR_404','404.html');
 	
+	// Application custom configurations
 	
-	// Página de erro 404. 
-	$config['404'] = '404.html';
 ?>

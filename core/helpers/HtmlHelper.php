@@ -31,7 +31,7 @@ class HtmlHelper extends SKHelper {
 	 * @return string
 	 */
 	function url($v){
-		return APP_URL.$v;
+		return APP_DOMAIN.$v;
 	}
 
 	/**

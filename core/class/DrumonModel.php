@@ -1,5 +1,7 @@
 <?php
 require(CORE."/class/SKDatabase.php");
+require(CORE.'/models/behaviors/AppBehavior.php');
+require(ROOT.'/models/AppModel.php');
 
 /**
  * Classe abstrata que fornece suporte a classe base de modelo, para integração com o Sook CMS
@@ -8,7 +10,7 @@ require(CORE."/class/SKDatabase.php");
  * @abstract 
  * @author Sook contato@sook.com.br
  */
-abstract class SKModel {
+abstract class DrumonModel {
 // TODO Comentar $noFlagTables
 	
 	/**
@@ -404,7 +406,7 @@ abstract class SKModel {
 	 * @return mixed array com os valores do elemento consultado ou false caso não encontre nenhum elemento
 	 */
 	public function find($id, $params = array()) {
-		$params['where'] = $this->table.".".$this->primaryKey." = ".SKModel::protect($id). (!empty($params['where'])? " AND ".$params['where']:"");
+		$params['where'] = $this->table.".".$this->primaryKey." = ".DrumonModel::protect($id). (!empty($params['where'])? " AND ".$params['where']:"");
 		$params['limit'] = 1;
 		$record = $this->findAll($params);
 		if(!$record) return false;
@@ -467,6 +469,14 @@ abstract class SKModel {
 			}
 		}
 		return $newarray;
+	}
+	
+	public static function load($model, $super = null) {
+		if($super === null) {
+			$super = $model;
+		}
+		require CORE.'/models/Module'.$super.'.php';
+		require ROOT.'/models/'.$model.'.php';
 	}
 }
 ?>

@@ -74,8 +74,7 @@ abstract class SKController {
 	 * @param $config
 	 * @return void
 	 */
-	public function __construct($request,$i18n,$config){
-		$this->config = $config;
+	public function __construct($request,$i18n){
 		$this->i18n = $i18n;
 		$this->params = $request->params;
 		$this->template = new SKTemplate();
@@ -168,7 +167,7 @@ abstract class SKController {
 	 * @return void
 	 */
 	function redirect($url,$full = false) {
-		$url = $full ? $url : APP_URL.$url;
+		$url = $full ? $url : APP_DOMAIN.$url;
 		header('Location: '.$url);
 	}
 
@@ -219,8 +218,9 @@ abstract class SKController {
 	private function loadHelpers() {
 		// Helpers existentes no core.
 		$core_helpers = array('Date','Html','Image','Text','Paginate');
-
-		$this->helpers = array_merge($this->helpers, $this->config['default_helpers']);
+		
+		$default_helpers = (DEFAULT_HELPERS === '') ? array() : explode(',',DEFAULT_HELPERS);
+		$this->helpers = array_merge($this->helpers, $default_helpers);
 		// Adiciona os helpers na view.
 		foreach ($this->helpers as $helper) {
 			$local = in_array($helper, $core_helpers) ? CORE : ROOT;

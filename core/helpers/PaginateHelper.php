@@ -266,7 +266,7 @@ class PaginateHelper extends SKHelper {
 		if (strpos($currentUrl,'?') != false) {
 			$params = substr($currentUrl, strpos($currentUrl,'?'), strlen($currentUrl));
 		}
-		return APP_URL.$url."/".$pageNumber.'/'.$params;
+		return APP_DOMAIN.$url."/".$pageNumber.'/'.$params;
 	}
 
 	/**
