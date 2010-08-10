@@ -272,8 +272,8 @@ class PaginateHelper extends SKHelper {
 	/**
 	 * Retorna o fullpath da pagina com as variaveis get
 	 *
-	 * @access public.
-	 * return string.
+	 * @access private
+	 * @return string
 	 */
 	private function getURL(){
 		$s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "";
@@ -285,10 +285,10 @@ class PaginateHelper extends SKHelper {
 	/**
 	 * Remove um texto de outro texto
 	 *
-	 * @access public.
+	 * @access private
 	 * @param string $1
 	 * @param string $2
-	 * return string.
+	 * @return string
 	 */
 	private function strleft($s1, $s2) {
 		return substr($s1, 0, strpos($s1, $s2));

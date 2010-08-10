@@ -16,7 +16,7 @@ class HtmlHelper extends SKHelper {
 	private $styleSheets = array();
 	
 	/** 
-	 * Armazena o nome dos arquivos javascript
+	 * Armazena o nome dos arquivos javascript.
 	 *
 	 * @access private
 	 * @name $javascripts
@@ -24,21 +24,36 @@ class HtmlHelper extends SKHelper {
 	private $javascripts = array();
 	
 	/**
-	 * Retorna a url incremntada de alguma string
+	 * Retorna o caminho completo de uma url.
 	 *
 	 * @access public
-	 * @param string $v
+	 * @param string $url
 	 * @return string
 	 */
-	function url($v){
-		return APP_DOMAIN.$v;
+	function url($url){
+		return APP_DOMAIN.$url;
 	}
 
 	/**
-	 * Gera uma tag Link em HTML
+	 * Gera uma tag link em HTML dos parametros passados.
+	 * 
+	 * Exemplo:
+	 *
+	 * <code>
+	 * $html->link('Drumon','http://www.drumon.com.br',array('class'=>'blue'));
+	 * </code>
 	 *
 	 * @access public
-	 * @return string
+	 *
+	 * @param string $text - Texto do link.
+	 * @param string $url - Url de destindo do link.
+	 * @param array $options (opcional) <br>
+	 * title => Atributo title da tag link <br>
+	 * id => Atributo id da tag link <br>
+	 * class => Atributo class da tag link <br>
+	 * rel => Atributo rel do link
+	 *
+	 * @return string - O elemento html de link montado.
 	 */
 	function link() {
 		$args = func_get_args();
@@ -48,33 +63,33 @@ class HtmlHelper extends SKHelper {
 		$class = isset($args[2]['class']) ? $args[2]['class']: '';
 		$rel = isset($args[2]['rel']) ? $args[2]['rel']: '';
 
-		return '<a id="'.$id.'" class="'.$class.'" rel="'.$rel.'" href="'.$args[1].'" title="'.$title.'">'.$args[0].'</a>';
+		return '<a id="'.$id.'" class="'.$class.'" rel="'.$rel.'" href="'APP_DOMAIN.$args[1].'" title="'.$title.'">'.$args[0].'</a>';
 	}
 
 	/**
-	 * Retorna pasta de módulos
+	 * Retorna pasta do módulo passado como valor.
 	 *
 	 * @access public
-	 * @param string $v
+	 * @param string $modulo - Nome do módulo.
 	 * @return string
 	 */
-	function module_path($v){
-		return MODULES_PATH.$v;
+	function module_path($module){
+		return MODULES_PATH.$module;
 	}
 
 	/**
-	 * Retorna pasta de imagens
+	 * Retorna o caminho da imagem de acordo com o valor setado em IMAGES_PATH.
 	 *
 	 * @access public
-	 * @param string $v
+	 * @param string $image - Nome da imagem.
 	 * @return string
 	 */
-	function image_path($v){
-		return IMAGES_PATH.$v;
+	function image_path($image){
+		return IMAGES_PATH.$image;
 	}
 
 	/**
-	 * Adiciona o arquivo css a ser inserido no código HTML
+	 * Adiciona o arquivo css a ser inserido no código HTML.
 	 *
 	 * @access public
 	 * @param array $files

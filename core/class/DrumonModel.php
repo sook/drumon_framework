@@ -174,7 +174,7 @@ abstract class DrumonModel {
 	}
 
 	/**
-	 * Executa o comando sql informado
+	 * Executa o comando sql passado
 	 * @access public
 	 * @param string $sql query a ser executada
 	 * @return mixed
@@ -187,17 +187,18 @@ abstract class DrumonModel {
 	 * Busca todos os registros
 	 * 
 	 * Exemplo:
+	 *
 	 * <code>
-	 *		$post = new Post();
-	 *		$posts = $post->findAll(array(
-	 * 			'fields' => 'id,title',
-	 * 			'include' => array('tags','comments_number','photos','selector'),
-	 * 			'selector' => 'category=car',
-	 * 			'tags' => 'php,html',
-	 * 			'where' => 'title = "danillo"',
-	 * 			'limit' => 10,
-	 * 			'order' => 'id DESC'
-	 *		));
+	 * $post = new Post();
+	 * $posts = $post->findAll(array(
+	 * 	'fields' => 'id,title',
+	 * 	'include' => array('tags','comments_number','photos','selector'),
+	 * 	'selector' => 'category=car',
+	 * 	'tags' => 'php,html',
+	 * 	'where' => 'title = "danillo"',
+	 * 	'limit' => 10,
+	 * 	'order' => 'id DESC'
+	 * ));
 	 * </code>
 
 	 * @access public
@@ -223,7 +224,6 @@ abstract class DrumonModel {
 		$sql .= " ORDER BY ".$params['order'];
 		$sql .= (!empty($params['limit'])? " LIMIT ".$params['limit']:"");
 
-		//fb($sql);
 		$records = $this->connection->find_with_key($sql,$this->primaryKey);
 
 		$record_size = count($records);
@@ -415,10 +415,14 @@ abstract class DrumonModel {
 
 	/**
 	 * Salva dados no banco de dados
+	 *
+	 * Exemplo:
+	 *
 	 * <code>
-	 * 	$post = new Post();<br/>
-	 * 	$post->save(array('coluna1'=>'valor1','coluna2'=>'valor2'));
+	 * $post = new Post();<br/>
+	 * $post->save(array('coluna1'=>'valor1','coluna2'=>'valor2'));
 	 * </code>
+	 *
 	 * @access public
 	 * @param array $data
 	 * @return mixed int com o número do novo registro, aplicando o método <b>mysql_insert_id()</b> ou false caso nada tenha ocorrido

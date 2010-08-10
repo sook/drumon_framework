@@ -2,34 +2,35 @@
 /**
  * Helper's para trabalhar com texto
  *
- * @author Sook contato@sook.com.br
+ * @author Sook contato@sook.com.br e terceiros
  * @package helpers
  */
 class TextHelper extends SKHelper {
+	
 	/**
-	 * Normalisa a String retirando acentos e caracteres especiais
+	 * Converte um texto para o formato de slug, retirando os acentos e espaços.
 	 *
 	 * @access public
-	 * @param string $string
-	 * @param string $space
+	 * @param text $string
+	 * @param string $space - Caractere usado no lugar do espaço (default: -)
 	 * @return string
 	 */
-	function toSlug($string, $space = "-") {
-		$string = trim($string);
+	function toSlug($text, $space = "-") {
+		$text = trim($text);
 
 		$search = explode(",","ç,æ,œ,á,é,í,ó,ú,à,è,ì,ò,ù,ä,ë,ï,ö,ü,ÿ,â,ê,î,ô,û,å,e,i,ø,u");
 		$replace = explode(",","c,ae,oe,a,e,i,o,u,a,e,i,o,u,a,e,i,o,u,y,a,e,i,o,u,a,e,i,o,u");
-		$string = str_replace($search, $replace, $string);
+		$text = str_replace($search, $replace, $text);
 
 
 		if (function_exists('iconv')) {
-			$string = @iconv('UTF-8', 'ASCII//TRANSLIT', $string);
+			$text = @iconv('UTF-8', 'ASCII//TRANSLIT', $text);
 		}
 
-		$string = preg_replace("/[^a-zA-Z0-9 -]/", "", $string);
-		$string = strtolower($string);
-		$string = str_replace(" ", $space, $string);
-		return $string;
+		$text = preg_replace("/[^a-zA-Z0-9 -]/", "", $text);
+		$text = strtolower($text);
+		$text = str_replace(" ", $space, $text);
+		return $text;
 	}
 
 	/**
