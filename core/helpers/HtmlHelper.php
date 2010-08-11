@@ -63,7 +63,7 @@ class HtmlHelper extends SKHelper {
 		$class = isset($args[2]['class']) ? $args[2]['class']: '';
 		$rel = isset($args[2]['rel']) ? $args[2]['rel']: '';
 
-		return '<a id="'.$id.'" class="'.$class.'" rel="'.$rel.'" href="'APP_DOMAIN.$args[1].'" title="'.$title.'">'.$args[0].'</a>';
+		return '<a id="'.$id.'" class="'.$class.'" rel="'.$rel.'" href="'.APP_DOMAIN.$args[1].'" title="'.$title.'">'.$args[0].'</a>';
 	}
 
 	/**

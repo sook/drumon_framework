@@ -42,7 +42,7 @@ class TextHelper extends SKHelper {
 	 * @param string $url
 	 * @return array
 	 */
-	function blog ($post, $read_more = 'Read more...',$url) {
+	function blog($post, $read_more = 'Read more...',$url) {
 		$text = explode('<!--more-->',$post['content']);
 
 		if(count($text) === 1) return $text[0];
@@ -314,7 +314,8 @@ class TextHelper extends SKHelper {
 	 *
 	 * @param string $key
 	 * @param boolean $ucfirst
-	 * @return string
+	 *
+	 * @return string - O texto traduzido.
 	 * @access public
 	 */
 	function locale($key, $ucfirst = false) {
