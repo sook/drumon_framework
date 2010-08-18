@@ -6,29 +6,14 @@
  * @package helpers
  */
 class DateHelper extends SKHelper {
-	/**
-	 * Retorna data em forma escrita
-	 * Exemplo: 29 de month de 2009
-	 *
-	 * @access public
-	 * @param string $date Data a ser processada
-	 * @return string
-	 */
-	function inWordsOld ($date) {
-		$date = explode(' ', $date);
-		list ($year, $month, $day) = preg_split('/[\/.-]/', $date[0]);
-		$inWords = $this->i18n['date']['inWords'];
-		$inWords = str_replace("%d", $day, $inWords);
-		$inWords = str_replace("%B", $this->i18n['date']['months'][$month-1], $inWords);
-		$inWords = str_replace("%Y", $year, $inWords);
-		return $inWords;
-	}
 
 	/**
-	 * Retorna a data em formato Português Brasileiro
+	 * Retorna data em forma escrita de acordo com a i18n.
+	 *
+	 * Exemplo: 29 de abril de 2009
 	 *
 	 * @access public
-	 * @param string $date Data a ser processada
+	 * @param string $date - Data a ser processada
 	 * @return time
 	 */
 	function inWords($date) {
@@ -39,10 +24,10 @@ class DateHelper extends SKHelper {
 	}
 
 	/**
-	 * Extrai o tempo de uma data
+	 * Obtem o hora e os minutos de uma data
 	 * @access public
-	 * @param string $date Data a ser processada
-	 * @return string
+	 * @param string $date - Data a ser processada
+	 * @return string - Hora no formato 23:59
 	 */
 	function time ($date) {
 		$date = explode(' ', $date);
@@ -51,7 +36,7 @@ class DateHelper extends SKHelper {
 	}
 
 	/**
-	 * Mostra data
+	 * Retorna a data de acordo com o formato default da i18n.
 	 * @access public
 	 * @param string $date Data a ser processada
 	 * @return string

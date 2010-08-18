@@ -27,10 +27,10 @@ class HtmlHelper extends SKHelper {
 	 * Retorna o caminho completo de uma url.
 	 *
 	 * @access public
-	 * @param string $url
-	 * @return string
+	 * @param string $url - Caminho parcial da url.
+	 * @return string - Caminho completo da url.
 	 */
-	function url($url){
+	function url($url) {
 		return APP_DOMAIN.$url;
 	}
 
@@ -71,9 +71,9 @@ class HtmlHelper extends SKHelper {
 	 *
 	 * @access public
 	 * @param string $modulo - Nome do módulo.
-	 * @return string
+	 * @return string - Caminho para o módulo
 	 */
-	function module_path($module){
+	function module_path($module) {
 		return MODULES_PATH.$module;
 	}
 
@@ -82,9 +82,9 @@ class HtmlHelper extends SKHelper {
 	 *
 	 * @access public
 	 * @param string $image - Nome da imagem.
-	 * @return string
+	 * @return string - Caminho para a imagem
 	 */
-	function image_path($image){
+	function image_path($image) {
 		return IMAGES_PATH.$image;
 	}
 
@@ -92,14 +92,14 @@ class HtmlHelper extends SKHelper {
 	 * Adiciona o arquivo css a ser inserido no código HTML.
 	 *
 	 * @access public
-	 * @param array $files
-	 * @param boolean $inline
-	 * @return array
+	 * @param string|array $files - Nome do(s) arquivo(s) css.
+	 * @param boolean $inline - Se true ele retorna o html para inserir o css.
+	 * @return void|string
 	 */
 	function addcss($files, $inline = false) {
 		$files = is_array($files) ? $files : array($files);
 
-		$result = "";
+		$result = '';
 		if ($inline) {
 			foreach ($this->files as $file){
 				$result.= '<link rel="stylesheet" href="'.CSS_PATH.$file.'" type="text/css" media="all"/>';
@@ -114,11 +114,11 @@ class HtmlHelper extends SKHelper {
 	 * Retorna o código html dos arquivos css inseridos
 	 *
 	 * @access public
-	 * @param array $files
+	 * @param string|array $files - Nome do(s) arquivo(s) css.
 	 * @return string
 	 */
 	// Print the css on page.
-	function showcss($files) {
+	function showcss($files = array()) {
 		$files = is_array($files) ? $files : array($files);
 		$result = '';
 		$this->styleSheets = array_merge($files, $this->styleSheets);
@@ -132,14 +132,14 @@ class HtmlHelper extends SKHelper {
 	 * Adiciona o arquivo javascript a ser inserido no código HTML
 	 *
 	 * @access public
-	 * @param array $files
-	 * @param boolean $inline
-	 * @return string
+	 * @param string|array $files - Nome do(s) arquivo(s) javascript.
+	 * @param boolean $inline - Se true ele retorna o html para inserir o javascript.
+	 * @return void|string
 	 */
 	function addjs($files, $inline = false) {
 		$files = is_array($files) ? $files : array($files);
 
-		$result = "";
+		$result = '';
 		if ($inline) {
 			foreach ($files as $file){
 				$result.= '<script type="text/javascript" src="'.JAVASCRIPTS_PATH.$file.'"></script>';
@@ -151,11 +151,11 @@ class HtmlHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna o código html dos arquivos javascripts inseridos
+	 * Retorna o código html dos arquivos javascripts passados como parametro.
 	 *
 	 * @access public
-	 * @param array $files
-	 * @return string
+	 * @param mixed $files - Nome do(s) arquivo(s) javascript.
+	 * @return string - Html da lista de javascripts.
 	 */
 	function showjs($files = array()) {
 		$files = is_array($files) ? $files : array($files);

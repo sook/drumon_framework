@@ -104,11 +104,14 @@ class RequestHandler {
 			$route_list = NULL;
 			if(isset($route['*'])) $route_list = $route['*'];
 			// Pega as rotas defindas com o método requisitado.
-			if(isset($route[$this->method]) && $route_list != NULL) {
-				$route_list = array_merge($route_list, $route[$this->method]);
-			}else{
-				$route_list = $route[$this->method];
+			if(isset($route[$this->method])){
+				if($route_list != NULL) {
+					$route_list = array_merge($route_list, $route[$this->method]);
+				}else{
+					$route_list = $route[$this->method];
+				}
 			}
+			
 			// Se não existe rota já retorna false.
 			if(empty($route_list)) return false;
 			// Retorna rota se ela for estática.

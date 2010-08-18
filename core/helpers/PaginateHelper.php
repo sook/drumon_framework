@@ -1,6 +1,6 @@
 <?php
 /**
- * Classe de paginação que será utilizada para listagem dos módulos.
+ * Classe de paginação que será utilizada para listagem dos regitros do Drumon CMS.
  *
  * @author Sook contato@sook.com.br
  * @package helpers

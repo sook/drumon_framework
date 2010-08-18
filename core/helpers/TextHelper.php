@@ -66,13 +66,13 @@ class TextHelper extends SKHelper {
 	}
 
 	/**
-	 * Destaques uma determinada frase em um texto. Você pode especificar qualquer expressão no marcador para a frase encontrada
+	 * Destaca uma determinada frase em um texto.
 	 *
 	 * @access public
-	 * @param string $text Text to search the phrase in
-	 * @param string $phrase The phrase that will be searched
-	 * @param array $options An array of html attributes and options.
-	 * @return string The highlighted text
+	 * @param string $text - Text to search the phrase in
+	 * @param string $phrase - The phrase that will be searched
+	 * @param array $options - An array of html attributes and options.
+	 * @return string - The highlighted text
 	 * ### Options:
 	 *
 	 * - `format` O pedaço de html com que a frase será destaque
@@ -129,7 +129,7 @@ class TextHelper extends SKHelper {
 
 	/**
 	 * Adiciona links (<a href =....) a um determinado texto, encontrando texto que começa com
-	 * strings como http:// e ftp://.
+	 * strings como http://.
 	 *
 	 * @param string $text
 
@@ -292,27 +292,11 @@ class TextHelper extends SKHelper {
 		return $excerpt;
 	}
 
-	/**
-	 * Cria uma lista separada por vírgulas, onde os dois últimos itens são unidas com 'e', formando natural Inglês
-	 *
-	 * @param array $list
-	 * @param string $and
-	 * @param string $separator
-	 * @return string
-	 * @access public
-	 */
-	function toList($list, $and = 'and', $separator = ', ') {
-		if (count($list) > 1) {
-			return implode($separator, array_slice($list, null, -1)) . ' ' . $and . ' ' . array_pop($list);
-		} else {
-			return array_pop($list);
-		}
-	}
 
 	/**
-	 * Traduz o Texto usando o i18n
+	 * Traduz o Texto usando a i18n.
 	 *
-	 * @param string $key
+	 * @param string $key - Chave da palavra no arquivo de i18n.
 	 * @param boolean $ucfirst
 	 *
 	 * @return string - O texto traduzido.
