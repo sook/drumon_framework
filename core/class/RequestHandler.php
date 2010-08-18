@@ -1,58 +1,51 @@
 <?php
 /**
- * Esta classe foi baseado no Router DooPHP e dan (http://blog.sosedoff.com/) roteador url.
- *
+ * Class to add route system in ours applications.
+ * 
+ * This class is based on DooPHP Router and dan (http://blog.sosedoff.com/) url router.
  * @package class
  * @author Sook contato@sook.com.br
  */
 class RequestHandler {
-	// TODO: Alterar as variáveis de public para private
-
 	/** 
-	 * Nome do controlador invocado
+	 * The controller name.
 	 *
 	 * @access public
-	 * @name $controller_name
 	 */
 	public $controller_name;
 	
 	/** 
-	 * Nome da ação que será executado pelo controlador
+	 * The action name to execute from your application.
 	 *
 	 * @access public
-	 * @name $action_name
 	 */
 	public $action_name;
 	
 	/** 
-	 * Armazena a informação indicando se é uma rota válida
+	 * Stores information indicating whether it is a valid route.
 	 *
 	 * @access public
-	 * @name $valid
 	 */
 	public $valid = false;
 	
 	/** 
-	 * Contém os parâmetros passados na requisição HTTP (GET e POST)
+	 * Array with all params in http request (GET e POST)
 	 *
 	 * @access public
-	 * @name $params
 	 */
 	public $params = array();
 	
 	/** 
-	 * Armazena o valor de $_SERVER['HTTP_REFERER']
+	 * Where from last request.
 	 *
 	 * @access public
-	 * @name $referer
 	 */
 	public $referer;
 	
 	/** 
-	 * Armazena o valor do método da requisição (GET,POST,PUT,DELETE)
+	 * The request method. (GET,POST,PUT,DELETE)
 	 *
 	 * @access public
-	 * @name $method
 	 */
 	public $method;
 
@@ -80,7 +73,7 @@ class RequestHandler {
 	}
 
 	/**
-	 * Procura pela rota depois retorna a mesma
+	 * Search for a valid route.
 	 *
 	 * @access public
 	 * @param string $app_root Endereço da pasta app do site
@@ -182,10 +175,10 @@ class RequestHandler {
 	}
 
 	/**
-	 * Remove slash(/) do ultimo caractere
+	 * Remove the slash(/) from the last char.
 	 *
 	 * @access public
-	 * @param string $str String a ser trabalhada
+	 * @param string $str
 	 * @return string
 	 */
 	protected function strip_slash($str) {
