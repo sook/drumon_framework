@@ -9,18 +9,26 @@
 abstract class SKHelper {
 	
 	/** 
-	 * Referência da variável com os dados de internacionalização
+	 * Referência da variável com os dados de internacionalização.
 	 *
 	 * @access protected
-	 * @name $i18n
+	 * @var string
 	 */
 	protected $i18n;
-
+	
+	/** 
+	 * Lista de outros helpers que vão ser utilizados no helper atual.
+	 *
+	 * @access public 
+	 * @var array
+	 */
 	public $uses = array();
+	
 	/**
 	 * Construtora da Classe
+	 *
 	 * @access public
-	 * @param string $i18n Referência da variável com os dados de internacionalização
+	 * @param string $i18n Referência da variável com os dados de internacionalização.
 	 * @return void
 	 */
 	public function __construct($i18n){
@@ -28,11 +36,12 @@ abstract class SKHelper {
 	}
 
 	/**
-	 * Sprintf para utilização com array
+	 * Substitui os parâmetros de uma string pelos valores de um array de hash.
+	 *
 	 * @access public
 	 * @param string $str
 	 * @param array $vars
-	 ) @param string $char
+	 * @param string $char
 	 * @return string
 	 */
 	public function sprintf2($str='', $vars=array(), $char='%') {

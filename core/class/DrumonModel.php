@@ -175,6 +175,7 @@ abstract class DrumonModel {
 
 	/**
 	 * Executa o comando sql passado
+	 * 
 	 * @access public
 	 * @param string $sql query a ser executada
 	 * @return mixed

@@ -1,6 +1,6 @@
 <?php
 /**
- * Classe responsável por analisar o tempo gasto na execução de uma funcionalidade
+ * Classe responsável por analisar o tempo gasto na execução de uma funcionalidade.
  *
  * @package class
  * @author Sook contato@sook.com.br
@@ -8,24 +8,24 @@
 class Benchmark {
 
 	/** 
-	 * Instância da classe Benchmark
+	 * Instância da classe Benchmark.
 	 *
 	 * @access private
 	 * @static 
-	 * @name $instance
+	 * @var object 
 	 */
 	private static $instance;
 	
 	/**  
-	 * Lista com o tempo das funcionalidades (Início e Fim)
+	 * Lista com o tempo das funcionalidades (Início e Fim).
 	 *
 	 * @access private
-	 * @name $time
+	 * @var array 
 	 */
 	private $time = array();
 
 	/**
-	 * Construtor
+	 * Proibe a reinstância da classe.
 	 *
 	 * @access private
 	 * @return void
@@ -33,7 +33,7 @@ class Benchmark {
 	private function __construct() { }
 
 	/**
-	 * Inicía a contagem de tempo da execução de uma funcionalidade
+	 * Inicia a contagem de tempo da execução de uma funcionalidade.
 	 *
 	 * @access public 
 	 * @static
@@ -46,12 +46,12 @@ class Benchmark {
 	}
 
 	/**
-	 * Para a contagem de tempo da execução de uma funcionalidade
+	 * Para a contagem de tempo da execução de uma funcionalidade.
 	 * 
 	 * @access public
 	 * @static
 	 * @param mixed $key Identificador
-	 * @return string Retorna o tempo total da execução
+	 * @return string Tempo total da execução
 	 * @see Benchmark::getTime()
 	 */
 	public static function stop($key) {
@@ -61,11 +61,11 @@ class Benchmark {
 	}
 
 	/**
-	 * Obtém uma listagem dos tempos das funcionalidades (Início e Fim)
+	 * Obtém uma listagem dos tempos das funcionalidades (Início e Fim).
 	 * 
 	 * @access public
 	 * @static
-	 * @return mixed
+	 * @return array Lista de tempo das funcionalidades
 	 */
 	public static function getListTime() {
 		$bm = self::getInstance();
@@ -73,12 +73,12 @@ class Benchmark {
 	}
 
 	/**
-	 * Obtém o tempo de execução da funcionalidade
+	 * Obtém o tempo de execução da funcionalidade.
 	 *
 	 * @access public
 	 * @static
 	 * @param mixed $key Identificador
-	 * @return string
+	 * @return string Tempo de execução
 	 */
 	public static function getTime($key) {
 		$bm = self::getInstance();
@@ -86,11 +86,11 @@ class Benchmark {
 	}
 
 	/**
-	 * Obtém o tempo total de execução presente na listagem de tempos
+	 * Obtém o tempo total de execução presente na listagem de tempos.
 	 *
 	 * @access public
 	 * @static	 
-	 * @return string
+	 * @return array Lista de total de execução
 	 */
 	public static function getTotals(){
 		$bm = self::getInstance();
@@ -103,11 +103,11 @@ class Benchmark {
 	}
 
 	/**
-	 * Obtém uma instância da classe Benchmark aplicando o padrão de projetos Singleton
+	 * Obtém uma instância da classe Benchmark aplicando o padrão de projetos Singleton.
 	 * 
 	 * @access public
 	 * @static
-	 * @return mixed
+	 * @return object Instância da classe Benchmark
 	 */
 	public static function getInstance() {
 		if (!isset(self::$instance)) {
