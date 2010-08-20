@@ -4,7 +4,7 @@ require(CORE.'/models/behaviors/AppBehavior.php');
 require(ROOT.'/models/AppModel.php');
 
 /**
- * Classe abstrata que fornece suporte a classe base de modelo, para integração com o Sook CMS
+ * Classe abstrata que fornece suporte a classe base de modelo, para integração com o Sook CMS.
  *
  * @package class
  * @abstract 
@@ -14,66 +14,66 @@ abstract class DrumonModel {
 // TODO Comentar $noFlagTables
 	
 	/**
-	 *  Define não publicado qualquer registro do banco
+	 *  Define como não publicado qualquer registro do banco.
 	 */
 	const NO_PUBLISHED = 0;
 	
 	/**
-	 *  Define publicado qualquer registro do banco
+	 *  Define como publicado qualquer registro do banco.
 	 */
 	const PUBLISHED = 1;
 	
 	/**
-	 *  Define a situação que o registro estar na lixeira
+	 *  Define a situação que o registro estar na lixeira.
 	 */
 	const DRAFT = 2;
 
 	/** 
-	 * Seta os parâmetros padrões para serem usados nas instruções sql
+	 * Seta os parâmetros padrões para serem usados nas instruções sql.
 	 *
 	 * @access public
-	 * @name $params
+	 * @var array
 	 */
 	public $params = array('fields' => '*', 'where' => 1, 'join' => '', 'order' => '`order` DESC','group_by'=>'','include'=>array());
 
 	/** 
-	 * Lista com as funções importadas do Behavior
+	 * Lista com as funções importadas do Behavior.
 	 *
 	 * @access private
-	 * @name $imported_functions
+	 * @var array
 	 */
 	private $imported_functions = array();
 	
 	/** 
-	 * Mantém a referência da classe SKDatabase
+	 * Mantém a referência da classe SKDatabase.
 	 *
 	 * @access public
-	 * @name $connection
+	 * @var object
 	 */
 	public $connection;
 
 	/** 
-	 * Quantidade de registro por página
+	 * Quantidade de registro por página.
 	 *
 	 * @access public
-	 * @name $perPage
+	 * @var integer
 	 */
 	public $perPage = 10;
 
 	/** 
-	 * Lista de comportamentos que estarão sendo utilizados no módulo
-	 * Opções: array('trash','status')
+	 * Lista de comportamentos que estarão sendo utilizados no módulo.
+	 * Opções: array('trash','status').
 	 *
 	 * @access protected
-	 * @name $uses
+	 * @var array
 	 */
 	protected $uses = array();
 	
 	/** 
-	 * Lista os parâmetros utilizados pela cláusula WHERE
+	 * Lista os parâmetros utilizados pela cláusula WHERE.
 	 *
 	 * @access private
-	 * @name $usesColumns
+	 * @var array
 	 */
 	private $usesColumns = array('trash' => '`deleted` = 0', 'status' => '`status` = 1');
 	
@@ -81,37 +81,38 @@ abstract class DrumonModel {
 	 * @ignore
 	 *
 	 * @access private
-	 * @name $noFlagTables
+	 * @var array
 	 */
 	private $noFlagTables = array('core_comments');
 
 	/** 
-	 * Cache da consulta realizada pelo parâmetro selector evitando nova consulta no include do find
+	 * Cache da consulta realizada pelo parâmetro selector evitando nova consulta no include do find.
 	 *
 	 * @access protected
-	 * @name $cache
+	 * @var array
 	 */
 	protected $cache = array();
 	
 	/** 
-	 * Nome da tabela do modelo
+	 * Nome da tabela do modelo.
 	 *
 	 * @access protected
-	 * @name $table
+	 * @var string
 	 */
 	protected $table = "";
 	
 	/** 
-	 * Nome da chave primaria do modelo
+	 * Nome da chave primaria do modelo.
 	 *
 	 * @access protected
-	 * @name $primaryKey
+	 * @var string
 	 */
 	protected $primaryKey = "id";
 
 
 	/**
-	 * Obtém a conexão com o banco de dados e define o nome da tabela automático caso a variável $table não esteja definida
+	 * Obtém a conexão com o banco de dados e define o nome da tabela automático caso a 
+	 * variável $table não esteja definida.
 	 *
 	 * @access public
 	 * @return void
@@ -141,14 +142,15 @@ abstract class DrumonModel {
 	}
 
 	/**
-	 * Importa as funções existentes da classe passada por parâmetro, que pertence a um behaviors. Simula herança múltipla.
+	 * Importa as funções existentes da classe passada por parâmetro, que pertence a um behaviors. 
+	 * Simula herança múltipla.
 	 *
 	 * @access protected
 	 * @param string $class Nome da classe a ser importada
 	 * @return void
 	 */
 	protected function imports($class) {
-		require_once CORE."/models/behaviors/".$class.".php";
+		require_once CORE."/models/behaviors/".$.".php";
 
 		//Instância o objeto correspondente a classe passada.
 		$new_import = new $class(&$this);
@@ -174,7 +176,7 @@ abstract class DrumonModel {
 	}
 
 	/**
-	 * Executa o comando sql passado
+	 * Executa o comando sql passado.
 	 * 
 	 * @access public
 	 * @param string $sql query a ser executada
@@ -185,7 +187,7 @@ abstract class DrumonModel {
 	}
 
 	/**
-	 * Busca todos os registros
+	 * Busca todos os registros.
 	 * 
 	 * Exemplo:
 	 *
@@ -336,7 +338,8 @@ abstract class DrumonModel {
 	}
 
 	/**
-	 * Obtém o nome do modelo
+	 * Obtém o nome do modelo.
+	 *
 	 * @access public
 	 * @return string
 	 */
@@ -349,7 +352,8 @@ abstract class DrumonModel {
 	}
 
 	/**
-	 * Cria a cláusula WHERE aos valores a serem utilizados pelos módulos
+	 * Cria a cláusula WHERE aos valores a serem utilizados pelos módulos.
+	 *
 	 * @access public
 	 * @param array $paramWhere
 	 * @return string
@@ -364,7 +368,8 @@ abstract class DrumonModel {
 	}
 
 	/**
-	 * Procura o primeiro resultado na tabela
+	 * Procura o primeiro resultado na tabela.
+	 *
 	 *     $post = new Post();<br/>
 	 *     $posts = $post->findFirst(1, {@link findAll() array(...)}<br/>
 	 * @access public
@@ -433,7 +438,8 @@ abstract class DrumonModel {
 	}
 
 	/**
-	 * Adiciona o modelo na query que esteja utilizando behaviors
+	 * Adiciona o modelo na query que esteja utilizando behavior'.
+	
 	 * @ignore
 	 * @access public
 	 * @param array $params Parâmetros da query
@@ -456,7 +462,8 @@ abstract class DrumonModel {
 	}
 
 	/**
-	 * Função para filtrar valores de arrays multiplos
+	 * Filtra valores de arrays multiplos.
+	 *
 	 * @access private
 	 * @param array $array
 	 * @param string $index
@@ -476,6 +483,14 @@ abstract class DrumonModel {
 		return $newarray;
 	}
 	
+	/**
+	 * Carrega Model e verifica se é padrão super.
+	 *
+	 * @static
+	 * @param string $model
+	 * @param string $super
+	 * @return void
+	 */
 	public static function load($model, $super = null) {
 		if($super === null) {
 			$super = $model;

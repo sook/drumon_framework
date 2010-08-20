@@ -11,6 +11,7 @@ class RequestHandler {
 	 * The controller name.
 	 *
 	 * @access public
+	 * @var string
 	 */
 	public $controller_name;
 	
@@ -18,6 +19,7 @@ class RequestHandler {
 	 * The action name to execute from your application.
 	 *
 	 * @access public
+	 * @var string
 	 */
 	public $action_name;
 	
@@ -25,13 +27,15 @@ class RequestHandler {
 	 * Stores information indicating whether it is a valid route.
 	 *
 	 * @access public
+	 * @var boolean
 	 */
 	public $valid = false;
 	
 	/** 
-	 * Array with all params in http request (GET e POST)
+	 * Array with all params in http request (GET e POST).
 	 *
 	 * @access public
+	 * @var array
 	 */
 	public $params = array();
 	
@@ -39,6 +43,7 @@ class RequestHandler {
 	 * Where from last request.
 	 *
 	 * @access public
+	 * @var string
 	 */
 	public $referer;
 	
@@ -46,6 +51,7 @@ class RequestHandler {
 	 * The request method. (GET,POST,PUT,DELETE)
 	 *
 	 * @access public
+	 * @var string
 	 */
 	public $method;
 
@@ -149,7 +155,7 @@ class RequestHandler {
 	}
 
 	/**
-	 * Redirecionamento para uma URL externa, com cabeçalho HTTP 302 enviados por padrão
+	 * Redirecionamento para uma URL externa, com cabeçalho HTTP 302 enviados por padrão.
 	 *
 	 * @access public
 	 * @param string $location URL of the redirect location

@@ -11,7 +11,7 @@ class HtmlHelper extends SKHelper {
 	 * Armazena o nome dos arquivos css
 	 *
 	 * @access private
-	 * @name $styleSheets
+	 * @var array
 	 */
 	private $styleSheets = array();
 	
@@ -19,7 +19,7 @@ class HtmlHelper extends SKHelper {
 	 * Armazena o nome dos arquivos javascript.
 	 *
 	 * @access private
-	 * @name $javascripts
+	 * @var array
 	 */
 	private $javascripts = array();
 	
@@ -78,10 +78,10 @@ class HtmlHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna o caminho da imagem de acordo com o valor setado em IMAGES_PATH.
+	 * Retorna o caminho padrão das imagens concatenado ao nome da imagem.
 	 *
 	 * @access public
-	 * @param string $image - Nome da imagem.
+	 * @param string $image - Nome da imagem
 	 * @return string - Caminho para a imagem
 	 */
 	function image_path($image) {
@@ -111,7 +111,7 @@ class HtmlHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna o código html dos arquivos css inseridos
+	 * Retorna o código html dos arquivos css inseridos.
 	 *
 	 * @access public
 	 * @param string|array $files - Nome do(s) arquivo(s) css.
@@ -129,7 +129,7 @@ class HtmlHelper extends SKHelper {
 	}
 	
 	/**
-	 * Adiciona o arquivo javascript a ser inserido no código HTML
+	 * Adiciona o arquivo javascript a ser inserido no código HTML.
 	 *
 	 * @access public
 	 * @param string|array $files - Nome do(s) arquivo(s) javascript.

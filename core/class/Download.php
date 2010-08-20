@@ -7,10 +7,10 @@
  */
 class Download {
 	/**  
-	 * Lista com os tipos de arquivos permitidos
+	 * Lista com os tipos de arquivos permitidos.
 	 *
 	 * @access private
-	 * @name $allowedExt
+	 * @var array
 	 */
 	private $allowedExt = array (
 		  // archives
@@ -44,23 +44,23 @@ class Download {
 		);
 	
 	/**  
-	 * Armazena o arquivo de log dos downloads
+	 * Armazena o arquivo de log dos downloads.
 	 *
 	 * @access private
-	 * @name $logFile
+	 * @var string
 	 */
 	private $logFile = "downloads.log";
 	
 	/**  
-	 * Armazena a situação de utilização do log
+	 * Armazena a situação de utilização do log.
 	 *
 	 * @access private
-	 * @name $hasLog
+	 * @var boolean
 	 */
 	private $hasLog = false;
 
 	/**
-	 * Verfifica se arquivo existe ou estão no padrão definido na variável $allowedExt
+	 * Verfifica se arquivo existe ou estão no padrão definido na variável $allowedExt.
 	 *
 	 * @access public
 	 * @param string $filePath Nome do arquivo a ser verificado
@@ -96,7 +96,7 @@ class Download {
 	}
 
 	/**
-	 * Seta os valores de cabeçalho para o arquivo
+	 * Seta os valores de cabeçalho para o arquivo.
 	 *
 	 * @access private
 	 * @param string $fileName Nome do arquivo
@@ -116,7 +116,7 @@ class Download {
 	}
 
 	/**
-	 * Pega extensão do arquivo
+	 * Pega extensão do arquivo.
 	 *
 	 * @access private
 	 * @param string $filePath Nome do arquivo
@@ -135,7 +135,7 @@ class Download {
 	}
 
 	/**
-	 * Gera Log do arquivo
+	 * Gera Log do arquivo.
 	 *
 	 * @access private
 	 * @param string $filePath Nome do arquivo a ser cadastrado no log

@@ -1,6 +1,6 @@
 <?php
 /**
- * Classe de Utilitários
+ * Classe de Utilitários.
  *
  * @package class
  * @author Sook contato@sook.com.br
@@ -8,7 +8,7 @@
 
 class Utils {
 	/**
-	 * Checa Email
+	 * Checa Email.
 	 *
 	 * @access public
 	 * @param string $eMailAddress Email a ser verificado
@@ -22,7 +22,7 @@ class Utils {
 	}
 
 	/**
-	 * Envia Email
+	 * Envia Email utilizando a função mail.
 	 *
 	 * @access public
 	 * @param string $name Nome de rementente do email

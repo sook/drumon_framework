@@ -1,6 +1,6 @@
 <?php
 /**
- * Classe de banco de dados do framework
+ * Classe de banco de dados do framework.
  *
  * @package class
  * @author Sook contato@sook.com.br
@@ -8,24 +8,24 @@
 class SKDatabase {
 	
 	/** 
-	 * Conexão do banco de dados
+	 * Conexão do banco de dados.
 	 *
 	 * @access private
-	 * @name $connection
+	 * @var boolean
 	 */
 	private $connection = null;
 
 	/** 
-	 * Mantém a referência da classe SKDatabase
+	 * Mantém a referência da classe SKDatabase.
 	 *
 	 * @access private
 	 * @static
-	 * @name $SKDatabase
+	 * @var boolean
 	 */
 	private static $SKDatabase = null;
 
 	/**
-	 * Construtor
+	 * Efetua a conexão com o banco de dados.
 	 * @access private
 	 * @return void
 	 */
@@ -34,7 +34,7 @@ class SKDatabase {
 	}
 
 	/**
-	 * Instancia a classe caso a variável $SKDatabase for nula
+	 * Instancia a classe caso a variável $SKDatabase for nula.
 	 *
 	 * @access public
 	 * @return object
@@ -47,17 +47,17 @@ class SKDatabase {
 	}
 
 	/**
-	 * Finaliza conexão
+	 * Finaliza conexão.
 	 *
 	 * @access public
-	 * @return object
+	 * @return void
 	 */
 	public function __destruct(){
 		mysql_close($this->connection);
 	}
 
 	/**
-	 * Conecta o banco de dados mysql
+	 * Realiza conexão com o bano de dados mysql.
 	 *
 	 * @access public
 	 * @return void
@@ -80,7 +80,7 @@ class SKDatabase {
 	}
 
 	/**
-	 * Executa o comando sql informado
+	 * Executa o comando sql informado.
 	 *
 	 * @access public
 	 * @param string $sql query a ser executada
@@ -95,7 +95,7 @@ class SKDatabase {
 	}
 
 	/**
-	 * Executa uma query (SELECT), aplicando o método <b>mysql_fetch_assoc()</b>
+	 * Executa uma query (SELECT), aplicando o método <b>mysql_fetch_assoc()</b>.
 	 *
 	 * @access public
 	 * @param string $sql query a ser executada
@@ -112,10 +112,11 @@ class SKDatabase {
 	}
 
 	/**
-	 * Coloca a chave do array o valor de um campo
+	 * Coloca a chave do array o valor de um campo.
 	 *
 	 * @access public
 	 * @param string $sql query a ser executada
+	 * @param string $key atributo chave a ser procurado na query
 	 * @return mixed
 	 */
 	 // TODO: Refatorar nome do método.
@@ -130,11 +131,11 @@ class SKDatabase {
 	}
 
 	/**
-	 * Salva dados no banco de dados
+	 * Salva dados no banco.
 	 *
 	 * @access public
-	 * @param string $table
-	 * @param array $data
+	 * @param string $table 
+	 * @param array $data dados a serem inseridos no banco
 	 * @return mixed int com o número do novo registro, aplicando o método <b>mysql_insert_id()</b> ou false caso nada tenha ocorrido
 	 */
 	public function save($table, $data) {

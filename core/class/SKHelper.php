@@ -1,6 +1,6 @@
 <?
 /**
- * Helpers do framework
+ * Helpers do framework.
  *
  * @package class
  * @abstract

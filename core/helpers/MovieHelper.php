@@ -1,14 +1,27 @@
 <?php
 /**
- * Helper para trabalhar com Vídeos
+ * Helper para trabalhar com Vídeos Youtube e Vimeo.
  *
  * @author Sook contato@sook.com.br
  * @package helpers
  */
 class MovieHelper extends SKHelper {
 	
+	/** 
+	 * Armazena a opção de hospedagem do video (VIMEO ou Youtube)..
+	 *
+	 * @access public
+	 * @var string
+	 */
 	private $location;
 	
+	/**
+	 * Carrega a rota através da função getRoute.
+	 *
+	 * @param string $url Url do vídeo
+	 * @access public
+	 * @return mixed
+	 */
 	private function parseUrl($url) {
 		if (preg_match('/watch\?v\=([A-Za-z0-9_-]+)/', $url, $matches)) {
 			$this->location = 'youtube';
@@ -21,6 +34,13 @@ class MovieHelper extends SKHelper {
 		return false;
 	}
 	
+	/**
+	 * Retorna um array com parâmetros extraidos de um arquivo xml do vimeo.
+	 *
+	 * @param string $id
+	 * @access public
+	 * @return array
+	 */
 	private function getClipInfo($id) {
 		$clip = DomDocument::load('http://vimeo.com/api/clip/' . $id . '.xml');
 		if (!$clip) return;
@@ -42,6 +62,15 @@ class MovieHelper extends SKHelper {
 		);
 	}
 
+	/**
+	 * Retorna um object embed html do vídeo solicitado.
+	 *
+	 * @param string $url Url para extração do identificador do video
+	 * @param string $width Largura do object
+	 * @param string $height Altura do object
+	 * @access public
+	 * @return mixed
+	 */
 	public function movie($url, $width = 480, $height = 385) {
 		$id = $this->parseUrl($url);
 
@@ -54,7 +83,14 @@ class MovieHelper extends SKHelper {
 		return false;
 	}
 	
-	// $imgid = só recebe valores de 1 a 3
+	/**
+	 * Retorna uma imagem de preview do video
+	 *
+	 * @param string $url Url para extração do identificador do video
+	 * @param string $sizeId Id para Preview da imagem só recebe valores de 1 a 3
+	 * @access public
+	 * @return mixed
+	 */
 	public function imageUrl($url, $sizeId = 1) {
 		$id = $this->parseUrl($url);
 		
@@ -67,7 +103,18 @@ class MovieHelper extends SKHelper {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Retorna o código html da imagem de preview
+	 *
+	 * @param string $url Url para extração do identificador do video
+	 * @param string $sizeId Id para preview da imagem só recebe valores de 1 a 3
+	 * @param string $width Largura do preview
+	 * @param string $height Altura do preview
+	 * @param string $alt Parâmetro html alt do preview
+	 * @access public
+	 * @return string
+	 */
 	public function showImage($url, $sizeId = 1, $width = 130, $height = 97, $alt = 'Video screenshot') {
 		return "<img src='".$this->imageUrl($url, $sizeId)."' width='".$width."' height='".$height."' border='0' alt='".$alt."' title='".$alt."' />";
 	}

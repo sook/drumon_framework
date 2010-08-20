@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Classe abstrata que fornece suporte a classe base de controlador
+ * Classe abstrata que fornece suporte a classe base de controlador.
  *
  * @package class
  * @abstract
@@ -10,63 +10,63 @@
 abstract class SKController {
 	
 	/** 
-	 * Referência da variável com os dados de internacionalização
+	 * Referência da variável com os dados de internacionalização.
 	 *
 	 * @access private
-	 * @name $i18n
+	 * @var string
 	 */
 	private	$i18n = null;
 	
 	/** 
-	 * Array com as informações pertencentes a aplicação
+	 * Array com as informações pertencentes a aplicação.
 	 *
 	 * @access private
-	 * @name $config
+	 * @var array
 	 */
 	private	$config;
 	
 	/** 
-	 * Arquivo de template a ser usado pelo controlador
+	 * Arquivo de template a ser usado pelo controlador.
 	 *
 	 * @access protected
-	 * @name $template
+	 * @var string
 	 */
 	protected $template;
 	
 	/** 
-	 * Arquivo de layout a ser usado pelo controlador
+	 * Arquivo de layout a ser usado pelo controlador.
 	 *
 	 * @access protected
-	 * @name $layout
+	 * @var string
 	 */
 	protected $layout = "default";
 	
 	/** 
-	 * Arquivos helper a serem usados pelo controlador
+	 * Arquivos helper a serem usados pelo controlador.
 	 *
 	 * @access protected
-	 * @name $helpers
+	 * @var array
 	 */
 	protected $helpers = array();
 	
 	/** 
-	 * Indica se a página será renderizada
+	 * Indica se a página será renderizada.
 	 *
 	 * @access protected
-	 * @name $render
+	 * @var boolean
 	 */
 	protected $render = true;
 	
 	/** 
-	 * Contém os parâmetros passados na requisição HTTP (GET e POST)
+	 * Contém os parâmetros passados na requisição HTTP (GET e POST).
 	 *
 	 * @access protected
-	 * @name $params
+	 * @var array
 	 */
 	protected $params = array();
 
 	/**
-	 * Instancia um novo template com as configurações, parâmetros e idioma padrões
+	 * Instância um novo template com as configurações, parâmetros e idioma padrões.
 	 *
 	 * @access public
 	 * @param $request
@@ -82,7 +82,7 @@ abstract class SKController {
 	}
 
 	/**
-	 * Executada antes de qualquer ação no controlador
+	 * Executada antes de qualquer ação no controlador.
 	 *
 	 * @access public
 	 * @return void
@@ -90,7 +90,7 @@ abstract class SKController {
 	public function beforeFilter() {}
 
 	/**
-	 * Executada posteriormente a qualquer ação no controlador
+	 * Executada posteriormente a qualquer ação no controlador.
 	 *
 	 * @access public
 	 * @return void
@@ -98,7 +98,7 @@ abstract class SKController {
 	public function afterFilter() {}
 
 	/**
-	 * Adiciona valores às chaves
+	 * Adiciona valores às chaves.
 	 *
 	 * @access public
 	 * @param String $key Chave
@@ -110,7 +110,7 @@ abstract class SKController {
 	}
 
 	/**
-	 * Renderiza as Views
+	 * Renderiza as Views.
 	 *
 	 * @access public
 	 * @param string $view View a ser renderizada
@@ -159,7 +159,7 @@ abstract class SKController {
 		}
 
 	/**
-	 * Redireciona para url desejada
+	 * Redireciona para url desejada.
 	 *
 	 * @access public
 	 * @param string $url Url de destino
@@ -172,7 +172,7 @@ abstract class SKController {
 	}
 
 	/**
-	 * Passa valor de status para o cabeçalho
+	 * Passa valor de status para o cabeçalho.
 	 *
 	 * @access public
 	 * @param string $status Status de cabeçalho
@@ -183,7 +183,7 @@ abstract class SKController {
 	}
 
 	/**
-	 * Executa ação, os seus filtros e redenriza a view
+	 * Executa ação, os seus filtros e redenriza a view.
 	 *
 	 * @access public
 	 * @param string $action Ação a ser executada
@@ -198,7 +198,7 @@ abstract class SKController {
 	}
 
 	/**
-	 * Seta os helpers a serem carregados
+	 * Seta os helpers a serem carregados.
 	 *
 	 * @access public
 	 * @param array $helpers Helpers a serem carregados
@@ -210,7 +210,7 @@ abstract class SKController {
 	}
 
 	/**
-	 * Carrega os helpers e adiciona os helpers na view
+	 * Carrega os helpers e adiciona os helpers na view.
 	 *
 	 * @access private
 	 * @return void

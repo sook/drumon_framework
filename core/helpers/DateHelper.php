@@ -1,6 +1,6 @@
 <?
 /**
- * Helper's para trabalhar com data
+ * Helper para trabalhar com data.
  *
  * @author Sook contato@sook.com.br
  * @package helpers
@@ -24,7 +24,8 @@ class DateHelper extends SKHelper {
 	}
 
 	/**
-	 * Obtem o hora e os minutos de uma data
+	 * Obtem o hora e os minutos de uma data.
+	 *
 	 * @access public
 	 * @param string $date - Data a ser processada
 	 * @return string - Hora no formato 23:59
@@ -37,6 +38,7 @@ class DateHelper extends SKHelper {
 
 	/**
 	 * Retorna a data de acordo com o formato default da i18n.
+	 *
 	 * @access public
 	 * @param string $date Data a ser processada
 	 * @return string

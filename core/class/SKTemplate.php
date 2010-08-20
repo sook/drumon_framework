@@ -8,41 +8,41 @@
 class SKTemplate{
 	
 	/** 
-	 * Variáveis incluídas para serem utilizadas na view
+	 * Variáveis incluídas para serem utilizadas na view.
 	 *
 	 * @access private
-	 * @name $variables
+	 * @var array
 	 */
 	private $variables   = array();
 	
 	/** 
-	 * Armazena o status de utilização da livraria gzip
+	 * Armazena o status de utilização da livraria gzip.
 	 *
 	 * @access public
-	 * @name $gzip
+	 * @var boolean
 	 */
 	public $gzip       	 = true;
 	
 	/** 
-	 * Armazena o diretório padrão das partials
+	 * Armazena o diretório padrão das partials.
 	 *
 	 * @access public
-	 * @name $partial_path
+	 * @var string
 	 */
 	public $partial_path = 'partials/';
 	
 	/** 
-	 * Contém os parâmetros passados na requisição HTTP (GET e POST)
+	 * Contém os parâmetros passados na requisição HTTP (GET e POST).
 	 *
 	 * @access public
-	 * @name $params
+	 * @var array
 	 */
 	public $params = array();
 
 	/**
 	 * Renderiza a página
 	 *
-	 * @param string $filename Arquivo da página a ser renderizada
+	 * @param string $filename Arquivo da página a ser renderizada.
 	 * @return array
 	 */
 	public function renderPage($filename) {
@@ -51,7 +51,7 @@ class SKTemplate{
 	}
 
 	/**
-	 * Renderiza view usando uma página específica
+	 * Renderiza view usando uma página específica.
 	 *
 	 * @param string $view Nome da view a ser renderizada
 	 * @return void
@@ -62,7 +62,7 @@ class SKTemplate{
 	}
 
 	/**
-	 * Renderiza qualquer parte especificada da página especificada
+	 * Renderiza qualquer parte especificada da página especificada.
 	 *
 	 * @param string $view Nome do Arquivo da view a ser renderizada
 	 * @return void
@@ -97,7 +97,7 @@ class SKTemplate{
 	}
 
 	/**
-	 * Adiciona valores ao índice de $variables[$name]
+	 * Adiciona valores ao índice de $variables[$name].
 	 *
 	 * @param string $name Nome da variável
 	 * @param mixed $value Valor a ser atribuido a variável 
@@ -108,9 +108,9 @@ class SKTemplate{
 	}
 
 	/**
-	 * Limpa os valores do índice de $variables[$name]
+	 * Limpa os valores do índice de $variables[$name].
 	 *
-	 * @param   string  $name Índice de $variables a ser limpo
+	 * @param string $name Índice de $variables a ser limpo
 	 * @return void
 	 */
 	public function clear($name) {
@@ -118,7 +118,7 @@ class SKTemplate{
 	}
 
 	/**
-	 * Limpa todas os índices de $variables[]
+	 * Limpa todas os índices de $variables[].
 	 *
 	 * @return void
 	 */
@@ -127,7 +127,7 @@ class SKTemplate{
 	}
 
 	/**
-	 * Carrega o conteúdo dos índices de $variables
+	 * Carrega o conteúdo dos índices de $variables.
 	 *
 	 * @param   string  $name Nome do índice
 	 * @param   string  $filename Arquivo correspondente ao índice
@@ -141,8 +141,8 @@ class SKTemplate{
 	}
 
 	/**
-	 * Analisa o arquivo especificado $filename com um array $dados
-	 * Ideal para analisar pedaços de código
+	 * Analisa o arquivo especificado $filename com um array $dados.
+	 * Ideal para analisar pedaços de código.
 	 *
 	 * @param   string  $filename Arquivo da página a ser renderizada
 	 * @param   array   $data
