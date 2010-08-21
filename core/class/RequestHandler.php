@@ -52,8 +52,8 @@ class RequestHandler {
 	/**
 	 * Carrega a rota através da função getRoute
 	 *
-	 * @param array $route Rota para redirecionamento de página
-	 * @param string $app_root Endereço da pasta app do site
+	 * @param array $route - Rota para redirecionamento de página
+	 * @param string $app_root - Endereço da pasta app do site
 	 * @access public
 	 * @return void
 	 */
