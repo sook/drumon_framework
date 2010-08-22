@@ -150,7 +150,8 @@ abstract class DrumonModel {
 	 * @return void
 	 */
 	protected function imports($class) {
-		require_once CORE."/models/behaviors/".$.".php";
+		// TODO adicionel na linha abaixo tava $ coloquei $class 
+		require_once CORE."/models/behaviors/".$class.".php";
 
 		//Instância o objeto correspondente a classe passada.
 		$new_import = new $class(&$this);
