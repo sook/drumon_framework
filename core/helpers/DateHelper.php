@@ -10,10 +10,10 @@ class DateHelper extends SKHelper {
 	/**
 	 * Retorna data em forma escrita de acordo com a i18n.
 	 *
-	 * Exemplo: 29 de abril de 2009
+	 * Exemplo: 29 de abril de 2009.
 	 *
 	 * @access public
-	 * @param string $date - Data a ser processada
+	 * @param string $date - Data a ser processada.
 	 * @return time
 	 */
 	function inWords($date) {
@@ -27,8 +27,8 @@ class DateHelper extends SKHelper {
 	 * Obtem o hora e os minutos de uma data.
 	 *
 	 * @access public
-	 * @param string $date - Data a ser processada
-	 * @return string - Hora no formato 23:59
+	 * @param string $date - Data a ser processada.
+	 * @return string - Hora no formato 23:59.
 	 */
 	function time ($date) {
 		$date = explode(' ', $date);
@@ -40,7 +40,7 @@ class DateHelper extends SKHelper {
 	 * Retorna a data de acordo com o formato default da i18n.
 	 *
 	 * @access public
-	 * @param string $date Data a ser processada
+	 * @param string $date - Data a ser processada.
 	 * @return string
 	 */
 	function show($date = null) {

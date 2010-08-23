@@ -18,7 +18,7 @@ class MovieHelper extends SKHelper {
 	/**
 	 * Carrega a rota através da função getRoute.
 	 *
-	 * @param string $url Url do vídeo
+	 * @param string $url - Url do vídeo.
 	 * @access public
 	 * @return mixed
 	 */
@@ -65,9 +65,9 @@ class MovieHelper extends SKHelper {
 	/**
 	 * Retorna um object embed html do vídeo solicitado.
 	 *
-	 * @param string $url Url para extração do identificador do video
-	 * @param string $width Largura do object
-	 * @param string $height Altura do object
+	 * @param string $url - Url para extração do identificador do video.
+	 * @param string $width - Largura do object.
+	 * @param string $height - Altura do object.
 	 * @access public
 	 * @return mixed
 	 */
@@ -84,10 +84,10 @@ class MovieHelper extends SKHelper {
 	}
 	
 	/**
-	 * Retorna uma imagem de preview do video
+	 * Retorna uma imagem de preview do video.
 	 *
-	 * @param string $url Url para extração do identificador do video
-	 * @param string $sizeId Id para Preview da imagem só recebe valores de 1 a 3
+	 * @param string $url - Url para extração do identificador do video.
+	 * @param string $sizeId - Id para Preview da imagem só recebe valores de 1 a 3.
 	 * @access public
 	 * @return mixed
 	 */
@@ -105,13 +105,13 @@ class MovieHelper extends SKHelper {
 	}
 	
 	/**
-	 * Retorna o código html da imagem de preview
+	 * Retorna o código html da imagem de preview.
 	 *
-	 * @param string $url Url para extração do identificador do video
-	 * @param string $sizeId Id para preview da imagem só recebe valores de 1 a 3
-	 * @param string $width Largura do preview
-	 * @param string $height Altura do preview
-	 * @param string $alt Parâmetro html alt do preview
+	 * @param string $url - Url para extração do identificador do video.
+	 * @param string $sizeId - Id para preview da imagem só recebe valores de 1 a 3.
+	 * @param string $width - Largura do preview.
+	 * @param string $height - Altura do preview.
+	 * @param string $alt - Parâmetro html alt do preview.
 	 * @access public
 	 * @return string
 	 */

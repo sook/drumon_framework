@@ -1,6 +1,6 @@
 <?
 /**
- * Módulo para Cinema
+ * Módulo para Cinema.
  *
  * @author Sook contato@sook.com.br
  * @package models
@@ -8,23 +8,23 @@
 class ModuleCine extends AppModel {
 	
 	/** 
-	 * Armazena o nome da tabela a ser utilizada pelo módulo
+	 * Armazena o nome da tabela a ser utilizada pelo módulo.
 	 *
 	 * @access public
-	 * @name $table
+	 * @var string
 	 */
 	public $table = "cines";
 	
 	/** 
-	 * Armazena uma lista de funcionalidades que o módulo irá dispor
+	 * Armazena uma lista de funcionalidades que o módulo irá dispor.
 	 *
 	 * @access protected
-	 * @name $uses
+	 * @var array
 	 */
 	protected $uses = array('trash','status');
 	
 	/**
-	 * Adiciona os comportamentos do módulo
+	 * Adiciona os comportamentos do módulo.
 	 *
 	 * @access public
 	 * @return void

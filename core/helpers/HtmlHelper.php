@@ -1,6 +1,6 @@
 <?
 /**
- * Helper para trabalhar com HTML
+ * Helper para trabalhar com HTML.
  *
  * @author Sook contato@sook.com.br
  * @package helpers
@@ -8,7 +8,7 @@
  // TODO: Alterar nome da função para padrão CamelCase
 class HtmlHelper extends SKHelper {
 	/** 
-	 * Armazena o nome dos arquivos css
+	 * Armazena o nome dos arquivos css.
 	 *
 	 * @access private
 	 * @var array
@@ -71,7 +71,7 @@ class HtmlHelper extends SKHelper {
 	 *
 	 * @access public
 	 * @param string $modulo - Nome do módulo.
-	 * @return string - Caminho para o módulo
+	 * @return string - Caminho para o módulo.
 	 */
 	function module_path($module) {
 		return MODULES_PATH.$module;
@@ -81,8 +81,8 @@ class HtmlHelper extends SKHelper {
 	 * Retorna o caminho padrão das imagens concatenado ao nome da imagem.
 	 *
 	 * @access public
-	 * @param string $image - Nome da imagem
-	 * @return string - Caminho para a imagem
+	 * @param string $image - Nome da imagem.
+	 * @return string - Caminho para a imagem.
 	 */
 	function image_path($image) {
 		return IMAGES_PATH.$image;

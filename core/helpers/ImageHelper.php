@@ -11,11 +11,11 @@ class ImageHelper extends SKHelper {
 	 * Retorna código html da imagem redimensionada.
 	 *
 	 * @access public
-	 * @param String $image Nome da imagem a ser redimensionanda
-	 * @param String $height Altura da imagem
-	 * @param String $width Largura da imagem
-	 * @param String $crop Local a ser cortado
-	 * @param Array $options Parâmetros
+	 * @param String $image - Nome da imagem a ser redimensionanda.
+	 * @param String $height - Altura da imagem.
+	 * @param String $width - Largura da imagem.
+	 * @param String $crop - Local a ser cortado.
+	 * @param Array $options - Parâmetros.
 	 * @return String
 	 */
 	public function resize($image,$height,$width,$crop = "",$options = array()) {
@@ -31,7 +31,7 @@ class ImageHelper extends SKHelper {
 	 * Retorna imagem do site gravatar através do fornecimento do email.
 	 *
 	 * @access public
-	 * @param string $email Email para verificação de imagem
+	 * @param string $email - Email para verificação de imagem.
 	 * @param string $default
 	 * @return string
 	 */

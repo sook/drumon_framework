@@ -11,7 +11,7 @@ class Utils {
 	 * Checa Email.
 	 *
 	 * @access public
-	 * @param string $eMailAddress Email a ser verificado
+	 * @param string $eMailAddress - Email a ser verificado.
 	 * @return boolean
 	 */
 	public static function checkEmail($eMailAddress) {
@@ -25,10 +25,10 @@ class Utils {
 	 * Envia Email utilizando a função mail.
 	 *
 	 * @access public
-	 * @param string $name Nome de rementente do email
-	 * @param string $to Email destinatário
-	 * @param string $subject Assunto 
-	 * @param string $content Conteúdo do email
+	 * @param string $name - Nome de rementente do email.
+	 * @param string $to - Email destinatário.
+	 * @param string $subject - Assunto.
+	 * @param string $content - Conteúdo do email.
 	 * @return boolean
 	 */
 	public static function mail($name,$to,$subject,$content) {

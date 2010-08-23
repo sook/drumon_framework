@@ -1,6 +1,6 @@
 <?php
 /**
- * Classe para tags dos models
+ * Classe para tags dos models.
  *
  * @author Sook contato@sook.com.br
  * @package models
@@ -9,7 +9,7 @@
 class Tag extends AppBehavior {
 
 	/**
-	 * Retorna uma query com o id e o nome das tags do modelo
+	 * Retorna uma query com o id e o nome das tags do modelo.
 	 *
 	 * @access public
 	 * @param int $id
@@ -26,7 +26,7 @@ class Tag extends AppBehavior {
 	}
 	
 	/**
-	 * Realiza uma consulta retornando registros que contenham a tag específicada
+	 * Realiza uma consulta retornando registros que contenham a tag específicada.
 	 *
 	 * @access public
 	 * @param array $params

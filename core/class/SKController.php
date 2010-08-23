@@ -101,8 +101,8 @@ abstract class SKController {
 	 * Adiciona valores às chaves.
 	 *
 	 * @access public
-	 * @param String $key Chave
-	 * @param Mixed $value Valores
+	 * @param String $key - Chave conteiner que se tornará uma variável no template.
+	 * @param Mixed $value - Valores que sernao adicionados a chave no template.
 	 * @return void
 	 */
 	public function add($key, $value){
@@ -113,7 +113,7 @@ abstract class SKController {
 	 * Renderiza as Views.
 	 *
 	 * @access public
-	 * @param string $view View a ser renderizada
+	 * @param string $view - View a ser renderizada.
 	 * @return void
 	 */
 	public function render($view){
@@ -162,8 +162,8 @@ abstract class SKController {
 	 * Redireciona para url desejada.
 	 *
 	 * @access public
-	 * @param string $url Url de destino
-	 * @param boolean $full Verificador de url completa
+	 * @param string $url - Url de destino.
+	 * @param boolean $full - Verificador de url completa.
 	 * @return void
 	 */
 	function redirect($url,$full = false) {
@@ -175,7 +175,7 @@ abstract class SKController {
 	 * Passa valor de status para o cabeçalho.
 	 *
 	 * @access public
-	 * @param string $status Status de cabeçalho
+	 * @param string $status - Status de cabeçalho.
 	 * @return void
 	 */
 	function header($status) {
@@ -186,7 +186,7 @@ abstract class SKController {
 	 * Executa ação, os seus filtros e redenriza a view.
 	 *
 	 * @access public
-	 * @param string $action Ação a ser executada
+	 * @param string $action - Ação a ser executada.
 	 * @return void
 	 */
 	public function execute($action) {
@@ -201,7 +201,7 @@ abstract class SKController {
 	 * Seta os helpers a serem carregados.
 	 *
 	 * @access public
-	 * @param array $helpers Helpers a serem carregados
+	 * @param array $helpers - Helpers a serem carregados.
 	 * @return void
 	 */
 	public function helpers($helpers)	{

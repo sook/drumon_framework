@@ -1,6 +1,6 @@
 <?
 /**
- * Classe paginação dos model's
+ * Classe paginação dos models.
  *
  * @author Sook contato@sook.com.br
  * @package models
@@ -9,26 +9,26 @@
 class Page extends AppBehavior {
 
 	/** 
-	 * Armazena o total de registros
+	 * Armazena o total de registros.
 	 *
 	 * @access public
-	 * @name $totalRecords
+	 * @var int
 	 */
 	public $totalRecords = 0;
 	
 	/** 
-	 * Armazena o valor da página atual
+	 * Armazena o valor da página atual.
 	 *
 	 * @access public
-	 * @name $currentPage
+	 * @var string
 	 */
 	public $currentPage;
 	
 	/** 
-	 * Armazena o total de páginas
+	 * Armazena o total de páginas.
 	 *
 	 * @access public
-	 * @name $totalPages
+	 * @var int
 	 */
 	public $totalPages;
 	
@@ -36,7 +36,7 @@ class Page extends AppBehavior {
 	 * Armazena o valor de registros por página
 	 *
 	 * @access public
-	 * @name $perPage
+	 * @var int
 	 */
 	public $perPage;
 	
@@ -44,16 +44,16 @@ class Page extends AppBehavior {
 	 * Armazena o resultado de uma consulta
 	 *
 	 * @access public
-	 * @name $results
+	 * @var int
 	 */
 	public $results;
 
 	/**
-	 * Procura comentários
+	 * Procura comentários.
 	 *
 	 * @access public
-	 * @param int $pages Quantidade de páginas
-	 * @param array $params Parâmetros a serem utilizados pela cláusula WHERE
+	 * @param int $pages - Quantidade de páginas.
+	 * @param array $params - Parâmetros a serem utilizados pela cláusula WHERE.
 	 * @return array
 	 */
 	function paginate($page = 0, $params = array()) {
@@ -94,7 +94,7 @@ class Page extends AppBehavior {
 	}
 
 	/**
-	 * Retorna a paginação
+	 * Retorna a paginação.
 	 *
 	 * @access public
 	 * @return array
@@ -108,7 +108,7 @@ class Page extends AppBehavior {
 		return $pages;
 	}
 	/**
-	 * Retorna qual é a próxima página
+	 * Retorna qual é a próxima página.
 	 *
 	 * @access public
 	 * @return boolean
@@ -121,7 +121,7 @@ class Page extends AppBehavior {
 	}
 
 	/**
-	 * Verifica a existência de página anterior
+	 * Verifica a existência de página anterior.
 	 *
 	 * @access public
 	 * @return boolean
@@ -131,7 +131,7 @@ class Page extends AppBehavior {
 	}
 
 	/**
-	 * Retorna a próxima página
+	 * Retorna a próxima página.
 	 *
 	 * @access public
 	 * @return int
@@ -141,7 +141,7 @@ class Page extends AppBehavior {
 	}
 
 	/**
-	 * Retorna a página anterior
+	 * Retorna a página anterior.
 	 *
 	 * @access public
 	 * @return int
@@ -151,7 +151,7 @@ class Page extends AppBehavior {
 	}
 
 	/**
-	 * Retorna a ultima página
+	 * Retorna a ultima página.
 	 *
 	 * @access public
 	 * @return int
@@ -162,7 +162,7 @@ class Page extends AppBehavior {
 	}
 
 	/**
-	 * Verifica a existência de paginação
+	 * Verifica a existência de paginação.
 	 *
 	 * @access public
 	 * @return array

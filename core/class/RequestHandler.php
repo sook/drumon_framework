@@ -58,7 +58,7 @@ class RequestHandler {
 	/**
 	 * Carrega a rota através da função getRoute
 	 *
-	 * @param array $route - Rota para redirecionamento de página
+	 * @param array $route - Rota para redirecionamento de página.
 	 * @param string $app_root - Endereço da pasta app do site
 	 * @access public
 	 * @return void
@@ -82,8 +82,8 @@ class RequestHandler {
 	 * Search for a valid route.
 	 *
 	 * @access public
-	 * @param string $app_root Endereço da pasta app do site
-	 * @param array $route Rota para redirecionamento de página
+	 * @param string $app_root - Endereço da pasta app do site.
+	 * @param array $route - Rota para redirecionamento de página.
 	 * @return mixed
 	 */
 	public function getRoute($route, $app_root) {
@@ -158,11 +158,11 @@ class RequestHandler {
 	 * Redirecionamento para uma URL externa, com cabeçalho HTTP 302 enviados por padrão.
 	 *
 	 * @access public
-	 * @param string $location URL of the redirect location
-	 * @param code $code HTTP status code to be sent with the header
-	 * @param boolean $exit to end the application
-	 * @param array $headerBefore Headers to be sent before header("Location: some_url_address");
-	 * @param array $headerAfter Headers to be sent after header("Location: some_url_address");
+	 * @param string $location - URL of the redirect location.
+	 * @param code $code - HTTP status code to be sent with the header.
+	 * @param boolean $exit - To end the application.
+	 * @param array $headerBefore - Headers to be sent before header("Location: some_url_address").
+	 * @param array $headerAfter - Headers to be sent after header("Location: some_url_address").
 	 * @return void
 	 */
 	public static function redirect($location, $code=302, $exit=true, $headerBefore=NULL, $headerAfter=NULL){
@@ -184,7 +184,7 @@ class RequestHandler {
 	 * Remove the slash(/) from the last char.
 	 *
 	 * @access public
-	 * @param string $str
+	 * @param string $str - String com (/) a ser alterada.
 	 * @return string
 	 */
 	protected function strip_slash($str) {

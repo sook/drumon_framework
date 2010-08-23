@@ -1,6 +1,6 @@
 <?
 /**
- * Módulo Custom Selector
+ * Módulo Custom Selector.
  *
  * @author Sook contato@sook.com.br
  * @package models
@@ -8,16 +8,16 @@
 class ModuleCustomSelector extends AppModel {
 	
 	/**
-	 * Adiciona os comportamentos do módulo
+	 * Nome da tabela.
 	 *
 	 * @access public
-	 * @return void
+	 * @var string
 	 */
 	 
 	public $table = "core_select_options_records";
 	
 	/**
-	 * Adiciona os comportamentos do módulo
+	 * Adiciona os comportamentos do módulo.
 	 *
 	 * @access public
 	 * @return void

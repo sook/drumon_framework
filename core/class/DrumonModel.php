@@ -128,14 +128,15 @@ abstract class DrumonModel {
 	 * Chama métodos behaviors
 	 *
 	 * @access public
-	 * @param array $method 
+	 * @param array $method  
 	 * @param array $args
 	 * @return mixed
+	 * @ignore
 	 */
 	public function __call($method, $args) {
 		// Verifica se realmente existe o método desejado
 		if(array_key_exists($method, $this->imported_functions)) {
-//			$args[] = $this;
+			//			$args[] = $this;
 			return call_user_func_array(array($this->imported_functions[$method], $method), $args);
 		}
 		throw new Exception ('Verifique se você chamou o método import no modelo: ' . $method);
@@ -146,7 +147,7 @@ abstract class DrumonModel {
 	 * Simula herança múltipla.
 	 *
 	 * @access protected
-	 * @param string $class Nome da classe a ser importada
+	 * @param string $class - Nome da classe a ser importada.
 	 * @return void
 	 */
 	protected function imports($class) {
@@ -166,10 +167,10 @@ abstract class DrumonModel {
 	}
 
 	/**
-	 * Executa uma query (SELECT), aplicando o método <b>mysql_fetch_assoc()</b>
+	 * Executa uma query (SELECT), aplicando o método <b>mysql_fetch_assoc()</b>.
 	 *
 	 * @access public
-	 * @param string $sql query a ser executada
+	 * @param string $sql - Query a ser executada.
 	 * @return array
 	 */
 	public function query($sql) {
@@ -180,7 +181,7 @@ abstract class DrumonModel {
 	 * Executa o comando sql passado.
 	 * 
 	 * @access public
-	 * @param string $sql query a ser executada
+	 * @param string $sql Query a ser executada.
 	 * @return mixed
 	 */
 	public function execute($sql) {
@@ -206,7 +207,7 @@ abstract class DrumonModel {
 	 * </code>
 
 	 * @access public
-	 * @param array $params (Opcional) <br/>
+	 * @param array $params - (Opcional) <br/>
 	 * fields => Nomes das colunas separados por vírgula que retornarão no resultado da consulta sql. Se vazio retorna todos os campos. <br/>
 	 * include => Funções seletoras auxiliares incluídas para fazer consultas padronizadas e distintas por um atributo.<br/>
 	 * selector => Nome das colunas que servirão para distinguir os dados através de categrias.<br/>
@@ -214,7 +215,7 @@ abstract class DrumonModel {
 	 * where => Usada para extrair apenas os registros que satisfazem o critério especificado.<br/>
 	 * limit => Usada para extrair os registros limitando a uma quantidade de resultados.<br/>
 	 * order => Usada para ordernar os registros.<br/>
-	 * @return mixed array com os valores do(s) elemento(s) consultado(s) ou false caso não encontre nenhum elemento
+	 * @return mixed array com os valores do(s) elemento(s) consultado(s) ou false caso não encontre nenhum elemento.
 	 */
 	public function findAll($params = array()) {
 		$params = array_merge($this->params, $params);
@@ -387,7 +388,7 @@ abstract class DrumonModel {
 
 	//TODO Mudar para o local melhor (Classe de banco de dados ou algum helper)
 	/**
-	 * Proteção e omissão de valores
+	 * Proteção e omissão de valores.
 	 * @access public
 	 * @static
 	 * @param array $value
@@ -404,13 +405,13 @@ abstract class DrumonModel {
 	}
 
 	/**
-	 * Busca um registro
+	 * Busca um registro.
 	 *     $post = new Post();<br/>
 	 *     $posts = $post->find(1, {@link findAll() array(...)})<br/>
 	 * @access public
-	 * @param int|string $id código do registro a ser consultado.
+	 * @param int|string $id - Código do registro a ser consultado.
 	 * @param array $params
-	 * @return mixed array com os valores do elemento consultado ou false caso não encontre nenhum elemento
+	 * @return mixed Array com os valores do elemento consultado ou false caso não encontre nenhum elemento.
 	 */
 	public function find($id, $params = array()) {
 		$params['where'] = $this->table.".".$this->primaryKey." = ".DrumonModel::protect($id). (!empty($params['where'])? " AND ".$params['where']:"");
@@ -421,7 +422,7 @@ abstract class DrumonModel {
 	}
 
 	/**
-	 * Salva dados no banco de dados
+	 * Salva dados no banco de dados.
 	 *
 	 * Exemplo:
 	 *
@@ -432,7 +433,7 @@ abstract class DrumonModel {
 	 *
 	 * @access public
 	 * @param array $data
-	 * @return mixed int com o número do novo registro, aplicando o método <b>mysql_insert_id()</b> ou false caso nada tenha ocorrido
+	 * @return mixed int com o número do novo registro, aplicando o método <b>mysql_insert_id()</b> ou false caso nada tenha ocorrido.
 	 */
 	public function save($data) {
 		return $this->connection->save($this->table, $data);
@@ -443,7 +444,7 @@ abstract class DrumonModel {
 	
 	 * @ignore
 	 * @access public
-	 * @param array $params Parâmetros da query
+	 * @param array $params - Parâmetros da query.
 	 * @return boolean
 	 */
 	public function addBehaviorsContent(&$params) {

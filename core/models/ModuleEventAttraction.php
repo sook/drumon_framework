@@ -1,6 +1,6 @@
 <?
 /**
- * Módulo para atração de evento
+ * Módulo para atração de evento.
  *
  * @author Sook contato@sook.com.br
  * @package models
@@ -8,15 +8,15 @@
 class ModuleEventAttraction extends AppModel {
 	
 	/** 
-	 * Armazena o nome da tabela a ser utilizada pelo módulo
+	 * Armazena o nome da tabela a ser utilizada pelo módulo.
 	 *
 	 * @access public
-	 * @name $table
+	 * @var string
 	 */
 	public $table = "events_attractions";
 
 	/**
-	 * Adiciona os comportamentos do módulo
+	 * Adiciona os comportamentos do módulo.
 	 *
 	 * @access public
 	 * @return void

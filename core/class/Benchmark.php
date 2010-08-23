@@ -37,7 +37,7 @@ class Benchmark {
 	 *
 	 * @access public 
 	 * @static
-	 * @param mixed $key Identificador
+	 * @param mixed $key - Identificador.
 	 * @return void
 	 */
 	public static function start($key) {
@@ -50,8 +50,8 @@ class Benchmark {
 	 * 
 	 * @access public
 	 * @static
-	 * @param mixed $key Identificador
-	 * @return string Tempo total da execução
+	 * @param mixed $key - Identificador.
+	 * @return string - Tempo total da execução.
 	 * @see Benchmark::getTime()
 	 */
 	public static function stop($key) {
@@ -65,7 +65,7 @@ class Benchmark {
 	 * 
 	 * @access public
 	 * @static
-	 * @return array Lista de tempo das funcionalidades
+	 * @return array - Lista de tempo das funcionalidades.
 	 */
 	public static function getListTime() {
 		$bm = self::getInstance();
@@ -77,8 +77,8 @@ class Benchmark {
 	 *
 	 * @access public
 	 * @static
-	 * @param mixed $key Identificador
-	 * @return string Tempo de execução
+	 * @param mixed $key - Identificador.
+	 * @return string - Tempo de execução.
 	 */
 	public static function getTime($key) {
 		$bm = self::getInstance();
@@ -90,7 +90,7 @@ class Benchmark {
 	 *
 	 * @access public
 	 * @static	 
-	 * @return array Lista de total de execução
+	 * @return array - Lista de total de execução.
 	 */
 	public static function getTotals(){
 		$bm = self::getInstance();
@@ -107,7 +107,7 @@ class Benchmark {
 	 * 
 	 * @access public
 	 * @static
-	 * @return object Instância da classe Benchmark
+	 * @return object - Instância da classe Benchmark.
 	 */
 	public static function getInstance() {
 		if (!isset(self::$instance)) {

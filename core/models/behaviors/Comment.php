@@ -1,15 +1,16 @@
 <?php
 /**
- * Classe para comentários dos model's
+ * Classe para comentários dos models.
  * @author Sook contato@sook.com.br
  * @package models
  * @subpackage behaviors
  */
 class Comment extends AppBehavior {
 	/**
-	 * Procura comentários específicos pelo id 
+	 * Procura comentários específicos pelo id.
+	 *
 	 * @access public
-	 * @param string $id ID a ser utilizado pela cláusula WHERE
+	 * @param string $id - ID a ser utilizado pela cláusula WHERE.
 	 * @return array
 	 */
 	public function findComments($id) {
@@ -24,9 +25,10 @@ class Comment extends AppBehavior {
 	}
 
 	/**
-	 * Retorna a quantidade de comentários
+	 * Retorna a quantidade de comentários.
+	 *
 	 * @access public
-	 * @param string $id ID a ser utilizado pela cláusula WHERE
+	 * @param string $id - ID a ser utilizado pela cláusula WHERE.
 	 * @return integer
 	 */
 	public function countComments($id) {
@@ -37,9 +39,10 @@ class Comment extends AppBehavior {
 	}
 
 	/**
-	 * Salva Comentários
+	 * Salva Comentários.
+	 *
 	 * @access public
-	 * @param array $data Campos de comentário a serem salvos
+	 * @param array $data - Campos de comentário a serem salvos.
 	 * @return array
 	 */
 	 //TODO: Executar SQL Diretamente, e verificar a necessidade da variável noFlags em DrumonModel

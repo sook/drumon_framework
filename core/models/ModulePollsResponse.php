@@ -10,7 +10,7 @@ class ModulePollsResponse extends AppModel {
 	 * Armazena o nome da tabela a ser utilizada pelo módulo
 	 *
 	 * @access public
-	 * @name $table
+	 * @var string
 	 */
 	public $table = "polls_responses";
 	

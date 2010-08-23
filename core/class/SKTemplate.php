@@ -129,8 +129,8 @@ class SKTemplate{
 	/**
 	 * Carrega o conteúdo dos índices de $variables.
 	 *
-	 * @param   string  $name Nome do índice
-	 * @param   string  $filename Arquivo correspondente ao índice
+	 * @param   string  $name - Nome do índice.
+	 * @param   string  $filename - Arquivo correspondente ao índice.
 	 * @return  string
 	 */
 	function load($name, $filename)	{
@@ -144,7 +144,7 @@ class SKTemplate{
 	 * Analisa o arquivo especificado $filename com um array $dados.
 	 * Ideal para analisar pedaços de código.
 	 *
-	 * @param   string  $filename Arquivo da página a ser renderizada
+	 * @param   string  $filename - Arquivo da página a ser renderizada.
 	 * @param   array   $data
 	 * @return  string
 	 */

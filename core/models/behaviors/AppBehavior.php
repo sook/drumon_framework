@@ -10,7 +10,7 @@ abstract class AppBehavior {
 	 * Armazena o nome do modelo
 	 *
 	 * @access protected
-	 * @name $model
+	 * @var string
 	 */
 	protected $model;
 

@@ -69,7 +69,7 @@ class SKDatabase {
 	}
 
 	/**
-	 * Disconecta do banco de dados mysql
+	 * Disconecta do banco de dados mysql.
 	 *
 	 * @access public
 	 * @return void
@@ -83,7 +83,7 @@ class SKDatabase {
 	 * Executa o comando sql informado.
 	 *
 	 * @access public
-	 * @param string $sql query a ser executada
+	 * @param string $sql - Query a ser executada.
 	 * @return mixed
 	 */
 	public function query($sql){
@@ -98,7 +98,7 @@ class SKDatabase {
 	 * Executa uma query (SELECT), aplicando o método <b>mysql_fetch_assoc()</b>.
 	 *
 	 * @access public
-	 * @param string $sql query a ser executada
+	 * @param string $sql - Query a ser executada.
 	 * @return array
 	 */
 	public function find($sql){
@@ -115,8 +115,8 @@ class SKDatabase {
 	 * Coloca a chave do array o valor de um campo.
 	 *
 	 * @access public
-	 * @param string $sql query a ser executada
-	 * @param string $key atributo chave a ser procurado na query
+	 * @param string $sql - Query a ser executada.
+	 * @param string $key - Atributo chave a ser procurado na query.
 	 * @return mixed
 	 */
 	 // TODO: Refatorar nome do método.
@@ -134,9 +134,9 @@ class SKDatabase {
 	 * Salva dados no banco.
 	 *
 	 * @access public
-	 * @param string $table 
-	 * @param array $data dados a serem inseridos no banco
-	 * @return mixed int com o número do novo registro, aplicando o método <b>mysql_insert_id()</b> ou false caso nada tenha ocorrido
+	 * @param string $table - Tabela onde serão salvos os dados.
+	 * @param array $data - Dados a serem inseridos no banco.
+	 * @return mixed Int com o número do novo registro, aplicando o método <b>mysql_insert_id()</b> ou false caso nada tenha ocorrido
 	 */
 	public function save($table, $data) {
 		$query = "INSERT INTO `".$table."` ";
@@ -158,10 +158,10 @@ class SKDatabase {
 	}
 
 	/**
-	 * Escapa os caracteres do mysql
+	 * Escapa os caracteres do mysql.
 	 *
 	 * @access public
-	 * @param string $data
+	 * @param string $string - String Sql.
 	 * @return string
 	 */
 	function escape($string) {

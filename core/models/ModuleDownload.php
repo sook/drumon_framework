@@ -1,30 +1,30 @@
 <?
 /**
- * Módulo para Download
+ * Módulo para Download.
  *
- * @author Sook contato@sook.com.br
+ * @author Sook contato@sook.com.br.
  * @package models
  */
 class ModuleDownload extends AppModel {
 	
 	/**
-	 * Adiciona os comportamentos do módulo
+	 * Nome da tabela.
 	 *
 	 * @access public
-	 * @return void
+	 * @var string
 	 */
 	public $table = "downloads";
 	
 	/** 
-	 * Armazena uma lista de funcionalidades que o módulo irá dispor
+	 * Armazena uma lista de funcionalidades que o módulo irá dispor.
 	 *
 	 * @access protected
-	 * @name $uses
+	 * @var array
 	 */
 	protected $uses = array('trash','status');
 	
 	/**
-	 * Adiciona os comportamentos do módulo
+	 * Adiciona os comportamentos do módulo.
 	 *
 	 * @access public
 	 * @return void

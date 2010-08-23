@@ -10,7 +10,7 @@ class ModuleTheater extends AppModel {
 	 * Armazena o nome da tabela a ser utilizada pelo módulo
 	 *
 	 * @access public
-	 * @name $table
+	 * @var string
 	 */
 	public $table = "theaters";
 	
@@ -18,7 +18,7 @@ class ModuleTheater extends AppModel {
 	 * Armazena uma lista de funcionalidades que o módulo irá dispor
 	 *
 	 * @access protected
-	 * @name $uses
+	 * @var array
 	 */
 	protected $uses = array('trash','status');
 	

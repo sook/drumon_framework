@@ -1,6 +1,6 @@
 <?php
 /**
- * Classe para selects dos models
+ * Classe para selects dos models.
  *
  * @author Sook contato@sook.com.br
  * @package models
@@ -9,7 +9,7 @@
 class Selector extends AppBehavior {
 	
 	/**
-	 * Busca todos os registros para o model
+	 * Busca todos os registros para o model.
 	 *
 	 * @access public
 	 * @param array $params 
@@ -53,7 +53,7 @@ class Selector extends AppBehavior {
 	}
 	
 	/**
-	 * Busca todos os registros para o model
+	 * Busca todos os registros para o model.
 	 *
 	 * @access private
 	 * @param array $label

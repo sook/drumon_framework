@@ -63,7 +63,7 @@ class Download {
 	 * Verfifica se arquivo existe ou estão no padrão definido na variável $allowedExt.
 	 *
 	 * @access public
-	 * @param string $filePath Nome do arquivo a ser verificado
+	 * @param string $filePath - Nome do arquivo a ser verificado.
 	 * @return string
 	 */
 	public function file($filePath) {
@@ -99,8 +99,8 @@ class Download {
 	 * Seta os valores de cabeçalho para o arquivo.
 	 *
 	 * @access private
-	 * @param string $fileName Nome do arquivo
-	 * @param string $mimeType Extensão do arquivo
+	 * @param string $fileName - Nome do arquivo.
+	 * @param string $mimeType - Extensão do arquivo.
 	 * @return void
 	 */
 	private function setHeaders($mimeType, $fileName) {
@@ -119,7 +119,7 @@ class Download {
 	 * Pega extensão do arquivo.
 	 *
 	 * @access private
-	 * @param string $filePath Nome do arquivo
+	 * @param string $filePath - Nome do arquivo.
 	 * @return mixed
 	 */
 	private function getMimeType($filePath) {
@@ -138,7 +138,7 @@ class Download {
 	 * Gera Log do arquivo.
 	 *
 	 * @access private
-	 * @param string $filePath Nome do arquivo a ser cadastrado no log
+	 * @param string $filePath - Nome do arquivo a ser cadastrado no log.
 	 * @return void
 	 */
 	private function log($filePath) {

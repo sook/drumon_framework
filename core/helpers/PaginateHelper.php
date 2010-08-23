@@ -8,7 +8,7 @@
 class PaginateHelper extends SKHelper {
 
 	/**
-	 * Carrega a classe definindo seu idioma
+	 * Carrega a classe definindo seu idioma.
 	 *
 	 * @param string $i18n
 	 * @access public
@@ -19,7 +19,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Verifica a existência de paginação
+	 * Verifica a existência de paginação.
 	 *
 	 * @access public
 	 * @param object $page
@@ -30,7 +30,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Verifica a existência de próxima página
+	 * Verifica a existência de próxima página.
 	 *
 	 * @access public
 	 * @param object $page
@@ -41,7 +41,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Verifica a existência de página anterior
+	 * Verifica a existência de página anterior.
 	 *
 	 * @access public
 	 * @param object $page
@@ -52,7 +52,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna o número da página atual
+	 * Retorna o número da página atual.
 	 *
 	 * @access public
 	 * @param object $page
@@ -63,7 +63,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna a URL da próxima página
+	 * Retorna a URL da próxima página.
 	 *
 	 * @access public
 	 * @param object $page
@@ -74,7 +74,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna a URL da página anterior
+	 * Retorna a URL da página anterior.
 	 *
 	 * @access Public
 	 * @param object $page
@@ -86,7 +86,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna a URL da ultima página
+	 * Retorna a URL da ultima página.
 	 *
 	 * @access public
 	 * @param object $page
@@ -98,7 +98,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna a paginação em html
+	 * Retorna a paginação em html.
 	 *
 	 * @access public
 	 * @param object $page
@@ -128,7 +128,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna a paginação anterior em html
+	 * Retorna a paginação anterior em html.
 	 *
 	 * @access public
 	 * @param object $page
@@ -153,7 +153,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna a paginação em html
+	 * Retorna a paginação em html.
 	 *
 	 * @access public
 	 * @param object $page
@@ -195,7 +195,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna a próxima paginação em relação a atual
+	 * Retorna a próxima paginação em relação a atual.
 	 *
 	 * @access public
 	 * @param object $page
@@ -220,7 +220,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna as informações de geração de paginação
+	 * Retorna as informações de geração de paginação.
 	 *
 	 * @access public
 	 * @param object $page
@@ -253,7 +253,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna a URL formatada
+	 * Retorna a URL formatada.
 	 *
 	 * @access public
 	 * @param integer $pageNumber
@@ -270,7 +270,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna o fullpath da pagina com as variaveis get
+	 * Retorna o fullpath da pagina com as variaveis get.
 	 *
 	 * @access private
 	 * @return string
@@ -283,7 +283,7 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Remove um texto de outro texto
+	 * Remove um texto de outro texto.
 	 *
 	 * @access private
 	 * @param string $1

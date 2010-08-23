@@ -1,8 +1,8 @@
 <?
 /**
- * Helper's para trabalhar com texto
+ * Helper para trabalhar com texto.
  *
- * @author Sook contato@sook.com.br e terceiros
+ * @author Sook contato@sook.com.br e terceiros.
  * @package helpers
  */
 class TextHelper extends SKHelper {
@@ -12,7 +12,7 @@ class TextHelper extends SKHelper {
 	 *
 	 * @access public
 	 * @param text $string
-	 * @param string $space - Caractere usado no lugar do espaço (default: -)
+	 * @param string $space - Caractere usado no lugar do espaço (default: -).
 	 * @return string
 	 */
 	function toSlug($text, $space = "-") {
@@ -34,7 +34,7 @@ class TextHelper extends SKHelper {
 	}
 
 	/**
-	 * Adiciona um link no final de um post para leitura completa do post
+	 * Adiciona um link no final de um post para leitura completa do post.
 	 *
 	 * @access public
 	 * @param string $post
@@ -51,7 +51,7 @@ class TextHelper extends SKHelper {
 	}
 
 	/**
-	 * Procura Tags de usuário twitter e hasttags para consulta no twitter e adiciona link na tag encontrada
+	 * Procura Tags de usuário twitter e hasttags para consulta no twitter e adiciona link na tag encontrada.
 	 *
 	 * @access public
 	 * @param string $text
@@ -69,14 +69,14 @@ class TextHelper extends SKHelper {
 	 * Destaca uma determinada frase em um texto.
 	 *
 	 * @access public
-	 * @param string $text - Text to search the phrase in
-	 * @param string $phrase - The phrase that will be searched
+	 * @param string $text - Text to search the phrase in.
+	 * @param string $phrase - The phrase that will be searched.
 	 * @param array $options - An array of html attributes and options.
-	 * @return string - The highlighted text
+	 * @return string - The highlighted text.
 	 * ### Options:
 	 *
 	 * - `format` O pedaço de html com que a frase será destaque
-	 * - `html` Se for verdade, irá ignorar todas as tags HTML, garantindo que apenas o texto correto é destaque
+	 * - `html` Se for verdade, irá ignorar todas as tags HTML, garantindo que apenas o texto correto é destaque.
 	 */
 	function highlight($text, $phrase, $options = array()) {
 		if (empty($phrase)) {
@@ -117,7 +117,7 @@ class TextHelper extends SKHelper {
 
 
 	/**
-	* Tira de determinado texto de todos os links
+	* Tira de determinado texto de todos os links.
 	*
 	* @param string $text
 	* @return string
@@ -147,9 +147,9 @@ class TextHelper extends SKHelper {
 	 *
 	 * ### Opções:
 	 *
-	 * - `ending` Será utilizado como Ending e anexado à string cortada
-	 * - `exact` Se falço, $text não será cortado do texto completo
-	 * - `html` Se verdadeiro , as tags HTML serão tratadas corretamente
+	 * - `ending` Será utilizado como Ending e anexado à string cortada.
+	 * - `exact` Se falço, $text não será cortado do texto completo.
+	 * - `html` Se verdadeiro , as tags HTML serão tratadas corretamente.
 	 *
 	 * @param string  $text
 	 * @param integer $length
@@ -247,7 +247,7 @@ class TextHelper extends SKHelper {
 	}
 
 	/**
-	 * Extrai um trecho do texto em torno da frase com um número de caracteres de cada lado determinado pelo raio
+	 * Extrai um trecho do texto em torno da frase com um número de caracteres de cada lado determinado pelo raio.
 	 *
 	 * @param string $text
 	 * @param string $phrase
