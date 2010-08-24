@@ -24,7 +24,7 @@ class DateHelper extends SKHelper {
 	}
 
 	/**
-	 * Obtem o hora e os minutos de uma data.
+	 * Obtém o hora e os minutos de uma data.
 	 *
 	 * @access public
 	 * @param string $date - Data a ser processada.
@@ -37,7 +37,7 @@ class DateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna a data de acordo com o formato default da i18n.
+	 * Retorna a data de acordo com o formato padrão da i18n.
 	 *
 	 * @access public
 	 * @param string $date - Data a ser processada.

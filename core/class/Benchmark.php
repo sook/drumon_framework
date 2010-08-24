@@ -12,7 +12,7 @@ class Benchmark {
 	 *
 	 * @access private
 	 * @static 
-	 * @var object 
+	 * @var object
 	 */
 	private static $instance;
 	
