@@ -61,8 +61,8 @@ abstract class DrumonModel {
 	public $perPage = 10;
 
 	/** 
-	 * Lista de comportamentos que estarão sendo utilizados no módulo.
-	 * Opções: array('trash','status').
+	 * Lista de comportamentos utilizados no módulo. Opções: array('trash','status')
+	 *
 	 *
 	 * @access protected
 	 * @var array
@@ -375,8 +375,8 @@ abstract class DrumonModel {
 	 *     $post = new Post();<br/>
 	 *     $posts = $post->findFirst(1, {@link findAll() array(...)}<br/>
 	 * @access public
-	 * @param array $param Parâmetros da Consulta
-	 * @return mixed array com os valores do elemento consultado ou false caso não encontre nenhum elemento
+	 * @param array $param - Parâmetros da Consulta
+	 * @return mixed - Array com os valores do elemento consultado ou false caso não encontre nenhum elemento
 	 */
 	public function findFirst($params = array()) {
 		$params = array_merge($this->params, $params);
@@ -388,7 +388,8 @@ abstract class DrumonModel {
 
 	//TODO Mudar para o local melhor (Classe de banco de dados ou algum helper)
 	/**
-	 * Proteção e omissão de valores.
+	 * Protege os dados contra SQL Injection.
+	 * 
 	 * @access public
 	 * @static
 	 * @param array $value
@@ -411,7 +412,7 @@ abstract class DrumonModel {
 	 * @access public
 	 * @param int|string $id - Código do registro a ser consultado.
 	 * @param array $params
-	 * @return mixed Array com os valores do elemento consultado ou false caso não encontre nenhum elemento.
+	 * @return mixed - Array com os valores do elemento consultado ou false caso não encontre nenhum elemento.
 	 */
 	public function find($id, $params = array()) {
 		$params['where'] = $this->table.".".$this->primaryKey." = ".DrumonModel::protect($id). (!empty($params['where'])? " AND ".$params['where']:"");
@@ -433,7 +434,7 @@ abstract class DrumonModel {
 	 *
 	 * @access public
 	 * @param array $data
-	 * @return mixed int com o número do novo registro, aplicando o método <b>mysql_insert_id()</b> ou false caso nada tenha ocorrido.
+	 * @return mixed - int com o número do novo registro, aplicando o método <b>mysql_insert_id()</b> ou false caso nada tenha ocorrido.
 	 */
 	public function save($data) {
 		return $this->connection->save($this->table, $data);
@@ -473,24 +474,24 @@ abstract class DrumonModel {
 	 * @return array
 	 */
 	private function filterByValue ($array, $index, $value) {
-		$newarray = array();
+		$new_array = array();
 		if(is_array($array) && count($array)>0) {
 			foreach(array_keys($array) as $key){
 				$temp[$key] = $array[$key][$index];
 				if ($temp[$key] == $value) {
-					$newarray[$key] = $array[$key];
+					$new_array[$key] = $array[$key];
 				}
 			}
 		}
-		return $newarray;
+		return $new_array;
 	}
 	
 	/**
-	 * Carrega Model e verifica se é padrão super.
+	 * Carrega módulo do Drumon a ser usado no controlador.
 	 *
 	 * @static
 	 * @param string $model
-	 * @param string $super
+	 * @param string $super - Nome do módulo pai, que o módulo está herdando.
 	 * @return void
 	 */
 	public static function load($model, $super = null) {
