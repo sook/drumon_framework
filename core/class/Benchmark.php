@@ -28,7 +28,6 @@ class Benchmark {
 	 * Proibe a reinstância da classe.
 	 *
 	 * @access private
-	 * @return void
 	 */
 	private function __construct() { }
 
@@ -37,7 +36,7 @@ class Benchmark {
 	 *
 	 * @access public 
 	 * @static
-	 * @param mixed $key - Identificador.
+	 * @param string $key - Identificador.
 	 * @return void
 	 */
 	public static function start($key) {
@@ -50,7 +49,7 @@ class Benchmark {
 	 * 
 	 * @access public
 	 * @static
-	 * @param mixed $key - Identificador.
+	 * @param string $key - Identificador.
 	 * @return string - Tempo total da execução.
 	 * @see Benchmark::getTime()
 	 */
@@ -77,7 +76,7 @@ class Benchmark {
 	 *
 	 * @access public
 	 * @static
-	 * @param mixed $key - Identificador.
+	 * @param string $key - Identificador.
 	 * @return string - Tempo de execução.
 	 */
 	public static function getTime($key) {

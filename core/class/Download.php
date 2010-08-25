@@ -1,6 +1,6 @@
 <?
 /**
- * Classe para downloads
+ * Classe responsável pela verificação e processamento de downloads.
  *
  * @package class
  * @author Sook contato@sook.com.br
@@ -60,11 +60,11 @@ class Download {
 	private $hasLog = false;
 
 	/**
-	 * Verfifica se arquivo existe ou estão no padrão definido na variável $allowedExt.
+	 * Verifica se arquivo existe ou estão no padrão definido na variável $allowedExt.
 	 *
 	 * @access public
 	 * @param string $filePath - Nome do arquivo a ser verificado.
-	 * @return string
+	 * @return string - Status da situação do arquivo a ser verificado.
 	 */
 	public function file($filePath) {
 		set_time_limit(0);
@@ -119,8 +119,8 @@ class Download {
 	 * Pega extensão do arquivo.
 	 *
 	 * @access private
-	 * @param string $filePath - Nome do arquivo.
-	 * @return mixed
+	 * @param string $filePath - Diretório do arquivo.
+	 * @return mixed - False se a extensão estiver incluida na lista de permitidas / String com a extensão.
 	 */
 	private function getMimeType($filePath) {
 		// check if allowed extension

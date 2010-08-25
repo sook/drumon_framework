@@ -66,13 +66,11 @@ abstract class SKController {
 	protected $params = array();
 
 	/**
-	 * Instância um novo template com as configurações, parâmetros e idioma padrões.
+	 * Instancia um novo template com as configurações, parâmetros e idioma padrões.
 	 *
 	 * @access public
 	 * @param $request
 	 * @param $i18n
-	 * @param $config
-	 * @return void
 	 */
 	public function __construct($request,$i18n){
 		$this->i18n = $i18n;

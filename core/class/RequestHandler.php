@@ -48,7 +48,7 @@ class RequestHandler {
 	public $referer;
 	
 	/** 
-	 * The request method. (GET,POST,PUT,DELETE)
+	 * The request method. (GET,POST,PUT,DELETE).
 	 *
 	 * @access public
 	 * @var string
@@ -59,9 +59,8 @@ class RequestHandler {
 	 * Carrega a rota através da função getRoute
 	 *
 	 * @param array $route - Rota para redirecionamento de página.
-	 * @param string $app_root - Endereço da pasta app do site
+	 * @param string $app_root - Endereço da pasta app do site.
 	 * @access public
-	 * @return void
 	 */
 	public function __construct($route, $app_root = ROOT ) {
 		$route = $this->getRoute($route, $app_root);
@@ -84,7 +83,7 @@ class RequestHandler {
 	 * @access public
 	 * @param string $app_root - Endereço da pasta app do site.
 	 * @param array $route - Rota para redirecionamento de página.
-	 * @return mixed
+	 * @return mixed - False, se não existir rota / Array com a Lista de Rotas.
 	 */
 	public function getRoute($route, $app_root) {
 		$this->method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -185,7 +184,7 @@ class RequestHandler {
 	 *
 	 * @access public
 	 * @param string $str - String com (/) a ser alterada.
-	 * @return string
+	 * @return string - String sem a barra (/).
 	 */
 	protected function strip_slash($str) {
 		if($str[strlen($str)-1]==='/'){
