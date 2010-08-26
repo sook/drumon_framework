@@ -69,8 +69,8 @@ abstract class SKController {
 	 * Instancia um novo template com as configurações, parâmetros e idioma padrões.
 	 *
 	 * @access public
-	 * @param $request
-	 * @param $i18n
+	 * @param object $request - Instância do Request Handler.
+	 * @param array $i18n - Referência da variável com os dados de internacionalização.
 	 */
 	public function __construct($request,$i18n){
 		$this->i18n = $i18n;

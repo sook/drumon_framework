@@ -11,7 +11,7 @@ class SKDatabase {
 	 * Conexão do banco de dados.
 	 *
 	 * @access private
-	 * @var boolean
+	 * @var object
 	 */
 	private $connection = null;
 
@@ -20,12 +20,13 @@ class SKDatabase {
 	 *
 	 * @access private
 	 * @static
-	 * @var boolean
+	 * @var object
 	 */
 	private static $SKDatabase = null;
 
 	/**
 	 * Efetua a conexão com o banco de dados.
+	 *
 	 * @access private
 	 * @return void
 	 */
@@ -37,7 +38,7 @@ class SKDatabase {
 	 * Instancia a classe caso a variável $SKDatabase for nula.
 	 *
 	 * @access public
-	 * @return object
+	 * @return object - Instância de conexão da classe.
 	 */
 	public static function getInstance(){
 		if (self::$SKDatabase === null){
@@ -84,7 +85,7 @@ class SKDatabase {
 	 *
 	 * @access public
 	 * @param string $sql - Query a ser executada.
-	 * @return mixed
+	 * @return object - Retorna o resultado da consulta.
 	 */
 	public function query($sql){
 		$result = mysql_query($sql, $this->connection);
@@ -98,8 +99,8 @@ class SKDatabase {
 	 * Executa uma query (SELECT), aplicando o método <b>mysql_fetch_assoc()</b>.
 	 *
 	 * @access public
-	 * @param string $sql - Query a ser executada.
-	 * @return array
+	 * @param string $sql - Consulta a ser executada.
+	 * @return array - Lista de dados retornados da query;
 	 */
 	public function find($sql){
 		$rows = array();
@@ -116,7 +117,7 @@ class SKDatabase {
 	 *
 	 * @access public
 	 * @param string $sql - Query a ser executada.
-	 * @param string $key - Atributo chave a ser procurado na query.
+	 * @param string $key - Atributo chave a ser procurado na lista.
 	 * @return mixed
 	 */
 	 // TODO: Refatorar nome do método.
@@ -136,7 +137,7 @@ class SKDatabase {
 	 * @access public
 	 * @param string $table - Tabela onde serão salvos os dados.
 	 * @param array $data - Dados a serem inseridos no banco.
-	 * @return mixed Int com o número do novo registro, aplicando o método <b>mysql_insert_id()</b> ou false caso nada tenha ocorrido
+	 * @return mixed - Int com o número do novo registro, aplicando o método <b>mysql_insert_id()</b> ou false caso nada tenha ocorrido
 	 */
 	public function save($table, $data) {
 		$query = "INSERT INTO `".$table."` ";
@@ -162,8 +163,10 @@ class SKDatabase {
 	 *
 	 * @access public
 	 * @param string $string - String Sql.
-	 * @return string
+	 * @return string -
+	 * @ignored
 	 */
+	// TODO - Código duplicado.
 	function escape($string) {
 		if(get_magic_quotes_runtime()) $string = stripslashes($string);
 		return mysql_real_escape_string($string);

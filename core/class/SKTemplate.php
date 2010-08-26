@@ -40,20 +40,22 @@ class SKTemplate{
 	public $params = array();
 
 	/**
-	 * Renderiza a página
+	 * Renderiza a página.
 	 *
-	 * @param string $filename Arquivo da página a ser renderizada.
-	 * @return array
+	 * @param string $filename - Arquivo da página a ser renderizada.
+	 * @return string - Código fonte do template renderizado.
 	 */
 	public function renderPage($filename) {
-		if($this->gzip && ini_get('zlib.output_compression') != 1)	ob_start('ob_gzhandler');
+		if($this->gzip && ini_get('zlib.output_compression') != 1){
+			ob_start('ob_gzhandler');
+		}	
 		return $this->fetch($filename);
 	}
 
 	/**
-	 * Renderiza view usando uma página específica.
+	 * Renderiza uma view dentro do template.
 	 *
-	 * @param string $view Nome da view a ser renderizada
+	 * @param string $view - Nome da view a ser renderizada.
 	 * @return void
 	 */
 	public function render($view) {
@@ -62,9 +64,9 @@ class SKTemplate{
 	}
 
 	/**
-	 * Renderiza qualquer parte especificada da página especificada.
+	 * Renderiza uma partial dentro do template.
 	 *
-	 * @param string $view Nome do Arquivo da view a ser renderizada
+	 * @param string $view - Nome do Arquivo da view a ser renderizada.
 	 * @return void
 	 */
 	public function partial($view) {
@@ -87,20 +89,20 @@ class SKTemplate{
 	}
 
 	/**
-	 * Obtém a variável especificada atribuída.
+	 * Obtém uma variável da instância SKTemplate.
 	 *
-	 * @param   string $name Nome da variável
-	 * @return  mixed
+	 * @param   string $name - Nome da variável.
+	 * @return  mixed - Valor da variável.
 	 */
 	public function get($name)	{
 		return $this->variables[$name];
 	}
 
 	/**
-	 * Adiciona valores ao índice de $variables[$name].
+	 * Adiciona valores a uma variável do template.
 	 *
-	 * @param string $name Nome da variável
-	 * @param mixed $value Valor a ser atribuido a variável 
+	 * @param string $name - Nome da variável.
+	 * @param mixed $value - Valor a ser atribuido a variável.
 	 * @return void
 	 */
 	public function add($name, $value) {
@@ -108,9 +110,9 @@ class SKTemplate{
 	}
 
 	/**
-	 * Limpa os valores do índice de $variables[$name].
+	 * Limpa valores de uma variável do template.
 	 *
-	 * @param string $name Índice de $variables a ser limpo
+	 * @param string $name - Índice de $variables a ser limpo
 	 * @return void
 	 */
 	public function clear($name) {
@@ -118,7 +120,7 @@ class SKTemplate{
 	}
 
 	/**
-	 * Limpa todas os índices de $variables[].
+	 * Limpa todos os valores das variáveis do template.
 	 *
 	 * @return void
 	 */
@@ -126,33 +128,33 @@ class SKTemplate{
 		$this->variables = array();
 	}
 
-	/**
-	 * Carrega o conteúdo dos índices de $variables.
-	 *
-	 * @param   string  $name - Nome do índice.
-	 * @param   string  $filename - Arquivo correspondente ao índice.
-	 * @return  string
-	 */
-	function load($name, $filename)	{
-		//if (!is_file($filename)) { $this->variables[$name] = "<strong>{$filename}</strong> not found."; return; }
-		$content = $this->fetch($filename);
-		$this->variables[$name] = $content;
-		return $content;
-	}
+	// /**
+	//  * 
+	//  *
+	//  * @param   string  $name - Nome do índice.
+	//  * @param   string  $filename - Arquivo correspondente ao índice.
+	//  * @return  string	
+	//  */
+	// function load($name, $filename)	{
+	// 	//if (!is_file($filename)) { $this->variables[$name] = "<strong>{$filename}</strong> not found."; return; }
+	// 	$content = $this->fetch($filename);
+	// 	$this->variables[$name] = $content;
+	// 	return $content;
+	// }
 
-	/**
-	 * Analisa o arquivo especificado $filename com um array $dados.
-	 * Ideal para analisar pedaços de código.
-	 *
-	 * @param   string  $filename - Arquivo da página a ser renderizada.
-	 * @param   array   $data
-	 * @return  string
-	 */
-	function parse($filename, $data) {
-		$tpl = new Template();
-		foreach ($data as $k => $v)
-		$tpl->add($k, $v);
-		return $tpl->fetch($filename);
-	}
+	// /**
+	//  * Analisa o arquivo especificado $filename com um array $dados.
+	//  * Ideal para analisar pedaços de código.
+	//  *
+	//  * @param   string  $filename - Arquivo da página a ser renderizada.
+	//  * @param   array   $data
+	//  * @return  string - Retorna o arquivo processado. 
+	//  */
+	// function parse($filename, $data) {
+	// 	$tpl = new Template();
+	// 	foreach ($data as $k => $v)
+	// 		$tpl->add($k, $v);
+	// 	return $tpl->fetch($filename);
+	// }
 }
 ?>
