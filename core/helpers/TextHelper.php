@@ -11,9 +11,9 @@ class TextHelper extends SKHelper {
 	 * Converte um texto para o formato de slug, retirando os acentos e espaços.
 	 *
 	 * @access public
-	 * @param text $string
+	 * @param text $string - Texto a ser formatado.
 	 * @param string $space - Caractere usado no lugar do espaço (default: -).
-	 * @return string
+	 * @return string -  Texto formatado.
 	 */
 	function toSlug($text, $space = "-") {
 		$text = trim($text);
@@ -37,10 +37,10 @@ class TextHelper extends SKHelper {
 	 * Adiciona um link no final de um post para leitura completa do post.
 	 *
 	 * @access public
-	 * @param string $post
-	 * @param string $read_more
-	 * @param string $url
-	 * @return array
+	 * @param array $post - Texto do Post.
+	 * @param string $read_more - Mensagem padrão para leitura completa do post.
+	 * @param string $url - Url do post.
+	 * @return array - Texto incrementado do link para leitura completa do post.
 	 */
 	function blog($post, $read_more = 'Read more...',$url) {
 		$text = explode('<!--more-->',$post['content']);
@@ -54,8 +54,8 @@ class TextHelper extends SKHelper {
 	 * Procura Tags de usuário twitter e hasttags para consulta no twitter e adiciona link na tag encontrada.
 	 *
 	 * @access public
-	 * @param string $text
-	 * @return string
+	 * @param string $text - Texto a ser verificado.
+	 * @return string - Texto Modificado pelo método.
 	 */
 	function twitterify($ret) {
 	  $ret = preg_replace("#(^|[\n ])([\w]+?://[\w]+[^ \"\n\r\t< ]*)#", "\\1<a href=\"\\2\" target=\"_blank\">\\2</a>", $ret);
@@ -117,10 +117,10 @@ class TextHelper extends SKHelper {
 
 
 	/**
-	* Tira de determinado texto de todos os links.
+	* Tira de determinado texto todos os links.
 	*
-	* @param string $text
-	* @return string
+	* @param string $text - Texto a ser verificado.
+	* @return string - Texto sem links.
 	* @access public
 	*/
 	function stripLinks($text) {
@@ -131,7 +131,8 @@ class TextHelper extends SKHelper {
 	 * Adiciona links (<a href =....) a um determinado texto, encontrando texto que começa com
 	 * strings como http://.
 	 *
-	 * @param string $text
+	 * @param string $text - Texto a ser analisado.
+	 * @return string - Texto com inclusão de links.
 
 	 */
 	function linkfy($text) {
@@ -151,10 +152,10 @@ class TextHelper extends SKHelper {
 	 * - `exact` Se falço, $text não será cortado do texto completo.
 	 * - `html` Se verdadeiro , as tags HTML serão tratadas corretamente.
 	 *
-	 * @param string  $text
-	 * @param integer $length
-	 * @param array $options
-	 * @return string
+	 * @param string  $text - Texto a ser analisado.
+	 * @param integer $length - Tamanho padrão para truncamento.
+	 * @param array $options -
+	 * @return string - Texto truncado.
 	 * @access public
 	 */
 	function truncate($text, $length = 100, $options = array()) {
@@ -249,11 +250,11 @@ class TextHelper extends SKHelper {
 	/**
 	 * Extrai um trecho do texto em torno da frase com um número de caracteres de cada lado determinado pelo raio.
 	 *
-	 * @param string $text
-	 * @param string $phrase
-	 * @param integer $radius
-	 * @param string $ending
-	 * @return string
+	 * @param string $text - Texto a ser analisado.
+	 * @param string $phrase - Frase para extração.
+	 * @param integer $radius - Tamanho padrão de caracteres excedentes.
+	 * @param string $ending - Texto padrão para fechamento do texto analisado.
+	 * @return string - Texto com as modificações.
 	 * @access public
 	 */
 	function excerpt($text, $phrase, $radius = 100, $ending = '...') {
@@ -294,11 +295,10 @@ class TextHelper extends SKHelper {
 
 
 	/**
-	 * Traduz o Texto usando a i18n.
+	 * Traduz o Texto usando a variável de internacionalização i18n.
 	 *
 	 * @param string $key - Chave da palavra no arquivo de i18n.
 	 * @param boolean $ucfirst
-	 *
 	 * @return string - O texto traduzido.
 	 * @access public
 	 */

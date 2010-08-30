@@ -16,7 +16,7 @@ class ImageHelper extends SKHelper {
 	 * @param String $width - Largura da imagem.
 	 * @param String $crop - Local a ser cortado.
 	 * @param Array $options - Parâmetros.
-	 * @return String
+	 * @return string - Código html para inclusão de imagens.
 	 */
 	public function resize($image,$height,$width,$crop = "",$options = array()) {
 		$img = '<img src="'.IMAGES_PATH."image.php/".substr($image,strrpos($image,"/"),strlen($image))."?width=".$width."&height=".$height."&cropratio=".$crop."&image=".IMAGES_PATH.$image.'" ';
@@ -33,7 +33,7 @@ class ImageHelper extends SKHelper {
 	 * @access public
 	 * @param string $email - Email para verificação de imagem.
 	 * @param string $default
-	 * @return string
+	 * @return string - Código html de imagem para visualização de imagem hospedada no gravatar.
 	 */
 	public function gravatar($email, $default = null) {
 		$gravatarMd5 = "";

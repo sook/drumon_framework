@@ -100,7 +100,7 @@ class SKDatabase {
 	 *
 	 * @access public
 	 * @param string $sql - Consulta a ser executada.
-	 * @return array - Lista de dados retornados da query;
+	 * @return array - Lista de dados retornados da query.
 	 */
 	public function find($sql){
 		$rows = array();
@@ -118,7 +118,7 @@ class SKDatabase {
 	 * @access public
 	 * @param string $sql - Query a ser executada.
 	 * @param string $key - Atributo chave a ser procurado na lista.
-	 * @return mixed
+	 * @return array - Lista de dados retornados da query.
 	 */
 	 // TODO: Refatorar nome do método.
 	public function find_with_key($sql,$key){
@@ -163,7 +163,7 @@ class SKDatabase {
 	 *
 	 * @access public
 	 * @param string $string - String Sql.
-	 * @return string -
+	 * @return string - String com escape.
 	 * @ignored
 	 */
 	// TODO - Código duplicado.

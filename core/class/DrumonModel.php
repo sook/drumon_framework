@@ -171,7 +171,7 @@ abstract class DrumonModel {
 	 *
 	 * @access public
 	 * @param string $sql - Query a ser executada.
-	 * @return array
+	 * @return array - Lista de dados retornados da query.
 	 */
 	public function query($sql) {
 		return $this->connection->find($sql);
@@ -375,8 +375,8 @@ abstract class DrumonModel {
 	 *     $post = new Post();<br/>
 	 *     $posts = $post->findFirst(1, {@link findAll() array(...)}<br/>
 	 * @access public
-	 * @param array $param - Parâmetros da Consulta
-	 * @return mixed - Array com os valores do elemento consultado ou false caso não encontre nenhum elemento
+	 * @param array $param - Parâmetros da Consulta.
+	 * @return mixed - Array com os valores do elemento consultado ou false caso não encontre nenhum elemento.
 	 */
 	public function findFirst($params = array()) {
 		$params = array_merge($this->params, $params);

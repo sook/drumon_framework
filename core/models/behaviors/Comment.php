@@ -11,7 +11,7 @@ class Comment extends AppBehavior {
 	 *
 	 * @access public
 	 * @param string $id - ID a ser utilizado pela cláusula WHERE.
-	 * @return array
+	 * @return array - Lista de dados retornados pela query.
 	 */
 	public function findComments($id) {
 		$recordType = "Modules::".get_class($this->model);
@@ -29,7 +29,7 @@ class Comment extends AppBehavior {
 	 *
 	 * @access public
 	 * @param string $id - ID a ser utilizado pela cláusula WHERE.
-	 * @return integer
+	 * @return integer - Total de comentários.
 	 */
 	public function countComments($id) {
 		$recordType = "Modules::".get_class($this->model);
@@ -43,7 +43,7 @@ class Comment extends AppBehavior {
 	 *
 	 * @access public
 	 * @param array $data - Campos de comentário a serem salvos.
-	 * @return array
+	 * @return boolean - True ou False se o comentário for inserido com sucesso.  
 	 */
 	 //TODO: Executar SQL Diretamente, e verificar a necessidade da variável noFlags em DrumonModel
 	public function saveComment($data) {

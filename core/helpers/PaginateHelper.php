@@ -10,9 +10,8 @@ class PaginateHelper extends SKHelper {
 	/**
 	 * Carrega a classe definindo seu idioma.
 	 *
-	 * @param string $i18n
+	 * @param string $i18n - Referência da variável com os dados de internacionalização.
 	 * @access public
-	 * @param array $method
 	 */
 	public function __construct($i18n){
 		parent::__construct($i18n);
@@ -22,8 +21,8 @@ class PaginateHelper extends SKHelper {
 	 * Verifica a existência de paginação.
 	 *
 	 * @access public
-	 * @param object $page
-	 * @return bool
+	 * @param object $page - Referência a uma instância de Page.
+	 * @return bool - True se a ultima página for maior que 1, False se não.
 	 */
 	public function hasPage($page) {
 		return $page->hasPage();
@@ -44,8 +43,8 @@ class PaginateHelper extends SKHelper {
 	 * Verifica a existência de página anterior.
 	 *
 	 * @access public
-	 * @param object $page
-	 * @return bool
+	 * @param object $page - Referência a uma instância de Page.
+	 * @return bool - True se a pagina atual for maior que 1 , false se não.
 	 */
 	public function hasPrev($page) {
 		return $page->hasPrevPage();
@@ -55,8 +54,8 @@ class PaginateHelper extends SKHelper {
 	 * Retorna o número da página atual.
 	 *
 	 * @access public
-	 * @param object $page
-	 * @return int
+	 * @param object $page - Referência a uma instância de Page.
+	 * @return int - Número da página atual.
 	 */
 	public function current($page) {
 		return $page->currentPage;
@@ -66,8 +65,8 @@ class PaginateHelper extends SKHelper {
 	 * Retorna a URL da próxima página.
 	 *
 	 * @access public
-	 * @param object $page
-	 * @return string
+	 * @param object $page - Referência a uma instância de Page.
+	 * @return string - 
 	 */
 	public function urlNext($page, $url = "") {
 		return $this->getFormatedUrl($page->getNextPage(), $url);
@@ -77,9 +76,9 @@ class PaginateHelper extends SKHelper {
 	 * Retorna a URL da página anterior.
 	 *
 	 * @access Public
-	 * @param object $page
-	 * @param string $url
-	 * @return string
+	 * @param object $page - Referência a uma instância de Page.
+	 * @param string $url - Url para formatação do link.
+	 * @return string - Url formatada para visualização da página anterior.
 	 */
 	public function urlPrev($page, $url = "") {
 		return $this->getFormatedUrl($page->getPrevPage(), $url);
@@ -89,9 +88,9 @@ class PaginateHelper extends SKHelper {
 	 * Retorna a URL da ultima página.
 	 *
 	 * @access public
-	 * @param object $page
-	 * @param string $url
-	 * @return string
+	 * @param object $page - Referência a uma instância de Page.
+	 * @param string $url - Url para formatação do link.
+	 * @return string - Url formatada para visualização da ultima página.
 	 */
 	public function urlLastPage($page, $url = "") {
 		return $this->getFormatedUrl($page->getLastPage(), $url);
@@ -101,9 +100,9 @@ class PaginateHelper extends SKHelper {
 	 * Retorna a paginação em html.
 	 *
 	 * @access public
-	 * @param object $page
-	 * @param array $options
-	 * @return string
+	 * @param object $page - Referência a uma instância de Page.
+	 * @param array $options - Lista de opções para construção da div de paginação.
+	 * @return string - Código html da paginação.
 	 */
 	public function show($page, $options = array()) {
 		if(!$this->hasPage($page)) return '';
@@ -131,9 +130,9 @@ class PaginateHelper extends SKHelper {
 	 * Retorna a paginação anterior em html.
 	 *
 	 * @access public
-	 * @param object $page
-	 * @param array $options
-	 * @return string
+	 * @param object $page - Referência a uma instância de Page.
+	 * @param array $options - Lista de opções para construção da div de paginação.
+	 * @return string - Código html da paginação.
 	 */
 	public function _prev($page,$options) {
 		$defaults = array('show'=>true);
@@ -156,9 +155,9 @@ class PaginateHelper extends SKHelper {
 	 * Retorna a paginação em html.
 	 *
 	 * @access public
-	 * @param object $page
-	 * @param array $options
-	 * @return string
+	 * @param object $page - Referência a uma instância de Page.
+	 * @param array $options - Lista de opções para construção da div de paginação.
+	 * @return string - Código html da paginação.
 	 */
 	public function _pages($page,$options) {
 		$range = $options['range'];
@@ -198,9 +197,9 @@ class PaginateHelper extends SKHelper {
 	 * Retorna a próxima paginação em relação a atual.
 	 *
 	 * @access public
-	 * @param object $page
-	 * @param array $options
-	 * @return string
+	 * @param object $page - Referência a uma instância de Page.
+	 * @param array $options - Lista de opções para construção da div de paginação.
+	 * @return string - Código html da paginação.
 	 */
 	public function _next($page,$options) {
 		$defaults = array('show'=>true);
@@ -223,8 +222,8 @@ class PaginateHelper extends SKHelper {
 	 * Retorna as informações de geração de paginação.
 	 *
 	 * @access public
-	 * @param object $page
-	 * @return string
+	 * @param object $page - Referência a uma instância de Page.
+	 * @return string - Informações de geração de paginação.
 	 */
 	public function info($page) {
 		$current_page = $page->currentPage;
@@ -253,12 +252,12 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna a URL formatada.
+	 * Retorna a URL formatada para paginação.
 	 *
 	 * @access public
-	 * @param integer $pageNumber
-	 * @param string $url
-	 * @return string
+	 * @param integer $pageNumber - Número da página.
+	 * @param string $url - Url para concatenação.
+	 * @return string - Url completa com o link de paginação.
 	 */
 	public function getFormatedUrl($pageNumber, $url = "") {
 		$params = "";
@@ -270,10 +269,10 @@ class PaginateHelper extends SKHelper {
 	}
 
 	/**
-	 * Retorna o fullpath da pagina com as variaveis get.
+	 * Retorna o fullpath da pagina com as variáveis get.
 	 *
 	 * @access private
-	 * @return string
+	 * @return string - Url completa com variáveis get.
 	 */
 	private function getURL(){
 		$s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "";
@@ -286,9 +285,9 @@ class PaginateHelper extends SKHelper {
 	 * Remove um texto de outro texto.
 	 *
 	 * @access private
-	 * @param string $1
-	 * @param string $2
-	 * @return string
+	 * @param string $s1 - Texto que será extraído do outro.
+	 * @param string $s2 - Texto alvo de extração.
+	 * @return string - Texto com com extração da string determinada.
 	 */
 	private function strleft($s1, $s2) {
 		return substr($s1, 0, strpos($s1, $s2));

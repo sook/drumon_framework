@@ -14,7 +14,7 @@ class DateHelper extends SKHelper {
 	 *
 	 * @access public
 	 * @param string $date - Data a ser processada.
-	 * @return time
+	 * @return string - Data no formato padrão da i18n.
 	 */
 	function inWords($date) {
 		if($this->i18n['lang'] === 'pt-br'){
@@ -41,7 +41,7 @@ class DateHelper extends SKHelper {
 	 *
 	 * @access public
 	 * @param string $date - Data a ser processada.
-	 * @return string
+	 * @return string - Data de acordo com o padrão da i18n.
 	 */
 	function show($date = null) {
 		$format = str_replace("%", "", $this->i18n['date']['default']);

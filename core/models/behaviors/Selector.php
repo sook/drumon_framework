@@ -12,8 +12,8 @@ class Selector extends AppBehavior {
 	 * Busca todos os registros para o model.
 	 *
 	 * @access public
-	 * @param array $params 
-	 * @return array
+	 * @param array $params - Parâmetros para select na cláusula WHERE.
+	 * @return array - Lista de dados retornados da query.
 	 */
 	public function findAllModelsUsingSelector(&$params) {
 
@@ -52,8 +52,10 @@ class Selector extends AppBehavior {
 		return $result_selector;
 	}
 	
+	
+	//TODO - Checar caso de uso.
 	/**
-	 * Busca todos os registros para o model.
+	 * 
 	 *
 	 * @access private
 	 * @param array $label

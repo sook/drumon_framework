@@ -94,7 +94,7 @@ class HtmlHelper extends SKHelper {
 	 * @access public
 	 * @param string|array $files - Nome do(s) arquivo(s) css.
 	 * @param boolean $inline - Se true ele retorna o html para inserir o css.
-	 * @return void|string
+	 * @return void|string - String com o código html para adção do arquivo CSS se a opção inline estiver true.
 	 */
 	function addcss($files, $inline = false) {
 		$files = is_array($files) ? $files : array($files);
@@ -115,7 +115,7 @@ class HtmlHelper extends SKHelper {
 	 *
 	 * @access public
 	 * @param string|array $files - Nome do(s) arquivo(s) css.
-	 * @return string
+	 * @return string - String com o código html para adção do arquivo CSS.
 	 */
 	// Print the css on page.
 	function showcss($files = array()) {
@@ -134,7 +134,7 @@ class HtmlHelper extends SKHelper {
 	 * @access public
 	 * @param string|array $files - Nome do(s) arquivo(s) javascript.
 	 * @param boolean $inline - Se true ele retorna o html para inserir o javascript.
-	 * @return void|string
+	 * @return void|string - String com o código html para adção do arquivo JS se a opção inline estiver true.
 	 */
 	function addjs($files, $inline = false) {
 		$files = is_array($files) ? $files : array($files);

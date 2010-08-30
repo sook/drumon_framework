@@ -54,7 +54,7 @@ class Page extends AppBehavior {
 	 * @access public
 	 * @param int $pages - Quantidade de páginas.
 	 * @param array $params - Parâmetros a serem utilizados pela cláusula WHERE.
-	 * @return array
+	 * @return object - Objeto do tipo página.
 	 */
 	function paginate($page = 0, $params = array()) {
 		if(!isset($page)) {
@@ -97,7 +97,7 @@ class Page extends AppBehavior {
 	 * Retorna a paginação.
 	 *
 	 * @access public
-	 * @return array
+	 * @return array - Lista de numeração das páginas.
 	 */
 	function getPages() {
 		$pages = array();
@@ -111,7 +111,7 @@ class Page extends AppBehavior {
 	 * Retorna qual é a próxima página.
 	 *
 	 * @access public
-	 * @return boolean
+	 * @return boolean - True se o número de páginas for maior que a página atual.
 	 */
 	function hasNextPage() {
 		if( count($this->getPages()) > $this->currentPage) {
@@ -124,7 +124,7 @@ class Page extends AppBehavior {
 	 * Verifica a existência de página anterior.
 	 *
 	 * @access public
-	 * @return boolean
+	 * @return boolean - True se a pagina atual for maior que 1.
 	 */
 	function hasPrevPage() {
 		return ($this->currentPage > 1)? true : false;
@@ -134,7 +134,7 @@ class Page extends AppBehavior {
 	 * Retorna a próxima página.
 	 *
 	 * @access public
-	 * @return int
+	 * @return int - Valor da próxima página.
 	 */
 	function getNextPage() {
 		return $this->currentPage + 1;
@@ -144,7 +144,7 @@ class Page extends AppBehavior {
 	 * Retorna a página anterior.
 	 *
 	 * @access public
-	 * @return int
+	 * @return int - Valor da página anterior.
 	 */
 	function getPrevPage() {
 		return $this->currentPage - 1;
@@ -154,7 +154,7 @@ class Page extends AppBehavior {
 	 * Retorna a ultima página.
 	 *
 	 * @access public
-	 * @return int
+	 * @return int - Valor da ultima página.
 	 */
 	function getLastPage() {
 		$nPagina = count($this->getPages());
@@ -165,7 +165,7 @@ class Page extends AppBehavior {
 	 * Verifica a existência de paginação.
 	 *
 	 * @access public
-	 * @return array
+	 * @return boolean - True se a ultima página for maior que 1, False se não.
 	 */
 	function hasPage() {
 		return ($this->getLastPage() > 1) ? true : false;

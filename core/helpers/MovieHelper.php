@@ -20,7 +20,7 @@ class MovieHelper extends SKHelper {
 	 *
 	 * @param string $url - Url do vídeo.
 	 * @access public
-	 * @return mixed
+	 * @return mixed - String com o ID do vídeo ou false se a url não for válida.
 	 */
 	private function parseUrl($url) {
 		if (preg_match('/watch\?v\=([A-Za-z0-9_-]+)/', $url, $matches)) {
@@ -39,7 +39,7 @@ class MovieHelper extends SKHelper {
 	 *
 	 * @param string $id
 	 * @access public
-	 * @return array
+	 * @return array - Lista de parâmetros para exibição de vídeos vimeo.
 	 */
 	private function getClipInfo($id) {
 		$clip = DomDocument::load('http://vimeo.com/api/clip/' . $id . '.xml');
@@ -69,7 +69,7 @@ class MovieHelper extends SKHelper {
 	 * @param string $width - Largura do object.
 	 * @param string $height - Altura do object.
 	 * @access public
-	 * @return mixed
+	 * @return mixed - String Html do object do vídeo.
 	 */
 	public function movie($url, $width = 480, $height = 385) {
 		$id = $this->parseUrl($url);
@@ -89,7 +89,7 @@ class MovieHelper extends SKHelper {
 	 * @param string $url - Url para extração do identificador do video.
 	 * @param string $sizeId - Id para Preview da imagem só recebe valores de 1 a 3.
 	 * @access public
-	 * @return mixed
+	 * @return mixed - Url da imagem de previsualização do video.
 	 */
 	public function imageUrl($url, $sizeId = 1) {
 		$id = $this->parseUrl($url);
@@ -113,7 +113,7 @@ class MovieHelper extends SKHelper {
 	 * @param string $height - Altura do preview.
 	 * @param string $alt - Parâmetro html alt do preview.
 	 * @access public
-	 * @return string
+	 * @return string - Html da imagem de previsualização do video.
 	 */
 	public function showImage($url, $sizeId = 1, $width = 130, $height = 97, $alt = 'Video screenshot') {
 		return "<img src='".$this->imageUrl($url, $sizeId)."' width='".$width."' height='".$height."' border='0' alt='".$alt."' title='".$alt."' />";
