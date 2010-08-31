@@ -20,10 +20,10 @@
 
 	include(ROOT.'/config/routes.php');
 	include(CORE.'/class/RequestHandler.php');
-	include(CORE.'/class/SKHelper.php');
-	include(CORE.'/class/SKTemplate.php');
+	include(CORE.'/class/Helper.php');
+	include(CORE.'/class/Template.php');
 	include(CORE.'/class/DrumonModel.php'); // TODO: Desacoplar sem perder perfomane
-	include(CORE.'/class/SKController.php');
+	include(CORE.'/class/Controller.php');
 	include(ROOT.'/controllers/AppController.php');
 
 	/**

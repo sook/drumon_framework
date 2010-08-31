@@ -1,13 +1,16 @@
 <?php
-
 /**
+ * Drumon Framework: Build fast web applications
+ * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
+ * Licensed under GNU General Public License.
+ *
  * Classe abstrata que fornece suporte a classe base de controlador.
  *
  * @package class
  * @abstract
  * @author Sook contato@sook.com.br
  */
-abstract class SKController {
+abstract class Controller {
 	
 	/** 
 	 * Referência da variável com os dados de internacionalização.
@@ -75,7 +78,7 @@ abstract class SKController {
 	public function __construct($request,$i18n){
 		$this->i18n = $i18n;
 		$this->params = $request->params;
-		$this->template = new SKTemplate();
+		$this->template = new Template();
 		$this->request = $request;
 	}
 

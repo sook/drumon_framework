@@ -1,11 +1,15 @@
 <?
 /**
+ * Drumon Framework: Build fast web applications
+ * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
+ * Licensed under GNU General Public License.
+ *
  * Helper para trabalhar com imagens
  *
  * @author Sook contato@sook.com.br
  * @package helpers
  */
-class ImageHelper extends SKHelper {
+class ImageHelper extends Helper {
 
 	/**
 	 * Retorna código html da imagem redimensionada.

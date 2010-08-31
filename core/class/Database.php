@@ -1,11 +1,15 @@
 <?php
 /**
+ * Drumon Framework: Build fast web applications
+ * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
+ * Licensed under GNU General Public License.
+ *
  * Classe de banco de dados do framework.
  *
  * @package class
  * @author Sook contato@sook.com.br
  */
-class SKDatabase {
+class Database {
 	
 	/** 
 	 * Conexão do banco de dados.

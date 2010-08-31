@@ -1,11 +1,15 @@
 <?php
 /**
+ * Drumon Framework: Build fast web applications
+ * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
+ * Licensed under GNU General Public License.
+ *
  * Helper para trabalhar com Vídeos Youtube e Vimeo.
  *
  * @author Sook contato@sook.com.br
  * @package helpers
  */
-class MovieHelper extends SKHelper {
+class MovieHelper extends Helper {
 	
 	/** 
 	 * Armazena a opção de hospedagem do video (VIMEO ou Youtube)..

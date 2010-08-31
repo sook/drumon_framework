@@ -1,6 +1,6 @@
 <?php
 
-	class AppController extends SKController {
+	class AppController extends Controller {
 
 	}
 	

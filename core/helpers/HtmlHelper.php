@@ -1,12 +1,16 @@
 <?
 /**
+ * Drumon Framework: Build fast web applications
+ * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
+ * Licensed under GNU General Public License.
+ *
  * Helper para trabalhar com HTML.
  *
  * @author Sook contato@sook.com.br
  * @package helpers
  */
  // TODO: Alterar nome da função para padrão CamelCase
-class HtmlHelper extends SKHelper {
+class HtmlHelper extends Helper {
 	/** 
 	 * Armazena o nome dos arquivos css.
 	 *

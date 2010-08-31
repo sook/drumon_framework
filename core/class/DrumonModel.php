@@ -1,9 +1,13 @@
 <?php
-require(CORE."/class/SKDatabase.php");
+require(CORE."/class/Database.php");
 require(CORE.'/models/behaviors/AppBehavior.php');
 require(ROOT.'/models/AppModel.php');
 
 /**
+ * Drumon Framework: Build fast web applications
+ * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
+ * Licensed under GNU General Public License.
+ *
  * Classe abstrata que fornece suporte a classe base de modelo, para integração com o Sook CMS.
  *
  * @package class

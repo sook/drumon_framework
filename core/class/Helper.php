@@ -1,12 +1,16 @@
 <?
 /**
+ * Drumon Framework: Build fast web applications
+ * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
+ * Licensed under GNU General Public License.
+ *
  * Helpers do framework.
  *
  * @package class
  * @abstract
  * @author Sook contato@sook.com.br
  */
-abstract class SKHelper {
+abstract class Helper {
 	
 	/** 
 	 * Referência da variável com os dados de internacionalização.
