@@ -12,8 +12,8 @@ class Tag extends AppBehavior {
 	 * Retorna uma query com o id e o nome das tags do modelo.
 	 *
 	 * @access public
-	 * @param int $id
-	 * @return array
+	 * @param int $id - Id para ser comparado na cláusula WHERE.
+	 * @return array - Lista de dados retornados pela query.
 	 */
 	public function getTags($id) {
 		$recordType = "Modules::".get_class($this->model);
@@ -29,8 +29,8 @@ class Tag extends AppBehavior {
 	 * Realiza uma consulta retornando registros que contenham a tag específicada.
 	 *
 	 * @access public
-	 * @param array $params
-	 * @return array
+	 * @param array $params - Lista para extração das tags.
+	 * @return mixed - False se a quantidade de tags for igual a zero / Lista de tags retornadas da consulta. 
 	 */
 	public function findAllWithTags(&$params) {
 		$name = get_class($this->model);
@@ -42,8 +42,6 @@ class Tag extends AppBehavior {
 		foreach ($tags as $key => $value) {
 			$tags[$key] = '"'.$value.'"';
 		}
-		
-	
 		
 		$query_tags = 'SELECT * FROM core_module_records_tags WHERE record_type = \''.$recordType.'\' AND tag_name IN ('.implode(',',$tags).')';
 		
