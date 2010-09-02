@@ -122,7 +122,7 @@ abstract class DrumonModel {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->connection = SKDatabase::getInstance();
+		$this->connection = Database::getInstance();
 		if(empty($this->table)) {
 			$this->table = strtolower(get_class($this));
 		}

@@ -26,7 +26,7 @@ class Database {
 	 * @static
 	 * @var object
 	 */
-	private static $SKDatabase = null;
+	private static $Database = null;
 
 	/**
 	 * Efetua a conexão com o banco de dados.
@@ -45,10 +45,10 @@ class Database {
 	 * @return object - Instância de conexão da classe.
 	 */
 	public static function getInstance(){
-		if (self::$SKDatabase === null){
-			self::$SKDatabase = new SKDatabase();
+		if (self::$Database === null){
+			self::$Database = new Database();
 		}
-		return self::$SKDatabase;
+		return self::$Database;
 	}
 
 	/**
