@@ -1,6 +1,6 @@
 <?php
 	// Caminho para a pasta core do framework.
-	define('CORE', "../core");
+	define('CORE', "../drumon_core");
 	
 	// Application Paths
 	define('CSS_PATH', APP_DOMAIN.'/public/css/');
