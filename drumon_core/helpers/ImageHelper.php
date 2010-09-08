@@ -22,7 +22,7 @@ class ImageHelper extends Helper {
 	 * @param Array $options - Parâmetros.
 	 * @return string - Código html para inclusão de imagens.
 	 */
-	public function resize($image,$height,$width,$crop = "",$options = array()) {
+	public function resize($image,$width,$height,$crop = "",$options = array()) {
 		$img = '<img src="'.IMAGES_PATH."image.php/".substr($image,strrpos($image,"/"),strlen($image))."?width=".$width."&height=".$height."&cropratio=".$crop."&image=".IMAGES_PATH.$image.'" ';
 		foreach ($options as $key => $value) {
 			$img .= $key.'="'.$value.'" ';
