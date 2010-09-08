@@ -19,7 +19,7 @@ Para baixar o framework é simple, isso pode ser feito de duas formas:
 **Baixando o projeto livre de versionamento:**
 
 
-Acesse o site do projeto no endereço: [http://github.com/sook/drumon_framework](http://github.com/sook/drumon_framework) e clique no botão imagemaqui (localizado na parte superior direita da página). Descompacte em uma pasta no diretório raiz do seu servidor que possui o php5 instalado.
+Acesse o site do projeto no endereço: [http://github.com/sook/drumon_framework](http://github.com/sook/drumon_framework) e clique no botão ![Download Source](http://drumoncms.com.br/docs/api/media/btdwnsource.png "Source") (localizado na parte superior direita da página). Descompacte em uma pasta no diretório raiz do seu servidor que possui o php5 instalado.
 
 
 **Baixando utilizando o comando git:**
@@ -40,4 +40,4 @@ Na pasta **`app/config/`** estão os principais arquivos a serem configurados. N
 
   * ERROR - Define a página default para erro 404. Este arquivo está localizado na pasta **`app/public`**.
 
-Para alterar as configurações do banco de dados vá na pasta **`app/config/enviroments`** e escolha o arquivo relacionado ao ambiente que está trabalhando. Pronto, agora basta acessar o endereço da página no seu browser **`http://www.localhost/drumon_framework/app`**. Para mais informações de como construir sua aplicação utilizando este framework, acesse o guia de implementação do Drumon Framework, [http://http://www.drumoncms.com/] (clique aqui!).
+Para alterar as configurações do banco de dados vá na pasta **`app/config/enviroments`** e escolha o arquivo relacionado ao ambiente que está trabalhando. Pronto, agora basta acessar o endereço da página no seu browser **`http://www.localhost/drumon_framework/app`**. Para mais informações de como construir sua aplicação utilizando este framework, acesse o guia de implementação do Drumon Framework, [http://http://www.drumoncms.com/](clique aqui!).
