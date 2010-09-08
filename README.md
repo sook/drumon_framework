@@ -40,4 +40,4 @@ Na pasta **`app/config/`** estão os principais arquivos a serem configurados. N
 
   * ERROR - Define a página default para erro 404. Este arquivo está localizado na pasta **`app/public`**.
 
-Para alterar as configurações do banco de dados vá na pasta **`app/config/enviroments`** e escolha o arquivo relacionado ao ambiente que está trabalhando. Pronto, agora basta acessar o endereço da página no seu browser **`http://www.localhost/drumon_framework/app`**. Para mais informações de como construir sua aplicação utilizando este framework, acesse o guia de implementação do Drumon Framework, [http://http://www.drumoncms.com/](clique aqui!).
+Para alterar as configurações do banco de dados vá na pasta **`app/config/enviroments`** e escolha o arquivo relacionado ao ambiente que está trabalhando. Pronto, agora basta acessar o endereço da página no seu browser **`http://www.localhost/drumon_framework/app`**. Para mais informações de como construir sua aplicação utilizando este framework, acesse o guia de implementação do Drumon Framework, [clique aqui!](http://www.drumoncms.com/).

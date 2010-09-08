@@ -224,7 +224,9 @@ abstract class DrumonModel {
 	public function findAll($params = array()) {
 		$params = array_merge($this->params, $params);
 
-		$this->addBehaviorsContent(&$params);
+		if(!$this->addBehaviorsContent(&$params)){
+			return false;
+		}
 
 		$sql = "SELECT ".$params['fields']." FROM ".$this->table;
 		$sql .= " ".$params['join']." ";
@@ -232,9 +234,9 @@ abstract class DrumonModel {
 		$sql .= " ".$params['group_by'];
 		$sql .= " ORDER BY ".$params['order'];
 		$sql .= (!empty($params['limit'])? " LIMIT ".$params['limit']:"");
-
+		
 		$records = $this->connection->find_with_key($sql,$this->primaryKey);
-
+		
 		$record_size = count($records);
 		if($record_size === 0){
 			return false;
@@ -256,19 +258,30 @@ abstract class DrumonModel {
 		//Inclui nos registros seus selects e options.
 		if(in_array('selector',$params['include'])) {
 			// Se já houver selects não consulta
-			if(isset($this->cache['selects'])) {
+			
+			
+			//print_r($this->cache['selects']);
+			
+			if(!isset($this->cache['selects'])) {
 				$selects = $this->cache['selects'];
 				$name = get_class($this);
 				if(!empty($this->name)) $name = $this->name;
 				$recordType = "Modules::".$name;
 
 				$selects = $this->connection->find('SELECT * FROM core_select_options_records WHERE record_type = \''.$recordType.'\' AND record_id IN ('.$ids.')');
+			}else{
+				$selects = $this->cache['selects'];
 			}
+			
+			foreach ($records as $key => $value) {
+				$records[$key]['selectors'] = array();
+			}
+			
 			foreach ($selects as $select) {
 				if(is_array($records[$select['record_id']]['selects'])){
-					$records[$select['record_id']]['selects'][$select['select_type_alias']] = $select['select_option_name'];
+					$records[$select['record_id']]['selectors'][$select['select_type_alias']] = $select['select_option_name'];
 				}else{
-					$records[$select['record_id']]['selects'] = array($select['select_type_alias'] => $select['select_option_name']);
+					$records[$select['record_id']]['selectors'] = array($select['select_type_alias'] => $select['select_option_name']);
 				}
 			}
 		}
@@ -378,6 +391,7 @@ abstract class DrumonModel {
 	 *
 	 *     $post = new Post();<br/>
 	 *     $posts = $post->findFirst(1, {@link findAll() array(...)}<br/>
+	 * 
 	 * @access public
 	 * @param array $param - Parâmetros da Consulta.
 	 * @return mixed - Array com os valores do elemento consultado ou false caso não encontre nenhum elemento.
@@ -454,7 +468,7 @@ abstract class DrumonModel {
 	 */
 	public function addBehaviorsContent(&$params) {
 		// SELECTS
-		if (!empty($params['select'])) {
+		if (!empty($params['selector'])) {
 			if(!$this->cache['selects'] = $this->findAllModelsUsingSelector(&$params)) {
 				return false;
 			}
