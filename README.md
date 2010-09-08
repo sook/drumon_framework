@@ -1,3 +1,13 @@
+[Quick Start API](http://drumoncms.com/)
+================================
+
+O que é Drumon Framework? Para que serve?
+-----------------------------------------
+O Drumon Framework é um conjunto de código baseando na arquitetura MVC, a princípio este framework parece ser inútil, porém ele foi desenvolvido com o objetivo de tornar simples a implementação de aplicações que utilizam o sistema [Drumon](http://drumoncms.com/).
+
+
+Para todos os módulos que estiverem disponíveis no Drumon CMS, existirá no framework um modelo relacionado, com todas as funcionalidades pré-definidas, verifique na pasta **`core/`**. Por questão de simplicidade não está sendo utilizado nenhum outro framework, porém, caso queira, está flexível para adaptação. Para isso, é necessário ter um conhecimento mais profundo da linguagem PHP.
+
 <ol>
 	<li>
 		<span>O que é Drumon Framework? Para que serve?</span>
