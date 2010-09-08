@@ -1,22 +1,22 @@
 <?
 	/** 
-	 * Application Enviroment
+	 * Ambiente da aplicação
 	 * development - Usado durante desenvolvimento da sua aplicação.
-	 * production - Set your app to production mode.
+	 * production - Usado quando sua aplicação está em produção.
 	 */
 	define('ENV','development');
 	
-	// Your app language
-	// Set false to disable
+	// Linguagem da sua apicação.
+	// Sete false para desabilitar.
 	define('LANGUAGE','pt-br');
 	
-	// Default Helpers
-	//define('DEFAULT_HELPERS','');
-	define('DEFAULT_HELPERS','Html,Date,Text');
+	// Helpers carregados automaticamente.
+	// define('AUTOLOAD_HELPERS','');
+	define('AUTOLOAD_HELPERS','Html,Date,Text');
 	
 	// Set 404 Error page. 
 	define('ERROR_404','404.html');
 	
-	// Application custom configurations
+	// Configurações personalizadas de sua aplicação.
 	
 ?>
