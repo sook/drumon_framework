@@ -6,7 +6,7 @@
 			utilizam o sistema <a href="http://www.drumoncms.com/">Drumon</a>. 
 		</p>
 		<p>Para todos os módulos que estiverem disponíveis no Drumon CMS, existirá no framework um modelo relacionado, com todas as funcionalidades pré-definidas, 
-			verifique na pasta <span class="home_folder">core/</span>. Por questão de simplicidade não está sendo utilizado nenhum outro framework, 
+			verifique na pasta **`core/`**. Por questão de simplicidade não está sendo utilizado nenhum outro framework, 
 			porém, caso queira, está flexível para adaptação. Para isso, é necessário ter um conhecimento mais profundo 
 			da linguagem PHP.
 		</p>
