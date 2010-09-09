@@ -3,7 +3,9 @@
  * Drumon Framework: Build fast web applications
  * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
  * Licensed under GNU General Public License.
- *
+ */
+
+/**
  * Classe de paginação que será utilizada para listagem dos regitros do Drumon CMS.
  *
  * @author Sook contato@sook.com.br

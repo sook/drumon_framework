@@ -3,7 +3,9 @@
  * Drumon Framework: Build fast web applications
  * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
  * Licensed under GNU General Public License.
- *
+ */
+
+/**
  * Class to add route system in ours applications.
  * 
  * This class is based on DooPHP Router and dan (http://blog.sosedoff.com/) url router.

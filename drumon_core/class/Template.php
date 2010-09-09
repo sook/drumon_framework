@@ -3,7 +3,9 @@
  * Drumon Framework: Build fast web applications
  * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
  * Licensed under GNU General Public License.
- *
+ */
+
+/**
  * Classe para trabalhar com arquivos de template onde todas as views mais complexas podem utilizar para facilitar na mudança de layout.
  *
  * @package class
