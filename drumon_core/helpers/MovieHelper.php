@@ -1,12 +1,12 @@
 <?php
 /**
  * Drumon Framework: Build fast web applications
- * Copyright (C) 2010 Sook - Desenvolvendo inovaÁıes (http://www.sook.com.br)
+ * Copyright (C) 2010 Sook - Desenvolvendo inova√ß√µes (http://www.sook.com.br)
  * Licensed under GNU General Public License.
  */
 
 /**
- * Helper para trabalhar com VÌdeos Youtube e Vimeo.
+ * Helper para trabalhar com V√≠deos Youtube e Vimeo.
  *
  * @author Sook contato@sook.com.br
  * @package helpers
@@ -14,7 +14,7 @@
 class MovieHelper extends Helper {
 	
 	/** 
-	 * Armazena a opÁ„o de hospedagem do video (VIMEO ou Youtube)..
+	 * Armazena a op√ß√£o de hospedagem do video (VIMEO ou Youtube)..
 	 *
 	 * @access public
 	 * @var string
@@ -22,11 +22,11 @@ class MovieHelper extends Helper {
 	private $location;
 	
 	/**
-	 * Carrega a rota atravÈs da funÁ„o getRoute.
+	 * Carrega a rota atrav√©s da fun√ß√£o getRoute.
 	 *
-	 * @param string $url - Url do vÌdeo.
+	 * @param string $url - Url do v√≠deo.
 	 * @access public
-	 * @return mixed - String com o ID do vÌdeo ou false se a url n„o for v·lida.
+	 * @return mixed - String com o ID do v√≠deo ou false se a url n√£o for v√°lida.
 	 */
 	private function parseUrl($url) {
 		if (preg_match('/watch\?v\=([A-Za-z0-9_-]+)/', $url, $matches)) {
@@ -41,11 +41,11 @@ class MovieHelper extends Helper {
 	}
 	
 	/**
-	 * Retorna um array com par‚metros extraidos de um arquivo xml do vimeo.
+	 * Retorna um array com par√¢metros extraidos de um arquivo xml do vimeo.
 	 *
 	 * @param string $id
 	 * @access public
-	 * @return array - Lista de par‚metros para exibiÁ„o de vÌdeos vimeo.
+	 * @return array - Lista de par√¢metros para exibi√ß√£o de v√≠deos vimeo.
 	 */
 	private function getClipInfo($id) {
 		$clip = DomDocument::load('http://vimeo.com/api/clip/' . $id . '.xml');
@@ -69,13 +69,13 @@ class MovieHelper extends Helper {
 	}
 
 	/**
-	 * Retorna um object embed html do vÌdeo solicitado.
+	 * Retorna um object embed html do v√≠deo solicitado.
 	 *
-	 * @param string $url - Url para extraÁ„o do identificador do video.
+	 * @param string $url - Url para extra√ß√£o do identificador do video.
 	 * @param string $width - Largura do object.
 	 * @param string $height - Altura do object.
 	 * @access public
-	 * @return mixed - String Html do object do vÌdeo.
+	 * @return mixed - String Html do object do v√≠deo.
 	 */
 	public function movie($url, $width = 480, $height = 385) {
 		$id = $this->parseUrl($url);
@@ -92,10 +92,10 @@ class MovieHelper extends Helper {
 	/**
 	 * Retorna uma imagem de preview do video.
 	 *
-	 * @param string $url - Url para extraÁ„o do identificador do video.
-	 * @param string $sizeId - Id para Preview da imagem sÛ recebe valores de 1 a 3.
+	 * @param string $url - Url para extra√ß√£o do identificador do video.
+	 * @param string $sizeId - Id para Preview da imagem s√≥ recebe valores de 1 a 3.
 	 * @access public
-	 * @return mixed - Url da imagem de previsualizaÁ„o do video.
+	 * @return mixed - Url da imagem de previsualiza√ß√£o do video.
 	 */
 	public function imageUrl($url, $sizeId = 1) {
 		$id = $this->parseUrl($url);
@@ -111,15 +111,15 @@ class MovieHelper extends Helper {
 	}
 	
 	/**
-	 * Retorna o cÛdigo html da imagem de preview.
+	 * Retorna o c√≥digo html da imagem de preview.
 	 *
-	 * @param string $url - Url para extraÁ„o do identificador do video.
-	 * @param string $sizeId - Id para preview da imagem sÛ recebe valores de 1 a 3.
+	 * @param string $url - Url para extra√ß√£o do identificador do video.
+	 * @param string $sizeId - Id para preview da imagem s√≥ recebe valores de 1 a 3.
 	 * @param string $width - Largura do preview.
 	 * @param string $height - Altura do preview.
-	 * @param string $alt - Par‚metro html alt do preview.
+	 * @param string $alt - Par√¢metro html alt do preview.
 	 * @access public
-	 * @return string - Html da imagem de previsualizaÁ„o do video.
+	 * @return string - Html da imagem de previsualiza√ß√£o do video.
 	 */
 	public function showImage($url, $sizeId = 1, $width = 130, $height = 97, $alt = 'Video screenshot') {
 		return "<img src='".$this->imageUrl($url, $sizeId)."' width='".$width."' height='".$height."' border='0' alt='".$alt."' title='".$alt."' />";
