@@ -11,7 +11,7 @@
  * @package class
  * @author Sook contato@sook.com.br
  */
-class Template{
+class Template {
 	
 	/** 
 	 * Variáveis incluídas para serem utilizadas na view.
@@ -19,15 +19,15 @@ class Template{
 	 * @access private
 	 * @var array
 	 */
-	private $variables   = array();
+	private $variables = array();
 	
 	/** 
-	 * Armazena o status de utilização da livraria gzip.
+	 * Se tiver true comprime o conteúdo do html usando Gzip.
 	 *
 	 * @access public
 	 * @var boolean
 	 */
-	public $gzip       	 = true;
+	public $gzip = true;
 	
 	/** 
 	 * Armazena o diretório padrão das partials.
@@ -59,7 +59,7 @@ class Template{
 	}
 
 	/**
-	 * Renderiza uma view dentro do template.
+	 * Helper para renderizar uma view dentro do template.
 	 *
 	 * @param string $view - Nome da view a ser renderizada.
 	 * @return void
@@ -70,7 +70,7 @@ class Template{
 	}
 
 	/**
-	 * Renderiza uma partial dentro do template.
+	 * Helper para renderizar uma partial dentro do template.
 	 *
 	 * @param string $view - Nome do Arquivo da view a ser renderizada.
 	 * @return void
@@ -85,17 +85,17 @@ class Template{
 	 * @param   string $___filename
 	 * @return  string
 	 */
-	public function fetch($___filename) {
+	public function fetch($filename) {
 		ob_start();
 		extract($this->variables, EXTR_REFS | EXTR_OVERWRITE);
-		include($___filename);
-		$___content = ob_get_contents();
+		include($filename);
+		$content = ob_get_contents();
 		ob_end_clean();
-		return $___content;
+		return $content;
 	}
 
 	/**
-	 * Obtém uma variável da instância SKTemplate.
+	 * Obtém uma variável adicionada na view.
 	 *
 	 * @param   string $name - Nome da variável.
 	 * @return  mixed - Valor da variável.
@@ -105,10 +105,10 @@ class Template{
 	}
 
 	/**
-	 * Adiciona valores a uma variável do template.
+	 * Adiciona uma variável a view.
 	 *
 	 * @param string $name - Nome da variável.
-	 * @param mixed $value - Valor a ser atribuido a variável.
+	 * @param mixed $value - Valor a ser atribuído a variável.
 	 * @return void
 	 */
 	public function add($name, $value) {
@@ -116,51 +116,22 @@ class Template{
 	}
 
 	/**
-	 * Limpa valores de uma variável do template.
+	 * Remove uma variável do template.
 	 *
 	 * @param string $name - Índice de $variables a ser limpo
 	 * @return void
 	 */
-	public function clear($name) {
+	public function remove($name) {
 		unset($this->variables[$name]);
 	}
 
 	/**
-	 * Limpa todos os valores das variáveis do template.
+	 * Remove todas as variáveis do template.
 	 *
 	 * @return void
 	 */
-	public function clearAll()	{
+	public function removeAll()	{
 		$this->variables = array();
 	}
-
-	// /**
-	//  * 
-	//  *
-	//  * @param   string  $name - Nome do índice.
-	//  * @param   string  $filename - Arquivo correspondente ao índice.
-	//  * @return  string	
-	//  */
-	// function load($name, $filename)	{
-	// 	//if (!is_file($filename)) { $this->variables[$name] = "<strong>{$filename}</strong> not found."; return; }
-	// 	$content = $this->fetch($filename);
-	// 	$this->variables[$name] = $content;
-	// 	return $content;
-	// }
-
-	// /**
-	//  * Analisa o arquivo especificado $filename com um array $dados.
-	//  * Ideal para analisar pedaços de código.
-	//  *
-	//  * @param   string  $filename - Arquivo da página a ser renderizada.
-	//  * @param   array   $data
-	//  * @return  string - Retorna o arquivo processado. 
-	//  */
-	// function parse($filename, $data) {
-	// 	$tpl = new Template();
-	// 	foreach ($data as $k => $v)
-	// 		$tpl->add($k, $v);
-	// 	return $tpl->fetch($filename);
-	// }
 }
 ?>

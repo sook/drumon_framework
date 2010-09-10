@@ -77,11 +77,27 @@ abstract class Controller {
 	 * @param object $request - Instância do Request Handler.
 	 * @param array $i18n - Referência da variável com os dados de internacionalização.
 	 */
-	public function __construct($request,$i18n){
+	public function __construct($request,$i18n) {
 		$this->i18n = $i18n;
 		$this->params = $request->params;
 		$this->template = new Template();
 		$this->request = $request;
+	}
+	
+	/**
+	 * Executa ação, os seus filtros e redenriza a view.
+	 *
+	 * @access public
+	 * @param string $action - Ação a ser executada.
+	 * @return void
+	 */
+	public function execute($action) {
+		$this->beforeFilter();
+		$this->$action();
+		$this->afterFilter();
+		
+		$this->loadHelpers();
+		$this->render($action);
 	}
 
 	/**
@@ -108,7 +124,7 @@ abstract class Controller {
 	 * @param Mixed $value - Valores que sernao adicionados a chave no template.
 	 * @return void
 	 */
-	public function add($key, $value){
+	public function add($key, $value) {
 		$this->template->add($key, $value);
 	}
 
@@ -119,11 +135,9 @@ abstract class Controller {
 	 * @param string $view - View a ser renderizada.
 	 * @return void
 	 */
-	public function render($view){
+	public function render($view) {
 		$this->template->params = $this->params;
-		$this->loadHelpers();
 		$view = $view[0] == '/' ? substr($view, 1) : '/views/'.strtolower($this->request->controller_name).'/'.$view;
-
 		$content = $this->template->renderPage(ROOT.$view.".php");
 
 		// Para não redenrizar layout.
@@ -185,20 +199,6 @@ abstract class Controller {
 		header($status);
 	}
 
-	/**
-	 * Executa ação, os seus filtros e redenriza a view.
-	 *
-	 * @access public
-	 * @param string $action - Ação a ser executada.
-	 * @return void
-	 */
-	public function execute($action) {
-		$this->beforeFilter();
-		$this->$action();
-		$this->afterFilter();
-
-		$this->render($action);
-	}
 
 	/**
 	 * Seta os helpers a serem carregados.
@@ -221,8 +221,9 @@ abstract class Controller {
 	private function loadHelpers() {
 		// Helpers existentes no core.
 		$core_helpers = array('Date','Html','Image','Text','Paginate');
-		
-		$default_helpers = (DEFAULT_HELPERS === '') ? array() : explode(',',DEFAULT_HELPERS);
+		// Transforma a string de helpers em uma array.
+		$default_helpers = (AUTOLOAD_HELPERS === '') ? array() : explode(',',AUTOLOAD_HELPERS);
+		// Junta os helpers padrões com os helpers setados no controlador.
 		$this->helpers = array_merge($this->helpers, $default_helpers);
 		// Adiciona os helpers na view.
 		foreach ($this->helpers as $helper) {
