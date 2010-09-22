@@ -392,7 +392,7 @@ abstract class DrumonModel {
 	 * Procura o primeiro resultado na tabela.
 	 *
 	 *     $post = new Post();<br/>
-	 *     $posts = $post->findFirst(1, {@link findAll() array(...)}<br/>
+	 *     $posts = $post->findFirst(1, {@link findAll() [$params]}<br/>
 	 * 
 	 * @access public
 	 * @param array $param - Parâmetros da Consulta.
@@ -428,7 +428,7 @@ abstract class DrumonModel {
 	/**
 	 * Busca um registro.
 	 *     $post = new Post();<br/>
-	 *     $posts = $post->find(1, {@link findAll() array(...)})<br/>
+	 *     $posts = $post->find(1, {@link findAll() [$params]})<br/>
 	 * @access public
 	 * @param int|string $id - Código do registro a ser consultado.
 	 * @param array $params
@@ -520,6 +520,10 @@ abstract class DrumonModel {
 		}
 		require CORE.'/models/Module'.$super.'.php';
 		require ROOT.'/models/'.$model.'.php';
+	}
+	
+	public  function addVisit($id){
+		$this->execute('UPDATE '.$this->table.' set visits = visits+1 where id = '.$id);	
 	}
 }
 ?>

@@ -76,8 +76,8 @@ class HtmlHelper extends Helper {
 	 * Retorna pasta do módulo passado como valor.
 	 *
 	 * @access public
-	 * @param string $modulo - Nome do módulo.
-	 * @return string - Caminho para o módulo.
+	 * @param string $module - Nome do módulo a ser utilizado.
+	 * @return string - Url completa da localização do módulo.
 	 */
 	function module_path($module) {
 		return MODULES_PATH.$module;

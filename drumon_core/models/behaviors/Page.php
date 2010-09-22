@@ -62,8 +62,8 @@ class Page extends AppBehavior {
 	 * @param array $params - Parâmetros a serem utilizados pela cláusula WHERE.
 	 * @return object - Objeto do tipo página.
 	 */
-	function paginate($page = 0, $params = array()) {
-		if(!isset($page)) {
+	function paginate($page = 1, $params = array()) {
+		if(!isset($page) || $page == 0 ) {
 			$page = 1;
 		}
 		// Pega o numero de registro por página.
@@ -92,7 +92,6 @@ class Page extends AppBehavior {
 
 		// Consulta os registros de acordo com o limit.
 		$params['limit'] = $from.",".$this->perPage;
-
 		// Busca registros
 		$this->results = $this->model->findAll($params);
 

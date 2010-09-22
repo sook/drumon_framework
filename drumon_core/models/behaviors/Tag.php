@@ -42,7 +42,6 @@ class Tag extends AppBehavior {
 		$name = get_class($this->model);
 		if(!empty($this->model->name)) $name = $this->model->name;
 		$recordType = "Modules::".$name;
-		
 		$tags = explode(',',$params['tags']);
 		
 		foreach ($tags as $key => $value) {
@@ -50,7 +49,6 @@ class Tag extends AppBehavior {
 		}
 		
 		$query_tags = 'SELECT * FROM core_module_records_tags WHERE record_type = \''.$recordType.'\' AND tag_name IN ('.implode(',',$tags).')';
-		
 		if(count($query_tags) == 0){
 			return false;
 		}
