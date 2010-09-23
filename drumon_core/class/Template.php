@@ -89,9 +89,9 @@ class Template {
 		ob_start();
 		extract($this->variables, EXTR_REFS | EXTR_OVERWRITE);
 		include($filename);
-		$content = ob_get_contents();
+		$result = ob_get_contents();
 		ob_end_clean();
-		return $content;
+		return $result;
 	}
 
 	/**

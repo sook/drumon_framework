@@ -107,10 +107,10 @@ class HtmlHelper extends Helper {
 
 		$result = '';
 		if ($inline) {
-			foreach ($this->files as $file){
+			foreach ($files as $file){
 				$result.= '<link rel="stylesheet" href="'.CSS_PATH.$file.'" type="text/css" media="all"/>';
 			}
-			return result;
+			return $result;
 		}
 
 		$this->styleSheets = array_merge($this->styleSheets, $files);

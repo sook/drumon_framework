@@ -137,6 +137,7 @@ abstract class Controller {
 	 */
 	public function render($view) {
 		$this->template->params = $this->params;
+		
 		$view = $view[0] == '/' ? substr($view, 1) : '/views/'.strtolower($this->request->controller_name).'/'.$view;
 		$content = $this->template->renderPage(ROOT.$view.".php");
 

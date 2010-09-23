@@ -17,7 +17,7 @@ class TextHelper extends Helper {
 	 * Converte um texto para o formato de slug, retirando os acentos e espaços.
 	 *
 	 * @access public
-	 * @param text $string - Texto a ser formatado.
+	 * @param string $text - Texto a ser formatado.
 	 * @param string $space - Caractere usado no lugar do espaço (default: -).
 	 * @return string -  Texto formatado.
 	 */
