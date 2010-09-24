@@ -6,7 +6,7 @@
  */
 
 /**
- * Classe abstrata que fornece suporte a classe base de controlador.
+ * Classe abstrata que fornece suporte a classe base do controlador.
  *
  * @package class
  * @abstract
@@ -39,7 +39,7 @@ abstract class Controller {
 	protected $template;
 	
 	/** 
-	 * Arquivo de layout a ser usado pelo controlador.
+	 * Arquivo de layout a ser usado pelo controlador, padrão default.
 	 *
 	 * @access protected
 	 * @var string
@@ -47,7 +47,7 @@ abstract class Controller {
 	protected $layout = "default";
 	
 	/** 
-	 * Arquivos helper a serem usados pelo controlador.
+	 * Arquivos helpers a serem usados pelo controlador.
 	 *
 	 * @access protected
 	 * @var array
@@ -85,7 +85,7 @@ abstract class Controller {
 	}
 	
 	/**
-	 * Executa ação, os seus filtros e redenriza a view.
+	 * Executa ação carregando helpers, ações de filtro e renderiza a view referente a ação.
 	 *
 	 * @access public
 	 * @param string $action - Ação a ser executada.
@@ -117,7 +117,7 @@ abstract class Controller {
 	public function afterFilter() {}
 
 	/**
-	 * Adiciona valores às chaves.
+	 * Adiciona valores a variáveis utilizadas no template.
 	 *
 	 * @access public
 	 * @param String $key - Chave conteiner que se tornará uma variável no template.
@@ -172,12 +172,12 @@ abstract class Controller {
 				echo $total.'<br>';
 				}
 				echo '</div>';
-			}
-			die(); // Para garantir e não chamar 2 render.
 		}
+			die(); // Para garantir e não chamar 2 render.
+	}
 
 	/**
-	 * Redireciona para url desejada.
+	 * Redireciona para url especificada.
 	 *
 	 * @access public
 	 * @param string $url - Url de destino.
