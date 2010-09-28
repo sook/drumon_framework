@@ -53,7 +53,10 @@ class Comment extends AppBehavior {
 	 */
 	 //TODO: Executar SQL Diretamente, e verificar a necessidade da variável noFlags em DrumonModel
 	public function saveComment($data) {
-		$recordType = "Modules::".get_class($this->model);
+		$name = get_class($this->model);
+		if(!empty($this->model->name)) $name = $this->model->name;
+		$recordType = "Modules::".$name;
+		$temp_table = $this->model->table;
 		$this->model->table = "core_comments";
 
 		$params = array();
@@ -64,8 +67,10 @@ class Comment extends AppBehavior {
 		$params['record_id'] = $data['record_id'];
 		$params['record_type'] = $recordType;
 		$params['created_at'] = "now()";
-
-		return $this->model->save($params);
+		
+		$result = $this->model->save($params);
+		$this->model->table = $temp_table;
+		return $result;
 	}
 }
 ?>

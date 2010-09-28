@@ -53,6 +53,13 @@ class RequestHandler {
 	 */
 	public $referer;
 	
+	/**
+	 * Same the $_SERVER['request_uri']
+	 *
+	 * @var string
+	 */
+	public $uri;
+	
 	/** 
 	 * The request method. (GET,POST,PUT,DELETE).
 	 *
@@ -79,6 +86,7 @@ class RequestHandler {
 			$this->action_name = $route[1] ? $route[1] : 'index';
 			$this->params = array_merge($this->params, $_GET, $_POST);
 			if(isset($_SERVER['HTTP_REFERER'])) $this->referer = $_SERVER['HTTP_REFERER'];
+			$this->uri = $_SERVER['REQUEST_URI'];
 			$this->valid = true;
 		}
 	}

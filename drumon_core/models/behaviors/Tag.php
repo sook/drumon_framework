@@ -62,7 +62,7 @@ class Tag extends AppBehavior {
 		$record_ids = array_unique($record_ids);
 		$params['where'] = "id in (".join(',',$record_ids).")";
 		
-		return $result_tags;
+		return true;
 	}
 }
 ?>

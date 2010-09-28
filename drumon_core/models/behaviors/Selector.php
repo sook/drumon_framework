@@ -26,39 +26,35 @@ class Selector extends AppBehavior {
 		$name = get_class($this->model);
 		if(!empty($this->model->name)) $name = $this->model->name;
 		$recordType = "Modules::".$name;
+		$options = explode('&',$params['selector']);
 		
-  		$query_selector = 'SELECT * FROM core_select_options_records WHERE record_type = \''.$recordType.'\'';
-
-		$p = explode('=',$params['selector']);
+  	$query_selector = 'SELECT record_id, count(record_id) as total FROM core_select_options_records WHERE record_type = \''.$recordType.'\'';
 		$query_selector .= " AND (";
-
-		// categoria=esporte|politica
-		$or_values = explode('\|',$p[1]);
 		
-		foreach ($or_values as $value) {
-			$query_selector .= " (select_type_alias = '".$p[0]."' AND select_option_alias = '".$value."')";
-			$query_selector .= " OR";
+		foreach ($options as $option) {
+			$values = explode('=',$option);
+			$query_selector .= '(select_type_alias = "'.$values[0].'" AND select_option_alias = "'.$values[1].'") OR ';
 		}
-
 		$query_selector = rtrim($query_selector,"OR ");
-		$query_selector .= ")";
-
-		$result_selector = $this->model->connection->find($query_selector);
+		$query_selector .= ") GROUP BY record_id";
 		
-		if(count($result_selector) == 0){
-			return false;
+		
+		$result_selector = $this->model->connection->find($query_selector);
+		$total_options = count($options);
+		$record_ids =  array();
+		
+		foreach ($result_selector as $result) {
+			if($result['total'] == $total_options){
+				$record_ids[] = "'".$result['record_id']."'";
+			}
 		}
 		
-		$record_ids =  array();
-
-		foreach ($result_selector as $row) {
-			$record_ids[] = "'".$row['record_id']."'";
+		if(count($record_ids) == 0){
+			return false;
 		}
 
 		$params['where'] = "id in (".join(',',$record_ids).")";
-		// Usado para aproveitar no include.
-;
-		return $result_selector;
+		return true;
 	}
 	
 	

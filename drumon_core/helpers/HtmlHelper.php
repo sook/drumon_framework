@@ -102,18 +102,16 @@ class HtmlHelper extends Helper {
 	 * @param boolean $inline - Se true ele retorna o html para inserir o css.
 	 * @return void|string - String com o código html para adção do arquivo CSS se a opção inline estiver true.
 	 */
-	function addcss($files, $inline = false) {
+	function addcss($files, $inline = false, $media = 'all') {
 		$files = is_array($files) ? $files : array($files);
-
+		
 		$result = '';
-		if ($inline) {
-			foreach ($files as $file){
-				$result.= '<link rel="stylesheet" href="'.CSS_PATH.$file.'" type="text/css" media="all"/>';
-			}
-			return $result;
+		foreach ($files as $file){
+			$result .= '<link rel="stylesheet" href="'.CSS_PATH.$file.'" type="text/css" media="'.$media.'"/>';
 		}
-
-		$this->styleSheets = array_merge($this->styleSheets, $files);
+		
+		if ($inline) return $result;
+		$this->styleSheets[] = $result;
 	}
 
 	/**
@@ -123,14 +121,18 @@ class HtmlHelper extends Helper {
 	 * @param string|array $files - Nome do(s) arquivo(s) css.
 	 * @return string - String com o código html para adção do arquivo CSS.
 	 */
-	// Print the css on page.
 	function showcss($files = array()) {
 		$files = is_array($files) ? $files : array($files);
+		
 		$result = '';
-		$this->styleSheets = array_merge($files, $this->styleSheets);
-		foreach ($this->styleSheets as $file){
+		foreach ($files as $file){
 			$result.= '<link rel="stylesheet" href="'.CSS_PATH.$file.'" type="text/css" media="all"/>';
 		}
+		
+		foreach ($this->styleSheets as $file){
+			$result.= $file;
+		}
+		
 		return $result;
 	}
 	

@@ -64,7 +64,7 @@ class PaginateHelper extends Helper {
 	 * @return int - Número da página atual.
 	 */
 	public function current($page) {
-		return $page->currentPage;
+		return $page->current_page;
 	}
 
 	/**
@@ -180,7 +180,7 @@ class PaginateHelper extends Helper {
 
 		$offset_next =  ($this->current($page)+$range);
 
-		if($offset_next > $page->totalPages) $offset_next = $page->totalPages;
+		if($offset_next > $page->total_pages) $offset_next = $page->total_pages;
 		for ($i=$this->current($page); $i < $offset_next; $i++) {
 			$pages_list[] = $i+1;
 		}
@@ -232,16 +232,16 @@ class PaginateHelper extends Helper {
 	 * @return string - Informações de geração de paginação.
 	 */
 	public function info($page) {
-		$current_page = $page->currentPage;
-		$per_page = $page->perPage;
+		$current_page = $page->current_page;
+		$per_page = $page->per_page;
 		$records = count($page->results);
 
 		$offset = (($current_page-1) * $per_page);
 		$init = $offset + 1;
 		$end = $offset + $records;
 
-		if ($page->totalPages < 2) {
-			switch ($page->totalRecords) {
+		if ($page->total_pages < 2) {
+			switch ($page->total_records) {
 			case 0:
 	        echo $this->i18n['page_info']['0'];
 	        break;
@@ -249,11 +249,11 @@ class PaginateHelper extends Helper {
 	        echo $this->i18n['page_info']['1'];
 	        break;
 	    default;
-	        echo $this->sprintf2($this->i18n['page_info']['all'],array('value'=>$page->totalRecords));
+	        echo $this->sprintf2($this->i18n['page_info']['all'],array('value'=>$page->total_records));
 	        break;
 			}
 		} else {
-			echo $this->sprintf2($this->i18n['page_info']['range'],array('from'=>$init,'to'=>$end,'all'=>$page->totalRecords));
+			echo $this->sprintf2($this->i18n['page_info']['range'],array('from'=>$init,'to'=>$end,'all'=>$page->total_records));
 		}
 	}
 
