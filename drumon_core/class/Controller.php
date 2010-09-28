@@ -77,7 +77,7 @@ abstract class Controller {
 	 * @param object $request - Instância do Request Handler.
 	 * @param array $i18n - Referência da variável com os dados de internacionalização.
 	 */
-	public function __construct($request,$i18n) {
+	public function __construct($request, $i18n) {
 		$this->i18n = $i18n;
 		$this->params = $request->params;
 		$this->template = new Template();
@@ -137,6 +137,7 @@ abstract class Controller {
 	 */
 	public function render($view) {
 		$this->template->params = $this->params;
+		$this->add('request_uri',$this->request->uri);
 		
 		$view = $view[0] == '/' ? substr($view, 1) : '/views/'.strtolower($this->request->controller_name).'/'.$view;
 		$content = $this->template->renderPage(ROOT.$view.".php");
@@ -228,6 +229,7 @@ abstract class Controller {
 		$this->helpers = array_merge($this->helpers, $default_helpers);
 		// Adiciona os helpers na view.
 		foreach ($this->helpers as $helper) {
+			$helper = trim($helper);
 			$local = in_array($helper, $core_helpers) ? CORE : ROOT;
 			require $local."/helpers/".$helper."Helper.php";
 			$class = $helper.'Helper';
@@ -236,6 +238,7 @@ abstract class Controller {
 
 		// Adiciona os helpers requeridos em outros helpers.
 		foreach ($this->helpers as $helper) {
+			$helper = trim($helper);
 			$helper = $this->template->get(strtolower($helper));
 			foreach ($helper->uses as $name) {
 				$name = strtolower($name);

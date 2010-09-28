@@ -3,8 +3,8 @@
 	$i18n = array (
 		'lang' => 'pt-br',
 		'date' => array(
-			'default' => '%d/%m/%Y',
-			'inWords' => '%d de %B de %Y',
+			'default' => '%d/%m/%Y %H:%M',
+			'in_words' => '%d de %B de %Y',
 			'months' => array('janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'),
 			'days' => array('domingo','segunda','terça','quarta','quinta','sexta','sábado')
 		),

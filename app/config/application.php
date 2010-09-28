@@ -8,7 +8,7 @@
 	
 	// Linguagem da sua apicação.
 	// Sete false para desabilitar.
-	define('LANGUAGE','pt-br');
+	define('LANGUAGE','pt-BR');
 	
 	// Helpers carregados automaticamente.
 	// define('AUTOLOAD_HELPERS','');

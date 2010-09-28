@@ -64,7 +64,7 @@ abstract class DrumonModel {
 	 * @access public
 	 * @var integer
 	 */
-	public $perPage = 10;
+	public $per_page = 10;
 
 	/** 
 	 * Lista de comportamentos utilizados no módulo. Opções: array('trash','status')
@@ -258,35 +258,26 @@ abstract class DrumonModel {
 		$ids = join(',',$ids);
 
 		//Inclui nos registros seus selects e options.
-		if(in_array('selector',$params['include'])) {
-			// Se já houver selects não consulta
-			
-			
-			//print_r($this->cache['selects']);
-			
-			if(!isset($this->cache['selects'])) {
-				$selects = $this->cache['selects'];
-				$name = get_class($this);
-				if(!empty($this->name)) $name = $this->name;
-				$recordType = "Modules::".$name;
+		if(in_array('selectors',$params['include'])) {
+			$name = get_class($this);
+			if(!empty($this->name)) $name = $this->name;
+			$recordType = "Modules::".$name;
 
-				$selects = $this->connection->find('SELECT * FROM core_select_options_records WHERE record_type = \''.$recordType.'\' AND record_id IN ('.$ids.')');
-			}else{
-				$selects = $this->cache['selects'];
-			}
-			
+			$selects = $this->connection->find('SELECT * FROM core_select_options_records WHERE record_type = \''.$recordType.'\' AND record_id IN ('.$ids.')');
+
 			foreach ($records as $key => $value) {
 				$records[$key]['selectors'] = array();
 			}
 			
 			foreach ($selects as $select) {
-				if(is_array($records[$select['record_id']]['selects'])){
-					$records[$select['record_id']]['selectors'][$select['select_type_alias']] = $select['select_option_name'];
+				if(is_array($records[$select['record_id']]['selectors'])){
+					$records[$select['record_id']]['selectors'][$select['select_type_alias']] = array('name'=>$select['select_option_name'],'alias'=>$select['select_option_alias']);
 				}else{
-					$records[$select['record_id']]['selectors'] = array($select['select_type_alias'] => $select['select_option_name']);
+					$records[$select['record_id']]['selectors'] = array($select['select_type_alias'] => array('name'=>$select['select_option_name'],'alias'=>$select['select_option_alias']));
 				}
 			}
 		}
+		
 		//Adiciona as tags ao resultado
 		if(in_array('tags',$params['include'])){
 			// Busca as tags de cada registro.
@@ -471,16 +462,13 @@ abstract class DrumonModel {
 	public function addBehaviorsContent(&$params) {
 		// SELECTS
 		if (!empty($params['selector'])) {
-			if(!$this->cache['selects'] = $this->findAllModelsUsingSelector(&$params)) {
-				return false;
-			}
+			return $this->findAllModelsUsingSelector(&$params);
 		}
 		// TAGS
 		if (!empty($params['tags'])) {
-			if(!$this->cache['tags'] = $this->findAllWithTags(&$params)){
-				return false;
-			}
+			return $this->findAllWithTags(&$params);
 		}
+		
 		return true;
 	}
 

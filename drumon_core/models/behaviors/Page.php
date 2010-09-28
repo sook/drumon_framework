@@ -20,7 +20,7 @@ class Page extends AppBehavior {
 	 * @access public
 	 * @var int
 	 */
-	public $totalRecords = 0;
+	public $total_records = 0;
 	
 	/** 
 	 * Armazena o valor da página atual.
@@ -28,7 +28,7 @@ class Page extends AppBehavior {
 	 * @access public
 	 * @var string
 	 */
-	public $currentPage;
+	public $current_page;
 	
 	/** 
 	 * Armazena o total de páginas.
@@ -36,7 +36,7 @@ class Page extends AppBehavior {
 	 * @access public
 	 * @var int
 	 */
-	public $totalPages;
+	public $total_pages;
 	
 	/** 
 	 * Armazena o valor de registros por página
@@ -44,7 +44,7 @@ class Page extends AppBehavior {
 	 * @access public
 	 * @var int
 	 */
-	public $perPage;
+	public $per_page;
 	
 	/** 
 	 * Armazena o resultado de uma consulta
@@ -67,31 +67,31 @@ class Page extends AppBehavior {
 			$page = 1;
 		}
 		// Pega o numero de registro por página.
-		$this->perPage = empty($params['perPage']) ? $this->model->perPage: $params['perPage'];
+		$this->per_page = empty($params['per_page']) ? $this->model->per_page: $params['per_page'];
 		$params = array_merge($this->model->params, $params);
 		$this->model->addBehaviorsContent(&$params);
 
 		// Total de registros no banco do módulo passado com parametro
-		$totalRecords = $this->model->query("SELECT COUNT(*) as count_all FROM ".$this->model->table." WHERE ".$this->model->getStringWhere($params['where']));
-		$this->totalRecords = $totalRecords[0]['count_all'];
+		$total_records = $this->model->query("SELECT COUNT(*) as count_all FROM ".$this->model->table." WHERE ".$this->model->getStringWhere($params['where']));
+		$this->total_records = $total_records[0]['count_all'];
 
-		if($this->totalRecords == 0) {
+		if($this->total_records == 0) {
 			$this->results = false;
 			return $this;
 		}
 
 		// Calcula o total de páginas
-		$this->totalPages = ceil($this->totalRecords / $this->perPage);
+		$this->total_pages = ceil($this->total_records / $this->per_page);
 
 		// Altera a página de visualização
-		$page = $page > $this->totalPages ? $this->totalPages : $page;
-		$this->currentPage = $page;
+		$page = $page > $this->total_pages ? $this->total_pages : $page;
+		$this->current_page = $page;
 
 		// Verifica de onde irá iniciar a listagem dos registros
-		$from = (($this->currentPage-1) * $this->perPage);
+		$from = (($this->current_page-1) * $this->per_page);
 
 		// Consulta os registros de acordo com o limit.
-		$params['limit'] = $from.",".$this->perPage;
+		$params['limit'] = $from.",".$this->per_page;
 		// Busca registros
 		$this->results = $this->model->findAll($params);
 
@@ -106,7 +106,7 @@ class Page extends AppBehavior {
 	 */
 	function getPages() {
 		$pages = array();
-		$numberPages = $this->totalPages;
+		$numberPages = $this->total_pages;
 		for($i = 1; $i <= $numberPages; $i++){
 			$pages[] = $i;
 		}
@@ -119,7 +119,7 @@ class Page extends AppBehavior {
 	 * @return boolean - True se o número de páginas for maior que a página atual.
 	 */
 	function hasNextPage() {
-		if( count($this->getPages()) > $this->currentPage) {
+		if( count($this->getPages()) > $this->current_page) {
 			return true;
 		}
 		return false;
@@ -132,7 +132,7 @@ class Page extends AppBehavior {
 	 * @return boolean - True se a pagina atual for maior que 1.
 	 */
 	function hasPrevPage() {
-		return ($this->currentPage > 1)? true : false;
+		return ($this->current_page > 1)? true : false;
 	}
 
 	/**
@@ -142,7 +142,7 @@ class Page extends AppBehavior {
 	 * @return int - Valor da próxima página.
 	 */
 	function getNextPage() {
-		return $this->currentPage + 1;
+		return $this->current_page + 1;
 	}
 
 	/**
@@ -152,7 +152,7 @@ class Page extends AppBehavior {
 	 * @return int - Valor da página anterior.
 	 */
 	function getPrevPage() {
-		return $this->currentPage - 1;
+		return $this->current_page - 1;
 	}
 
 	/**
