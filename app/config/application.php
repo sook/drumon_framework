@@ -11,7 +11,7 @@
 	define('LANGUAGE','pt-br');
 	
 	// Helpers carregados automaticamente.
-	// define('AUTOLOAD_HELPERS','');
+	// define('AUTOLOAD_HELPERS','[Html,Date,Text,Image,Movie,Paginate]');
 	define('AUTOLOAD_HELPERS','Html,Date,Text');
 	
 	// Set 404 Error page. 

@@ -50,12 +50,12 @@ class Page extends AppBehavior {
 	 * Armazena o resultado de uma consulta
 	 *
 	 * @access public
-	 * @var int
+	 * @var mixed
 	 */
 	public $results;
 
 	/**
-	 * Procura comentários.
+	 * .
 	 *
 	 * @access public
 	 * @param int $pages - Quantidade de páginas.
