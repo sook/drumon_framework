@@ -15,7 +15,7 @@ class DateHelper extends Helper {
 
 	/**
 	 * Retorna a data passando o formato do i18n.
-	 *
+	 * Veja todas as opções de formatação em {@link http://ch2.php.net/manual/pt_BR/function.strftime.php http://ch2.php.net/manual/pt_BR/function.strftime.php}.
 	 * Exemplo: 29 de abril de 2009.
 	 *
 	 * @access public
