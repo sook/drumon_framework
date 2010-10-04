@@ -11,7 +11,7 @@
  * @package models
  * @subpackage behaviors
  */
-class Comment extends AppBehavior {
+class Comment extends ModelBehavior {
 	/**
 	 * Procura comentários específicos pelo id.
 	 *

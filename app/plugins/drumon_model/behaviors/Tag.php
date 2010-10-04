@@ -12,7 +12,7 @@
  * @package models
  * @subpackage behaviors
  */
-class Tag extends AppBehavior {
+class Tag extends ModelBehavior {
 
 	/**
 	 * Retorna uma query com o id e o nome das tags do modelo.

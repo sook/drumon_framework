@@ -1,13 +1,14 @@
 <?
+/**
+ * *********** BOOT ************
+ */
+
 	// Inicio Benchmark
 	if(BENCHMARK){
 		include(CORE.'/class/Benchmark.php');
 		Benchmark::start('Load Time');
 	}
-
-	/**
-	 * *********** BOOT ************
-	 */
+	
 	
 	/**
 	 * Carrega todos os arquivos necessários.
@@ -25,7 +26,6 @@
 	include(CORE.'/class/RequestHandler.php');
 	include(CORE.'/class/Helper.php');
 	include(CORE.'/class/Template.php');
-	include(CORE.'/class/DrumonModel.php'); // TODO: Desacoplar sem perder perfomane
 	include(CORE.'/class/Controller.php');
 	include(ROOT.'/controllers/AppController.php');
 

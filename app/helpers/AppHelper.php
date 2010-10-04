@@ -1,5 +1,5 @@
 <?php
-	class AppHelper extends SKHelper {
+	class AppHelper extends Helper {
 	
 	}
 ?>

@@ -14,5 +14,12 @@
 	
 	// Inclui arquivos essencias.
 	include(ROOT.'/config/enviroments/'.ENV.'.php');
+	
+	// Carrega plugins.
+	$plugins = (PLUGINS === '') ? array() : explode(',',PLUGINS);
+	foreach ($plugins as $plugin) {
+		require(ROOT.'/plugins/'.$plugin.'/initializer.php');
+	}
+	
 	include(CORE.'/Main.php');
 ?>

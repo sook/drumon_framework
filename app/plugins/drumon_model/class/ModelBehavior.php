@@ -11,7 +11,7 @@
  * @package models
  * @subpackage behaviors
  */
-abstract class AppBehavior {
+abstract class ModelBehavior {
 	/** 
 	 * Armazena o nome do modelo
 	 *

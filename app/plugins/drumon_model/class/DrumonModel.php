@@ -1,13 +1,16 @@
 <?php
-require(CORE."/class/Database.php");
-require(CORE.'/models/behaviors/AppBehavior.php');
-require(ROOT.'/models/AppModel.php');
 
 /**
  * Drumon Framework: Build fast web applications
  * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
  * Licensed under GNU General Public License.
  */
+
+require(ROOT."/plugins/drumon_model/class/Database.php");
+require(ROOT.'/plugins/drumon_model/class/ModelBehavior.php');
+require(ROOT.'/plugins/drumon_model/AppModel.php');
+
+
 
 /**
  * Classe abstrata que fornece suporte a classe base de modelo, para integração com o Sook CMS.
@@ -158,7 +161,7 @@ abstract class DrumonModel {
 	 */
 	protected function imports($class) {
 		// TODO adicionel na linha abaixo tava $ coloquei $class 
-		require_once CORE."/models/behaviors/".$class.".php";
+		require_once ROOT."/plugins/drumon_model/behaviors/".$class.".php";
 
 		//Instância o objeto correspondente a classe passada.
 		$new_import = new $class(&$this);
@@ -506,7 +509,7 @@ abstract class DrumonModel {
 		if($super === null) {
 			$super = $model;
 		}
-		require CORE.'/models/Module'.$super.'.php';
+		require ROOT.'/plugins/drumon_model/models/Module'.$super.'.php';
 		require ROOT.'/models/'.$model.'.php';
 	}
 	

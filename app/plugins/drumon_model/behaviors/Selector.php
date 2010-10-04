@@ -12,7 +12,7 @@
  * @package models
  * @subpackage behaviors
  */
-class Selector extends AppBehavior {
+class Selector extends ModelBehavior {
 	
 	/**
 	 * Busca todos os registros para o model.

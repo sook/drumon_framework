@@ -17,6 +17,10 @@
 	// Set 404 Error page. 
 	define('ERROR_404','404.html');
 	
+	// Plugins utilizados em sua app.
+	define('PLUGINS','drumon_model');
+	
+	
 	// Configurações personalizadas de sua aplicação.
 	
 ?>

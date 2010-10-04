@@ -12,7 +12,7 @@
  * @package models
  * @subpackage behaviors
  */
-class Page extends AppBehavior {
+class Page extends ModelBehavior {
 
 	/** 
 	 * Armazena o total de registros.
