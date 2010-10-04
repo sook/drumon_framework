@@ -5,6 +5,7 @@
  * Licensed under GNU General Public License.
  */
 
+
 /**
  * Helper para trabalhar com HTML.
  *
