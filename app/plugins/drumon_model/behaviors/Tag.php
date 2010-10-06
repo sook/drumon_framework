@@ -60,7 +60,8 @@ class Tag extends ModelBehavior {
 			$record_ids[] = "'".$row['record_id']."'";
 		}
 		$record_ids = array_unique($record_ids);
-		$params['where'] = "id in (".join(',',$record_ids).")";
+		
+		$this->model->where_list[] = "id in (".join(',',$record_ids).")";
 		
 		return true;
 	}

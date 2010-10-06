@@ -52,8 +52,8 @@ class Selector extends ModelBehavior {
 		if(count($record_ids) == 0){
 			return false;
 		}
-
-		$params['where'] = "id in (".join(',',$record_ids).")";
+		
+		$this->model->where_list[] = "id in (".join(',',$record_ids).")";
 		return true;
 	}
 	
