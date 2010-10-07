@@ -540,14 +540,15 @@ abstract class DrumonModel {
 	
 	
 	/**
-	 * Soma mais o valor de um campo + 1
+	 * Incrementa um o valor de um campo
 	 *
 	 * @param string $id - Id do registro a ser somado.
 	 * @param string $field - Nome da coluna do banco.
+	 * @param string $quantity - Quantidade a ser incrementado. (default: 1)
 	 * @return void
 	 */
-	public function sum_one($id, $field){
-		$this->execute('UPDATE '.$this->table.' set '.$field.' = '.$field.'+1 where id = '.$id);	
+	public function incrementField($id, $field, $quantity = 1){
+		$this->execute('UPDATE '.$this->table.' set '.$field.' = '.$field.'+'.$quantity.' where id = '.$id);	
 	}
 	
 }
