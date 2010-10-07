@@ -211,7 +211,7 @@ abstract class DrumonModel {
 	 * $post = new Post();
 	 * $posts = $post->findAll(array(
 	 * 	'fields' => 'id,title',
-	 * 	'include' => array('tags','comments_number','photos','selector'),
+	 * 	'include' => array('tags','comments_number','photos','selectors','user'),
 	 *  'custom_fields' => array('video','user'),
 	 * 	'selector' => 'category=car',
 	 * 	'tags' => 'php,html',
@@ -224,7 +224,7 @@ abstract class DrumonModel {
 	 * @access public
 	 * @param array $params - (Opcional) <br/>
 	 * fields => Nomes das colunas separados por vírgula que retornarão no resultado da consulta sql. Se vazio retorna todos os campos. <br/>
-	 * include => Funções seletoras auxiliares incluídas para fazer consultas padronizadas e distintas por um atributo.<br/>
+	 * include => Inclui dados extras sobre o registro. Opições: 'tags','comments_number','photos','selectors','user' <br/>
 	 * selector => Nome das colunas que servirão para distinguir os dados através de categrias.<br/>
 	 * tags => Tags (strings) para filtrar as consulas por determinados atributos.<br/>
 	 * where => Usada para extrair apenas os registros que satisfazem o critério especificado.<br/>
@@ -240,14 +240,11 @@ abstract class DrumonModel {
 		$this->where_list[] = $params['where'];
 		
 		
-		
 		if(!$this->addBehaviorsContent(&$params)){
 			return false;
 		}
 		
-		
 		$wheres = '('.join(' AND ',$this->where_list).')';
-
 		
 		$sql = "SELECT ".$params['fields']." FROM ".$this->table;
 		$sql .= " ".$params['join']." ";
@@ -321,6 +318,33 @@ abstract class DrumonModel {
 					$records[$tag['record_id']]['tags'][$tag['core_tag_id']] = $tag['tag_name'];
 				}else {
 					$records[$tag['record_id']]['tags'] = array($tag['core_tag_id'] => $tag['tag_name']);
+				}
+			}
+		}
+		
+		
+		//Inclui nos registros seus selects e options.
+		if(in_array('user',$params['include'])) {
+			$ids = array();
+			foreach ($records as $record) {
+				$ids[] = "'".$record['user_id']."'";
+			}
+			$ids = join(',',$ids);
+
+			$users = $this->connection->find('SELECT id,name,email,photo FROM core_users WHERE id IN ('.$ids.')');
+			
+			foreach ($records as $key => $value) {
+
+				foreach ($users as $user) {
+					if ($records[$key]['user_id'] === $user['id']) {
+						$records[$key]['user'] = array(
+							'id'=>$user['id'],
+							'name'=>$user['name'],
+							'email'=>$user['email'],
+							'photo'=>$user['photo']
+						);
+						break;
+					}
 				}
 			}
 		}
