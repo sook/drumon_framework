@@ -538,5 +538,17 @@ abstract class DrumonModel {
 		$this->execute('UPDATE '.$this->table.' set visits = visits+1 where id = '.$id);	
 	}
 	
+	
+	/**
+	 * Soma mais o valor de um campo + 1
+	 *
+	 * @param string $id - Id do registro a ser somado.
+	 * @param string $field - Nome da coluna do banco.
+	 * @return void
+	 */
+	public function sum_one($id, $field){
+		$this->execute('UPDATE '.$this->table.' set '.$field.' = '.$field.'+1 where id = '.$id);	
+	}
+	
 }
 ?>

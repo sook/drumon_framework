@@ -1,7 +1,7 @@
 <?php
 	
 	$i18n = array (
-		'lang' => 'pt-br',
+		'lang' => 'pt-BR',
 		'date' => array(
 			'default' => '%d/%m/%Y %H:%M',
 			'in_words' => '%d de %B de %Y',

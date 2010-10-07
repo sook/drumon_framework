@@ -20,10 +20,9 @@ class Comment extends ModelBehavior {
 	 * @return array - Lista de dados retornados pela query.
 	 */
 	public function findComments($id) {
-		$recordType = "Modules::".get_class($this->model);
-
-
-
+		$name = get_class($this->model);
+		if(!empty($this->model->name)) $name = $this->model->name;
+		$recordType = "Modules::".$name;
 		$sql = 'SELECT * FROM core_comments  WHERE record_type = "'.$recordType.'" AND record_id = '.$id.' AND approved = 1 ORDER BY id ASC';
 		return $this->model->query($sql);
 	}
@@ -36,7 +35,9 @@ class Comment extends ModelBehavior {
 	 * @return integer - Total de comentários.
 	 */
 	public function countComments($id) {
-		$recordType = "Modules::".get_class($this->model);
+		$name = get_class($this->model);
+		if(!empty($this->model->name)) $name = $this->model->name;
+		$recordType = "Modules::".$name;
 		$sql = 'SELECT COUNT(*) as total FROM core_comments WHERE record_type = "'.$recordType.'" AND record_id = '.$id.' AND approved = 1';
 		$result = $this->model->query($sql);
 		return $result[0]['total'];
@@ -83,26 +84,9 @@ class Comment extends ModelBehavior {
 			$this->model->execute($update_sql);
 		
 		}
-		// Adiciona o cache d
-		
-		
-		
-		
 		return $result;
 	}
 	
-	
-	public function mostCommented() {
-		// $name = get_class($this->model);
-		// 		if(!empty($this->model->name)) $name = $this->model->name;
-		// 		$recordType = "Modules::".$name;
-		// 		
-		// 		$sql = 'SELECT record_id, count(`record_id`) as total FROM `core_comments` WHERE record_type = "'.$recordType.'" GROUP BY `record_id` order by total DESC';
-		// 		echo $sql;
-		// 		die();
-		// 		$result = $this->model->query($sql);
-		// 		return $result[0]['total'];
-		# SELECT record_id, count(`record_id`) as total FROM `core_comments` WHERE record_type = '' GROUP BY `record_id` order by total DESC
-	}
+
 }
 ?>
