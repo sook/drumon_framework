@@ -117,6 +117,10 @@ abstract class DrumonModel {
 	 * @var string
 	 */
 	protected $primaryKey = "id";
+	
+	
+	
+	public $where_list = array();
 
 
 	/**
@@ -131,6 +135,7 @@ abstract class DrumonModel {
 		if(empty($this->table)) {
 			$this->table = strtolower(get_class($this));
 		}
+		$this->imports('CustomFields');
 	}
 
 	/**
@@ -206,7 +211,8 @@ abstract class DrumonModel {
 	 * $post = new Post();
 	 * $posts = $post->findAll(array(
 	 * 	'fields' => 'id,title',
-	 * 	'include' => array('tags','comments_number','photos','selector'),
+	 * 	'include' => array('tags','comments_number','photos','selectors','user'),
+	 *  'custom_fields' => array('video','user'),
 	 * 	'selector' => 'category=car',
 	 * 	'tags' => 'php,html',
 	 * 	'where' => 'title = "danillo"',
@@ -218,7 +224,7 @@ abstract class DrumonModel {
 	 * @access public
 	 * @param array $params - (Opcional) <br/>
 	 * fields => Nomes das colunas separados por vírgula que retornarão no resultado da consulta sql. Se vazio retorna todos os campos. <br/>
-	 * include => Funções seletoras auxiliares incluídas para fazer consultas padronizadas e distintas por um atributo.<br/>
+	 * include => Inclui dados extras sobre o registro. Opições: 'tags','comments_number','photos','selectors','user' <br/>
 	 * selector => Nome das colunas que servirão para distinguir os dados através de categrias.<br/>
 	 * tags => Tags (strings) para filtrar as consulas por determinados atributos.<br/>
 	 * where => Usada para extrair apenas os registros que satisfazem o critério especificado.<br/>
@@ -228,17 +234,25 @@ abstract class DrumonModel {
 	 */
 	public function findAll($params = array()) {
 		$params = array_merge($this->params, $params);
-
+		
+		// Reseta a lista de where list
+		$this->where_list = array();
+		$this->where_list[] = $params['where'];
+		
+		
 		if(!$this->addBehaviorsContent(&$params)){
 			return false;
 		}
-
+		
+		$wheres = '('.join(' AND ',$this->where_list).')';
+		
 		$sql = "SELECT ".$params['fields']." FROM ".$this->table;
 		$sql .= " ".$params['join']." ";
-		$sql .=	" WHERE ".$this->getStringWhere($params['where']);
+		$sql .=	" WHERE ".$this->addCoreWheres($wheres);
 		$sql .= " ".$params['group_by'];
 		$sql .= " ORDER BY ".$params['order'];
 		$sql .= (!empty($params['limit'])? " LIMIT ".$params['limit']:"");
+		
 		
 		$records = $this->connection->find_with_key($sql,$this->primaryKey);
 		
@@ -246,6 +260,10 @@ abstract class DrumonModel {
 		if($record_size === 0){
 			return false;
 		}
+		
+		
+		
+		$records = $this->addCustomFields($records, &$params);
 
 		//Se não tiver algum include já retorna.
 		if(count($params['include']) === 0){
@@ -303,6 +321,33 @@ abstract class DrumonModel {
 				}
 			}
 		}
+		
+		
+		//Inclui nos registros seus selects e options.
+		if(in_array('user',$params['include'])) {
+			$ids = array();
+			foreach ($records as $record) {
+				$ids[] = "'".$record['user_id']."'";
+			}
+			$ids = join(',',$ids);
+
+			$users = $this->connection->find('SELECT id,name,email,photo FROM core_users WHERE id IN ('.$ids.')');
+			
+			foreach ($records as $key => $value) {
+
+				foreach ($users as $user) {
+					if ($records[$key]['user_id'] === $user['id']) {
+						$records[$key]['user'] = array(
+							'id'=>$user['id'],
+							'name'=>$user['name'],
+							'email'=>$user['email'],
+							'photo'=>$user['photo']
+						);
+						break;
+					}
+				}
+			}
+		}
 
 		//TODO: Usar array_filter
 		if(in_array('photos',$params['include'])){
@@ -339,7 +384,7 @@ abstract class DrumonModel {
 				$name = $this->name;
 			}
 			$recordType = "Modules::".$name;
-			$sql = 'SELECT record_id, count(*) as count FROM `core_comments` WHERE record_type = \''.$recordType.'\' AND record_id IN ('.$ids.')  AND published = 1 GROUP BY `record_id`';
+			$sql = 'SELECT record_id, count(*) as count FROM `core_comments` WHERE record_type = \''.$recordType.'\' AND record_id IN ('.$ids.')  AND approved = 1 GROUP BY `record_id`';
 			$counts_comments = $this->connection->find_with_key($sql,'record_id');
 			// Seta as tags nos registros como array vazio
 			foreach ($records as $key => $value) {
@@ -373,7 +418,7 @@ abstract class DrumonModel {
 	 * @param array $paramWhere
 	 * @return string
 	 */
-	public function getStringWhere($paramWhere) {
+	public function addCoreWheres($paramWhere) {
 		if (!in_array($this->table, $this->noFlagTables)) {
 			foreach ($this->uses as $key) {
 				$paramWhere .= " AND ".$this->usesColumns[$key];
@@ -516,5 +561,19 @@ abstract class DrumonModel {
 	public  function addVisit($id){
 		$this->execute('UPDATE '.$this->table.' set visits = visits+1 where id = '.$id);	
 	}
+	
+	
+	/**
+	 * Incrementa um o valor de um campo
+	 *
+	 * @param string $id - Id do registro a ser somado.
+	 * @param string $field - Nome da coluna do banco.
+	 * @param string $quantity - Quantidade a ser incrementado. (default: 1)
+	 * @return void
+	 */
+	public function incrementField($id, $field, $quantity = 1){
+		$this->execute('UPDATE '.$this->table.' set '.$field.' = '.$field.'+'.$quantity.' where id = '.$id);	
+	}
+	
 }
 ?>

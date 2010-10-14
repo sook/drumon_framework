@@ -92,11 +92,12 @@ abstract class Controller {
 	 * @return void
 	 */
 	public function execute($action) {
+		$this->loadHelpers();
+		
 		$this->beforeFilter();
 		$this->$action();
 		$this->afterFilter();
 		
-		$this->loadHelpers();
 		$this->render($action);
 	}
 
@@ -139,7 +140,7 @@ abstract class Controller {
 		$this->template->params = $this->params;
 		$this->add('request_uri',$this->request->uri);
 		
-		$view = $view[0] == '/' ? substr($view, 1) : '/views/'.strtolower($this->request->controller_name).'/'.$view;
+		$view = $view[0] == '/' ? $view : '/views/'.strtolower($this->request->controller_name).'/'.$view;
 		$content = $this->template->renderPage(ROOT.$view.".php");
 
 		// Para não redenrizar layout.

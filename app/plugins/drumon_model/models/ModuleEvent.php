@@ -40,7 +40,6 @@ class ModuleEvent extends AppModel {
 		$this->imports('Page');
 		$this->imports('Selector');
 		$this->imports('Tag');
-		//$this->imports('Comment');
 	}
 }
 ?>
