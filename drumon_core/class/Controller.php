@@ -222,7 +222,7 @@ abstract class Controller {
 	 */
 	private function loadHelpers() {
 		// Helpers existentes no core.
-		$core_helpers = array('Date','Html','Image','Text','Paginate');
+		$core_helpers = array('Date','Html','Image','Text','Paginate','Url');
 		// Transforma a string de helpers em uma array.
 		$default_helpers = (AUTOLOAD_HELPERS === '') ? array() : explode(',',AUTOLOAD_HELPERS);
 		// Junta os helpers padrões com os helpers setados no controlador.
