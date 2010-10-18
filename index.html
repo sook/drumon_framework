@@ -1,0 +1,442 @@
+<html>
+	<head>
+		<title></title>
+		<meta charset="UTF-8" />
+	</head>
+	<body>
+		<h1>TUTORIAL DRUMON FRAMEWORK</h1>
+		<p>
+			Seja bem vindo ao Drumon Framework, um conjunto de código baseado na arquitetura MVC, 
+		que foi desenvolvido com o objetivo de tornar simples a implementação de aplicações que 
+		utilizam o sistema Drumon.
+		</p>
+		<p>
+			Para todos os módulos que estiverem disponíveis no Drumon CMS, existirá no framework 
+		um modelo relacionado, com todas as funcionalidades pré-definidas.
+		</p>
+		<p>
+			Este guia servirá para que o seu aprendizado seja efetivado da melhor forma ao decorrer
+			 do desenvolvimento de suas aplicações, esquecendo da parte repetitiva e tediosa, mantendo
+			 apenas a parte criativa e lógica do trabalho.
+		</p>
+
+		<h3>Requisitos:</h3>
+		<p>
+			- É necessário conhecimento em PHP e um entendimento básico de programação orientada a objetos. 
+		Conhecimento sobre a arquitetura MVC ou algum framework PHP serão de grande valia.
+		</p>
+		<p>
+			- É necessário estar habilitado o mod_rewrite e PHP com versão mínima 5.0.
+		</p>
+		<p>
+			- O Drumon Framework é uma ferramenta criada para programadores experiêntes. Apesar de ser extremamente simples,
+			 conhecimentos da linguagem PHP são essenciais para o desenvolvimento no dia-a-dia.
+		</p>
+		<h3>Como instalar:</h3>
+		
+		
+		
+		<p>
+			Para baixar o framework é simple, isso pode ser feito de duas formas:
+		</p>
+		<ol>
+			<li>Baixando o projeto livre de versionamento:
+				<p>Acesse o site do projeto no endereço: http://github.com/sook/drumon_framework e clique no botão Download Source (localizado na parte superior direita da página). Descompacte em uma pasta no diretório raiz do seu servidor que possui o php5 instalado.</p>
+			</li>
+			<li>
+				Baixando utilizando o comando git:
+				<p>
+					Para isso é necessário que tenha instalado o controlador de versão do git, para instalar veja esse guia. Após instalado, abra o terminal, acesse o diretório raiz do seu servidor que possui o php5 instalado e digite o comando:
+				</p>
+				<p>
+					git clone git@github.com:sook/drumon_framework.git
+				</p>
+			</li>
+			<li>
+				Verificar se a reescrita de URLs está ativado:
+				<p>
+					Para isso é necessário verificar se no arquivo httpd.conf  está permitida a reescrita de URLs e se esses parâmetros se encontram em parte do arquivo que controla a configuração da pasta-padrão de documentos do Apache(document root). O código deverá ser semelhante ao mostrado a seguir:
+				</p>
+				<code>
+					<Directory "C:/Arquivos de Programas/Apache Software Foundation/htdocs/">
+					Options Indexes FollowSymLinks
+					AllowOverride All
+					Order allow,deny
+					Allow from all
+					</Directory>
+					
+				</code>
+			</li>
+		</ol>
+		<h3>Visão Geral:</h3>
+		
+		<p>Estrutura de pastas principais do Drumon Framework:</p>
+
+		<p>
+			Nesta figura, estamos vendo duas pastas, app e drumon_core e o arquivo README.md.
+		</p>
+		<p>
+			O arquivo README.md contém as informações referentes a informações sobre o framework e modo de instalação.
+		</p>
+		<p>
+			Na pasta drumon_core estão localizados todos os arquivos e classes do framework.
+		</p>
+		<p>
+			A pasta app será onde vamos salvar nossos arquivos de produção e desenvolvimento.
+		</p>
+		<p>Subpastas da pasta app:</p>
+		<p>
+			“config”
+		</p>
+		<p>
+			A pasta config contém os arquivos de configuração da aplicação. Os primeiros arquivos que precisam ser configurados para que uma aplicação básica funcione corretamente são application.php, routes.php e os arquivos da pasta enviroments (development.php e production.php). Esses arquivos contêm informações básicas sobre a aplicação, como o caminho completo do URL necessário para inserir imagens e outros arquivos como JavaScript e CSS, nos quais vamos configurar se o Drumon Framework irá seguir determinadas rotas de redirecionamento e quais helpers serão carregados automaticamente com a aplicação.
+		</p>
+		<p>
+			“controllers”
+		</p>
+		<p>
+			Esta pasta é exatamente importante na hierarquia de nossa aplicação. Ela armazenará os controladores de nossa aplicação, que são os primeiros arquivos a serem requisitados quando um  URL é digitado no navegador, salvo se esse URL apontar para uma rota.
+		</p>
+		<p>
+			“helpers”
+		</p>
+		<p>
+			Nesta pasta, serão armazenados os helpers que você criar.
+		</p>
+		<p>
+			“plugins“
+		</p>
+		<p>
+			Repositório de utilitários diversos para integração com o framework.
+		</p>
+		<p>
+			“models”
+		</p>
+		<p>
+			Esta é a pasta onde serão armazenados nossos arquivos de modelos, que se comunicarão com o banco de dados e auxiliarão na integração do sistema com o Drumon CMS.
+		</p>
+		<p>
+			“public”
+		</p>
+		<p>
+			Esta pasta armazena pastas que irão conter arquivos necessários para a renderização do site ( CSS, Javascript, Imagens, Arquivos gerados pelo CMS e arquivos temporários).
+		</p>
+		<p>
+			“views”
+		</p>
+		<p>
+			Esta pasta contém todos os códigos HTML utilizados para exibir as informações no navegador.
+		</p>
+		
+		<h3>
+			Descompactando e testando o framework:
+		</h3>
+		<p>
+			Neste momento você já deve estar seguro de que compreende onde colocar os arquivos do framework e como fazer seu servidor local funcionar. Para testar o framework no navegador, basta que seus arquivos sejam descompactados na pasta em que a aplicação irá funcionar. Se tudo correr bem, ao clicar na pasta app deverá ver a tela a seguir:
+		</p>
+		<h3>
+			Modos de desenvolvimento e conexão com o banco de dados:
+		</h3>
+		<p>
+			O Drumon dispõe da facilidade de configurar a aplicação para trabalhar em modo de desenvolvimento e de produção, onde o desenvolvedor pode cadastrar os banco de dados em arquivos separados, setando apenas no arquivo /app/config/aplication.php qual dos dois modos irá utilizar.
+			
+		</p>
+		<p>
+			O diferencial entre o modo de desenvolvimento e o de produção é o BENCHMARK que no modo de desenvolvimento mede a variação de requisições por segundo que a pagina levou para ser renderizada.
+			
+		</p>
+		<p>
+			Para configurar seu banco de dados, você precisa editar o arquivo /app/config/enviroments/development.php para modo de desenvolvimento, ou /app/config/enviroments/production.php para modo de produção, setando os campos para conexão com o banco de dados.
+			
+		</p>
+		<h3>
+			Esquematização para desenvolvimento:
+		</h3>
+		<p>
+			Basicamente para iniciar seu projeto você deve saber o que é MVC (Model Viel Controller), e como funciona.
+		</p>
+		<p>
+			Para iniciar um sistema deve-se seguir o seguinte roteiro:
+		</p>
+		<p>
+			O drumon framework dispõe de um sistema de layout onde todo site é renderizado tendo ele como base. O layout está localizado no diretório views/layout/default.php.
+		</p>
+		<p>
+			A criação do Controller, que deve seguir um padrão de escrita camelCase:
+		</p>
+		<p>
+			Ex: NoticiaController.php
+		</p>
+		<p>
+			-	Onde Noticia será identificado como o nome do controller;
+		</p>
+		<p>
+			-	NoticiaController.php conterá uma Classe também chamada de NoticiaController e que será estendida de AppController.
+		</p>
+		<p>
+			Ex:
+		</p>
+		<p>
+			Dentro dos controllers estão contidas as ações, representadas por funções que serão responsáveis pelas funções e atributos adicionados na views.
+		</p>
+		<p>
+			Ex:
+		</p>
+		<p>
+			Para cada controller deve ser criado uma pasta dentro do diretório views utilizando o mesmo nome do controller.
+			
+		</p>
+		<p>
+			Ex: NoticiaController.php
+		</p>
+		<p>
+			E para cada diretório criado, é também criado um arquivo php que representa cada função contida no controller, arquivo no qual conterá o código que será renderizado em visual e que será incluído no layout.
+		</p>
+		<h3>
+			Rotas:
+		</h3>
+		<p>
+			O relacionamento padrão entre uma URL e um Controller no Drumon funciona através de do sistema de mapeamento em rotas, que pode ser feito através das seguinte formas.
+		</p>
+		<h4>Rota Básica.</h4>
+		<p>
+			$route['get']['/blog'] = array('Blog','index');
+		</p>
+		<p>
+			Onde o índice ‘get’ especifica o modo de recebimento de informações por cabeçalho. Podem ser ‘get’,’post’,’*’(ambos ou redirecionamento).
+			
+		</p>
+		<p>
+			O índice /blog especifica a parte da url a ser roteada: 
+		</p>
+		<p>
+			Ex: www.exemplo.com.br/blog
+		</p>
+		<p>
+			E no array os valores Blog e index respectivamente representam Controller e método.
+		</p>
+		
+		<h4>
+			Rota com variável.
+		</h4>
+		<p>
+			$route['get']['/tag/:tag'] = array('Blog','tags');
+		</p>
+		<p>
+			Onde o índice ‘get’especifica o modo de recebimento de informações por cabeçalho. Podem ser ‘get’,’post’,’*’(ambos ou redirecionamento).
+			
+		</p>
+		<p>
+			O índice /tag/:tag especifica a parte da url a ser roteada:
+		</p>
+		<p>
+			Ex: www.exemplo.com.br/tag/carro
+		</p>
+		<p>
+			Onde carro representa uma variável passada por parâmetro.
+		</p>
+		<p>
+			E no array os valores Blog e tags respectivamente representam Controller e método.
+		</p>
+		
+		<h3>
+			Possíveis usos de rotas:
+		</h3>
+		
+		<h5>
+			Rota basica.
+		</h5>
+		<p>
+			$route['get']['/blog'] = array('Blog','index');
+		</p>
+		<h5>
+			Rota com variável.
+		</h5>
+		<p>
+			$route['get']['/tag/:tag'] = array('Blog','tags');
+		</p>
+		<h5>
+			Rota com variável e expresão regular.
+		</h5>
+		<p>
+			$route['get']['/tag/:tag'] = array('Blog','tags',':tag'=>'[a-zA-Z0-9_]');
+		</p>
+		<h5>
+			Redirecionamento com rotas.
+		</h5>
+		<p>
+			$route['*']['/twitter'] = array('redirect'=>'http://twitter.com');
+		</p>
+		<p>
+			$route['*']['/twitter'] = array('redirect'=>'http://twitter.com',302);
+		</p>
+		
+		<h3>
+			Controllers :
+		</h3>
+		<p>
+			Os Controllers são os primeiros a serem requisitados quando um URL é digitado no navegador, são eles que fazem contato com os plug-ins de Models, enviando ou recebendo dados do usuário que serão expostos nas views.
+		</p>
+		<h4>
+			Criando um controller :
+		</h4>
+		<p>
+			Para criarmos um controller é necessário definir a classe [nomedaclasse]Controller, e salvá-la em /app/controllers/[nomedaclasse]Controller.php. Também é necessário estender a classe AppController, para que todos os métodos necessários para seu controlador sejam herdados das classes básicas do Drumon.
+		</p>
+		<p>
+			Ex:    class NoticiaController extends AppController { }
+		</p>
+		<h4>
+			Criando ações para o controller :
+		</h4>
+		<p>
+			Actions nada mais são do que métodos dentro de uma classe de controller. Cada action corresponde a uma ação diferente de sua aplicações, consequentemente, uma nova URL. Ações podem ser o envio de um e-mail, o cadastro de um usuário, a exibição de uma lista de notícias, a visualização de um perfil, além de qualquer outra ação necessária.
+		</p>
+		<p>
+			Para que sua aplicaçãoo funcione, é necessária a criação de actions e suas respectivas views.
+		</p>
+		<p>
+			Vamos criar uma action simples,  para gerar uma lista de notícias.
+		</p>
+		<p>
+			Ex:
+		</p>
+		<code>
+			Class NoticiaController  extends AppController {
+				Public function index() {
+					$this->add(“noticia”,$noticia);
+			}
+			}
+			
+		</code>
+		<h4>
+			Adicionando variáveis ao template :
+		</h4>
+		<p>
+			Para adicionar variáveis ao template é bem simples, basta utilizar a função $this->add(), adicionando como primeiro parâmetro o nome da variável a ser setada, e como segundo parâmetro o valor (conteúdo) a ser adicionado na variável
+		</p>
+		<h4>
+			Recuperando variáveis passadas por $_POST e $_GET
+		</h4>
+		<p>
+			Para recuperar o valor enviado por $_GET ou $_POST basta extrair o parâmetro pela variável $this->paramsp[‘’];
+		</p>
+		<p>
+			Quando os valores porem passados por $_GET significa dizer que na rota utilizada para renderizar a views um dos parâmetros da url tem uma variável.	
+		</p>
+		<p>
+			Ex:
+		</p>
+		<p>
+			Rota:  $route['get']['/agenda/:page'] = array('Agenda','index');
+		</p>
+		<p>
+			Onde :page será o local onde será passada a variável por parâmetro URL
+		</p>
+		<p>
+			Url = www.exemplo.com.br/agenda/09
+		</p>
+		<p>
+			Para recuperar a variável da url basta utilizar $this->params[‘page’];
+		</p>
+		<p>
+			Para recuperar o valor enviado por $_POST apenas declaramos o atributo name do imput extraído do form como índice de $this->params[].
+		</p>
+		
+		<h2>
+			Views :
+		</h2>
+		<p>
+			Manipulando as variáveis enviadas pelo controller.
+		</p>
+		<p>
+			Após adicionar uma variável no template vc pode manipular ela da seguinte forma:
+		</p>
+		
+		<code>
+			<!-- <ul>
+						<?php foreach($noticias as $noticia): ?>
+								<li> <?php echo $noticia ?> </li>
+						<?php endforeach ?>
+						</ul> -->
+		</code>	
+		<h2>
+			Helpers :
+		</h2>
+		<p>
+			Helpers são classes semelhante aos componentes, porém são exlusivas para as views e para a lógica de compartilhamento entre views, layouts e partials. Nestas classes você encontra funções que tornam o seu desenvolvimento cliente-side mais rápido e fácil.
+		Utilizando Helpers:
+		</p>
+		<p>
+			Para poder utilizar um helper, você tem que habilitá-lo no arquivo de aplicação localizado na pasta app/config/. Após habilitar o helper no arquivo de aplicação, ele ja vai estar disponível em suas views. Os helpers ficam disponíveis em uma variável local com o mesmo nome do helper. Assim UrlHelper fica disponível na view como $url.
+		</p>
+		<p>
+			Ex: $url->image();
+		</p>
+		<h2>
+			Models:
+		</h2>
+		<p>
+			Os models são os responsáveis por todas as tarefas de banco de dados relativas ao Drumon CMS. É através deles que você criará, atualizará, apagará, e buscará registros das tabelas do seu banco de dados.
+			
+		</p>
+		<p>
+			Dentro da estrutura de diretórios, os models se encontram em /app/models/. É lá onde ficarão todos os modelos de sua aplicação que você criar. O nome do arquivo do Modelo deve seguir com o mesmo nome da Classe referente ao Model.
+			
+		</p>
+		<p>
+			Ex: Noticia.php
+			
+		</p>
+		<h3>
+			Criando Models:
+		</h3>
+		<p>
+			Inicialmente, um modelo é apenas uma classe vazia, que estende de AppModel:
+		</p>
+		<p>
+			<code>
+				class Users extends AppModel {  }
+			</code>
+			
+		</p>
+		<p>
+			Quando seu modelo herda de AppModel, que por sua vez herda de Model, você terá ao seu dispor toda as funcionalidades necessárias para lidar com o banco de dados.	
+		</p>
+		
+		<h3>
+			Buscando Registros:
+		</h3>
+		
+		<p>
+			Observe o código acima:
+		</p>
+		<p>
+			Na linha 2 é Carregado o Model Referente a Downloads;
+		</p>
+		<p>
+			Na linha 7 é criada uma instância do Model;
+		</p>
+		<p>
+			Na linha 8 é executado o método de busca de registros referente ao módulo;
+		</p>
+		<p>
+			Na linha 9 o resultado da busca é adicionado ao template.
+		</p>
+		<p>
+			Existem 3 métodos de Busca para retorno de informações do banco de dados:
+		</p>
+		<ol>
+			<li>
+				findAll() onde retorna todos os registros referentes aos parâmetros solicitados na consulta.
+			</li>
+			<li>
+				findFirst() onde retorna apenas o primeiro registro da consulta.
+			</li>
+			<li>
+				Find onde retorna o registro referente a uma chave específica.
+			</li>
+		</ol>
+
+	</body>
+</html>
