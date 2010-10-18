@@ -9,6 +9,7 @@
 require(ROOT."/plugins/drumon_model/class/Database.php");
 require(ROOT.'/plugins/drumon_model/class/ModelBehavior.php');
 require(ROOT.'/plugins/drumon_model/AppModel.php');
+require(ROOT.'/plugins/drumon_model/models/SiteConfig.php');
 
 
 
