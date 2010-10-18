@@ -72,7 +72,7 @@ class Page extends ModelBehavior {
 		$this->model->addBehaviorsContent(&$params);
 
 		// Total de registros no banco do módulo passado com parametro
-		$total_records = $this->model->query("SELECT COUNT(*) as count_all FROM ".$this->model->table." WHERE ".$this->model->getStringWhere($params['where']));
+		$total_records = $this->model->query("SELECT COUNT(*) as count_all FROM ".$this->model->table." WHERE ".$this->model->addCoreWheres($params['where']));
 		$this->total_records = $total_records[0]['count_all'];
 
 		if($this->total_records == 0) {
