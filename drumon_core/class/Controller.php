@@ -92,11 +92,11 @@ abstract class Controller {
 	 * @return void
 	 */
 	public function execute($action) {
-		$this->loadHelpers();
-		
 		$this->beforeFilter();
 		$this->$action();
 		$this->afterFilter();
+		
+		$this->loadHelpers(); // Não pode ser antes do bf por que é add helpers nos controladores.
 		
 		$this->render($action);
 	}
@@ -227,7 +227,9 @@ abstract class Controller {
 		// Transforma a string de helpers em uma array.
 		$default_helpers = (AUTOLOAD_HELPERS === '') ? array() : explode(',',AUTOLOAD_HELPERS);
 		// Junta os helpers padrões com os helpers setados no controlador.
+		//	print_r($this->helpers);
 		$this->helpers = array_merge($this->helpers, $default_helpers);
+		//print_r($this->helpers);
 		// Adiciona os helpers na view.
 		foreach ($this->helpers as $helper) {
 			$helper = trim($helper);
