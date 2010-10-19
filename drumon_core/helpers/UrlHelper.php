@@ -21,8 +21,15 @@ class UrlHelper extends Helper {
 	 * @param string $url - Caminho parcial da url.
 	 * @return string - Caminho completo da url.
 	 */
-	function to($url) {
-		return APP_DOMAIN.$url;
+	function to() {
+		if(func_num_args() === 2){
+			if(func_get_arg(0) == 'image'){
+				return $this->image(func_get_arg(1));
+			}
+		}else{
+			return APP_DOMAIN.func_get_arg(0);
+		}
+		
 	}
 
 
@@ -46,6 +53,16 @@ class UrlHelper extends Helper {
 	 */
 	function image($image) {
 		return IMAGES_PATH.$image;
+	}
+	
+	/**
+	 * Retorna o caminho da página atual
+	 *
+	 * @access public
+	 * @return string
+	 */
+	function self() {
+		return $_SERVER['REQUEST_URI'];
 	}
 }
 ?>
