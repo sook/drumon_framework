@@ -1,0 +1,36 @@
+body {
+	margin:0px;	
+   font-family: arial, helvetica, serif;
+   background-image:url(cms_site.png);
+   margin-left:40px;
+	font-size:14px;
+}
+ul, li  {
+padding-left:0;
+}
+h1 {
+	font-size:24px;	
+   color:#464646;
+   text-shadow: 1px 1px 1px #fff;
+}
+h2 {
+	font-size:22px;	
+   color:#464646;
+   text-shadow: 1px 1px 1px #fff;
+}
+h3 {
+	font-size:20px;	
+   color:#464646;
+   text-shadow: 1px 1px 1px #fff;
+}
+
+
+#question ul, li {
+	list-style:none;	
+}
+p {
+	margin-bottom:6px;
+}
+div {
+	text-align:center;
+}
