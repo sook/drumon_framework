@@ -12,7 +12,7 @@
 	
 	// Helpers carregados automaticamente.
 	// define('AUTOLOAD_HELPERS','[Html,Date,Text,Image,Movie,Paginate]');
-	define('AUTOLOAD_HELPERS','Html,Date,Text');
+	define('AUTOLOAD_HELPERS','Html, Date, Text, Url');
 	
 	// Set 404 Error page. 
 	define('ERROR_404','404.html');

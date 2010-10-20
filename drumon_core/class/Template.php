@@ -65,7 +65,7 @@ class Template {
 	 * @return void
 	 */
 	public function render($view) {
-		$view = ($view[0] === '/') ? $view : $this->fetch(VIEW.'/'.$view.'.php');
+		$view = ($view[0] === '/') ? $view : $this->fetch('/views/'.$view.'.php');
 		echo $view;
 	}
 
@@ -76,7 +76,7 @@ class Template {
 	 * @return void
 	 */
 	public function partial($view) {
-		echo $this->fetch(VIEW.'/'.$this->partial_path.$view.'.php');
+		echo $this->fetch('/views/'.$this->partial_path.$view.'.php');
 	}
 
 	/**

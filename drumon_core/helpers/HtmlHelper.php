@@ -20,7 +20,7 @@ class HtmlHelper extends Helper {
 	 * @access private
 	 * @var array
 	 */
-	private $styleSheets = array();
+	private $stylesheets = array();
 	
 	/** 
 	 * Armazena o nome dos arquivos javascript.
@@ -77,11 +77,11 @@ class HtmlHelper extends Helper {
 		
 		$result = '';
 		foreach ($files as $file){
-			$result .= '<link rel="stylesheet" href="'.CSS_PATH.$file.'" type="text/css" media="'.$media.'"/>';
+			$result .= '<link rel="stylesheet" href="'.STYLESHEETS_PATH.$file.'" type="text/css" media="'.$media.'"/>';
 		}
 		
 		if ($inline) return $result;
-		$this->styleSheets[] = $result;
+		$this->stylesheets[] = $result;
 	}
 
 	/**
@@ -96,10 +96,10 @@ class HtmlHelper extends Helper {
 		
 		$result = '';
 		foreach ($files as $file){
-			$result.= '<link rel="stylesheet" href="'.CSS_PATH.$file.'" type="text/css" media="all"/>';
+			$result.= '<link rel="stylesheet" href="'.STYLESHEETS_PATH.$file.'" type="text/css" media="all"/>';
 		}
 		
-		foreach ($this->styleSheets as $file){
+		foreach ($this->stylesheets as $file){
 			$result.= $file;
 		}
 		

@@ -140,14 +140,14 @@ abstract class Controller {
 		$this->template->params = $this->params;
 		$this->add('request_uri',$this->request->uri);
 		
-		$view = $view[0] == '/' ? $view : '/views/'.strtolower($this->request->controller_name).'/'.$view;
+		$view = $view[0] == '/' ? $view : '/app/views/'.strtolower($this->request->controller_name).'/'.$view;
 		$content = $this->template->renderPage(ROOT.$view.".php");
 
 		// Para não redenrizar layout.
 		// Setar no controller: var $layout = null;
 		if(!empty($this->layout)){
 			$this->add('content',$content);
-			$content = $this->template->fetch(ROOT.'/views/layouts/'.$this->layout.'.php');
+			$content = $this->template->fetch(ROOT.'/app/views/layouts/'.$this->layout.'.php');
 		}
 		echo $content;
 
@@ -233,7 +233,7 @@ abstract class Controller {
 		// Adiciona os helpers na view.
 		foreach ($this->helpers as $helper) {
 			$helper = trim($helper);
-			$local = in_array($helper, $core_helpers) ? CORE : ROOT;
+			$local = in_array($helper, $core_helpers) ? CORE : ROOT.'/app';
 			require $local."/helpers/".$helper."Helper.php";
 			$class = $helper.'Helper';
 			$this->add(strtolower($helper), new $class($this->i18n));

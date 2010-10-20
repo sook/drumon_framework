@@ -15,9 +15,6 @@
 	 */
 	if(LANGUAGE) {
 		include(ROOT.'/config/i18n/'.LANGUAGE.'.php');
-		if(LANGUAGE === 'pt-BR') {
-			setlocale(LC_ALL, 'portuguese', 'pt_BR', 'pt_br','pt-BR','pt-br', 'ptb_BRA','ptb','bra','portuguese-brazil','brazil','pt_BR.utf-8','br','pt_BR.iso-8859-1');
-		}
 	} else {
 		$i18n = array();
 	}
@@ -27,7 +24,7 @@
 	include(CORE.'/class/Helper.php');
 	include(CORE.'/class/Template.php');
 	include(CORE.'/class/Controller.php');
-	include(ROOT.'/controllers/AppController.php');
+	include(ROOT.'/app/controllers/AppController.php');
 
 	/**
 	 * Inicia o sistema de roteamento.
@@ -40,7 +37,7 @@
 	 */
 	if($request->valid){
 		$controller_name = $request->controller_name."Controller";
-		include(ROOT.'/controllers/'.$controller_name.'.php');
+		include(ROOT.'/app/controllers/'.$controller_name.'.php');
 		$controller = new $controller_name($request,$i18n);
 		$controller->execute($request->action_name);
 	}else{

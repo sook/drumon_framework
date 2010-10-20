@@ -26,4 +26,6 @@
 			'range' => 'Mostrando %from - %to de %all registros'
 		)
 	);
+	
+	setlocale(LC_ALL, 'portuguese', 'pt_BR', 'pt_br','pt-BR','pt-br', 'ptb_BRA','ptb','bra','portuguese-brazil','brazil','pt_BR.utf-8','br','pt_BR.iso-8859-1');
 ?>
