@@ -46,7 +46,7 @@ class Database {
 	 * @access public
 	 * @return object - Instância de conexão da classe.
 	 */
-	public static function getInstance(){
+	public static function get_instance(){
 		if (self::$Database === null){
 			self::$Database = new Database();
 		}

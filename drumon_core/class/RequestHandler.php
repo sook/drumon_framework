@@ -69,14 +69,14 @@ class RequestHandler {
 	public $method;
 
 	/**
-	 * Carrega a rota através da função getRoute
+	 * Carrega a rota através da função get_route
 	 *
 	 * @param array $route - Rota para redirecionamento de página.
 	 * @param string $app_root - Endereço da pasta app do site.
 	 * @access public
 	 */
 	public function __construct($route, $app_root = ROOT ) {
-		$route = $this->getRoute($route, $app_root);
+		$route = $this->get_route($route, $app_root);
 		if(is_array($route)) {
 			if(isset($route['redirect'])){
 				if(!isset($route[0])) $route[0] = null;
@@ -99,7 +99,7 @@ class RequestHandler {
 	 * @param array $route - Rota para redirecionamento de página.
 	 * @return mixed - False, se não existir rota / Array com a Lista de Rotas.
 	 */
-	public function getRoute($route, $app_root) {
+	public function get_route($route, $app_root) {
 		$this->method = strtolower($_SERVER['REQUEST_METHOD']);
 		$subfolder = str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\','/',$app_root));
 		$uri = str_replace($subfolder,'', $_SERVER['REQUEST_URI']);

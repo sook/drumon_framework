@@ -6,7 +6,7 @@
 		<meta http-equiv="Description" content=""/>
 		<meta name="Author" content=""/>
 		
-		<title>Bem Vindo, <?=$title?></title>
+		<title>Bem Vindo, <?php echo $title ?></title>
 		
 	</head>
 	<body>

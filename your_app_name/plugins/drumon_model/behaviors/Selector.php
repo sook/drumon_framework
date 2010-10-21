@@ -21,7 +21,7 @@ class Selector extends ModelBehavior {
 	 * @param array $params - Parâmetros para select na cláusula WHERE.
 	 * @return array - Lista de dados retornados da query.
 	 */
-	public function findAllModelsUsingSelector(&$params) {
+	public function find_allModelsUsingSelector(&$params) {
 		// Obtem o tipo do registro.(polymorphic)
 		$name = get_class($this->model);
 		if(!empty($this->model->name)) $name = $this->model->name;

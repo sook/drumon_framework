@@ -69,10 +69,10 @@ class Page extends ModelBehavior {
 		// Pega o numero de registro por página.
 		$this->per_page = empty($params['per_page']) ? $this->model->per_page: $params['per_page'];
 		$params = array_merge($this->model->params, $params);
-		$this->model->addBehaviorsContent(&$params);
+		$this->model->add_behaviors_content(&$params);
 
 		// Total de registros no banco do módulo passado com parametro
-		$total_records = $this->model->query("SELECT COUNT(*) as count_all FROM ".$this->model->table." WHERE ".$this->model->addCoreWheres($params['where']));
+		$total_records = $this->model->query("SELECT COUNT(*) as count_all FROM ".$this->model->table." WHERE ".$this->model->add_core_wheres($params['where']));
 		$this->total_records = $total_records[0]['count_all'];
 
 		if($this->total_records == 0) {
@@ -93,7 +93,7 @@ class Page extends ModelBehavior {
 		// Consulta os registros de acordo com o limit.
 		$params['limit'] = $from.",".$this->per_page;
 		// Busca registros
-		$this->results = $this->model->findAll($params);
+		$this->results = $this->model->find_all($params);
 
 		return $this;
 	}
@@ -118,7 +118,7 @@ class Page extends ModelBehavior {
 	 * @access public
 	 * @return boolean - True se o número de páginas for maior que a página atual.
 	 */
-	function hasNextPage() {
+	function has_nextPage() {
 		if( count($this->getPages()) > $this->current_page) {
 			return true;
 		}
@@ -131,7 +131,7 @@ class Page extends ModelBehavior {
 	 * @access public
 	 * @return boolean - True se a pagina atual for maior que 1.
 	 */
-	function hasPrevPage() {
+	function has_prevPage() {
 		return ($this->current_page > 1)? true : false;
 	}
 
@@ -172,7 +172,7 @@ class Page extends ModelBehavior {
 	 * @access public
 	 * @return boolean - True se a ultima página for maior que 1, False se não.
 	 */
-	function hasPage() {
+	function has_page() {
 		return ($this->getLastPage() > 1) ? true : false;
 	}
 }

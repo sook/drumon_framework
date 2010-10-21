@@ -51,7 +51,7 @@ class Template {
 	 * @param string $filename - Arquivo da página a ser renderizada.
 	 * @return string - Código fonte do template renderizado.
 	 */
-	public function renderPage($filename) {
+	public function render_page($filename) {
 		if($this->gzip && ini_get('zlib.output_compression') != 1){
 			ob_start('ob_gzhandler');
 		}	
@@ -65,7 +65,7 @@ class Template {
 	 * @return void
 	 */
 	public function render($view) {
-		$view = ($view[0] === '/') ? $view : $this->fetch('/views/'.$view.'.php');
+		$view = ($view[0] === '/') ? $view : $this->fetch(ROOT.'/app/views/'.$view.'.php');
 		echo $view;
 	}
 
@@ -76,7 +76,7 @@ class Template {
 	 * @return void
 	 */
 	public function partial($view) {
-		echo $this->fetch('/views/'.$this->partial_path.$view.'.php');
+		echo $this->fetch(ROOT.'/app/views/'.$this->partial_path.$view.'.php');
 	}
 
 	/**
@@ -130,7 +130,7 @@ class Template {
 	 *
 	 * @return void
 	 */
-	public function removeAll()	{
+	public function remove_all()	{
 		$this->variables = array();
 	}
 }

@@ -46,7 +46,7 @@ class Benchmark {
 	 * @return void
 	 */
 	public static function start($key) {
-		$bm = self::getInstance();
+		$bm = self::get_instance();
 		$bm->time[$key]['start'] = microtime(true);
 	}
 
@@ -57,12 +57,12 @@ class Benchmark {
 	 * @static
 	 * @param string $key - Identificador.
 	 * @return string - Tempo total da execução.
-	 * @see Benchmark::getTime()
+	 * @see Benchmark::get_time()
 	 */
 	public static function stop($key) {
-		$bm = self::getInstance();
+		$bm = self::get_instance();
 		$bm->time[$key]['stop'] = microtime(true);
-		return self::getTime($key);
+		return self::get_time($key);
 	}
 
 	/**
@@ -72,8 +72,8 @@ class Benchmark {
 	 * @static
 	 * @return array - Lista de tempo das funcionalidades.
 	 */
-	public static function getListTime() {
-		$bm = self::getInstance();
+	public static function get_list_time() {
+		$bm = self::get_instance();
 		return $bm->time;
 	}
 
@@ -85,8 +85,8 @@ class Benchmark {
 	 * @param string $key - Identificador.
 	 * @return string - Tempo de execução.
 	 */
-	public static function getTime($key) {
-		$bm = self::getInstance();
+	public static function get_time($key) {
+		$bm = self::get_instance();
 		return number_format($bm->time[$key]['stop'] - $bm->time[$key]['start'],8);
 	}
 
@@ -97,8 +97,8 @@ class Benchmark {
 	 * @static	 
 	 * @return array - Lista de total de execução.
 	 */
-	public static function getTotals(){
-		$bm = self::getInstance();
+	public static function get_totals(){
+		$bm = self::get_instance();
 		$totals = array();
 		foreach ($bm->time as $key => $value) {
 			$total = number_format($value['stop'] - $value['start'],8);
@@ -114,7 +114,7 @@ class Benchmark {
 	 * @static
 	 * @return object - Instância da classe Benchmark.
 	 */
-	public static function getInstance() {
+	public static function get_instance() {
 		if (!isset(self::$instance)) {
     		self::$instance = new Benchmark();
 		}

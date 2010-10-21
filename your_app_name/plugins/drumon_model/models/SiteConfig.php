@@ -32,7 +32,7 @@ class SiteConfig extends DrumonModel {
 	
 	public static function get($key){
 		$consult = "SELECT value FROM core_metadata WHERE `module_alias` = 'site_config' AND `key` = 'data_for_".$key."'";
-		$conn = Database::getInstance();
+		$conn = Database::get_instance();
 		$result =  $conn->find($consult);
 		return $result[0]['value'];
 	}

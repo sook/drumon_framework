@@ -18,7 +18,7 @@ class Download {
 	 * @access private
 	 * @var array
 	 */
-	private $allowedExt = array (
+	private $allowed_ext = array (
 		  // archives
 		  'zip' => 'application/zip',
 
@@ -66,7 +66,7 @@ class Download {
 	private $hasLog = false;
 
 	/**
-	 * Verifica se arquivo existe ou estão no padrão definido na variável $allowedExt.
+	 * Verifica se arquivo existe ou estão no padrão definido na variável $allowed_ext.
 	 *
 	 * @access public
 	 * @param string $filePath - Nome do arquivo a ser verificado.
@@ -78,11 +78,11 @@ class Download {
 			return "File does not exist. Make sure you specified correct file name.";
 		}
 
-		if ($mimeType = $this->getMimeType($filePath) === false) {
+		if ($mimeType = $this->get_mime_type($filePath) === false) {
 			return "Not allowed file type.";
 		}
 
-		$this->setHeaders($mimeType, basename($filePath));
+		$this->set_headers($mimeType, basename($filePath));
 
 		$file = @fopen($filePath, "rb");
 		if ($file) {
@@ -109,7 +109,7 @@ class Download {
 	 * @param string $mimeType - Extensão do arquivo.
 	 * @return void
 	 */
-	private function setHeaders($mimeType, $fileName) {
+	private function set_headers($mimeType, $fileName) {
 		header("Pragma: public");
 		header("Expires: 0");
 		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -128,16 +128,16 @@ class Download {
 	 * @param string $filePath - Diretório do arquivo.
 	 * @return mixed - False se a extensão estiver incluida na lista de permitidas / String com a extensão.
 	 */
-	private function getMimeType($filePath) {
+	private function get_mime_type($filePath) {
 		// check if allowed extension
 		$fileExt = strtolower(substr(strrchr(basename($filePath),"."),1));
-		if (!array_key_exists($fileExt, $this->allowedExt)) {
+		if (!array_key_exists($fileExt, $this->allowed_ext)) {
 		  return false;
 		}
-		if (empty($this->allowedExt[$fileExt])) {
+		if (empty($this->allowed_ext[$fileExt])) {
 		    return mime_content_type($filePath);
 		}
-		return $this->allowedExt[$fileExt];
+		return $this->allowed_ext[$fileExt];
 	}
 
 	/**

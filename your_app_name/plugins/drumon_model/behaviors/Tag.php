@@ -38,7 +38,7 @@ class Tag extends ModelBehavior {
 	 * @param array $params - Lista para extração das tags.
 	 * @return mixed - False se a quantidade de tags for igual a zero / Lista de tags retornadas da consulta. 
 	 */
-	public function findAllWithTags(&$params) {
+	public function find_allWithTags(&$params) {
 		$name = get_class($this->model);
 		if(!empty($this->model->name)) $name = $this->model->name;
 		$recordType = "Modules::".$name;

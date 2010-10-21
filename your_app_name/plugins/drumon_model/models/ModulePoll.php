@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Drumon Framework: Build fast web applications
  * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
@@ -46,8 +46,8 @@ class ModulePoll extends AppModel {
 	 * @param array $params
 	 * @return array
 	 */
-	public function findAll($params = array()) {
-		$polls = parent::findAll($params);
+	public function find_all($params = array()) {
+		$polls = parent::find_all($params);
 		if(!$polls) return false;
 		
 		foreach ($polls as $key => $value) {

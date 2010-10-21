@@ -21,7 +21,7 @@ class TextHelper extends Helper {
 	 * @param string $space - Caractere usado no lugar do espaço (default: -).
 	 * @return string -  Texto formatado.
 	 */
-	function toSlug($text, $space = "-") {
+	function to_slug($text, $space = "-") {
 		$text = trim($text);
 
 		$search = explode(",","ç,æ,œ,á,é,í,ó,ú,à,è,ì,ò,ù,ä,ë,ï,ö,ü,ÿ,â,ê,î,ô,û,å,e,i,ø,u");
@@ -129,7 +129,7 @@ class TextHelper extends Helper {
 	* @return string - Texto sem links.
 	* @access public
 	*/
-	function stripLinks($text) {
+	function strip_links($text) {
 		return preg_replace('|<a\s+[^>]+>|im', '', preg_replace('|<\/a>|im', '', $text));
 	}
 

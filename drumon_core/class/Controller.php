@@ -92,11 +92,11 @@ abstract class Controller {
 	 * @return void
 	 */
 	public function execute($action) {
-		$this->beforeFilter();
+		$this->before_filter();
 		$this->$action();
-		$this->afterFilter();
+		$this->after_filter();
 		
-		$this->loadHelpers(); // Não pode ser antes do bf por que é add helpers nos controladores.
+		$this->load_helpers(); // Não pode ser antes do bf por que é add helpers nos controladores.
 		
 		$this->render($action);
 	}
@@ -107,7 +107,7 @@ abstract class Controller {
 	 * @access public
 	 * @return void
 	 */
-	public function beforeFilter() {}
+	public function before_filter() {}
 
 	/**
 	 * Executada posteriormente a qualquer ação no controlador.
@@ -115,7 +115,7 @@ abstract class Controller {
 	 * @access public
 	 * @return void
 	 */
-	public function afterFilter() {}
+	public function after_filter() {}
 
 	/**
 	 * Adiciona valores a variáveis utilizadas no template.
@@ -141,7 +141,7 @@ abstract class Controller {
 		$this->add('request_uri',$this->request->uri);
 		
 		$view = $view[0] == '/' ? $view : '/app/views/'.strtolower($this->request->controller_name).'/'.$view;
-		$content = $this->template->renderPage(ROOT.$view.".php");
+		$content = $this->template->render_page(ROOT.$view.".php");
 
 		// Para não redenrizar layout.
 		// Setar no controller: var $layout = null;
@@ -170,7 +170,7 @@ abstract class Controller {
 				</style>';
 			Benchmark::stop('Load Time');
 			echo '<div class="cms_debug">';
-			foreach (Benchmark::getTotals() as $total) {
+			foreach (Benchmark::get_totals() as $total) {
 				echo $total.'<br>';
 				}
 				echo '</div>';
@@ -221,7 +221,7 @@ abstract class Controller {
 	 * @access private
 	 * @return void
 	 */
-	private function loadHelpers() {
+	private function load_helpers() {
 		// Helpers existentes no core.
 		$core_helpers = array('Date','Html','Image','Text','Paginate','Url');
 		// Transforma a string de helpers em uma array.

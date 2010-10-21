@@ -20,7 +20,7 @@ class Utils {
 	 * @param string $eMailAddress - Email a ser verificado.
 	 * @return boolean - True se o email é válido / False se não.
 	 */
-	public static function checkEmail($eMailAddress) {
+	public static function check_email($eMailAddress) {
 		if (eregi("^[0-9a-z]([-_.]?[0-9a-z])*@[0-9a-z]([-.]?[0-9a-z])*\\.[a-z]{2,3}$", $eMailAddress, $check)) {
 			return true;
 		}

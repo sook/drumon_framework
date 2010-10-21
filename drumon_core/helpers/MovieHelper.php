@@ -22,13 +22,13 @@ class MovieHelper extends Helper {
 	private $location;
 	
 	/**
-	 * Carrega a rota através da função getRoute.
+	 * Carrega a rota através da função get_route.
 	 *
 	 * @param string $url - Url do vídeo.
 	 * @access public
 	 * @return mixed - String com o ID do vídeo ou false se a url não for válida.
 	 */
-	private function parseUrl($url) {
+	private function parse_url($url) {
 		if (preg_match('/watch\?v\=([A-Za-z0-9_-]+)/', $url, $matches)) {
 			$this->location = 'youtube';
 			return $matches[1];
@@ -78,7 +78,7 @@ class MovieHelper extends Helper {
 	 * @return mixed - String Html do object do vídeo.
 	 */
 	public function movie($url, $width = 480, $height = 385) {
-		$id = $this->parseUrl($url);
+		$id = $this->parse_url($url);
 
 		if ($this->location == 'youtube') {
 			return '<object width="'.$width.'" height="'.$height.'"><param name="movie" value="http://www.youtube.com/v/'.$id.'?rel=0&fs=1&loop=0"></param><param name="wmode" value="transparent"></param><param name="allowFullScreen" value="true"><embed src="http://www.youtube.com/v/'.$id.'?rel=0&fs=1&loop=0" allowfullscreen="true" type="application/x-shockwave-flash" wmode="transparent" width="'.$width.'" height="'.$height.'"></embed></object>';
@@ -98,7 +98,7 @@ class MovieHelper extends Helper {
 	 * @return mixed - Url da imagem de previsualização do video.
 	 */
 	public function imageUrl($url, $sizeId = 1) {
-		$id = $this->parseUrl($url);
+		$id = $this->parse_url($url);
 		
 		if ($this->location == 'youtube') {
 			return "http://img.youtube.com/vi/$id/$sizeId.jpg";

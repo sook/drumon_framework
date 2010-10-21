@@ -30,8 +30,8 @@ class PaginateHelper extends Helper {
 	 * @param object $page - Referência a uma instância de Page.
 	 * @return bool - True se a ultima página for maior que 1, False se não.
 	 */
-	public function hasPage($page) {
-		return $page->hasPage();
+	public function has_page($page) {
+		return $page->has_page();
 	}
 
 	/**
@@ -41,8 +41,8 @@ class PaginateHelper extends Helper {
 	 * @param object $page
 	 * @return bool
 	 */
-	public function hasNext($page) {
-		return $page->hasNextPage();
+	public function has_next($page) {
+		return $page->has_nextPage();
 	}
 
 	/**
@@ -52,8 +52,8 @@ class PaginateHelper extends Helper {
 	 * @param object $page - Referência a uma instância de Page.
 	 * @return bool - True se a pagina atual for maior que 1 , false se não.
 	 */
-	public function hasPrev($page) {
-		return $page->hasPrevPage();
+	public function has_prev($page) {
+		return $page->has_prevPage();
 	}
 
 	/**
@@ -74,8 +74,8 @@ class PaginateHelper extends Helper {
 	 * @param object $page - Referência a uma instância de Page.
 	 * @return string - 
 	 */
-	public function urlNext($page, $url = "") {
-		return $this->getFormatedUrl($page->getNextPage(), $url);
+	public function next_url($page, $url = "") {
+		return $this->get_formated_url($page->getNextPage(), $url);
 	}
 
 	/**
@@ -86,8 +86,8 @@ class PaginateHelper extends Helper {
 	 * @param string $url - Url para formatação do link.
 	 * @return string - Url formatada para visualização da página anterior.
 	 */
-	public function urlPrev($page, $url = "") {
-		return $this->getFormatedUrl($page->getPrevPage(), $url);
+	public function previous_url($page, $url = "") {
+		return $this->get_formated_url($page->getPrevPage(), $url);
 	}
 
 	/**
@@ -98,8 +98,8 @@ class PaginateHelper extends Helper {
 	 * @param string $url - Url para formatação do link.
 	 * @return string - Url formatada para visualização da ultima página.
 	 */
-	public function urlLastPage($page, $url = "") {
-		return $this->getFormatedUrl($page->getLastPage(), $url);
+	public function last_page_url($page, $url = "") {
+		return $this->get_formated_url($page->getLastPage(), $url);
 	}
 
 	/**
@@ -111,7 +111,7 @@ class PaginateHelper extends Helper {
 	 * @return string - Código html da paginação.
 	 */
 	public function show($page, $options = array()) {
-		if(!$this->hasPage($page)) return '';
+		if(!$this->has_page($page)) return '';
 
 		$defaults = array('type'=>'full','class'=>'paginate','url'=>'','range'=>10);
 		$options = array_merge($defaults, $options);
@@ -145,8 +145,8 @@ class PaginateHelper extends Helper {
 		$options = array_merge($defaults, $options);
 		$text = isset($options['text']) ? $options['text'] : $this->i18n['prev_page'];
 
-		if($this->hasPrev($page)) {
-			return '<a class="prev_page" href="'.$this->urlPrev($page,$options['url']).'" title="'.$text.'">'.$text.'</a>';
+		if($this->has_prev($page)) {
+			return '<a class="prev_page" href="'.$this->previous_url($page,$options['url']).'" title="'.$text.'">'.$text.'</a>';
 		} else {
 			if($options['show']){
 				$html = '<span class="disabled prev_page">'.$text.'</span>';
@@ -192,7 +192,7 @@ class PaginateHelper extends Helper {
 			if ($this->current($page) == $p) {
 				$html .= '<span class="current number">'.$p.'</span>';
 			} else {
-				$html .= '<a class="number" href="'.$this->getFormatedUrl($p,$options['url']).'">'.$p.'</a>';
+				$html .= '<a class="number" href="'.$this->get_formated_url($p,$options['url']).'">'.$p.'</a>';
 			}
 		}
 
@@ -212,8 +212,8 @@ class PaginateHelper extends Helper {
 		$options = array_merge($defaults, $options);
 		$text = isset($options['text']) ? $options['text'] : $this->i18n['next_page'];
 
-		if($this->hasNext($page)) {
-			return '<a class="next_page" href="'.$this->urlNext($page,$options['url']).'" title="'.$text.'">'.$text.'</a>';
+		if($this->has_next($page)) {
+			return '<a class="next_page" href="'.$this->next_url($page,$options['url']).'" title="'.$text.'">'.$text.'</a>';
 		} else {
 			if($options['show']){
 				$html = '<span class="disabled next_page">'.$text.'</span>';
@@ -265,9 +265,9 @@ class PaginateHelper extends Helper {
 	 * @param string $url - Url para concatenação.
 	 * @return string - Url completa com o link de paginação.
 	 */
-	public function getFormatedUrl($pageNumber, $url = "") {
+	public function get_formated_url($pageNumber, $url = "") {
 		$params = "";
-		$currentUrl = $this->getURL();
+		$currentUrl = $this->get_url();
 		if (strpos($currentUrl,'?') != false) {
 			$params = substr($currentUrl, strpos($currentUrl,'?'), strlen($currentUrl));
 		}
@@ -280,7 +280,7 @@ class PaginateHelper extends Helper {
 	 * @access private
 	 * @return string - Url completa com variáveis get.
 	 */
-	private function getURL(){
+	private function get_url(){
 		$s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "";
 		$protocol = $this->strleft(strtolower($_SERVER["SERVER_PROTOCOL"]), "/").$s;
 		$port = ($_SERVER["SERVER_PORT"] == "80") ? "" : (":".$_SERVER["SERVER_PORT"]);
