@@ -2,7 +2,7 @@
 
 // Inicio Benchmark
 if(BENCHMARK){
-	include(CORE.'/class/Benchmark.php');
+	include('class/Benchmark.php');
 	Benchmark::start('Load Time');
 }
 

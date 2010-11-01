@@ -153,9 +153,7 @@ abstract class Controller {
 		Event::fire('before_render',array('content' => &$content));
 		echo $content;
 		Event::fire('after_render');
-		
-		
-			die(); // Para garantir e não chamar 2 render.
+		die(); // Para garantir e não chamar 2 render.
 	}
 
 	/**
