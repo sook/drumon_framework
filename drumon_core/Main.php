@@ -3,13 +3,6 @@
  * *********** BOOT ************
  */
 
-	// Inicio Benchmark
-	if(BENCHMARK){
-		include(CORE.'/class/Benchmark.php');
-		Benchmark::start('Load Time');
-	}
-	
-	
 	/**
 	 * Carrega todos os arquivos necessários.
 	 */

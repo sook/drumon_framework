@@ -18,7 +18,7 @@
 	define('ERROR_404','404.html');
 	
 	// Plugins utilizados em sua app.
-	define('PLUGINS','drumon_model');
+	define('PLUGINS','drumon_model,benchmark');
 	
 	
 	// Configurações personalizadas de sua aplicação.

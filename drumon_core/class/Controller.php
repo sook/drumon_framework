@@ -149,32 +149,12 @@ abstract class Controller {
 			$this->add('content',$content);
 			$content = $this->template->fetch(ROOT.'/app/views/layouts/'.$this->layout.'.php');
 		}
+		
+		Event::fire('before_render',array('content' => &$content));
 		echo $content;
-
-		if (BENCHMARK){
-			echo '<style type="text/css">
-						div.cms_debug{
-						background-color: white;
-						position: fixed;
-						bottom:0;
-						-moz-box-shadow:0 -1px 4px #000;
-						box-shadow:0 -1px 4px #000;
-						-webkit-box-shadow:0 -1px 4px #000;
-						padding: 2px 4px 0 4px;
-						left:10px;
-						opacity:0.3;
-					}
-					div.cms_debug:hover{
-						opacity:1;
-					}
-				</style>';
-			Benchmark::stop('Load Time');
-			echo '<div class="cms_debug">';
-			foreach (Benchmark::get_totals() as $total) {
-				echo $total.'<br>';
-				}
-				echo '</div>';
-		}
+		Event::fire('after_render');
+		
+		
 			die(); // Para garantir e não chamar 2 render.
 	}
 
