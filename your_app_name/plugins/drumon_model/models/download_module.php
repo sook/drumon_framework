@@ -6,20 +6,20 @@
  */
 
 /**
- * Módulo para Cinema.
+ * Módulo para Download.
  *
- * @author Sook contato@sook.com.br
+ * @author Sook contato@sook.com.br.
  * @package models
  */
-class ModuleCine extends AppModel {
+class DownloadModule extends AppModel {
 	
-	/** 
-	 * Armazena o nome da tabela a ser utilizada pelo módulo.
+	/**
+	 * Nome da tabela.
 	 *
 	 * @access public
 	 * @var string
 	 */
-	public $table = "cines";
+	public $table = "downloads";
 	
 	/** 
 	 * Armazena uma lista de funcionalidades que o módulo irá dispor.

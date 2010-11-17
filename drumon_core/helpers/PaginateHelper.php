@@ -16,11 +16,11 @@ class PaginateHelper extends Helper {
 	/**
 	 * Carrega a classe definindo seu idioma.
 	 *
-	 * @param string $i18n - Referência da variável com os dados de internacionalização.
+	 * @param string $locale - Referência da variável com os dados de internacionalização.
 	 * @access public
 	 */
-	public function __construct($i18n){
-		parent::__construct($i18n);
+	public function __construct($locale){
+		parent::__construct($locale);
 	}
 
 	/**
@@ -143,7 +143,7 @@ class PaginateHelper extends Helper {
 	public function _prev($page,$options) {
 		$defaults = array('show'=>true);
 		$options = array_merge($defaults, $options);
-		$text = isset($options['text']) ? $options['text'] : $this->i18n['prev_page'];
+		$text = isset($options['text']) ? $options['text'] : $this->locale['prev_page'];
 
 		if($this->has_prev($page)) {
 			return '<a class="prev_page" href="'.$this->previous_url($page,$options['url']).'" title="'.$text.'">'.$text.'</a>';
@@ -210,7 +210,7 @@ class PaginateHelper extends Helper {
 	public function _next($page,$options) {
 		$defaults = array('show'=>true);
 		$options = array_merge($defaults, $options);
-		$text = isset($options['text']) ? $options['text'] : $this->i18n['next_page'];
+		$text = isset($options['text']) ? $options['text'] : $this->locale['next_page'];
 
 		if($this->has_next($page)) {
 			return '<a class="next_page" href="'.$this->next_url($page,$options['url']).'" title="'.$text.'">'.$text.'</a>';
@@ -243,17 +243,17 @@ class PaginateHelper extends Helper {
 		if ($page->total_pages < 2) {
 			switch ($page->total_records) {
 			case 0:
-	        echo $this->i18n['page_info']['0'];
+	        echo $this->locale['page_info']['0'];
 	        break;
 	    case 1:
-	        echo $this->i18n['page_info']['1'];
+	        echo $this->locale['page_info']['1'];
 	        break;
 	    default;
-	        echo $this->sprintf2($this->i18n['page_info']['all'],array('value'=>$page->total_records));
+	        echo $this->sprintf2($this->locale['page_info']['all'],array('value'=>$page->total_records));
 	        break;
 			}
 		} else {
-			echo $this->sprintf2($this->i18n['page_info']['range'],array('from'=>$init,'to'=>$end,'all'=>$page->total_records));
+			echo $this->sprintf2($this->locale['page_info']['range'],array('from'=>$init,'to'=>$end,'all'=>$page->total_records));
 		}
 	}
 

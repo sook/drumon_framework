@@ -1,6 +1,6 @@
 <?php
 	
-	$i18n = array (
+	$locale = array (
 		'lang' => 'pt-BR',
 		'date' => array(
 			'default' => '%d/%m/%Y %H:%M',

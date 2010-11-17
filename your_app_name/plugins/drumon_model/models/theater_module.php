@@ -6,31 +6,22 @@
  */
 
 /**
- * Módulo de Publicidade.
+ * Módulo para theater
  *
  * @author Sook contato@sook.com.br
  * @package models
  */
-class ModuleAdvertising extends AppModel {
-	
+class TheaterModule extends AppModel {
 	/** 
-	 * Armazena o nome da tabela a ser utilizada pelo módulo.
+	 * Armazena o nome da tabela a ser utilizada pelo módulo
 	 *
 	 * @access public
 	 * @var string
 	 */
-	public $table = "advertisings";
+	public $table = "theaters";
 	
 	/** 
-	 * Armazena o nome do módulo.
-	 *
-	 * @access public
-	 * @var string
-	 */
-	public $name = "Advertising";
-	
-	/** 
-	 * Armazena uma lista de funcionalidades que o módulo irá dispor.
+	 * Armazena uma lista de funcionalidades que o módulo irá dispor
 	 *
 	 * @access protected
 	 * @var array
@@ -38,13 +29,14 @@ class ModuleAdvertising extends AppModel {
 	protected $uses = array('trash','status');
 	
 	/**
-	 * Adiciona os comportamentos do módulo.
+	 * Adiciona os comportamentos do módulo
 	 *
 	 * @access public
 	 * @return void
 	 */
 	public function __construct() {
 		parent::__construct();
+		$this->imports('Page');
 		$this->imports('Selector');
 		$this->imports('Tag');
 	}

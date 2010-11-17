@@ -301,16 +301,16 @@ class TextHelper extends Helper {
 
 
 	/**
-	 * Traduz o Texto usando a variável de internacionalização i18n.
+	 * Traduz o Texto usando a variável de internacionalização locale.
 	 *
-	 * @param string $key - Chave da palavra no arquivo de i18n.
+	 * @param string $key - Chave da palavra no arquivo de locale.
 	 * @param boolean $ucfirst
 	 * @return string - O texto traduzido.
 	 * @access public
 	 */
 	function locale($key, $ucfirst = false) {
-		if($ucfirst) return ucfirst($this->i18n[$key]);
-		return $this->i18n[$key];
+		if($ucfirst) return ucfirst($this->locale[$key]);
+		return $this->locale[$key];
 	}
 }
 ?>

@@ -6,12 +6,12 @@
  */
 
 /**
- * Módulo para 
+ * Módulo para post para blog.
  *
- * @author Sook contato@sook.com.br.
+ * @author Sook contato@sook.com.br
  * @package models
  */
-class ModuleHighlightItem extends AppModel {
+class BlogPostModule extends AppModel {
 	
 	/** 
 	 * Armazena o nome da tabela a ser utilizada pelo módulo.
@@ -19,7 +19,7 @@ class ModuleHighlightItem extends AppModel {
 	 * @access public
 	 * @var string
 	 */
-	public $table = "highlight_items";
+	public $table = "blog_posts";
 	
 	/** 
 	 * Armazena uma lista de funcionalidades que o módulo irá dispor.
@@ -37,7 +37,11 @@ class ModuleHighlightItem extends AppModel {
 	 */
 	public function __construct() {
 		parent::__construct();
+		$this->imports('Page');
 		$this->imports('Selector');
+		$this->imports('Tag');
+		$this->imports('Comment');
 	}
+	
 }
 ?>

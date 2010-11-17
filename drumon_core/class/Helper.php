@@ -20,7 +20,7 @@ abstract class Helper {
 	 * @access protected
 	 * @var array
 	 */
-	protected $i18n;
+	protected $locale;
 	
 	/** 
 	 * Lista de outros helpers que vão ser utilizados no helper atual.
@@ -34,11 +34,11 @@ abstract class Helper {
 	 * Construtora da Classe.
 	 *
 	 * @access public
-	 * @param array $i18n - Referência da variável com os dados de internacionalização.
+	 * @param array $locale - Referência da variável com os dados de internacionalização.
 	 * @return void
 	 */
-	public function __construct($i18n){
-		$this->i18n = $i18n;
+	public function __construct($locale){
+		$this->locale = $locale;
 	}
 
 	/**

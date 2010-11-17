@@ -6,12 +6,12 @@
  */
 
 /**
- * Módulo para atração de evento.
+ * Módulo de Publicidade.
  *
  * @author Sook contato@sook.com.br
  * @package models
  */
-class ModuleEventAttraction extends AppModel {
+class AdvertisingModule extends AppModel {
 	
 	/** 
 	 * Armazena o nome da tabela a ser utilizada pelo módulo.
@@ -19,8 +19,24 @@ class ModuleEventAttraction extends AppModel {
 	 * @access public
 	 * @var string
 	 */
-	public $table = "events_attractions";
-
+	public $table = "advertisings";
+	
+	/** 
+	 * Armazena o nome do módulo.
+	 *
+	 * @access public
+	 * @var string
+	 */
+	public $name = "Advertising";
+	
+	/** 
+	 * Armazena uma lista de funcionalidades que o módulo irá dispor.
+	 *
+	 * @access protected
+	 * @var array
+	 */
+	protected $uses = array('trash','status');
+	
 	/**
 	 * Adiciona os comportamentos do módulo.
 	 *
@@ -29,6 +45,8 @@ class ModuleEventAttraction extends AppModel {
 	 */
 	public function __construct() {
 		parent::__construct();
+		$this->imports('Selector');
+		$this->imports('Tag');
 	}
 }
 ?>

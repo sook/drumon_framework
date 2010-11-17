@@ -6,7 +6,7 @@
 	
 	// Incluí arquivos essências
 	include(ROOT.'/config/enviroments/'.ENV.'.php');
-	include(CORE.'/class/Event.php');
+	include(CORE.'/class/event.php');
 	
 	// Carrega plugins
 	$plugins = (PLUGINS === '') ? array() : explode(',',PLUGINS);
@@ -14,5 +14,5 @@
 		require(ROOT.'/plugins/'.$plugin.'/initializer.php');
 	}
 	Event::fire('on_init');
-	include(CORE.'/Main.php');
+	include(CORE.'/main.php');
 ?>

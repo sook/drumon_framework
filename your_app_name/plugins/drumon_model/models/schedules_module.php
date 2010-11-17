@@ -1,4 +1,4 @@
-<?php>
+<?
 /**
  * Drumon Framework: Build fast web applications
  * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
@@ -6,30 +6,30 @@
  */
 
 /**
- * Módulo para faq.
+ * Módulo para schedules
  *
  * @author Sook contato@sook.com.br
  * @package models
  */
-class ModuleFaq extends AppModel {
+class SchedulesModule extends AppModel {
 	/** 
-	 * Armazena o nome da tabela a ser utilizada pelo módulo.
+	 * Armazena o nome da tabela a ser utilizada pelo módulo
 	 *
 	 * @access public
 	 * @var string
 	 */
-	public $table = "faqs";
+	public $table = "schedules";
 	
 	/** 
-	 * Armazena uma lista de funcionalidades que o módulo irá dispor.
+	 * Armazena uma lista de funcionalidades que o módulo irá dispor
 	 *
 	 * @access protected
 	 * @var array
 	 */
 	protected $uses = array('trash','status');
-
+	
 	/**
-	 * Adiciona os comportamentos do módulo.
+	 * Adiciona os comportamentos do módulo
 	 *
 	 * @access public
 	 * @return void
@@ -39,7 +39,6 @@ class ModuleFaq extends AppModel {
 		$this->imports('Page');
 		$this->imports('Selector');
 		$this->imports('Tag');
-		$this->imports('Comment');
 	}
 }
 ?>

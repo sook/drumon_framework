@@ -6,12 +6,12 @@
  */
 
 /**
- * Módulo para Evento.
+ * Módulo Custom Selector.
  *
  * @author Sook contato@sook.com.br
  * @package models
  */
-class ModuleEvent extends AppModel {
+class CustomSelectorModule extends AppModel {
 	
 	/**
 	 * Nome da tabela.
@@ -19,15 +19,8 @@ class ModuleEvent extends AppModel {
 	 * @access public
 	 * @var string
 	 */
-	public $table = "events";
-	
-	/** 
-	 * Armazena uma lista de funcionalidades que o módulo irá dispor.
-	 *
-	 * @access protected
-	 * @var array
-	 */
-	protected $uses = array('trash','status');
+	 
+	public $table = "core_select_options_records";
 	
 	/**
 	 * Adiciona os comportamentos do módulo.
@@ -37,9 +30,6 @@ class ModuleEvent extends AppModel {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->imports('Page');
-		$this->imports('Selector');
-		$this->imports('Tag');
 	}
 }
 ?>

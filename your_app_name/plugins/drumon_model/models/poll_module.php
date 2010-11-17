@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Drumon Framework: Build fast web applications
  * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
@@ -6,19 +6,19 @@
  */
 
 /**
- * Módulo para theater
+ * Módulo para enquete
  *
  * @author Sook contato@sook.com.br
  * @package models
  */
-class ModuleTheater extends AppModel {
+class PollModule extends AppModel {
 	/** 
 	 * Armazena o nome da tabela a ser utilizada pelo módulo
 	 *
 	 * @access public
 	 * @var string
 	 */
-	public $table = "theaters";
+	public $table = "polls";
 	
 	/** 
 	 * Armazena uma lista de funcionalidades que o módulo irá dispor
@@ -36,9 +36,25 @@ class ModuleTheater extends AppModel {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->imports('Page');
 		$this->imports('Selector');
-		$this->imports('Tag');
+	}
+	
+	/**
+	 * Busca as respostas da enquete específica
+	 *
+	 * @access public
+	 * @param array $params
+	 * @return array
+	 */
+	public function find_all($params = array()) {
+		$polls = parent::find_all($params);
+		if(!$polls) return false;
+		
+		foreach ($polls as $key => $value) {
+			$s = $this->connection->find("SELECT * FROM polls_responses WHERE polls_id = ".$polls[$key]['id']." ");
+			$polls[$key]['responses'] = $s;
+		}
+		return $polls;
 	}
 }
 ?>

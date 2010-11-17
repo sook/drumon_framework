@@ -6,22 +6,23 @@
  */
 
 /**
- * Módulo para vídeo
+ * Módulo para Evento.
  *
  * @author Sook contato@sook.com.br
  * @package models
  */
-class ModuleVideo extends AppModel {
-	/** 
-	 * Armazena o nome da tabela a ser utilizada pelo módulo
+class EventModule extends AppModel {
+	
+	/**
+	 * Nome da tabela.
 	 *
 	 * @access public
 	 * @var string
 	 */
-	public $table = "videos";
+	public $table = "events";
 	
 	/** 
-	 * Armazena uma lista de funcionalidades que o módulo irá dispor
+	 * Armazena uma lista de funcionalidades que o módulo irá dispor.
 	 *
 	 * @access protected
 	 * @var array
@@ -29,7 +30,7 @@ class ModuleVideo extends AppModel {
 	protected $uses = array('trash','status');
 	
 	/**
-	 * Adiciona os comportamentos do módulo
+	 * Adiciona os comportamentos do módulo.
 	 *
 	 * @access public
 	 * @return void
@@ -39,7 +40,6 @@ class ModuleVideo extends AppModel {
 		$this->imports('Page');
 		$this->imports('Selector');
 		$this->imports('Tag');
-		$this->imports('Comment');
 	}
 }
 ?>

@@ -6,12 +6,12 @@
  */
 
 /**
- * Módulo para Notícias.
+ * Módulo para atração de evento.
  *
  * @author Sook contato@sook.com.br
  * @package models
  */
-class ModuleNews extends AppModel {
+class EventAttractionModule extends AppModel {
 	
 	/** 
 	 * Armazena o nome da tabela a ser utilizada pelo módulo.
@@ -19,24 +19,8 @@ class ModuleNews extends AppModel {
 	 * @access public
 	 * @var string
 	 */
-	public $table = "news";
-	
-	/** 
-	 * Armazena o nome do módulo.
-	 *
-	 * @access public
-	 * @var string
-	 */
-	public $name = "New";
-	
-	/** 
-	 * Armazena uma lista de funcionalidades que o módulo irá dispor.
-	 *
-	 * @access protected
-	 * @var array
-	 */
-	protected $uses = array('trash','status');
-	
+	public $table = "events_attractions";
+
 	/**
 	 * Adiciona os comportamentos do módulo.
 	 *
@@ -45,10 +29,6 @@ class ModuleNews extends AppModel {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->imports('Page');
-		$this->imports('Selector');
-		$this->imports('Tag');
-		$this->imports('Comment');
 	}
 }
 ?>

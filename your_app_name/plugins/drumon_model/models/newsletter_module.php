@@ -6,24 +6,22 @@
  */
 
 /**
- * Módulo Custom Selector.
+ * Módulo para Newsletter
  *
  * @author Sook contato@sook.com.br
  * @package models
  */
-class ModuleCustomSelector extends AppModel {
-	
-	/**
-	 * Nome da tabela.
+class NewsletterModule extends AppModel {
+	/** 
+	 * Armazena o nome da tabela a ser utilizada pelo módulo
 	 *
 	 * @access public
 	 * @var string
 	 */
-	 
-	public $table = "core_select_options_records";
+	public $table = "newsletters";
 	
 	/**
-	 * Adiciona os comportamentos do módulo.
+	 * Adiciona os comportamentos do módulo
 	 *
 	 * @access public
 	 * @return void

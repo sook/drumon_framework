@@ -14,28 +14,28 @@
 class DateHelper extends Helper {
 
 	/**
-	 * Retorna a data passando o formato do i18n.
+	 * Retorna a data passando o formato do locale.
 	 * Veja todas as opções de formatação em {@link http://ch2.php.net/manual/pt_BR/function.strftime.php http://ch2.php.net/manual/pt_BR/function.strftime.php}.
 	 * Exemplo: 29 de abril de 2009.
 	 *
 	 * @access public
 	 * @param string $date - Data a ser processada.
-	 * @param string $format - Formato definido no i18n.
-	 * @return string - Data no formato padrão da i18n.
+	 * @param string $format - Formato definido no locale.
+	 * @return string - Data no formato padrão da locale.
 	 */
 	function show($date, $format = 'default') {
-		return strftime($this->i18n['date'][$format],strtotime($date));
+		return strftime($this->locale['date'][$format],strtotime($date));
 	}
 	
 	/**
-	 * Retorna a data atual passando o formato do i18n
+	 * Retorna a data atual passando o formato do locale
 	 *
 	 * @param string $format 
 	 * @return void
 	 * @author Danillo César de Oliveira Melo
 	 */
 	function now($format = 'default') {
-			return strftime($this->i18n['date'][$format]);
+			return strftime($this->locale['date'][$format]);
 	}
 
 	/**

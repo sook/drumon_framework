@@ -6,22 +6,23 @@
  */
 
 /**
- * Módulo para galeria artística.
+ * Módulo para Cinema.
  *
  * @author Sook contato@sook.com.br
  * @package models
  */
-class ModuleArtisticGallery extends AppModel {
+class CineModule extends AppModel {
+	
 	/** 
-	 * Armazena o nome da tabela a ser utilizada pelo model.
+	 * Armazena o nome da tabela a ser utilizada pelo módulo.
 	 *
 	 * @access public
 	 * @var string
 	 */
-	public $table = "artistic_galleries";
+	public $table = "cines";
 	
 	/** 
-	 * Armazena uma lista de funcionalidades que o model irá dispor.
+	 * Armazena uma lista de funcionalidades que o módulo irá dispor.
 	 *
 	 * @access protected
 	 * @var array
@@ -29,7 +30,7 @@ class ModuleArtisticGallery extends AppModel {
 	protected $uses = array('trash','status');
 	
 	/**
-	 * Adiciona os comportamentos do modelo.
+	 * Adiciona os comportamentos do módulo.
 	 *
 	 * @access public
 	 * @return void
@@ -39,7 +40,6 @@ class ModuleArtisticGallery extends AppModel {
 		$this->imports('Page');
 		$this->imports('Selector');
 		$this->imports('Tag');
-		$this->imports('Comment');
 	}
 }
 ?>

@@ -6,20 +6,20 @@
  */
 
 /**
- * Módulo para Download.
+ * Módulo para 
  *
  * @author Sook contato@sook.com.br.
  * @package models
  */
-class ModuleDownload extends AppModel {
+class HighlightItemModule extends AppModel {
 	
-	/**
-	 * Nome da tabela.
+	/** 
+	 * Armazena o nome da tabela a ser utilizada pelo módulo.
 	 *
 	 * @access public
 	 * @var string
 	 */
-	public $table = "downloads";
+	public $table = "highlight_items";
 	
 	/** 
 	 * Armazena uma lista de funcionalidades que o módulo irá dispor.
@@ -37,9 +37,7 @@ class ModuleDownload extends AppModel {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->imports('Page');
 		$this->imports('Selector');
-		$this->imports('Tag');
 	}
 }
 ?>

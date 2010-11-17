@@ -20,7 +20,7 @@ abstract class Controller {
 	 * @access private
 	 * @var string
 	 */
-	private	$i18n = null;
+	private	$locale = null;
 	
 	/** 
 	 * Array com as informações pertencentes a aplicação.
@@ -75,10 +75,10 @@ abstract class Controller {
 	 *
 	 * @access public
 	 * @param object $request - Instância do Request Handler.
-	 * @param array $i18n - Referência da variável com os dados de internacionalização.
+	 * @param array $locale - Referência da variável com os dados de internacionalização.
 	 */
-	public function __construct($request, $i18n) {
-		$this->i18n = $i18n;
+	public function __construct($request, $locale) {
+		$this->locale = $locale;
 		$this->params = $request->params;
 		$this->template = new Template();
 		$this->request = $request;
@@ -95,8 +95,6 @@ abstract class Controller {
 		$this->before_filter();
 		$this->$action();
 		$this->after_filter();
-		
-		$this->load_helpers(); // Não pode ser antes do bf por que é add helpers nos controladores.
 		
 		$this->render($action);
 	}
@@ -137,10 +135,11 @@ abstract class Controller {
 	 * @return void
 	 */
 	public function render($view) {
+		$this->load_helpers();
 		$this->template->params = $this->params;
 		$this->add('request_uri',$this->request->uri);
 		
-		$view = $view[0] == '/' ? $view : '/app/views/'.strtolower($this->request->controller_name).'/'.$view;
+		$view = $view[0] == '/' ? $view : '/app/views/'.Drumon::to_underscore($this->request->controller_name).'/'.$view;
 		$content = $this->template->render_page(ROOT.$view.".php");
 
 		// Para não redenrizar layout.
@@ -214,7 +213,7 @@ abstract class Controller {
 			$local = in_array($helper, $core_helpers) ? CORE : ROOT.'/app';
 			require $local."/helpers/".$helper."Helper.php";
 			$class = $helper.'Helper';
-			$this->add(strtolower($helper), new $class($this->i18n));
+			$this->add(strtolower($helper), new $class($this->locale));
 		}
 
 		// Adiciona os helpers requeridos em outros helpers.

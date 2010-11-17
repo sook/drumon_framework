@@ -7,17 +7,18 @@
 	 * Carrega todos os arquivos necessários.
 	 */
 	if(LANGUAGE) {
-		include(ROOT.'/config/i18n/'.LANGUAGE.'.php');
+		include(ROOT.'/config/locales/'.LANGUAGE.'.php');
 	} else {
-		$i18n = array();
+		$locale = array();
 	}
-
+	
+	include(CORE.'/class/drumon.php');
 	include(ROOT.'/config/routes.php');
-	include(CORE.'/class/RequestHandler.php');
-	include(CORE.'/class/Helper.php');
-	include(CORE.'/class/Template.php');
-	include(CORE.'/class/Controller.php');
-	include(ROOT.'/app/controllers/AppController.php');
+	include(CORE.'/class/request_handler.php');
+	include(CORE.'/class/helper.php');
+	include(CORE.'/class/template.php');
+	include(CORE.'/class/controller.php');
+	include(ROOT.'/app/controllers/app_controller.php');
 
 	/**
 	 * Inicia o sistema de roteamento.
@@ -30,8 +31,8 @@
 	 */
 	if($request->valid){
 		$controller_name = $request->controller_name."Controller";
-		include(ROOT.'/app/controllers/'.$controller_name.'.php');
-		$controller = new $controller_name($request,$i18n);
+		include(ROOT.'/app/controllers/'.Drumon::to_underscore($controller_name).'.php');
+		$controller = new $controller_name($request,$locale);
 		$controller->execute($request->action_name);
 	}else{
 		header("HTTP/1.0 404 Not Found");
