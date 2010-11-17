@@ -134,14 +134,16 @@ abstract class Controller {
 	 * @param string $view - View a ser renderizada.
 	 * @return void
 	 */
-	public function render($view) {
+	public function render($view, $content = null) {
 		$this->load_helpers();
 		$this->template->params = $this->params;
 		$this->add('request_uri',$this->request->uri);
 		
-		$view = $view[0] == '/' ? $view : '/app/views/'.Drumon::to_underscore($this->request->controller_name).'/'.$view;
-		$content = $this->template->render_page(ROOT.$view.".php");
-
+		if($content == null){
+			$view = $view[0] == '/' ? $view : '/app/views/'.Drumon::to_underscore($this->request->controller_name).'/'.$view;
+			$content = $this->template->render_page(ROOT.$view.".php");
+		}
+		
 		// Para não redenrizar layout.
 		// Setar no controller: var $layout = null;
 		if(!empty($this->layout)){
@@ -153,6 +155,16 @@ abstract class Controller {
 		echo $content;
 		Event::fire('after_render');
 		die(); // Para garantir e não chamar 2 render.
+	}
+	
+	/**
+	 * Renderiza o texto passado como parâmetro.
+	 *
+	 * @param string $text 
+	 * @return void
+	 */
+	public function render_text($text) {
+		$this->render(null,$text);
 	}
 
 	/**
