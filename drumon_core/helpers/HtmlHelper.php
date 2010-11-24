@@ -127,7 +127,8 @@ class HtmlHelper extends Helper {
 
 		$this->javascripts = array_merge($this->javascripts, $files);
 	}
-
+	
+	
 	/**
 	 * Retorna o código html dos arquivos javascripts passados como parametro.
 	 *
@@ -144,5 +145,126 @@ class HtmlHelper extends Helper {
 		}
 		return $result;
 	}
+	
+	/**
+	 * Cria um select com a lista de opções passada.
+	 *
+	 * @param string $field_name - Nome do campo.
+	 * @param array $options_list - Lista de dados dos options.
+	 * @param string $options  - Opções extras(selected,include_blank) e atributos(class,id...).
+	 * @return string
+	 */
+	public function select($field_name, $options_list = array(), $options = array()) {
+		$defaults = array('include_blank' => false);
+		$options = array_merge($defaults,$options);
+		
+		$html = "";
+		$selected = '';
+		
+		if (isset($options['selected'])) {
+			$selected = $options['selected'];
+			unset($options['selected']);
+		}
+		
+		if (isset($options['include_blank'])) {
+			if($options['include_blank'] === true) {
+				$include_blank = '<option></option>';
+			}else if($options['include_blank'] === false){
+				$include_blank = '';
+			}else{
+			$include_blank = '<option>'.$options['include_blank'].'</option>';
+			}
+			unset($options['include_blank']);
+		}
+		
+		$html = '<select name="'.$field_name.'" '.$this->create_attributes($options).'>';
+		$html .= $include_blank;
+		foreach ($options_list as $key => $value) {
+			$selected_on = '';
+			if ($selected == $key) {
+				$selected_on = 'selected';
+			}
+			$html .= '<option '.$selected_on.' value="'.$key.'">'.$value.'</option>';
+		}
+		$html .= '</select>';
+		return $html;
+	}
+	
+	
+	/**
+	 * Exibe um select de html com os anos passados.
+	 *
+	 * @param string $field_name - Nome do campo.
+	 * @param string $start_year - Ano de inicio.
+	 * @param string $end_year - Ano de fim.
+	 * @param string $options - Veja select para mais detalhes.
+	 */
+	function select_date_years($field_name,$start_year,$end_year,$options = array()) {
+		$defaults = array('selected'=>Date('Y'));
+		$options = array_merge($defaults,$options);
+		
+		$data_list = array();
+		for ($i=$start_year; $i <= $end_year; $i++) { 
+			$data_list[$i]=$i;
+		}
+		
+		$html = $this->select($field_name,$data_list,$options);
+		return $html;
+	}
+	
+	
+	/**
+	 * Exibe um select de html para com os meses do ano.
+	 *
+	 * @param string $field_name - Nome do campo.
+	 * @param array $options - Veja select para mais detalhes.
+	 * @return string
+	 */
+	function select_date_months($field_name, $options = array()) {
+		$defaults = array('selected'=>Date('m'));
+		$options = array_merge($defaults,$options);
+		
+		$data_list = array();
+		foreach ($this->locale['date']['months'] as $key => $value) {
+			$selected = '';
+			$n = ($key < 10) ? '0'.$key : $key ;
+			$data_list[$n]=$value;
+		}
+	
+		$html = $this->select($field_name,$data_list,$options);
+		return $html;
+	}
+	
+	
+	/**
+	 * Exibe um select de html para com os dias do mês.
+	 *
+	 * @param string $field_name - Nome do campo.
+	 * @param array $options - Veja select para mais detalhes.
+	 * @return string
+	 */
+	function select_date_days($field_name,$options = array()) {
+		$defaults = array('selected'=>Date('d'));
+		$options = array_merge($defaults,$options);
+		
+		$data_list = array();
+		for ($i=1; $i <= 31; $i++) {
+			$n = ($i < 10) ? '0'.$i : $i ;
+			$data_list[$n]=$n;
+		}
+
+		$html = $this->select($field_name,$data_list,$options);
+		return $html;
+	}
+	
+	
+	public function create_attributes($attributes) {
+		$data = "";
+		foreach ($attributes as $key => $value) {
+			$data .= ''.$key.'="'.$value.'" ';
+		}
+		return $data;
+	}
+	
 }
 ?>

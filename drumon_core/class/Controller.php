@@ -223,7 +223,7 @@ abstract class Controller {
 		foreach ($this->helpers as $helper) {
 			$helper = trim($helper);
 			$local = in_array($helper, $core_helpers) ? CORE : ROOT.'/app';
-			require $local."/helpers/".$helper."Helper.php";
+			require_once $local."/helpers/".$helper."Helper.php";
 			$class = $helper.'Helper';
 			$this->add(strtolower($helper), new $class($this->locale));
 		}

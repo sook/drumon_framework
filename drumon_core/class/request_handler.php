@@ -82,6 +82,7 @@ class RequestHandler {
 				if(!isset($route[0])) $route[0] = null;
 				self::redirect($route['redirect'],$route[0]);
 			}
+			
 			$this->controller_name = $route[0];
 			$this->action_name = $route[1] ? $route[1] : 'index';
 			$this->params = array_merge($this->params, $_GET, $_POST);
@@ -100,7 +101,8 @@ class RequestHandler {
 	 * @return mixed - False, se não existir rota / Array com a Lista de Rotas.
 	 */
 	public function get_route($route, $app_root) {
-		$this->method = strtolower($_SERVER['REQUEST_METHOD']);
+		$this->method = isset($_REQUEST['_method']) ? strtolower($_REQUEST['_method']) : strtolower($_SERVER['REQUEST_METHOD']);
+
 		$subfolder = str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\','/',$app_root));
 		$uri = str_replace($subfolder,'', $_SERVER['REQUEST_URI']);
 		$uri = explode('?',$uri);
