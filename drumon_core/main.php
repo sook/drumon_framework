@@ -24,8 +24,7 @@
 	 * Inicia o sistema de roteamento.
 	 */
 	$request = new RequestHandler($route);
-
-
+	
 	/**
 	 * Inicia o controlador.
 	 */

@@ -31,6 +31,23 @@ class UrlHelper extends Helper {
 		}
 		
 	}
+	
+	
+	/**
+	 * Create custom methods on demand.
+	 *
+	 * @param string $name 
+	 * @param string $arguments 
+	 * @return string
+	 */
+	public function __call($name, $arguments) {
+		$named_route = str_replace('to_','',$name);
+		if(substr($name,0,3) === 'to_') {
+			return APP_DOMAIN.$this->request->url_for($named_route,$arguments);
+		}else{
+			trigger_error('Method '.$name.' not exist');
+		}
+	}
 
 
 	/**

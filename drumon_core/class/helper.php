@@ -22,6 +22,16 @@ abstract class Helper {
 	 */
 	protected $locale;
 	
+	
+	
+	/** 
+	 * Referência ao objeto request.
+	 *
+	 * @access protected
+	 * @var object
+	 */
+	protected $request;
+	
 	/** 
 	 * Lista de outros helpers que vão ser utilizados no helper atual.
 	 *
@@ -37,8 +47,9 @@ abstract class Helper {
 	 * @param array $locale - Referência da variável com os dados de internacionalização.
 	 * @return void
 	 */
-	public function __construct($locale){
+	public function __construct($locale,$request){
 		$this->locale = $locale;
+		$this->request = $request;
 	}
 
 	/**

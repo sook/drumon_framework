@@ -137,7 +137,6 @@ abstract class Controller {
 	public function render($view, $content = null) {
 		$this->load_helpers();
 		$this->template->params = $this->params;
-		$this->add('request_uri',$this->request->uri);
 		
 		if($content == null){
 			$view = $view[0] == '/' ? $view : '/app/views/'.Drumon::to_underscore($this->request->controller_name).'/'.$view;
@@ -225,7 +224,7 @@ abstract class Controller {
 			$local = in_array($helper, $core_helpers) ? CORE : ROOT.'/app';
 			require_once $local."/helpers/".$helper."Helper.php";
 			$class = $helper.'Helper';
-			$this->add(strtolower($helper), new $class($this->locale));
+			$this->add(strtolower($helper), new $class($this->locale,$this->request));
 		}
 
 		// Adiciona os helpers requeridos em outros helpers.

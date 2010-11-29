@@ -19,8 +19,8 @@ class PaginateHelper extends Helper {
 	 * @param string $locale - Referência da variável com os dados de internacionalização.
 	 * @access public
 	 */
-	public function __construct($locale){
-		parent::__construct($locale);
+	public function __construct($locale,$request){
+		parent::__construct($locale,$request);
 	}
 
 	/**
