@@ -11,14 +11,15 @@
 	define('LANGUAGE','pt-BR');
 	
 	// Helpers carregados automaticamente.
-	// define('AUTOLOAD_HELPERS','[Html,Date,Text,Image,Movie,Paginate]');
+	// define('AUTOLOAD_HELPERS','Html,Date,Text,Image,Movie,Paginate');
 	define('AUTOLOAD_HELPERS','Html, Date, Text, Url');
 	
 	// Set 404 Error page. 
 	define('ERROR_404','404.html');
 	
 	// Plugins utilizados em sua app.
-	define('PLUGINS','drumon_model,benchmark');
+	// define('PLUGINS','drumon_model,benchmark');
+	define('PLUGINS','benchmark');
 	
 	
 	// Configurações personalizadas de sua aplicação.
