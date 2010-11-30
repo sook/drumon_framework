@@ -79,7 +79,7 @@
 		</div>
 			
 		<p>
-			Nesta figura, estamos vendo duas pastas, app e drumon_core e o arquivo README.md.
+			Nesta figura, estamos vendo duas pastas, you_app_name e drumon_core e o arquivo README.md.
 		</p>
 		<p>
 			O arquivo README.md contém as informações referentes a informações sobre o framework e modo de instalação.
@@ -88,54 +88,67 @@
 			Na pasta drumon_core estão localizados todos os arquivos e classes do framework.
 		</p>
 		<p>
-			A pasta app será onde vamos salvar nossos arquivos de produção e desenvolvimento.
+			A pasta you_app_name será onde vamos salvar nossos arquivos de produção e desenvolvimento, poderá ser renomeada para o nome do seu projeto.
 		</p>
 		<div>
 			<img src="app_folder.png" alt="" width="160px">
 		</div>
-		<p>Subpastas da pasta app:</p>
+		<p>Subpastas da pasta you_app_name:</p>
+		<p>
+			“app”
+		</p>
+		<p>
+			A pasta app contém as principais pastas para funcionamento do sistema, nela estão contidas os controllers, views, models e helpers.
+		</p>
+		<br><br>
+			<p>
+				“controllers”
+			</p>
+			<p>
+				Esta pasta é exatamente importante na hierarquia de nossa aplicação. Ela armazenará os controladores de nossa aplicação, que são os primeiros arquivos a serem requisitados quando um  URL é digitado no navegador, salvo se esse URL apontar para uma rota.
+			</p>
+			<p>
+				“helpers”
+			</p>
+			<p>
+				Nesta pasta, serão armazenados os helpers que você criar.
+			</p>
+			<p>
+				“views”
+			</p>
+			<p>
+				Esta pasta contém todos os códigos HTML utilizados para exibir as informações no navegador.
+			</p>
+			<p>
+				“models”
+			</p>
+			<p>
+				Esta é a pasta onde serão armazenados nossos arquivos de modelos, que se comunicarão com o banco de dados e auxiliarão na integração do sistema com o Drumon CMS.
+			</p>
+		<img src="app_folder_int.png" alt="" width="160px">
+		<br><br>
 		<p>
 			“config”
 		</p>
 		<p>
 			A pasta config contém os arquivos de configuração da aplicação. Os primeiros arquivos que precisam ser configurados para que uma aplicação básica funcione corretamente são application.php, routes.php e os arquivos da pasta enviroments (development.php e production.php). Esses arquivos contêm informações básicas sobre a aplicação, como o caminho completo do URL necessário para inserir imagens e outros arquivos como JavaScript e CSS, nos quais vamos configurar se o Drumon Framework irá seguir determinadas rotas de redirecionamento e quais helpers serão carregados automaticamente com a aplicação.
 		</p>
-		<p>
-			“controllers”
-		</p>
-		<p>
-			Esta pasta é exatamente importante na hierarquia de nossa aplicação. Ela armazenará os controladores de nossa aplicação, que são os primeiros arquivos a serem requisitados quando um  URL é digitado no navegador, salvo se esse URL apontar para uma rota.
-		</p>
-		<p>
-			“helpers”
-		</p>
-		<p>
-			Nesta pasta, serão armazenados os helpers que você criar.
-		</p>
+		
+		
 		<p>
 			“plugins“
 		</p>
 		<p>
 			Repositório de utilitários diversos para integração com o framework.
 		</p>
-		<p>
-			“models”
-		</p>
-		<p>
-			Esta é a pasta onde serão armazenados nossos arquivos de modelos, que se comunicarão com o banco de dados e auxiliarão na integração do sistema com o Drumon CMS.
-		</p>
+		
 		<p>
 			“public”
 		</p>
 		<p>
 			Esta pasta armazena pastas que irão conter arquivos necessários para a renderização do site ( CSS, Javascript, Imagens, Arquivos gerados pelo CMS e arquivos temporários).
 		</p>
-		<p>
-			“views”
-		</p>
-		<p>
-			Esta pasta contém todos os códigos HTML utilizados para exibir as informações no navegador.
-		</p>
+		
 		
 		<h3>
 			Descompactando e testando o framework:
@@ -158,7 +171,7 @@
 			
 		</p>
 		<p>
-			Para configurar seu banco de dados, você precisa editar o arquivo /app/config/enviroments/development.php para modo de desenvolvimento, ou /app/config/enviroments/production.php para modo de produção, setando os campos para conexão com o banco de dados.
+			Para configurar seu banco de dados, você precisa editar o arquivo /app_your_name/config/enviroments/development.php para modo de desenvolvimento, ou /app/config/enviroments/production.php para modo de produção, setando os campos para conexão com o banco de dados.
 			
 		</p>
 		<h3>
@@ -371,7 +384,7 @@
 			Manipulando as variáveis enviadas pelo controller.
 		</p>
 		<p>
-			Após adicionar uma variável no template vc pode manipular ela da seguinte forma:
+			Após adicionar uma variável no template você pode manipular ela da seguinte forma:
 		</p>
 		
 		<code>
