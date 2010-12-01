@@ -95,6 +95,26 @@ class RequestHandler {
 			$this->valid = true;
 		}
 	}
+	
+	/**
+	 * Set action name
+	 *
+	 * @param string $name 
+	 * @return void
+	 */
+	public function set_action_name($name) {
+		$this->action_name = $name;
+	}
+	
+	/**
+	 * Set controller name
+	 *
+	 * @param string $name 
+	 * @return void
+	 */
+	public function set_controller_name($name) {
+		$this->controller_name = $name;
+	}
 
 	/**
 	 * Search for a valid route.
