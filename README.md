@@ -1,6 +1,6 @@
 # Drumon Framework
 
-[Guia](http://sook.github.com/drumon_framework/) | [Wiki](http://github.com/sook/drumon_framework/wiki) | [Download](https://github.com/sook/drumon_framework/tarball/master)
+[Guia](http://sook.github.com/drumon_framework/) | [Api](http://sook.github.com/drumon_framework/api) | [Wiki](http://github.com/sook/drumon_framework/wiki) | [Download](https://github.com/sook/drumon_framework/tarball/master)
 
 É um framework para desenvolvimento rápido de aplicações web em PHP5+. Utiliza a arquitetura MVC e foi desenvolvido 
 com o objetivo de tornar simples a implementação de aplicações que utilizam o [Drumon CMS](http://drumoncms.com/),
