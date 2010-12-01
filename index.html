@@ -386,14 +386,13 @@
 		<p>
 			Após adicionar uma variável no template você pode manipular ela da seguinte forma:
 		</p>
-		
-		<code>
-			<!-- <ul>
-						<?php foreach($noticias as $noticia): ?>
-								<li> <?php echo $noticia ?> </li>
-						<?php endforeach ?>
-						</ul> -->
-		</code>	
+
+			< ul> <br>
+			
+					< ?php foreach ( $noticias as $noticia): ?><br>
+							< li> < ?php echo $noticia ?> < /li> <br>
+					< ?php endforeach ?><br>
+			< /ul>
 		<h2>
 			Helpers :
 		</h2>
@@ -407,72 +406,7 @@
 		<p>
 			Ex: $url->image();
 		</p>
-		<h2>
-			Models:
-		</h2>
-		<p>
-			Os models são os responsáveis por todas as tarefas de banco de dados relativas ao Drumon CMS. É através deles que você criará, atualizará, apagará, e buscará registros das tabelas do seu banco de dados.
-			
-		</p>
-		<p>
-			Dentro da estrutura de diretórios, os models se encontram em /app/models/. É lá onde ficarão todos os modelos de sua aplicação que você criar. O nome do arquivo do Modelo deve seguir com o mesmo nome da Classe referente ao Model.
-			
-		</p>
-		<p>
-			Ex: Noticia.php
-			
-		</p>
-		<h3>
-			Criando Models:
-		</h3>
-		<p>
-			Inicialmente, um modelo é apenas uma classe vazia, que estende de AppModel:
-		</p>
-		<p>
-			<code>
-				class Users extends AppModel {  }
-			</code>
-			
-		</p>
-		<p>
-			Quando seu modelo herda de AppModel, que por sua vez herda de Model, você terá ao seu dispor toda as funcionalidades necessárias para lidar com o banco de dados.	
-		</p>
 		
-		<h3>
-			Buscando Registros:
-		</h3>
-		<div>
-			<img src="search_data.png" alt="" width="360px">
-		</div>
-		<p>
-			Observe o código acima:
-		</p>
-		<p>
-			Na linha 2 é Carregado o Model Referente a Downloads;
-		</p>
-		<p>
-			Na linha 7 é criada uma instância do Model;
-		</p>
-		<p>
-			Na linha 8 é executado o método de busca de registros referente ao módulo;
-		</p>
-		<p>
-			Na linha 9 o resultado da busca é adicionado ao template.
-		</p>
-		<p>
-			Existem 3 métodos de Busca para retorno de informações do banco de dados:
-		</p>
-		<ol>
-			<li>
-				findAll() onde retorna todos os registros referentes aos parâmetros solicitados na consulta.
-			</li>
-			<li>
-				findFirst() onde retorna apenas o primeiro registro da consulta.
-			</li>
-			<li>
-				Find onde retorna o registro referente a uma chave específica.
-			</li>
-		</ol>
 
 	</body>
 </html>
