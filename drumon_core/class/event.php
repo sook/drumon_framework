@@ -1,8 +1,14 @@
 <?php
+/**
+ * Drumon Framework: Build fast web applications
+ * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
+ * Licensed under GNU General Public License.
+ */
 
 /**
-* Event Handler Class
-*/
+ * Event Handler Class
+ * @package class
+ */
 class Event {
 	
 	private static $instance;

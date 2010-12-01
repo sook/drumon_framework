@@ -1,9 +1,14 @@
 <?php
+/**
+ * Drumon Framework: Build fast web applications
+ * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
+ * Licensed under GNU General Public License.
+ */
 
 /**
  * Classe com métodos essências para funcionamento do Drumon Framework
  *
- * @package default
+ * @package class
  */
 class Drumon {
 	
