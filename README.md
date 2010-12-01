@@ -1,5 +1,7 @@
 # Drumon Framework
 
+[Guia](http://sook.github.com/drumon_framework/) | [Wiki](http://github.com/sook/drumon_framework/wiki) | [Download](https://github.com/sook/drumon_framework/tarball/master)
+
 É um framework para desenvolvimento rápido de aplicações web em PHP5+. Utiliza a arquitetura MVC e foi desenvolvido 
 com o objetivo de tornar simples a implementação de aplicações que utilizam o [Drumon CMS](http://drumoncms.com/),
 porém pode ser usado em aplicações sem o uso do Drumon CMS.
@@ -15,22 +17,7 @@ Baixe o Drumon Framework e o coloque em uma pasta do seu servidor com o php5+ in
 
 Pronto, agora basta acessar o endereço da página no seu browser **`http://localhost/your_app_name`**.
 
-Para mais informações veja o [guia aqui](http://sook.github.com/drumon_framework/) do Drumon Framework.
-
-
-## Configurando ambiente:
-
-Na pasta **`app/config/`** estão os principais arquivos a serem configurados.
-
-No arquivo **`app/config/application.php`** é possível definir as seguintes constantes:
-	
-  * ENV - Ambiente de trabalho da aplicação: 'development'(default) ou 'production';
-
-  * LANGUAGE - Define a linguagem da aplicação: 'pt-BR'(default) ou 'en-US';
-
-  * AUTOLOAD_HELPERS - Helpers que serão incluidos automaticamente ao iniciar a aplicação: 'Html,Date,Text,Url'(default). Para verificar os Helpers existentes, basta ir na pasta **`core/helpers`**.
-
-Para alterar as configurações do banco de dados vá na pasta **`app/config/enviroments`** e escolha o arquivo relacionado ao ambiente que está trabalhando.
+Para mais informações veja o [guia](http://sook.github.com/drumon_framework/) ou o [Wiki](http://github.com/sook/drumon_framework/wiki) do Drumon Framework.
 
 
 ## Bugs & Sugestões
