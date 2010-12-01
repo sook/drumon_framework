@@ -1,0 +1,98 @@
+<html>
+<head>
+<title>File Source for routes.php</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+</head>
+<body>
+<div id="conteiners">    
+	<div id="topo">
+		<div id="toptopo">
+		   <a href="http://sook.github.com/drumon_framework/api" class="topostyle">Drumon Framework - API</a>
+		</div> 
+		         
+		<div id="subtopo">
+		   	
+	        	            	                
+	            	        	            	        	            	        	            	        	        	  		  <!-- [ <a href="../classtrees_.html" class="menu">class tree: </a> ] -->
+			  [ <a href="../elementindex_.html" class="menu">index: </a> ]
+				  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]&nbsp; 
+		</div> 
+	</div>  
+	<div id="centro">
+		<div id="left">
+
+		    <!-- ######## FIM RIC ########## -->   
+						<!-- ######## FIM DO RIC ########## -->
+
+			<!-- ######## TODO LIST ########## -->   
+			    
+			<!-- ######## FIM TODO LIST ########## -->    
+
+			<div class="content_pacotes_top">
+				<span class="title_pacote">Packages:</span>
+			</div> 
+			<div class="content_pacotes"> 
+				<ul>
+					        <li><a href="../li_.html"></a></li>
+		    		        <li><a href="../li_class.html">class</a></li>
+		    		        <li><a href="../li_helpers.html">helpers</a></li>
+		    		        <li><a href="../li_models.html">models</a></li>
+		     
+				</ul>
+			</div>
+			 
+										
+
+				 
+				<!--   -->
+                
+				<!--  -->   
+			  
+		</div>
+		<div id="right"> 
+		   
+		</div>         
+		<div id="center">
+  			<h1 align="center">Source for file routes.php</h1>
+<p>Documentation is available at <a href="..//_your_app_name---config---routes.php.html">routes.php</a></p>
+<div class="src-code">
+<ol><li><div class="src-line"><a name="a1"></a><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><a name="a2"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;Rota&nbsp;basica.</span></div></li>
+<li><div class="src-line"><a name="a3"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$route['get']['/blog']&nbsp;=&nbsp;array('Blog','index');</span></div></li>
+<li><div class="src-line"><a name="a4"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//</span></div></li>
+<li><div class="src-line"><a name="a5"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a6"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rota&nbsp;com&nbsp;variável.</span></div></li>
+<li><div class="src-line"><a name="a7"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$route['get']['/tag/:tag']&nbsp;=&nbsp;array('Blog','tags');</span></div></li>
+<li><div class="src-line"><a name="a8"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//</span></div></li>
+<li><div class="src-line"><a name="a9"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;Rotas&nbsp;nomeadas</span></div></li>
+<li><div class="src-line"><a name="a10"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;$route['get']['/blog']&nbsp;=&nbsp;array('Blog','index','as'=&gt;'blog');&nbsp;//in&nbsp;view&nbsp;=&gt;&nbsp;$url-&gt;to_blog();</span></div></li>
+<li><div class="src-line"><a name="a11"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;$route['get']['/tag/:tag']&nbsp;=&nbsp;array('Blog','tags','as'=&gt;'tag');&nbsp;//in&nbsp;view&nbsp;=&gt;&nbsp;$url-&gt;to_tag('your-tag-name');</span></div></li>
+<li><div class="src-line"><a name="a12"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//</span></div></li>
+<li><div class="src-line"><a name="a13"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//</span></div></li>
+<li><div class="src-line"><a name="a14"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rota&nbsp;com&nbsp;variável&nbsp;e&nbsp;expresão&nbsp;regular.</span></div></li>
+<li><div class="src-line"><a name="a15"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$route['get']['/tag/:tag']&nbsp;=&nbsp;array('Blog','tags',':tag'=&gt;'[a-zA-Z0-9_]');</span></div></li>
+<li><div class="src-line"><a name="a16"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a17"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a18"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Redirecionamento&nbsp;com&nbsp;rotas.</span></div></li>
+<li><div class="src-line"><a name="a19"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$route['*']['/twitter']&nbsp;=&nbsp;array('redirect'=&gt;'http://twitter.com');</span></div></li>
+<li><div class="src-line"><a name="a20"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$route['*']['/twitter']&nbsp;=&nbsp;array('redirect'=&gt;'http://twitter.com',302);</span></div></li>
+<li><div class="src-line"><a name="a21"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//</span></div></li>
+<li><div class="src-line"><a name="a22"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a23"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Rota&nbsp;para&nbsp;o&nbsp;inicio&nbsp;da&nbsp;aplicação.</span></div></li>
+<li><div class="src-line"><a name="a24"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$route</span><span class="src-sym">[</span><span class="src-str">'get'</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'/'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'Home'</span><span class="src-sym">,</span><span class="src-str">'index'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a25"></a><span class="src-php">?&gt;</span></div></li>
+</ol>
+</div>
+        <div class="credit">
+		    
+	    </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+		</div>
+	</div>
+</div>
+</body>
+</html>

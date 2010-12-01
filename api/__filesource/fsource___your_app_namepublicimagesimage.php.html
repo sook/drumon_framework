@@ -1,0 +1,486 @@
+<html>
+<head>
+<title>File Source for image.php</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+</head>
+<body>
+<div id="conteiners">    
+	<div id="topo">
+		<div id="toptopo">
+		   <a href="http://sook.github.com/drumon_framework/api" class="topostyle">Drumon Framework - API</a>
+		</div> 
+		         
+		<div id="subtopo">
+		   	
+	        	            	                
+	            	        	            	        	            	        	            	        	        	  		  <!-- [ <a href="../classtrees_.html" class="menu">class tree: </a> ] -->
+			  [ <a href="../elementindex_.html" class="menu">index: </a> ]
+				  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]&nbsp; 
+		</div> 
+	</div>  
+	<div id="centro">
+		<div id="left">
+
+		    <!-- ######## FIM RIC ########## -->   
+						<!-- ######## FIM DO RIC ########## -->
+
+			<!-- ######## TODO LIST ########## -->   
+			    
+			<!-- ######## FIM TODO LIST ########## -->    
+
+			<div class="content_pacotes_top">
+				<span class="title_pacote">Packages:</span>
+			</div> 
+			<div class="content_pacotes"> 
+				<ul>
+					        <li><a href="../li_.html"></a></li>
+		    		        <li><a href="../li_class.html">class</a></li>
+		    		        <li><a href="../li_helpers.html">helpers</a></li>
+		    		        <li><a href="../li_models.html">models</a></li>
+		     
+				</ul>
+			</div>
+			 
+										
+
+				 
+				<!--   -->
+                
+				<!--  -->   
+			  
+		</div>
+		<div id="right"> 
+		   
+		</div>         
+		<div id="center">
+  			<h1 align="center">Source for file image.php</h1>
+<p>Documentation is available at <a href="..//_your_app_name---public---images---image.php.html">image.php</a></p>
+<div class="src-code">
+<ol><li><div class="src-line"><a name="a1"></a><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><a name="a2"></a><span class="src-comm">//&nbsp;Smart&nbsp;Image&nbsp;Resizer&nbsp;1.4.1</span></div></li>
+<li><div class="src-line"><a name="a3"></a><span class="src-comm">//&nbsp;Resizes&nbsp;images,&nbsp;intelligently&nbsp;sharpens,&nbsp;crops&nbsp;based&nbsp;on&nbsp;width:height&nbsp;ratios,&nbsp;color&nbsp;fills</span></div></li>
+<li><div class="src-line"><a name="a4"></a><span class="src-comm">//&nbsp;transparent&nbsp;GIFs&nbsp;and&nbsp;PNGs,&nbsp;and&nbsp;caches&nbsp;variations&nbsp;for&nbsp;optimal&nbsp;performance</span></div></li>
+<li><div class="src-line"><a name="a5"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a6"></a><span class="src-comm">//&nbsp;Created&nbsp;by:&nbsp;Joe&nbsp;Lencioni&nbsp;(http://shiftingpixel.com)</span></div></li>
+<li><div class="src-line"><a name="a7"></a><span class="src-comm">//&nbsp;Date:&nbsp;August&nbsp;6,&nbsp;2008</span></div></li>
+<li><div class="src-line"><a name="a8"></a><span class="src-comm">//&nbsp;Based&nbsp;on:&nbsp;http://veryraw.com/history/2005/03/image-resizing-with-php/</span></div></li>
+<li><div class="src-line"><a name="a9"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a10"></a><span class="src-comm">/////////////////////</span></div></li>
+<li><div class="src-line"><a name="a11"></a><span class="src-comm">//&nbsp;LICENSE</span></div></li>
+<li><div class="src-line"><a name="a12"></a><span class="src-comm">/////////////////////</span></div></li>
+<li><div class="src-line"><a name="a13"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a14"></a><span class="src-comm">//&nbsp;I&nbsp;love&nbsp;to&nbsp;hear&nbsp;when&nbsp;my&nbsp;work&nbsp;is&nbsp;being&nbsp;used,&nbsp;so&nbsp;if&nbsp;you&nbsp;decide&nbsp;to&nbsp;use&nbsp;this,&nbsp;feel&nbsp;encouraged</span></div></li>
+<li><div class="src-line"><a name="a15"></a><span class="src-comm">//&nbsp;to&nbsp;send&nbsp;me&nbsp;an&nbsp;email.&nbsp;Smart&nbsp;Image&nbsp;Resizer&nbsp;is&nbsp;released&nbsp;under&nbsp;a&nbsp;Creative&nbsp;Commons</span></div></li>
+<li><div class="src-line"><a name="a16"></a><span class="src-comm">//&nbsp;Attribution-Share&nbsp;Alike&nbsp;3.0&nbsp;United&nbsp;States&nbsp;license</span></div></li>
+<li><div class="src-line"><a name="a17"></a><span class="src-comm">//&nbsp;(http://creativecommons.org/licenses/by-sa/3.0/us/).&nbsp;All&nbsp;I&nbsp;ask&nbsp;is&nbsp;that&nbsp;you&nbsp;include&nbsp;a&nbsp;link</span></div></li>
+<li><div class="src-line"><a name="a18"></a><span class="src-comm">//&nbsp;back&nbsp;to&nbsp;Shifting&nbsp;Pixel&nbsp;(either&nbsp;this&nbsp;page&nbsp;or&nbsp;shiftingpixel.com),&nbsp;but&nbsp;don’t&nbsp;worry&nbsp;about</span></div></li>
+<li><div class="src-line"><a name="a19"></a><span class="src-comm">//&nbsp;including&nbsp;a&nbsp;big&nbsp;link&nbsp;on&nbsp;each&nbsp;page&nbsp;if&nbsp;you&nbsp;don’t&nbsp;want&nbsp;to–one&nbsp;will&nbsp;do&nbsp;just&nbsp;nicely.&nbsp;Feel</span></div></li>
+<li><div class="src-line"><a name="a20"></a><span class="src-comm">//&nbsp;free&nbsp;to&nbsp;contact&nbsp;me&nbsp;to&nbsp;discuss&nbsp;any&nbsp;specifics&nbsp;(joe@shiftingpixel.com).</span></div></li>
+<li><div class="src-line"><a name="a21"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a22"></a><span class="src-comm">/////////////////////</span></div></li>
+<li><div class="src-line"><a name="a23"></a><span class="src-comm">//&nbsp;REQUIREMENTS</span></div></li>
+<li><div class="src-line"><a name="a24"></a><span class="src-comm">/////////////////////</span></div></li>
+<li><div class="src-line"><a name="a25"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a26"></a><span class="src-comm">//&nbsp;PHP&nbsp;and&nbsp;GD</span></div></li>
+<li><div class="src-line"><a name="a27"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a28"></a><span class="src-comm">/////////////////////</span></div></li>
+<li><div class="src-line"><a name="a29"></a><span class="src-comm">//&nbsp;PARAMETERS</span></div></li>
+<li><div class="src-line"><a name="a30"></a><span class="src-comm">/////////////////////</span></div></li>
+<li><div class="src-line"><a name="a31"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a32"></a><span class="src-comm">//&nbsp;Parameters&nbsp;need&nbsp;to&nbsp;be&nbsp;passed&nbsp;in&nbsp;through&nbsp;the&nbsp;URL's&nbsp;query&nbsp;string:</span></div></li>
+<li><div class="src-line"><a name="a33"></a><span class="src-comm">//&nbsp;image&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;absolute&nbsp;path&nbsp;of&nbsp;local&nbsp;image&nbsp;starting&nbsp;with&nbsp;&quot;/&quot;&nbsp;(e.g.&nbsp;/images/toast.jpg)</span></div></li>
+<li><div class="src-line"><a name="a34"></a><span class="src-comm">//&nbsp;width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maximum&nbsp;width&nbsp;of&nbsp;final&nbsp;image&nbsp;in&nbsp;pixels&nbsp;(e.g.&nbsp;700)</span></div></li>
+<li><div class="src-line"><a name="a35"></a><span class="src-comm">//&nbsp;height&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maximum&nbsp;height&nbsp;of&nbsp;final&nbsp;image&nbsp;in&nbsp;pixels&nbsp;(e.g.&nbsp;700)</span></div></li>
+<li><div class="src-line"><a name="a36"></a><span class="src-comm">//&nbsp;color&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(optional)&nbsp;background&nbsp;hex&nbsp;color&nbsp;for&nbsp;filling&nbsp;transparent&nbsp;PNGs&nbsp;(e.g.&nbsp;900&nbsp;or&nbsp;16a942)</span></div></li>
+<li><div class="src-line"><a name="a37"></a><span class="src-comm">//&nbsp;cropratio&nbsp;&nbsp;&nbsp;&nbsp;(optional)&nbsp;ratio&nbsp;of&nbsp;width&nbsp;to&nbsp;height&nbsp;to&nbsp;crop&nbsp;final&nbsp;image&nbsp;(e.g.&nbsp;1:1&nbsp;or&nbsp;3:2)</span></div></li>
+<li><div class="src-line"><a name="a38"></a><span class="src-comm">//&nbsp;nocache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(optional)&nbsp;does&nbsp;not&nbsp;read&nbsp;image&nbsp;from&nbsp;the&nbsp;cache</span></div></li>
+<li><div class="src-line"><a name="a39"></a><span class="src-comm">//&nbsp;quality&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(optional,&nbsp;0-100,&nbsp;default:&nbsp;90)&nbsp;quality&nbsp;of&nbsp;output&nbsp;image</span></div></li>
+<li><div class="src-line"><a name="a40"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a41"></a><span class="src-comm">/////////////////////</span></div></li>
+<li><div class="src-line"><a name="a42"></a><span class="src-comm">//&nbsp;EXAMPLES</span></div></li>
+<li><div class="src-line"><a name="a43"></a><span class="src-comm">/////////////////////</span></div></li>
+<li><div class="src-line"><a name="a44"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a45"></a><span class="src-comm">//&nbsp;Resizing&nbsp;a&nbsp;JPEG:</span></div></li>
+<li><div class="src-line"><a name="a46"></a><span class="src-comm">//&nbsp;&lt;img&nbsp;src=&quot;/image.php/image-name.jpg?width=100&amp;amp;height=100&amp;amp;image=/path/to/image.jpg&quot;&nbsp;alt=&quot;Don't&nbsp;forget&nbsp;your&nbsp;alt&nbsp;text&quot;&nbsp;/&gt;</span></div></li>
+<li><div class="src-line"><a name="a47"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a48"></a><span class="src-comm">//&nbsp;Resizing&nbsp;and&nbsp;cropping&nbsp;a&nbsp;JPEG&nbsp;into&nbsp;a&nbsp;square:</span></div></li>
+<li><div class="src-line"><a name="a49"></a><span class="src-comm">//&nbsp;&lt;img&nbsp;src=&quot;/image.php/image-name.jpg?width=100&amp;amp;height=100&amp;amp;cropratio=1:1&amp;amp;image=/path/to/image.jpg&quot;&nbsp;alt=&quot;Don't&nbsp;forget&nbsp;your&nbsp;alt&nbsp;text&quot;&nbsp;/&gt;</span></div></li>
+<li><div class="src-line"><a name="a50"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a51"></a><span class="src-comm">//&nbsp;Matting&nbsp;a&nbsp;PNG&nbsp;with&nbsp;#990000:</span></div></li>
+<li><div class="src-line"><a name="a52"></a><span class="src-comm">//&nbsp;&lt;img&nbsp;src=&quot;/image.php/image-name.png?color=900&amp;amp;image=/path/to/image.png&quot;&nbsp;alt=&quot;Don't&nbsp;forget&nbsp;your&nbsp;alt&nbsp;text&quot;&nbsp;/&gt;</span></div></li>
+<li><div class="src-line"><a name="a53"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a54"></a><span class="src-comm">/////////////////////</span></div></li>
+<li><div class="src-line"><a name="a55"></a><span class="src-comm">//&nbsp;CODE&nbsp;STARTS&nbsp;HERE</span></div></li>
+<li><div class="src-line"><a name="a56"></a><span class="src-comm">/////////////////////</span></div></li>
+<li><div class="src-line"><a name="a57"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a58"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-sym">!</span>isset<span class="src-sym">(</span><span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'image'</span><span class="src-sym">]</span><span class="src-sym">))</span></div></li>
+<li><div class="src-line"><a name="a59"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a60"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'HTTP/1.1&nbsp;400&nbsp;Bad&nbsp;Request'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a61"></a>&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-str">'Error:&nbsp;no&nbsp;image&nbsp;was&nbsp;specified'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a62"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">exit</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a63"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a64"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a65"></a><a href="http://www.php.net/define">define</a><span class="src-sym">(</span><span class="src-str">'MEMORY_TO_ALLOCATE'</span><span class="src-sym">,&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-str">'100M'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a66"></a><a href="http://www.php.net/define">define</a><span class="src-sym">(</span><span class="src-str">'DEFAULT_QUALITY'</span><span class="src-sym">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-num">90</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a67"></a><a href="http://www.php.net/define">define</a><span class="src-sym">(</span><span class="src-str">'CURRENT_DIR'</span><span class="src-sym">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-id">dirname</span><span class="src-sym">(</span>__FILE__<span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a68"></a><a href="http://www.php.net/define">define</a><span class="src-sym">(</span><span class="src-str">'CACHE_DIR_NAME'</span><span class="src-sym">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-str">'/cache/'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a69"></a><a href="http://www.php.net/define">define</a><span class="src-sym">(</span><span class="src-str">'CACHE_DIR'</span><span class="src-sym">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-id">CURRENT_DIR&nbsp;</span>.&nbsp;<span class="src-id">CACHE_DIR_NAME</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a70"></a><a href="http://www.php.net/define">define</a><span class="src-sym">(</span><span class="src-str">'DOCUMENT_ROOT'</span><span class="src-sym">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-var">$_SERVER</span><span class="src-sym">[</span><span class="src-str">'DOCUMENT_ROOT'</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a71"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a72"></a><span class="src-comm">//&nbsp;Images&nbsp;must&nbsp;be&nbsp;local&nbsp;files,&nbsp;so&nbsp;for&nbsp;convenience&nbsp;we&nbsp;strip&nbsp;the&nbsp;domain&nbsp;if&nbsp;it's&nbsp;there</span></div></li>
+<li><div class="src-line"><a name="a73"></a><span class="src-var">$image&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/preg_replace">preg_replace</a><span class="src-sym">(</span><span class="src-str">'/^(s?f|ht)tps?:\/\/[^\/]+/i'</span><span class="src-sym">,&nbsp;</span><span class="src-str">''</span><span class="src-sym">,&nbsp;</span>(string)&nbsp;<span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'image'</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a74"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a75"></a><span class="src-comm">//&nbsp;For&nbsp;security,&nbsp;directories&nbsp;cannot&nbsp;contain&nbsp;':',&nbsp;images&nbsp;cannot&nbsp;contain&nbsp;'..'&nbsp;or&nbsp;'&lt;',&nbsp;and</span></div></li>
+<li><div class="src-line"><a name="a76"></a><span class="src-comm">//&nbsp;images&nbsp;must&nbsp;start&nbsp;with&nbsp;'/'</span></div></li>
+<li><div class="src-line"><a name="a77"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$image</span><span class="src-sym">{</span><span class="src-num">0</span><span class="src-sym">}&nbsp;</span>!=&nbsp;<span class="src-str">'/'&nbsp;</span>||&nbsp;<a href="http://www.php.net/strpos">strpos</a><span class="src-sym">(</span><a href="http://www.php.net/dirname">dirname</a><span class="src-sym">(</span><span class="src-var">$image</span><span class="src-sym">)</span><span class="src-sym">,&nbsp;</span><span class="src-str">':'</span><span class="src-sym">)&nbsp;</span>||&nbsp;<a href="http://www.php.net/preg_match">preg_match</a><span class="src-sym">(</span><span class="src-str">'/(\.\.|&lt;|&gt;)/'</span><span class="src-sym">,&nbsp;</span><span class="src-var">$image</span><span class="src-sym">))</span></div></li>
+<li><div class="src-line"><a name="a78"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a79"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'HTTP/1.1&nbsp;400&nbsp;Bad&nbsp;Request'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a80"></a>&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-str">'Error:&nbsp;malformed&nbsp;image&nbsp;path.&nbsp;Image&nbsp;paths&nbsp;must&nbsp;begin&nbsp;with&nbsp;\'/\''</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a81"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">exit</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a82"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a83"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a84"></a><span class="src-comm">//&nbsp;If&nbsp;the&nbsp;image&nbsp;doesn't&nbsp;exist,&nbsp;or&nbsp;we&nbsp;haven't&nbsp;been&nbsp;told&nbsp;what&nbsp;it&nbsp;is,&nbsp;there's&nbsp;nothing</span></div></li>
+<li><div class="src-line"><a name="a85"></a><span class="src-comm">//&nbsp;that&nbsp;we&nbsp;can&nbsp;do</span></div></li>
+<li><div class="src-line"><a name="a86"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-var">$image</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a87"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a88"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'HTTP/1.1&nbsp;400&nbsp;Bad&nbsp;Request'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a89"></a>&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-str">'Error:&nbsp;no&nbsp;image&nbsp;was&nbsp;specified'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a90"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">exit</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a91"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a92"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a93"></a><span class="src-comm">//&nbsp;Strip&nbsp;the&nbsp;possible&nbsp;trailing&nbsp;slash&nbsp;off&nbsp;the&nbsp;document&nbsp;root</span></div></li>
+<li><div class="src-line"><a name="a94"></a><span class="src-var">$docRoot&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/preg_replace">preg_replace</a><span class="src-sym">(</span><span class="src-str">'/\/$/'</span><span class="src-sym">,&nbsp;</span><span class="src-str">''</span><span class="src-sym">,&nbsp;</span><span class="src-id"><a href="..//_your_app_name---public---images---image.php.html#defineDOCUMENT_ROOT">DOCUMENT_ROOT</a></span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a95"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a96"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/file_exists">file_exists</a><span class="src-sym">(</span><span class="src-var">$docRoot&nbsp;</span>.&nbsp;<span class="src-var">$image</span><span class="src-sym">))</span></div></li>
+<li><div class="src-line"><a name="a97"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a98"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'HTTP/1.1&nbsp;404&nbsp;Not&nbsp;Found'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a99"></a>&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-str">'Error:&nbsp;image&nbsp;does&nbsp;not&nbsp;exist:&nbsp;'&nbsp;</span>.&nbsp;<span class="src-var">$docRoot&nbsp;</span>.&nbsp;<span class="src-var">$image</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a100"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">exit</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a101"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a102"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a103"></a><span class="src-comm">//&nbsp;Get&nbsp;the&nbsp;size&nbsp;and&nbsp;MIME&nbsp;type&nbsp;of&nbsp;the&nbsp;requested&nbsp;image</span></div></li>
+<li><div class="src-line"><a name="a104"></a><span class="src-var">$size&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-id">GetImageSize</span><span class="src-sym">(</span><span class="src-var">$docRoot&nbsp;</span>.&nbsp;<span class="src-var">$image</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a105"></a><span class="src-var">$mime&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$size</span><span class="src-sym">[</span><span class="src-str">'mime'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a106"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a107"></a><span class="src-comm">//&nbsp;Make&nbsp;sure&nbsp;that&nbsp;the&nbsp;requested&nbsp;file&nbsp;is&nbsp;actually&nbsp;an&nbsp;image</span></div></li>
+<li><div class="src-line"><a name="a108"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><span class="src-var">$mime</span><span class="src-sym">,&nbsp;</span><span class="src-num">0</span><span class="src-sym">,&nbsp;</span><span class="src-num">6</span><span class="src-sym">)&nbsp;</span>!=&nbsp;<span class="src-str">'image/'</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a109"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a110"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'HTTP/1.1&nbsp;400&nbsp;Bad&nbsp;Request'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a111"></a>&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-str">'Error:&nbsp;requested&nbsp;file&nbsp;is&nbsp;not&nbsp;an&nbsp;accepted&nbsp;type:&nbsp;'&nbsp;</span>.&nbsp;<span class="src-var">$docRoot&nbsp;</span>.&nbsp;<span class="src-var">$image</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a112"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">exit</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a113"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a114"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a115"></a><span class="src-var">$width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$size</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a116"></a><span class="src-var">$height&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$size</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a117"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a118"></a><span class="src-var">$maxWidth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-sym">(</span>isset<span class="src-sym">(</span><span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'width'</span><span class="src-sym">]</span><span class="src-sym">))&nbsp;</span>?&nbsp;(int)&nbsp;<span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'width'</span><span class="src-sym">]&nbsp;</span>:&nbsp;<span class="src-num">0</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a119"></a><span class="src-var">$maxHeight&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-sym">(</span>isset<span class="src-sym">(</span><span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'height'</span><span class="src-sym">]</span><span class="src-sym">))&nbsp;</span>?&nbsp;(int)&nbsp;<span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'height'</span><span class="src-sym">]&nbsp;</span>:&nbsp;<span class="src-num">0</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a120"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a121"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span>isset<span class="src-sym">(</span><span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'color'</span><span class="src-sym">]</span><span class="src-sym">))</span></div></li>
+<li><div class="src-line"><a name="a122"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$color&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/preg_replace">preg_replace</a><span class="src-sym">(</span><span class="src-str">'/[^0-9a-fA-F]/'</span><span class="src-sym">,&nbsp;</span><span class="src-str">''</span><span class="src-sym">,&nbsp;</span>(string)&nbsp;<span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'color'</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a123"></a><span class="src-key">else</span></div></li>
+<li><div class="src-line"><a name="a124"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$color&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-id">FALSE</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a125"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a126"></a><span class="src-comm">//&nbsp;If&nbsp;either&nbsp;a&nbsp;max&nbsp;width&nbsp;or&nbsp;max&nbsp;height&nbsp;are&nbsp;not&nbsp;specified,&nbsp;we&nbsp;default&nbsp;to&nbsp;something</span></div></li>
+<li><div class="src-line"><a name="a127"></a><span class="src-comm">//&nbsp;large&nbsp;so&nbsp;the&nbsp;unspecified&nbsp;dimension&nbsp;isn't&nbsp;a&nbsp;constraint&nbsp;on&nbsp;our&nbsp;resized&nbsp;image.</span></div></li>
+<li><div class="src-line"><a name="a128"></a><span class="src-comm">//&nbsp;If&nbsp;neither&nbsp;are&nbsp;specified&nbsp;but&nbsp;the&nbsp;color&nbsp;is,&nbsp;we&nbsp;aren't&nbsp;going&nbsp;to&nbsp;be&nbsp;resizing&nbsp;at</span></div></li>
+<li><div class="src-line"><a name="a129"></a><span class="src-comm">//&nbsp;all,&nbsp;just&nbsp;coloring.</span></div></li>
+<li><div class="src-line"><a name="a130"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-var">$maxWidth&nbsp;</span>&amp;&amp;&nbsp;<span class="src-var">$maxHeight</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a131"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a132"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$maxWidth&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-num">99999999999999</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a133"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a134"></a><span class="src-key">elseif&nbsp;</span><span class="src-sym">(</span><span class="src-var">$maxWidth&nbsp;</span>&amp;&amp;&nbsp;<span class="src-sym">!</span><span class="src-var">$maxHeight</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a135"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a136"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$maxHeight&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-num">99999999999999</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a137"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a138"></a><span class="src-key">elseif&nbsp;</span><span class="src-sym">(</span><span class="src-var">$color&nbsp;</span>&amp;&amp;&nbsp;<span class="src-sym">!</span><span class="src-var">$maxWidth&nbsp;</span>&amp;&amp;&nbsp;<span class="src-sym">!</span><span class="src-var">$maxHeight</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a139"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a140"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$maxWidth&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$width</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a141"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$maxHeight&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$height</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a142"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a143"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a144"></a><span class="src-comm">//&nbsp;If&nbsp;we&nbsp;don't&nbsp;have&nbsp;a&nbsp;max&nbsp;width&nbsp;or&nbsp;max&nbsp;height,&nbsp;OR&nbsp;the&nbsp;image&nbsp;is&nbsp;smaller&nbsp;than&nbsp;both</span></div></li>
+<li><div class="src-line"><a name="a145"></a><span class="src-comm">//&nbsp;we&nbsp;do&nbsp;not&nbsp;want&nbsp;to&nbsp;resize&nbsp;it,&nbsp;so&nbsp;we&nbsp;simply&nbsp;output&nbsp;the&nbsp;original&nbsp;image&nbsp;and&nbsp;exit</span></div></li>
+<li><div class="src-line"><a name="a146"></a><span class="src-key">if&nbsp;</span><span class="src-sym">((</span><span class="src-sym">!</span><span class="src-var">$maxWidth&nbsp;</span>&amp;&amp;&nbsp;<span class="src-sym">!</span><span class="src-var">$maxHeight</span><span class="src-sym">)&nbsp;</span>||&nbsp;<span class="src-sym">(</span><span class="src-sym">!</span><span class="src-var">$color&nbsp;</span>&amp;&amp;&nbsp;<span class="src-var">$maxWidth&nbsp;</span>&gt;=&nbsp;<span class="src-var">$width&nbsp;</span>&amp;&amp;&nbsp;<span class="src-var">$maxHeight&nbsp;</span>&gt;=&nbsp;<span class="src-var">$height</span><span class="src-sym">))</span></div></li>
+<li><div class="src-line"><a name="a147"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a148"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$data&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/file_get_contents">file_get_contents</a><span class="src-sym">(</span><span class="src-var">$docRoot&nbsp;</span>.&nbsp;<span class="src-str">'/'&nbsp;</span>.&nbsp;<span class="src-var">$image</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a149"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a150"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$lastModifiedString&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/gmdate">gmdate</a><span class="src-sym">(</span><span class="src-str">'D,&nbsp;d&nbsp;M&nbsp;Y&nbsp;H:i:s'</span><span class="src-sym">,&nbsp;</span><a href="http://www.php.net/filemtime">filemtime</a><span class="src-sym">(</span><span class="src-var">$docRoot&nbsp;</span>.&nbsp;<span class="src-str">'/'&nbsp;</span>.&nbsp;<span class="src-var">$image</span><span class="src-sym">))&nbsp;</span>.&nbsp;<span class="src-str">'&nbsp;GMT'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a151"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$etag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/md5">md5</a><span class="src-sym">(</span><span class="src-var">$data</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a152"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a153"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="..//_your_app_name---public---images---image.php.html#functiondoConditionalGet">doConditionalGet</a><span class="src-sym">(</span><span class="src-var">$etag</span><span class="src-sym">,&nbsp;</span><span class="src-var">$lastModifiedString</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a154"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a155"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">&quot;</span><span class="src-str">Content-type:&nbsp;<span class="src-var">$mime</span></span><span class="src-str">&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a156"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'Content-Length:&nbsp;'&nbsp;</span>.&nbsp;<a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$data</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a157"></a>&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-var">$data</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a158"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">exit</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a159"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a160"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a161"></a><span class="src-comm">//&nbsp;Ratio&nbsp;cropping</span></div></li>
+<li><div class="src-line"><a name="a162"></a><span class="src-var">$offsetX&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-num">0</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a163"></a><span class="src-var">$offsetY&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-num">0</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a164"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a165"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span>isset<span class="src-sym">(</span><span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'cropratio'</span><span class="src-sym">]</span><span class="src-sym">))</span></div></li>
+<li><div class="src-line"><a name="a166"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a167"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$cropRatio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/explode">explode</a><span class="src-sym">(</span><span class="src-str">':'</span><span class="src-sym">,&nbsp;</span>(string)&nbsp;<span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'cropratio'</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a168"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><a href="http://www.php.net/count">count</a><span class="src-sym">(</span><span class="src-var">$cropRatio</span><span class="src-sym">)&nbsp;</span>==&nbsp;<span class="src-num">2</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a169"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a170"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$ratioComputed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$width&nbsp;</span>/&nbsp;<span class="src-var">$height</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a171"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$cropRatioComputed&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;(float)&nbsp;<span class="src-var">$cropRatio</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]&nbsp;</span>/&nbsp;(float)&nbsp;<span class="src-var">$cropRatio</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a172"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a173"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$ratioComputed&nbsp;</span>&lt;&nbsp;<span class="src-var">$cropRatioComputed</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a174"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">{&nbsp;</span><span class="src-comm">//&nbsp;Image&nbsp;is&nbsp;too&nbsp;tall&nbsp;so&nbsp;we&nbsp;will&nbsp;crop&nbsp;the&nbsp;top&nbsp;and&nbsp;bottom</span></div></li>
+<li><div class="src-line"><a name="a175"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$origHeight&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$height</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a176"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$height&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$width&nbsp;</span>/&nbsp;<span class="src-var">$cropRatioComputed</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a177"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$offsetY&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-sym">(</span><span class="src-var">$origHeight&nbsp;</span>-&nbsp;<span class="src-var">$height</span><span class="src-sym">)&nbsp;</span>/&nbsp;<span class="src-num">2</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a178"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a179"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">else&nbsp;</span><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$ratioComputed&nbsp;</span>&gt;&nbsp;<span class="src-var">$cropRatioComputed</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a180"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">{&nbsp;</span><span class="src-comm">//&nbsp;Image&nbsp;is&nbsp;too&nbsp;wide&nbsp;so&nbsp;we&nbsp;will&nbsp;crop&nbsp;off&nbsp;the&nbsp;left&nbsp;and&nbsp;right&nbsp;sides</span></div></li>
+<li><div class="src-line"><a name="a181"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$origWidth&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$width</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a182"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$height&nbsp;</span>*&nbsp;<span class="src-var">$cropRatioComputed</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a183"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$offsetX&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-sym">(</span><span class="src-var">$origWidth&nbsp;</span>-&nbsp;<span class="src-var">$width</span><span class="src-sym">)&nbsp;</span>/&nbsp;<span class="src-num">2</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a184"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a185"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a186"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a187"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a188"></a><span class="src-comm">//&nbsp;Setting&nbsp;up&nbsp;the&nbsp;ratios&nbsp;needed&nbsp;for&nbsp;resizing.&nbsp;We&nbsp;will&nbsp;compare&nbsp;these&nbsp;below&nbsp;to&nbsp;determine&nbsp;how&nbsp;to</span></div></li>
+<li><div class="src-line"><a name="a189"></a><span class="src-comm">//&nbsp;resize&nbsp;the&nbsp;image&nbsp;(based&nbsp;on&nbsp;height&nbsp;or&nbsp;based&nbsp;on&nbsp;width)</span></div></li>
+<li><div class="src-line"><a name="a190"></a><span class="src-var">$xRatio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$maxWidth&nbsp;</span>/&nbsp;<span class="src-var">$width</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a191"></a><span class="src-var">$yRatio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$maxHeight&nbsp;</span>/&nbsp;<span class="src-var">$height</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a192"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a193"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$xRatio&nbsp;</span>*&nbsp;<span class="src-var">$height&nbsp;</span>&lt;&nbsp;<span class="src-var">$maxHeight</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a194"></a><span class="src-sym">{&nbsp;</span><span class="src-comm">//&nbsp;Resize&nbsp;the&nbsp;image&nbsp;based&nbsp;on&nbsp;width</span></div></li>
+<li><div class="src-line"><a name="a195"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$tnHeight&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/ceil">ceil</a><span class="src-sym">(</span><span class="src-var">$xRatio&nbsp;</span>*&nbsp;<span class="src-var">$height</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a196"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$tnWidth&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$maxWidth</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a197"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a198"></a><span class="src-key">else&nbsp;</span><span class="src-comm">//&nbsp;Resize&nbsp;the&nbsp;image&nbsp;based&nbsp;on&nbsp;height</span></div></li>
+<li><div class="src-line"><a name="a199"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a200"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$tnWidth&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/ceil">ceil</a><span class="src-sym">(</span><span class="src-var">$yRatio&nbsp;</span>*&nbsp;<span class="src-var">$width</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a201"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$tnHeight&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$maxHeight</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a202"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a203"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a204"></a><span class="src-comm">//&nbsp;Determine&nbsp;the&nbsp;quality&nbsp;of&nbsp;the&nbsp;output&nbsp;image</span></div></li>
+<li><div class="src-line"><a name="a205"></a><span class="src-var">$quality&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-sym">(</span>isset<span class="src-sym">(</span><span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'quality'</span><span class="src-sym">]</span><span class="src-sym">))&nbsp;</span>?&nbsp;(int)&nbsp;<span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'quality'</span><span class="src-sym">]&nbsp;</span>:&nbsp;<span class="src-id"><a href="..//_your_app_name---public---images---image.php.html#defineDEFAULT_QUALITY">DEFAULT_QUALITY</a></span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a206"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a207"></a><span class="src-comm">//&nbsp;Before&nbsp;we&nbsp;actually&nbsp;do&nbsp;any&nbsp;crazy&nbsp;resizing&nbsp;of&nbsp;the&nbsp;image,&nbsp;we&nbsp;want&nbsp;to&nbsp;make&nbsp;sure&nbsp;that&nbsp;we</span></div></li>
+<li><div class="src-line"><a name="a208"></a><span class="src-comm">//&nbsp;haven't&nbsp;already&nbsp;done&nbsp;this&nbsp;one&nbsp;at&nbsp;these&nbsp;dimensions.&nbsp;To&nbsp;the&nbsp;cache!</span></div></li>
+<li><div class="src-line"><a name="a209"></a><span class="src-comm">//&nbsp;Note,&nbsp;cache&nbsp;must&nbsp;be&nbsp;world-readable</span></div></li>
+<li><div class="src-line"><a name="a210"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a211"></a><span class="src-comm">//&nbsp;We&nbsp;store&nbsp;our&nbsp;cached&nbsp;image&nbsp;filenames&nbsp;as&nbsp;a&nbsp;hash&nbsp;of&nbsp;the&nbsp;dimensions&nbsp;and&nbsp;the&nbsp;original&nbsp;filename</span></div></li>
+<li><div class="src-line"><a name="a212"></a><span class="src-var">$resizedImageSource&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$tnWidth&nbsp;</span>.&nbsp;<span class="src-str">'x'&nbsp;</span>.&nbsp;<span class="src-var">$tnHeight&nbsp;</span>.&nbsp;<span class="src-str">'x'&nbsp;</span>.&nbsp;<span class="src-var">$quality</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a213"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$color</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a214"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$resizedImageSource&nbsp;&nbsp;&nbsp;&nbsp;</span>.=&nbsp;<span class="src-str">'x'&nbsp;</span>.&nbsp;<span class="src-var">$color</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a215"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span>isset<span class="src-sym">(</span><span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'cropratio'</span><span class="src-sym">]</span><span class="src-sym">))</span></div></li>
+<li><div class="src-line"><a name="a216"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$resizedImageSource&nbsp;&nbsp;&nbsp;&nbsp;</span>.=&nbsp;<span class="src-str">'x'&nbsp;</span>.&nbsp;(string)&nbsp;<span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'cropratio'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a217"></a><span class="src-var">$resizedImageSource&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.=&nbsp;<span class="src-str">'-'&nbsp;</span>.&nbsp;<span class="src-var">$image</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a218"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a219"></a><span class="src-var">$resizedImage&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/md5">md5</a><span class="src-sym">(</span><span class="src-var">$resizedImageSource</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a220"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a221"></a><span class="src-var">$resized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-id"><a href="..//_your_app_name---public---images---image.php.html#defineCACHE_DIR">CACHE_DIR</a>&nbsp;</span>.&nbsp;<span class="src-var">$resizedImage</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a222"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a223"></a><span class="src-comm">//&nbsp;Check&nbsp;the&nbsp;modified&nbsp;times&nbsp;of&nbsp;the&nbsp;cached&nbsp;file&nbsp;and&nbsp;the&nbsp;original&nbsp;file.</span></div></li>
+<li><div class="src-line"><a name="a224"></a><span class="src-comm">//&nbsp;If&nbsp;the&nbsp;original&nbsp;file&nbsp;is&nbsp;older&nbsp;than&nbsp;the&nbsp;cached&nbsp;file,&nbsp;then&nbsp;we&nbsp;simply&nbsp;serve&nbsp;up&nbsp;the&nbsp;cached&nbsp;file</span></div></li>
+<li><div class="src-line"><a name="a225"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-sym">!</span>isset<span class="src-sym">(</span><span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">'nocache'</span><span class="src-sym">]</span><span class="src-sym">)&nbsp;</span>&amp;&amp;&nbsp;<a href="http://www.php.net/file_exists">file_exists</a><span class="src-sym">(</span><span class="src-var">$resized</span><span class="src-sym">))</span></div></li>
+<li><div class="src-line"><a name="a226"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a227"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$imageModified&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/filemtime">filemtime</a><span class="src-sym">(</span><span class="src-var">$docRoot&nbsp;</span>.&nbsp;<span class="src-var">$image</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a228"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$thumbModified&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/filemtime">filemtime</a><span class="src-sym">(</span><span class="src-var">$resized</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a229"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a230"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-var">$imageModified&nbsp;</span>&lt;&nbsp;<span class="src-var">$thumbModified</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a231"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$data&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/file_get_contents">file_get_contents</a><span class="src-sym">(</span><span class="src-var">$resized</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a232"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a233"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$lastModifiedString&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/gmdate">gmdate</a><span class="src-sym">(</span><span class="src-str">'D,&nbsp;d&nbsp;M&nbsp;Y&nbsp;H:i:s'</span><span class="src-sym">,&nbsp;</span><span class="src-var">$thumbModified</span><span class="src-sym">)&nbsp;</span>.&nbsp;<span class="src-str">'&nbsp;GMT'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a234"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$etag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/md5">md5</a><span class="src-sym">(</span><span class="src-var">$data</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a235"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a236"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="..//_your_app_name---public---images---image.php.html#functiondoConditionalGet">doConditionalGet</a><span class="src-sym">(</span><span class="src-var">$etag</span><span class="src-sym">,&nbsp;</span><span class="src-var">$lastModifiedString</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a237"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a238"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">&quot;</span><span class="src-str">Content-type:&nbsp;<span class="src-var">$mime</span></span><span class="src-str">&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a239"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'Content-Length:&nbsp;'&nbsp;</span>.&nbsp;<a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$data</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a240"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-var">$data</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a241"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">exit</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a242"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a243"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a244"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a245"></a><span class="src-comm">//&nbsp;We&nbsp;don't&nbsp;want&nbsp;to&nbsp;run&nbsp;out&nbsp;of&nbsp;memory</span></div></li>
+<li><div class="src-line"><a name="a246"></a><a href="http://www.php.net/ini_set">ini_set</a><span class="src-sym">(</span><span class="src-str">'memory_limit'</span><span class="src-sym">,&nbsp;</span><span class="src-id"><a href="..//_your_app_name---public---images---image.php.html#defineMEMORY_TO_ALLOCATE">MEMORY_TO_ALLOCATE</a></span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a247"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a248"></a><span class="src-comm">//&nbsp;Set&nbsp;up&nbsp;a&nbsp;blank&nbsp;canvas&nbsp;for&nbsp;our&nbsp;resized&nbsp;image&nbsp;(destination)</span></div></li>
+<li><div class="src-line"><a name="a249"></a><span class="src-var">$dst&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/imagecreatetruecolor">imagecreatetruecolor</a><span class="src-sym">(</span><span class="src-var">$tnWidth</span><span class="src-sym">,&nbsp;</span><span class="src-var">$tnHeight</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a250"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a251"></a><span class="src-comm">//&nbsp;Set&nbsp;up&nbsp;the&nbsp;appropriate&nbsp;image&nbsp;handling&nbsp;functions&nbsp;based&nbsp;on&nbsp;the&nbsp;original&nbsp;image's&nbsp;mime&nbsp;type</span></div></li>
+<li><div class="src-line"><a name="a252"></a><span class="src-key">switch&nbsp;</span><span class="src-sym">(</span><span class="src-var">$size</span><span class="src-sym">[</span><span class="src-str">'mime'</span><span class="src-sym">]</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a253"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a254"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">case&nbsp;</span><span class="src-str">'image/gif'</span>:</div></li>
+<li><div class="src-line"><a name="a255"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;We&nbsp;will&nbsp;be&nbsp;converting&nbsp;GIFs&nbsp;to&nbsp;PNGs&nbsp;to&nbsp;avoid&nbsp;transparency&nbsp;issues&nbsp;when&nbsp;resizing&nbsp;GIFs</span></div></li>
+<li><div class="src-line"><a name="a256"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;This&nbsp;is&nbsp;maybe&nbsp;not&nbsp;the&nbsp;ideal&nbsp;solution,&nbsp;but&nbsp;IE6&nbsp;can&nbsp;suck&nbsp;it</span></div></li>
+<li><div class="src-line"><a name="a257"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$creationFunction&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-str">'ImageCreateFromGif'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a258"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$outputFunction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-str">'ImagePng'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a259"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$mime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-str">'image/png'</span><span class="src-sym">;&nbsp;</span><span class="src-comm">//&nbsp;We&nbsp;need&nbsp;to&nbsp;convert&nbsp;GIFs&nbsp;to&nbsp;PNGs</span></div></li>
+<li><div class="src-line"><a name="a260"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$doSharpen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-id">FALSE</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a261"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$quality&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/round">round</a><span class="src-sym">(</span><span class="src-num">10&nbsp;</span>-&nbsp;<span class="src-sym">(</span><span class="src-var">$quality&nbsp;</span>/&nbsp;<span class="src-num">10</span><span class="src-sym">))</span><span class="src-sym">;&nbsp;</span><span class="src-comm">//&nbsp;We&nbsp;are&nbsp;converting&nbsp;the&nbsp;GIF&nbsp;to&nbsp;a&nbsp;PNG&nbsp;and&nbsp;PNG&nbsp;needs&nbsp;a&nbsp;compression&nbsp;level&nbsp;of&nbsp;0&nbsp;(no&nbsp;compression)&nbsp;through&nbsp;9</span></div></li>
+<li><div class="src-line"><a name="a262"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">break</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a263"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a264"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">case&nbsp;</span><span class="src-str">'image/x-png'</span>:</div></li>
+<li><div class="src-line"><a name="a265"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">case&nbsp;</span><span class="src-str">'image/png'</span>:</div></li>
+<li><div class="src-line"><a name="a266"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$creationFunction&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-str">'ImageCreateFromPng'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a267"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$outputFunction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-str">'ImagePng'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a268"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$doSharpen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-id">FALSE</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a269"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$quality&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/round">round</a><span class="src-sym">(</span><span class="src-num">10&nbsp;</span>-&nbsp;<span class="src-sym">(</span><span class="src-var">$quality&nbsp;</span>/&nbsp;<span class="src-num">10</span><span class="src-sym">))</span><span class="src-sym">;&nbsp;</span><span class="src-comm">//&nbsp;PNG&nbsp;needs&nbsp;a&nbsp;compression&nbsp;level&nbsp;of&nbsp;0&nbsp;(no&nbsp;compression)&nbsp;through&nbsp;9</span></div></li>
+<li><div class="src-line"><a name="a270"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">break</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a271"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a272"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">default</span>:</div></li>
+<li><div class="src-line"><a name="a273"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$creationFunction&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-str">'ImageCreateFromJpeg'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a274"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$outputFunction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-str">'ImageJpeg'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a275"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$doSharpen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-id">TRUE</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a276"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">break</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a277"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a278"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a279"></a><span class="src-comm">//&nbsp;Read&nbsp;in&nbsp;the&nbsp;original&nbsp;image</span></div></li>
+<li><div class="src-line"><a name="a280"></a><span class="src-var">$src&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$creationFunction</span><span class="src-sym">(</span><span class="src-var">$docRoot&nbsp;</span>.&nbsp;<span class="src-var">$image</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a281"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a282"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><a href="http://www.php.net/in_array">in_array</a><span class="src-sym">(</span><span class="src-var">$size</span><span class="src-sym">[</span><span class="src-str">'mime'</span><span class="src-sym">]</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'image/gif'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'image/png'</span><span class="src-sym">)))</span></div></li>
+<li><div class="src-line"><a name="a283"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a284"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-var">$color</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a285"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a286"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;If&nbsp;this&nbsp;is&nbsp;a&nbsp;GIF&nbsp;or&nbsp;a&nbsp;PNG,&nbsp;we&nbsp;need&nbsp;to&nbsp;set&nbsp;up&nbsp;transparency</span></div></li>
+<li><div class="src-line"><a name="a287"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/imagealphablending">imagealphablending</a><span class="src-sym">(</span><span class="src-var">$dst</span><span class="src-sym">,&nbsp;</span><span class="src-id">false</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a288"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/imagesavealpha">imagesavealpha</a><span class="src-sym">(</span><span class="src-var">$dst</span><span class="src-sym">,&nbsp;</span><span class="src-id">true</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a289"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a290"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">else</span></div></li>
+<li><div class="src-line"><a name="a291"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a292"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Fill&nbsp;the&nbsp;background&nbsp;with&nbsp;the&nbsp;specified&nbsp;color&nbsp;for&nbsp;matting&nbsp;purposes</span></div></li>
+<li><div class="src-line"><a name="a293"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$color</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]&nbsp;</span>==&nbsp;<span class="src-str">'#'</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a294"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$color&nbsp;</span>=&nbsp;<a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><span class="src-var">$color</span><span class="src-sym">,&nbsp;</span><span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a295"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a296"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$background&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-id">FALSE</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a297"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a298"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$color</span><span class="src-sym">)&nbsp;</span>==&nbsp;<span class="src-num">6</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a299"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$background&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/imagecolorallocate">imagecolorallocate</a><span class="src-sym">(</span><span class="src-var">$dst</span><span class="src-sym">,&nbsp;</span><a href="http://www.php.net/hexdec">hexdec</a><span class="src-sym">(</span><span class="src-var">$color</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span>.<span class="src-var">$color</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">,&nbsp;</span><a href="http://www.php.net/hexdec">hexdec</a><span class="src-sym">(</span><span class="src-var">$color</span><span class="src-sym">[</span><span class="src-num">2</span><span class="src-sym">]</span>.<span class="src-var">$color</span><span class="src-sym">[</span><span class="src-num">3</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">,&nbsp;</span><a href="http://www.php.net/hexdec">hexdec</a><span class="src-sym">(</span><span class="src-var">$color</span><span class="src-sym">[</span><span class="src-num">4</span><span class="src-sym">]</span>.<span class="src-var">$color</span><span class="src-sym">[</span><span class="src-num">5</span><span class="src-sym">]</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a300"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">else&nbsp;</span><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$color</span><span class="src-sym">)&nbsp;</span>==&nbsp;<span class="src-num">3</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a301"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$background&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/imagecolorallocate">imagecolorallocate</a><span class="src-sym">(</span><span class="src-var">$dst</span><span class="src-sym">,&nbsp;</span><a href="http://www.php.net/hexdec">hexdec</a><span class="src-sym">(</span><span class="src-var">$color</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span>.<span class="src-var">$color</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">,&nbsp;</span><a href="http://www.php.net/hexdec">hexdec</a><span class="src-sym">(</span><span class="src-var">$color</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span>.<span class="src-var">$color</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">,&nbsp;</span><a href="http://www.php.net/hexdec">hexdec</a><span class="src-sym">(</span><span class="src-var">$color</span><span class="src-sym">[</span><span class="src-num">2</span><span class="src-sym">]</span>.<span class="src-var">$color</span><span class="src-sym">[</span><span class="src-num">2</span><span class="src-sym">]</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a302"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$background</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a303"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/imagefill">imagefill</a><span class="src-sym">(</span><span class="src-var">$dst</span><span class="src-sym">,&nbsp;</span><span class="src-num">0</span><span class="src-sym">,&nbsp;</span><span class="src-num">0</span><span class="src-sym">,&nbsp;</span><span class="src-var">$background</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a304"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a305"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a306"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a307"></a><span class="src-comm">//&nbsp;Resample&nbsp;the&nbsp;original&nbsp;image&nbsp;into&nbsp;the&nbsp;resized&nbsp;canvas&nbsp;we&nbsp;set&nbsp;up&nbsp;earlier</span></div></li>
+<li><div class="src-line"><a name="a308"></a><span class="src-id">ImageCopyResampled</span><span class="src-sym">(</span><span class="src-var">$dst</span><span class="src-sym">,&nbsp;</span><span class="src-var">$src</span><span class="src-sym">,&nbsp;</span><span class="src-num">0</span><span class="src-sym">,&nbsp;</span><span class="src-num">0</span><span class="src-sym">,&nbsp;</span><span class="src-var">$offsetX</span><span class="src-sym">,&nbsp;</span><span class="src-var">$offsetY</span><span class="src-sym">,&nbsp;</span><span class="src-var">$tnWidth</span><span class="src-sym">,&nbsp;</span><span class="src-var">$tnHeight</span><span class="src-sym">,&nbsp;</span><span class="src-var">$width</span><span class="src-sym">,&nbsp;</span><span class="src-var">$height</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a309"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a310"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$doSharpen</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a311"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a312"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Sharpen&nbsp;the&nbsp;image&nbsp;based&nbsp;on&nbsp;two&nbsp;things:</span></div></li>
+<li><div class="src-line"><a name="a313"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;(1)&nbsp;the&nbsp;difference&nbsp;between&nbsp;the&nbsp;original&nbsp;size&nbsp;and&nbsp;the&nbsp;final&nbsp;size</span></div></li>
+<li><div class="src-line"><a name="a314"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;(2)&nbsp;the&nbsp;final&nbsp;size</span></div></li>
+<li><div class="src-line"><a name="a315"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$sharpness&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="..//_your_app_name---public---images---image.php.html#functionfindSharp">findSharp</a><span class="src-sym">(</span><span class="src-var">$width</span><span class="src-sym">,&nbsp;</span><span class="src-var">$tnWidth</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a316"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a317"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$sharpenMatrix&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span></div></li>
+<li><div class="src-line"><a name="a318"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span>-<span class="src-num">1</span><span class="src-sym">,&nbsp;</span>-<span class="src-num">2</span><span class="src-sym">,&nbsp;</span>-<span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a319"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span>-<span class="src-num">2</span><span class="src-sym">,&nbsp;</span><span class="src-var">$sharpness&nbsp;</span>+&nbsp;<span class="src-num">12</span><span class="src-sym">,&nbsp;</span>-<span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a320"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span>-<span class="src-num">1</span><span class="src-sym">,&nbsp;</span>-<span class="src-num">2</span><span class="src-sym">,&nbsp;</span>-<span class="src-num">1</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a321"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a322"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$divisor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$sharpness</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a323"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$offset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-num">0</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a324"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/imageconvolution">imageconvolution</a><span class="src-sym">(</span><span class="src-var">$dst</span><span class="src-sym">,&nbsp;</span><span class="src-var">$sharpenMatrix</span><span class="src-sym">,&nbsp;</span><span class="src-var">$divisor</span><span class="src-sym">,&nbsp;</span><span class="src-var">$offset</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a325"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a326"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a327"></a><span class="src-comm">//&nbsp;Make&nbsp;sure&nbsp;the&nbsp;cache&nbsp;exists.&nbsp;If&nbsp;it&nbsp;doesn't,&nbsp;then&nbsp;create&nbsp;it</span></div></li>
+<li><div class="src-line"><a name="a328"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/file_exists">file_exists</a><span class="src-sym">(</span><span class="src-id"><a href="..//_your_app_name---public---images---image.php.html#defineCACHE_DIR">CACHE_DIR</a></span><span class="src-sym">))</span></div></li>
+<li><div class="src-line"><a name="a329"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/mkdir">mkdir</a><span class="src-sym">(</span><span class="src-id"><a href="..//_your_app_name---public---images---image.php.html#defineCACHE_DIR">CACHE_DIR</a></span><span class="src-sym">,&nbsp;</span><span class="src-num">0755</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a330"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a331"></a><span class="src-comm">//&nbsp;Make&nbsp;sure&nbsp;we&nbsp;can&nbsp;read&nbsp;and&nbsp;write&nbsp;the&nbsp;cache&nbsp;directory</span></div></li>
+<li><div class="src-line"><a name="a332"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/is_readable">is_readable</a><span class="src-sym">(</span><span class="src-id"><a href="..//_your_app_name---public---images---image.php.html#defineCACHE_DIR">CACHE_DIR</a></span><span class="src-sym">))</span></div></li>
+<li><div class="src-line"><a name="a333"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a334"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'HTTP/1.1&nbsp;500&nbsp;Internal&nbsp;Server&nbsp;Error'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a335"></a>&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-str">'Error:&nbsp;the&nbsp;cache&nbsp;directory&nbsp;is&nbsp;not&nbsp;readable'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a336"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">exit</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a337"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a338"></a><span class="src-key">else&nbsp;</span><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/is_writable">is_writable</a><span class="src-sym">(</span><span class="src-id"><a href="..//_your_app_name---public---images---image.php.html#defineCACHE_DIR">CACHE_DIR</a></span><span class="src-sym">))</span></div></li>
+<li><div class="src-line"><a name="a339"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a340"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'HTTP/1.1&nbsp;500&nbsp;Internal&nbsp;Server&nbsp;Error'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a341"></a>&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-str">'Error:&nbsp;the&nbsp;cache&nbsp;directory&nbsp;is&nbsp;not&nbsp;writable'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a342"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">exit</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a343"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a344"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a345"></a><span class="src-comm">//&nbsp;Write&nbsp;the&nbsp;resized&nbsp;image&nbsp;to&nbsp;the&nbsp;cache</span></div></li>
+<li><div class="src-line"><a name="a346"></a><span class="src-var">$outputFunction</span><span class="src-sym">(</span><span class="src-var">$dst</span><span class="src-sym">,&nbsp;</span><span class="src-var">$resized</span><span class="src-sym">,&nbsp;</span><span class="src-var">$quality</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a347"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a348"></a><span class="src-comm">//&nbsp;Put&nbsp;the&nbsp;data&nbsp;of&nbsp;the&nbsp;resized&nbsp;image&nbsp;into&nbsp;a&nbsp;variable</span></div></li>
+<li><div class="src-line"><a name="a349"></a><a href="http://www.php.net/ob_start">ob_start</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a350"></a><span class="src-var">$outputFunction</span><span class="src-sym">(</span><span class="src-var">$dst</span><span class="src-sym">,&nbsp;</span><span class="src-id">null</span><span class="src-sym">,&nbsp;</span><span class="src-var">$quality</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a351"></a><span class="src-var">$data&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/ob_get_contents">ob_get_contents</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a352"></a><a href="http://www.php.net/ob_end_clean">ob_end_clean</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a353"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a354"></a><span class="src-comm">//&nbsp;Clean&nbsp;up&nbsp;the&nbsp;memory</span></div></li>
+<li><div class="src-line"><a name="a355"></a><span class="src-id">ImageDestroy</span><span class="src-sym">(</span><span class="src-var">$src</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a356"></a><span class="src-id">ImageDestroy</span><span class="src-sym">(</span><span class="src-var">$dst</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a357"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a358"></a><span class="src-comm">//&nbsp;See&nbsp;if&nbsp;the&nbsp;browser&nbsp;already&nbsp;has&nbsp;the&nbsp;image</span></div></li>
+<li><div class="src-line"><a name="a359"></a><span class="src-var">$lastModifiedString&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/gmdate">gmdate</a><span class="src-sym">(</span><span class="src-str">'D,&nbsp;d&nbsp;M&nbsp;Y&nbsp;H:i:s'</span><span class="src-sym">,&nbsp;</span><a href="http://www.php.net/filemtime">filemtime</a><span class="src-sym">(</span><span class="src-var">$resized</span><span class="src-sym">))&nbsp;</span>.&nbsp;<span class="src-str">'&nbsp;GMT'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a360"></a><span class="src-var">$etag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<a href="http://www.php.net/md5">md5</a><span class="src-sym">(</span><span class="src-var">$data</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a361"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a362"></a><a href="..//_your_app_name---public---images---image.php.html#functiondoConditionalGet">doConditionalGet</a><span class="src-sym">(</span><span class="src-var">$etag</span><span class="src-sym">,&nbsp;</span><span class="src-var">$lastModifiedString</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a363"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a364"></a><span class="src-comm">//&nbsp;Send&nbsp;the&nbsp;image&nbsp;to&nbsp;the&nbsp;browser&nbsp;with&nbsp;some&nbsp;delicious&nbsp;headers</span></div></li>
+<li><div class="src-line"><a name="a365"></a><a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">&quot;</span><span class="src-str">Content-type:&nbsp;<span class="src-var">$mime</span></span><span class="src-str">&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a366"></a><a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'Content-Length:&nbsp;'&nbsp;</span>.&nbsp;<a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$data</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a367"></a>echo&nbsp;<span class="src-var">$data</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a368"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a369"></a><span class="src-key">function&nbsp;</span><a href="..//_your_app_name---public---images---image.php.html#functionfindSharp">findSharp</a><span class="src-sym">(</span><span class="src-var">$orig</span><span class="src-sym">,&nbsp;</span><span class="src-var">$final</span><span class="src-sym">)&nbsp;</span><span class="src-comm">//&nbsp;function&nbsp;from&nbsp;Ryan&nbsp;Rud&nbsp;(http://adryrun.com)</span></div></li>
+<li><div class="src-line"><a name="a370"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a371"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$final&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$final&nbsp;</span>*&nbsp;<span class="src-sym">(</span><span class="src-num">750.0&nbsp;</span>/&nbsp;<span class="src-var">$orig</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a372"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-num">52</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a373"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$b&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;-<span class="src-num">0.27810650887573124</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a374"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-num">.00047337278106508946</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a375"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a376"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$result&nbsp;</span>=&nbsp;<span class="src-var">$a&nbsp;</span>+&nbsp;<span class="src-var">$b&nbsp;</span>*&nbsp;<span class="src-var">$final&nbsp;</span>+&nbsp;<span class="src-var">$c&nbsp;</span>*&nbsp;<span class="src-var">$final&nbsp;</span>*&nbsp;<span class="src-var">$final</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a377"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a378"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><a href="http://www.php.net/max">max</a><span class="src-sym">(</span><a href="http://www.php.net/round">round</a><span class="src-sym">(</span><span class="src-var">$result</span><span class="src-sym">)</span><span class="src-sym">,&nbsp;</span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a379"></a><span class="src-sym">}&nbsp;</span><span class="src-comm">//&nbsp;findSharp()</span></div></li>
+<li><div class="src-line"><a name="a380"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a381"></a><span class="src-key">function&nbsp;</span><a href="..//_your_app_name---public---images---image.php.html#functiondoConditionalGet">doConditionalGet</a><span class="src-sym">(</span><span class="src-var">$etag</span><span class="src-sym">,&nbsp;</span><span class="src-var">$lastModified</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a382"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a383"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">&quot;</span><span class="src-str">Last-Modified:&nbsp;<span class="src-var">$lastModified</span></span><span class="src-str">&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a384"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">&quot;</span><span class="src-str">ETag:&nbsp;\&quot;{<span class="src-var">$etag</span><span class="src-sym">}</span>\&quot;</span><span class="src-str">&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a385"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a386"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$if_none_match&nbsp;</span>=&nbsp;isset<span class="src-sym">(</span><span class="src-var">$_SERVER</span><span class="src-sym">[</span><span class="src-str">'HTTP_IF_NONE_MATCH'</span><span class="src-sym">]</span><span class="src-sym">)&nbsp;</span>?</div></li>
+<li><div class="src-line"><a name="a387"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/stripslashes">stripslashes</a><span class="src-sym">(</span><span class="src-var">$_SERVER</span><span class="src-sym">[</span><span class="src-str">'HTTP_IF_NONE_MATCH'</span><span class="src-sym">]</span><span class="src-sym">)&nbsp;</span>:&nbsp;</div></li>
+<li><div class="src-line"><a name="a388"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">false</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a389"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a390"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$if_modified_since&nbsp;</span>=&nbsp;isset<span class="src-sym">(</span><span class="src-var">$_SERVER</span><span class="src-sym">[</span><span class="src-str">'HTTP_IF_MODIFIED_SINCE'</span><span class="src-sym">]</span><span class="src-sym">)&nbsp;</span>?</div></li>
+<li><div class="src-line"><a name="a391"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/stripslashes">stripslashes</a><span class="src-sym">(</span><span class="src-var">$_SERVER</span><span class="src-sym">[</span><span class="src-str">'HTTP_IF_MODIFIED_SINCE'</span><span class="src-sym">]</span><span class="src-sym">)&nbsp;</span>:</div></li>
+<li><div class="src-line"><a name="a392"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">false</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a393"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a394"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-var">$if_modified_since&nbsp;</span>&amp;&amp;&nbsp;<span class="src-sym">!</span><span class="src-var">$if_none_match</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a395"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a396"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a397"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$if_none_match&nbsp;</span>&amp;&amp;&nbsp;<span class="src-var">$if_none_match&nbsp;</span>!=&nbsp;<span class="src-var">$etag&nbsp;</span>&amp;&amp;&nbsp;<span class="src-var">$if_none_match&nbsp;</span>!=&nbsp;<span class="src-str">'&quot;'&nbsp;</span>.&nbsp;<span class="src-var">$etag&nbsp;</span>.&nbsp;<span class="src-str">'&quot;'</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a398"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return</span><span class="src-sym">;&nbsp;</span><span class="src-comm">//&nbsp;etag&nbsp;is&nbsp;there&nbsp;but&nbsp;doesn't&nbsp;match</span></div></li>
+<li><div class="src-line"><a name="a399"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a400"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$if_modified_since&nbsp;</span>&amp;&amp;&nbsp;<span class="src-var">$if_modified_since&nbsp;</span>!=&nbsp;<span class="src-var">$lastModified</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a401"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return</span><span class="src-sym">;&nbsp;</span><span class="src-comm">//&nbsp;if-modified-since&nbsp;is&nbsp;there&nbsp;but&nbsp;doesn't&nbsp;match</span></div></li>
+<li><div class="src-line"><a name="a402"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a403"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Nothing&nbsp;has&nbsp;changed&nbsp;since&nbsp;their&nbsp;last&nbsp;request&nbsp;-&nbsp;serve&nbsp;a&nbsp;304&nbsp;and&nbsp;exit</span></div></li>
+<li><div class="src-line"><a name="a404"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'HTTP/1.1&nbsp;304&nbsp;Not&nbsp;Modified'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a405"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">exit</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a406"></a><span class="src-sym">}&nbsp;</span><span class="src-comm">//&nbsp;doConditionalGet()</span></div></li>
+<li><div class="src-line"><a name="a407"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a408"></a><span class="src-comm">//&nbsp;old&nbsp;pond</span></div></li>
+<li><div class="src-line"><a name="a409"></a><span class="src-comm">//&nbsp;a&nbsp;frog&nbsp;jumps</span></div></li>
+<li><div class="src-line"><a name="a410"></a><span class="src-comm">//&nbsp;the&nbsp;sound&nbsp;of&nbsp;water</span></div></li>
+<li><div class="src-line"><a name="a411"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a412"></a><span class="src-comm">//&nbsp;—Matsuo&nbsp;Basho</span></div></li>
+<li><div class="src-line"><a name="a413"></a><span class="src-php">?&gt;</span></div></li>
+</ol>
+</div>
+        <div class="credit">
+		    
+	    </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+		</div>
+	</div>
+</div>
+</body>
+</html>

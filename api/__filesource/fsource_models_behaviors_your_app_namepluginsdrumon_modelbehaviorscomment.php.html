@@ -1,0 +1,165 @@
+<html>
+<head>
+<title>File Source for comment.php</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+</head>
+<body>
+<div id="conteiners">    
+	<div id="topo">
+		<div id="toptopo">
+		   <a href="http://sook.github.com/drumon_framework/api" class="topostyle">Drumon Framework - API</a>
+		</div> 
+		         
+		<div id="subtopo">
+		   	
+	        	            	        	            	        	            	        	            	                
+	            	        	        	  		  <!-- [ <a href="../classtrees_models.html" class="menu">class tree: models</a> ] -->
+			  [ <a href="../elementindex_models.html" class="menu">index: models</a> ]
+				  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]&nbsp; 
+		</div> 
+	</div>  
+	<div id="centro">
+		<div id="left">
+
+		    <!-- ######## FIM RIC ########## -->   
+						<!-- ######## FIM DO RIC ########## -->
+
+			<!-- ######## TODO LIST ########## -->   
+			    
+			<!-- ######## FIM TODO LIST ########## -->    
+
+			<div class="content_pacotes_top">
+				<span class="title_pacote">Packages:</span>
+			</div> 
+			<div class="content_pacotes"> 
+				<ul>
+					        <li><a href="../li_.html"></a></li>
+		    		        <li><a href="../li_class.html">class</a></li>
+		    		        <li><a href="../li_helpers.html">helpers</a></li>
+		    		        <li><a href="../li_models.html">models</a></li>
+		     
+				</ul>
+			</div>
+			 
+										
+
+				 
+				<!--   -->
+                
+				<!--  -->   
+			  
+		</div>
+		<div id="right"> 
+		   
+		</div>         
+		<div id="center">
+  			<h1 align="center">Source for file comment.php</h1>
+<p>Documentation is available at <a href="../models/behaviors/_your_app_name---plugins---drumon_model---behaviors---comment.php.html">comment.php</a></p>
+<div class="src-code">
+<ol><li><div class="src-line"><a name="a1"></a><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><a name="a2"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a3"></a><span class="src-doc">&nbsp;*&nbsp;Drumon&nbsp;Framework:&nbsp;Build&nbsp;fast&nbsp;web&nbsp;applications</span></div></li>
+<li><div class="src-line"><a name="a4"></a><span class="src-doc">&nbsp;*&nbsp;Copyright&nbsp;(C)&nbsp;2010&nbsp;Sook&nbsp;-&nbsp;Desenvolvendo&nbsp;inovações&nbsp;(http://www.sook.com.br)</span></div></li>
+<li><div class="src-line"><a name="a5"></a><span class="src-doc">&nbsp;*&nbsp;Licensed&nbsp;under&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License.</span></div></li>
+<li><div class="src-line"><a name="a6"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a7"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a8"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a9"></a><span class="src-doc">&nbsp;*&nbsp;Classe&nbsp;para&nbsp;comentários&nbsp;dos&nbsp;models.</span></div></li>
+<li><div class="src-line"><a name="a10"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;Sook&nbsp;contato@sook.com.br</span></div></li>
+<li><div class="src-line"><a name="a11"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;models</span></div></li>
+<li><div class="src-line"><a name="a12"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;behaviors</span></div></li>
+<li><div class="src-line"><a name="a13"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a14"></a><span class="src-key">class&nbsp;</span><a href="../models/behaviors/Comment.html">Comment</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../models/behaviors/ModelBehavior.html">ModelBehavior</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a15"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a16"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Procura&nbsp;comentários&nbsp;específicos&nbsp;pelo&nbsp;id.</span></div></li>
+<li><div class="src-line"><a name="a17"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a18"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;public</span></div></li>
+<li><div class="src-line"><a name="a19"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$id&nbsp;</span><span class="src-doc">-&nbsp;ID&nbsp;a&nbsp;ser&nbsp;utilizado&nbsp;pela&nbsp;cláusula&nbsp;WHERE.</span></div></li>
+<li><div class="src-line"><a name="a20"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">array&nbsp;</span><span class="src-doc">-&nbsp;Lista&nbsp;de&nbsp;dados&nbsp;retornados&nbsp;pela&nbsp;query.</span></div></li>
+<li><div class="src-line"><a name="a21"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a22"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../models/behaviors/Comment.html#methodfindComments">findComments</a><span class="src-sym">(</span><span class="src-var">$id</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a23"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$name&nbsp;</span>=&nbsp;<a href="http://www.php.net/get_class">get_class</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a24"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-key">empty</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">name</span><span class="src-sym">))&nbsp;</span><span class="src-var">$name&nbsp;</span>=&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">name</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a25"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$recordType&nbsp;</span>=&nbsp;<span class="src-str">&quot;Modules::&quot;</span>.<span class="src-var">$name</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a26"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$sql&nbsp;</span>=&nbsp;<span class="src-str">'SELECT&nbsp;*&nbsp;FROM&nbsp;core_comments&nbsp;&nbsp;WHERE&nbsp;record_type&nbsp;=&nbsp;&quot;'</span>.<span class="src-var">$recordType</span>.<span class="src-str">'&quot;&nbsp;AND&nbsp;record_id&nbsp;=&nbsp;'</span>.<span class="src-var">$id</span>.<span class="src-str">'&nbsp;AND&nbsp;approved&nbsp;=&nbsp;1&nbsp;ORDER&nbsp;BY&nbsp;id&nbsp;ASC'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a27"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">query</span><span class="src-sym">(</span><span class="src-var">$sql</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a28"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a29"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a30"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a31"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Retorna&nbsp;a&nbsp;quantidade&nbsp;de&nbsp;comentários.</span></div></li>
+<li><div class="src-line"><a name="a32"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a33"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;public</span></div></li>
+<li><div class="src-line"><a name="a34"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$id&nbsp;</span><span class="src-doc">-&nbsp;ID&nbsp;a&nbsp;ser&nbsp;utilizado&nbsp;pela&nbsp;cláusula&nbsp;WHERE.</span></div></li>
+<li><div class="src-line"><a name="a35"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">integer&nbsp;</span><span class="src-doc">-&nbsp;Total&nbsp;de&nbsp;comentários.</span></div></li>
+<li><div class="src-line"><a name="a36"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a37"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../models/behaviors/Comment.html#methodcountComments">countComments</a><span class="src-sym">(</span><span class="src-var">$id</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a38"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$name&nbsp;</span>=&nbsp;<a href="http://www.php.net/get_class">get_class</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a39"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-key">empty</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">name</span><span class="src-sym">))&nbsp;</span><span class="src-var">$name&nbsp;</span>=&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">name</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a40"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$recordType&nbsp;</span>=&nbsp;<span class="src-str">&quot;Modules::&quot;</span>.<span class="src-var">$name</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a41"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$sql&nbsp;</span>=&nbsp;<span class="src-str">'SELECT&nbsp;COUNT(*)&nbsp;as&nbsp;total&nbsp;FROM&nbsp;core_comments&nbsp;WHERE&nbsp;record_type&nbsp;=&nbsp;&quot;'</span>.<span class="src-var">$recordType</span>.<span class="src-str">'&quot;&nbsp;AND&nbsp;record_id&nbsp;=&nbsp;'</span>.<span class="src-var">$id</span>.<span class="src-str">'&nbsp;AND&nbsp;approved&nbsp;=&nbsp;1'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a42"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$result&nbsp;</span>=&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">query</span><span class="src-sym">(</span><span class="src-var">$sql</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a43"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$result</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'total'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a44"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a45"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a46"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a47"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Salva&nbsp;Comentários.</span></div></li>
+<li><div class="src-line"><a name="a48"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a49"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;public</span></div></li>
+<li><div class="src-line"><a name="a50"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">array&nbsp;</span><span class="src-doc-var">$data&nbsp;</span><span class="src-doc">-&nbsp;Campos&nbsp;de&nbsp;comentário&nbsp;a&nbsp;serem&nbsp;salvos.</span></div></li>
+<li><div class="src-line"><a name="a51"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">boolean&nbsp;</span><span class="src-doc-var">$approved&nbsp;</span><span class="src-doc">-&nbsp;Se&nbsp;true&nbsp;aprova&nbsp;o&nbsp;comentário&nbsp;na&nbsp;hora&nbsp;do&nbsp;cadastro.&nbsp;(default:&nbsp;false)</span></div></li>
+<li><div class="src-line"><a name="a52"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">boolean&nbsp;</span><span class="src-doc-var">$cache_comment&nbsp;</span><span class="src-doc">-&nbsp;Se&nbsp;true&nbsp;ele&nbsp;atualiza&nbsp;o&nbsp;campo&nbsp;de&nbsp;cache&nbsp;number_of_comments&nbsp;do&nbsp;registro.&nbsp;(default:&nbsp;false)</span></div></li>
+<li><div class="src-line"><a name="a53"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">boolean&nbsp;</span><span class="src-doc">-&nbsp;True&nbsp;ou&nbsp;False&nbsp;se&nbsp;o&nbsp;comentário&nbsp;for&nbsp;inserido&nbsp;com&nbsp;sucesso.</span></div></li>
+<li><div class="src-line"><a name="a54"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a55"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//TODO:&nbsp;Executar&nbsp;SQL&nbsp;Diretamente,&nbsp;e&nbsp;verificar&nbsp;a&nbsp;necessidade&nbsp;da&nbsp;variável&nbsp;noFlags&nbsp;em&nbsp;DrumonModel</span></div></li>
+<li><div class="src-line"><a name="a56"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../models/behaviors/Comment.html#methodsaveComment">saveComment</a><span class="src-sym">(</span><span class="src-var">$data</span><span class="src-sym">,&nbsp;</span><span class="src-var">$approved&nbsp;</span>=&nbsp;<span class="src-id">false&nbsp;</span><span class="src-sym">,</span><span class="src-var">$cache_comment&nbsp;</span>=&nbsp;<span class="src-id">false</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a57"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$name&nbsp;</span>=&nbsp;<a href="http://www.php.net/get_class">get_class</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a58"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-key">empty</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">name</span><span class="src-sym">))&nbsp;</span><span class="src-var">$name&nbsp;</span>=&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">name</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a59"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$recordType&nbsp;</span>=&nbsp;<span class="src-str">&quot;Modules::&quot;</span>.<span class="src-var">$name</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a60"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$temp_table&nbsp;</span>=&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">table</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a61"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">table&nbsp;</span>=&nbsp;<span class="src-str">&quot;core_comments&quot;</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a62"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a63"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$params&nbsp;</span>=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a64"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$params</span><span class="src-sym">[</span><span class="src-str">'name'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-var">$data</span><span class="src-sym">[</span><span class="src-str">'name'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a65"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$params</span><span class="src-sym">[</span><span class="src-str">'email'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-var">$data</span><span class="src-sym">[</span><span class="src-str">'email'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a66"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$params</span><span class="src-sym">[</span><span class="src-str">'site'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-var">$data</span><span class="src-sym">[</span><span class="src-str">'site'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a67"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$params</span><span class="src-sym">[</span><span class="src-str">'content'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-var">$data</span><span class="src-sym">[</span><span class="src-str">'content'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a68"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$params</span><span class="src-sym">[</span><span class="src-str">'record_id'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-var">$data</span><span class="src-sym">[</span><span class="src-str">'record_id'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a69"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$params</span><span class="src-sym">[</span><span class="src-str">'approved'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-var">$approved&nbsp;</span>?&nbsp;<span class="src-num">1&nbsp;</span>:&nbsp;<span class="src-num">0</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a70"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$params</span><span class="src-sym">[</span><span class="src-str">'record_type'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-var">$recordType</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a71"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$params</span><span class="src-sym">[</span><span class="src-str">'created_at'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-str">&quot;now()&quot;</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a72"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a73"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$result&nbsp;</span>=&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">save</span><span class="src-sym">(</span><span class="src-var">$params</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a74"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">table&nbsp;</span>=&nbsp;<span class="src-var">$temp_table</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a75"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a76"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Se&nbsp;não&nbsp;salvar&nbsp;retorna&nbsp;false;</span></div></li>
+<li><div class="src-line"><a name="a77"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-var">$result</span><span class="src-sym">)&nbsp;</span><span class="src-key">return&nbsp;</span><span class="src-var">$result</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a78"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a79"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-var">$cache_comment</span><span class="src-sym">)</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a80"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$sql&nbsp;</span>=&nbsp;<span class="src-str">'SELECT&nbsp;record_id,&nbsp;count(`record_id`)&nbsp;as&nbsp;total&nbsp;FROM&nbsp;`core_comments`&nbsp;WHERE&nbsp;record_type&nbsp;=&nbsp;&quot;'</span>.<span class="src-var">$recordType</span>.<span class="src-str">'&quot;&nbsp;AND&nbsp;record_id&nbsp;=&quot;'</span>.<span class="src-var">$data</span><span class="src-sym">[</span><span class="src-str">'record_id'</span><span class="src-sym">]</span>.<span class="src-str">'&quot;&nbsp;AND&nbsp;approved&nbsp;=&nbsp;1&nbsp;GROUP&nbsp;BY&nbsp;`record_id`&nbsp;order&nbsp;by&nbsp;total&nbsp;DESC'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a81"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$result&nbsp;</span>=&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">query</span><span class="src-sym">(</span><span class="src-var">$sql</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a82"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a83"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$update_sql&nbsp;</span>=&nbsp;<span class="src-str">'UPDATE&nbsp;'</span>.<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">table</span>.<span class="src-str">'&nbsp;SET&nbsp;number_of_comments='</span>.<span class="src-var">$result</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'total'</span><span class="src-sym">]</span>.<span class="src-str">'&nbsp;WHERE&nbsp;id='</span>.<span class="src-var">$data</span><span class="src-sym">[</span><span class="src-str">'record_id'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a84"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../models/behaviors/ModelBehavior.html#var$model">model</a><span class="src-sym">-&gt;</span><span class="src-id">execute</span><span class="src-sym">(</span><span class="src-var">$update_sql</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a85"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a86"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a87"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$result</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a88"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a89"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a90"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a91"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a92"></a><span class="src-php">?&gt;</span></div></li>
+</ol>
+</div>
+        <div class="credit">
+		    
+	    </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+		</div>
+	</div>
+</div>
+</body>
+</html>

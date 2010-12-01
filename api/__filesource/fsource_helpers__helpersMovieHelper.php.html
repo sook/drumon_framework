@@ -1,0 +1,200 @@
+<html>
+<head>
+<title>File Source for MovieHelper.php</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+</head>
+<body>
+<div id="conteiners">    
+	<div id="topo">
+		<div id="toptopo">
+		   <a href="/docs/api" class="topostyle">Drumon Framework - API</a>
+		</div> 
+		         
+		<div id="subtopo">
+		   	
+	        	            	        	            	        	            	                
+	            	        	        	  		  <!-- [ <a href="../classtrees_helpers.html" class="menu">class tree: helpers</a> ] -->
+			  [ <a href="../elementindex_helpers.html" class="menu">index: helpers</a> ]
+				  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]&nbsp; 
+		</div> 
+	</div>  
+	<div id="centro">
+		<div id="left">
+
+		    <!-- ######## FIM RIC ########## -->   
+						<!-- ######## FIM DO RIC ########## -->
+
+			<!-- ######## TODO LIST ########## -->   
+			    
+			<!-- ######## FIM TODO LIST ########## -->    
+
+			<div class="content_pacotes_top">
+				<span class="title_pacote">Packages:</span>
+			</div> 
+			<div class="content_pacotes"> 
+				<ul>
+					        <li><a href="../li_.html"></a></li>
+		    		        <li><a href="../li_class.html">class</a></li>
+		    		        <li><a href="../li_helpers.html">helpers</a></li>
+		     
+				</ul>
+			</div>
+			 
+										
+
+				 
+				<!--   -->
+                
+				<!--  -->   
+			  
+		</div>
+		<div id="right"> 
+		   
+		</div>         
+		<div id="center">
+  			<h1 align="center">Source for file MovieHelper.php</h1>
+<p>Documentation is available at <a href="../helpers/_helpers---MovieHelper.php.html">MovieHelper.php</a></p>
+<div class="src-code">
+<ol><li><div class="src-line"><a name="a1"></a><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><a name="a2"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a3"></a><span class="src-doc">&nbsp;*&nbsp;Drumon&nbsp;Framework:&nbsp;Build&nbsp;fast&nbsp;web&nbsp;applications</span></div></li>
+<li><div class="src-line"><a name="a4"></a><span class="src-doc">&nbsp;*&nbsp;Copyright&nbsp;(C)&nbsp;2010&nbsp;Sook&nbsp;-&nbsp;Desenvolvendo&nbsp;inovações&nbsp;(http://www.sook.com.br)</span></div></li>
+<li><div class="src-line"><a name="a5"></a><span class="src-doc">&nbsp;*&nbsp;Licensed&nbsp;under&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License.</span></div></li>
+<li><div class="src-line"><a name="a6"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a7"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a8"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a9"></a><span class="src-doc">&nbsp;*&nbsp;Helper&nbsp;para&nbsp;trabalhar&nbsp;com&nbsp;Vídeos&nbsp;Youtube&nbsp;e&nbsp;Vimeo.</span></div></li>
+<li><div class="src-line"><a name="a10"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a11"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;Sook&nbsp;contato@sook.com.br</span></div></li>
+<li><div class="src-line"><a name="a12"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;helpers</span></div></li>
+<li><div class="src-line"><a name="a13"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a14"></a><span class="src-key">class&nbsp;</span><a href="../helpers/MovieHelper.html">MovieHelper</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../class/Helper.html">Helper</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a15"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a16"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a17"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Armazena&nbsp;a&nbsp;opção&nbsp;de&nbsp;hospedagem&nbsp;do&nbsp;video&nbsp;(VIMEO&nbsp;ou&nbsp;Youtube)..</span></div></li>
+<li><div class="src-line"><a name="a18"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a19"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;public</span></div></li>
+<li><div class="src-line"><a name="a20"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a21"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a22"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><span class="src-var">$location</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a23"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a24"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a25"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Carrega&nbsp;a&nbsp;rota&nbsp;através&nbsp;da&nbsp;função&nbsp;get_route.</span></div></li>
+<li><div class="src-line"><a name="a26"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a27"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$url&nbsp;</span><span class="src-doc">-&nbsp;Url&nbsp;do&nbsp;vídeo.</span></div></li>
+<li><div class="src-line"><a name="a28"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;public</span></div></li>
+<li><div class="src-line"><a name="a29"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">mixed&nbsp;</span><span class="src-doc">-&nbsp;String&nbsp;com&nbsp;o&nbsp;ID&nbsp;do&nbsp;vídeo&nbsp;ou&nbsp;false&nbsp;se&nbsp;a&nbsp;url&nbsp;não&nbsp;for&nbsp;válida.</span></div></li>
+<li><div class="src-line"><a name="a30"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a31"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><span class="src-key">function&nbsp;</span><span class="src-id">parse_url</span><span class="src-sym">(</span><span class="src-var">$url</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a32"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><a href="http://www.php.net/preg_match">preg_match</a><span class="src-sym">(</span><span class="src-str">'/watch\?v\=([A-Za-z0-9_-]+)/'</span><span class="src-sym">,&nbsp;</span><span class="src-var">$url</span><span class="src-sym">,&nbsp;</span><span class="src-var">$matches</span><span class="src-sym">))&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a33"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">location&nbsp;</span>=&nbsp;<span class="src-str">'youtube'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a34"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$matches</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a35"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a36"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><a href="http://www.php.net/preg_match">preg_match</a><span class="src-sym">(</span><span class="src-str">'/([0-9]+)/'</span><span class="src-sym">,&nbsp;</span><span class="src-var">$url</span><span class="src-sym">,&nbsp;</span><span class="src-var">$matches</span><span class="src-sym">))&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a37"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">location&nbsp;</span>=&nbsp;<span class="src-str">'vimeo'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a38"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$matches</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a39"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a40"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">false</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a41"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a42"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a43"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a44"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Retorna&nbsp;um&nbsp;array&nbsp;com&nbsp;parâmetros&nbsp;extraidos&nbsp;de&nbsp;um&nbsp;arquivo&nbsp;xml&nbsp;do&nbsp;vimeo.</span></div></li>
+<li><div class="src-line"><a name="a45"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a46"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$id&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a47"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;public</span></div></li>
+<li><div class="src-line"><a name="a48"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">array&nbsp;</span><span class="src-doc">-&nbsp;Lista&nbsp;de&nbsp;parâmetros&nbsp;para&nbsp;exibição&nbsp;de&nbsp;vídeos&nbsp;vimeo.</span></div></li>
+<li><div class="src-line"><a name="a49"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a50"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><span class="src-key">function&nbsp;</span><span class="src-id">getClipInfo</span><span class="src-sym">(</span><span class="src-var">$id</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a51"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$clip&nbsp;</span>=&nbsp;<span class="src-id">DomDocument</span><span class="src-sym">::</span><span class="src-id">load</span><span class="src-sym">(</span><span class="src-str">'http://vimeo.com/api/clip/'&nbsp;</span>.&nbsp;<span class="src-var">$id&nbsp;</span>.&nbsp;<span class="src-str">'.xml'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a52"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-var">$clip</span><span class="src-sym">)&nbsp;</span><span class="src-key">return</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a53"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a54"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span></div></li>
+<li><div class="src-line"><a name="a55"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'clip_id'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$id</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a56"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'title'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$clip</span><span class="src-sym">-&gt;</span><span class="src-id">getElementsByTagName</span><span class="src-sym">(</span><span class="src-str">&quot;title&quot;</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">item</span><span class="src-sym">(</span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">nodeValue</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a57"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'caption'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$clip</span><span class="src-sym">-&gt;</span><span class="src-id">getElementsByTagName</span><span class="src-sym">(</span><span class="src-str">&quot;caption&quot;</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">item</span><span class="src-sym">(</span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">nodeValue</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a58"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'thumbnail_url'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$clip</span><span class="src-sym">-&gt;</span><span class="src-id">getElementsByTagName</span><span class="src-sym">(</span><span class="src-str">&quot;thumbnail_large&quot;</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">item</span><span class="src-sym">(</span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">nodeValue</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a59"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'thumbnail_width'&nbsp;</span>=&gt;&nbsp;<span class="src-num">100</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a60"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'thumbnail_height'&nbsp;</span>=&gt;&nbsp;<span class="src-num">100</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a61"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'width'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$clip</span><span class="src-sym">-&gt;</span><span class="src-id">getElementsByTagName</span><span class="src-sym">(</span><span class="src-str">&quot;width&quot;</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">item</span><span class="src-sym">(</span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">nodeValue</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a62"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'height'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$clip</span><span class="src-sym">-&gt;</span><span class="src-id">getElementsByTagName</span><span class="src-sym">(</span><span class="src-str">&quot;height&quot;</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">item</span><span class="src-sym">(</span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">nodeValue</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a63"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'duration'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$clip</span><span class="src-sym">-&gt;</span><span class="src-id">getElementsByTagName</span><span class="src-sym">(</span><span class="src-str">&quot;duration&quot;</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">item</span><span class="src-sym">(</span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">nodeValue</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a64"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'plays'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$clip</span><span class="src-sym">-&gt;</span><span class="src-id">getElementsByTagName</span><span class="src-sym">(</span><span class="src-str">&quot;stats_number_of_plays&quot;</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">item</span><span class="src-sym">(</span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">nodeValue</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a65"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'user_name'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$clip</span><span class="src-sym">-&gt;</span><span class="src-id">getElementsByTagName</span><span class="src-sym">(</span><span class="src-str">&quot;user_name&quot;</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">item</span><span class="src-sym">(</span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">nodeValue</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a66"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'user_url'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$clip</span><span class="src-sym">-&gt;</span><span class="src-id">getElementsByTagName</span><span class="src-sym">(</span><span class="src-str">&quot;user_url&quot;</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">item</span><span class="src-sym">(</span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">nodeValue</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a67"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'last_updated'&nbsp;</span>=&gt;&nbsp;<a href="http://www.php.net/time">time</a><span class="src-sym">(</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a68"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a69"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a70"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a71"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a72"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Retorna&nbsp;um&nbsp;object&nbsp;embed&nbsp;html&nbsp;do&nbsp;vídeo&nbsp;solicitado.</span></div></li>
+<li><div class="src-line"><a name="a73"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a74"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$url&nbsp;</span><span class="src-doc">-&nbsp;Url&nbsp;para&nbsp;extração&nbsp;do&nbsp;identificador&nbsp;do&nbsp;video.</span></div></li>
+<li><div class="src-line"><a name="a75"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$width&nbsp;</span><span class="src-doc">-&nbsp;Largura&nbsp;do&nbsp;object.</span></div></li>
+<li><div class="src-line"><a name="a76"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$height&nbsp;</span><span class="src-doc">-&nbsp;Altura&nbsp;do&nbsp;object.</span></div></li>
+<li><div class="src-line"><a name="a77"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;public</span></div></li>
+<li><div class="src-line"><a name="a78"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">mixed&nbsp;</span><span class="src-doc">-&nbsp;String&nbsp;Html&nbsp;do&nbsp;object&nbsp;do&nbsp;vídeo.</span></div></li>
+<li><div class="src-line"><a name="a79"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a80"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../helpers/MovieHelper.html#methodmovie">movie</a><span class="src-sym">(</span><span class="src-var">$url</span><span class="src-sym">,&nbsp;</span><span class="src-var">$width&nbsp;</span>=&nbsp;<span class="src-num">480</span><span class="src-sym">,&nbsp;</span><span class="src-var">$height&nbsp;</span>=&nbsp;<span class="src-num">385</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a81"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$id&nbsp;</span>=&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-id">parse_url</span><span class="src-sym">(</span><span class="src-var">$url</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a82"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a83"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">location&nbsp;</span>==&nbsp;<span class="src-str">'youtube'</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a84"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-str">'&lt;object&nbsp;width=&quot;'</span>.<span class="src-var">$width</span>.<span class="src-str">'&quot;&nbsp;height=&quot;'</span>.<span class="src-var">$height</span>.<span class="src-str">'&quot;&gt;&lt;param&nbsp;name=&quot;movie&quot;&nbsp;value=&quot;http://www.youtube.com/v/'</span>.<span class="src-var">$id</span>.<span class="src-str">'?rel=0&amp;fs=1&amp;loop=0&quot;&gt;&lt;/param&gt;&lt;param&nbsp;name=&quot;wmode&quot;&nbsp;value=&quot;transparent&quot;&gt;&lt;/param&gt;&lt;param&nbsp;name=&quot;allowFullScreen&quot;&nbsp;value=&quot;true&quot;&gt;&lt;embed&nbsp;src=&quot;http://www.youtube.com/v/'</span>.<span class="src-var">$id</span>.<span class="src-str">'?rel=0&amp;fs=1&amp;loop=0&quot;&nbsp;allowfullscreen=&quot;true&quot;&nbsp;type=&quot;application/x-shockwave-flash&quot;&nbsp;wmode=&quot;transparent&quot;&nbsp;width=&quot;'</span>.<span class="src-var">$width</span>.<span class="src-str">'&quot;&nbsp;height=&quot;'</span>.<span class="src-var">$height</span>.<span class="src-str">'&quot;&gt;&lt;/embed&gt;&lt;/object&gt;'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a85"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a86"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">location&nbsp;</span>==&nbsp;<span class="src-str">'vimeo'</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a87"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-str">'&lt;object&nbsp;width=&quot;'</span>.<span class="src-var">$width</span>.<span class="src-str">'&quot;&nbsp;height=&quot;'</span>.<span class="src-var">$height</span>.<span class="src-str">'&quot;&gt;&lt;param&nbsp;name=&quot;allowfullscreen&quot;&nbsp;value=&quot;true&quot;&nbsp;/&gt;&lt;param&nbsp;name=&quot;allowscriptaccess&quot;&nbsp;value=&quot;always&quot;&nbsp;/&gt;&lt;param&nbsp;name=&quot;movie&quot;&nbsp;value=&quot;http://vimeo.com/moogaloop.swf?clip_id='</span>.<span class="src-var">$id</span>.<span class="src-str">'&amp;amp;server=vimeo.com&amp;amp;show_title=0&amp;amp;show_byline=1&amp;amp;show_portrait=0&amp;amp;color=&amp;amp;fullscreen=1&quot;&nbsp;/&gt;&lt;embed&nbsp;src=&quot;http://vimeo.com/moogaloop.swf?clip_id='</span>.<span class="src-var">$id</span>.<span class="src-str">'&amp;amp;server=vimeo.com&amp;amp;show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=0&amp;amp;color=&amp;amp;fullscreen=1&quot;&nbsp;type=&quot;application/x-shockwave-flash&quot;&nbsp;allowfullscreen=&quot;true&quot;&nbsp;allowscriptaccess=&quot;always&quot;&nbsp;width=&quot;'</span>.<span class="src-var">$width</span>.<span class="src-str">'&quot;&nbsp;height=&quot;'</span>.<span class="src-var">$height</span>.<span class="src-str">'&quot;&gt;&lt;/embed&gt;&lt;/object&gt;'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a88"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a89"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">false</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a90"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a91"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a92"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a93"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Retorna&nbsp;uma&nbsp;imagem&nbsp;de&nbsp;preview&nbsp;do&nbsp;video.</span></div></li>
+<li><div class="src-line"><a name="a94"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a95"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$url&nbsp;</span><span class="src-doc">-&nbsp;Url&nbsp;para&nbsp;extração&nbsp;do&nbsp;identificador&nbsp;do&nbsp;video.</span></div></li>
+<li><div class="src-line"><a name="a96"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$sizeId&nbsp;</span><span class="src-doc">-&nbsp;Id&nbsp;para&nbsp;Preview&nbsp;da&nbsp;imagem&nbsp;só&nbsp;recebe&nbsp;valores&nbsp;de&nbsp;1&nbsp;a&nbsp;3.</span></div></li>
+<li><div class="src-line"><a name="a97"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;public</span></div></li>
+<li><div class="src-line"><a name="a98"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">mixed&nbsp;</span><span class="src-doc">-&nbsp;Url&nbsp;da&nbsp;imagem&nbsp;de&nbsp;previsualização&nbsp;do&nbsp;video.</span></div></li>
+<li><div class="src-line"><a name="a99"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a100"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../helpers/MovieHelper.html#methodimageUrl">imageUrl</a><span class="src-sym">(</span><span class="src-var">$url</span><span class="src-sym">,&nbsp;</span><span class="src-var">$sizeId&nbsp;</span>=&nbsp;<span class="src-num">1</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a101"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$id&nbsp;</span>=&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-id">parse_url</span><span class="src-sym">(</span><span class="src-var">$url</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a102"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a103"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">location&nbsp;</span>==&nbsp;<span class="src-str">'youtube'</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a104"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-str">&quot;</span><span class="src-str">http://img.youtube.com/vi/<span class="src-var">$id</span>/<span class="src-var">$sizeId</span>.jpg</span><span class="src-str">&quot;</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a105"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a106"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">location&nbsp;</span>==&nbsp;<span class="src-str">'vimeo'</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a107"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$vim&nbsp;</span>=&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-id">getClipInfo</span><span class="src-sym">(</span><span class="src-var">$id</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a108"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$vim</span><span class="src-sym">[</span><span class="src-str">'thumbnail_url'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a109"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a110"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">false</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a111"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a112"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a113"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a114"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Retorna&nbsp;o&nbsp;código&nbsp;html&nbsp;da&nbsp;imagem&nbsp;de&nbsp;preview.</span></div></li>
+<li><div class="src-line"><a name="a115"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a116"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$url&nbsp;</span><span class="src-doc">-&nbsp;Url&nbsp;para&nbsp;extração&nbsp;do&nbsp;identificador&nbsp;do&nbsp;video.</span></div></li>
+<li><div class="src-line"><a name="a117"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$sizeId&nbsp;</span><span class="src-doc">-&nbsp;Id&nbsp;para&nbsp;preview&nbsp;da&nbsp;imagem&nbsp;só&nbsp;recebe&nbsp;valores&nbsp;de&nbsp;1&nbsp;a&nbsp;3.</span></div></li>
+<li><div class="src-line"><a name="a118"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$width&nbsp;</span><span class="src-doc">-&nbsp;Largura&nbsp;do&nbsp;preview.</span></div></li>
+<li><div class="src-line"><a name="a119"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$height&nbsp;</span><span class="src-doc">-&nbsp;Altura&nbsp;do&nbsp;preview.</span></div></li>
+<li><div class="src-line"><a name="a120"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$alt&nbsp;</span><span class="src-doc">-&nbsp;Parâmetro&nbsp;html&nbsp;alt&nbsp;do&nbsp;preview.</span></div></li>
+<li><div class="src-line"><a name="a121"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;public</span></div></li>
+<li><div class="src-line"><a name="a122"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc">-&nbsp;Html&nbsp;da&nbsp;imagem&nbsp;de&nbsp;previsualização&nbsp;do&nbsp;video.</span></div></li>
+<li><div class="src-line"><a name="a123"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a124"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../helpers/MovieHelper.html#methodshowImage">showImage</a><span class="src-sym">(</span><span class="src-var">$url</span><span class="src-sym">,&nbsp;</span><span class="src-var">$sizeId&nbsp;</span>=&nbsp;<span class="src-num">1</span><span class="src-sym">,&nbsp;</span><span class="src-var">$width&nbsp;</span>=&nbsp;<span class="src-num">130</span><span class="src-sym">,&nbsp;</span><span class="src-var">$height&nbsp;</span>=&nbsp;<span class="src-num">97</span><span class="src-sym">,&nbsp;</span><span class="src-var">$alt&nbsp;</span>=&nbsp;<span class="src-str">'Video&nbsp;screenshot'</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a125"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-str">&quot;&lt;img&nbsp;src='&quot;</span>.<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../helpers/MovieHelper.html#methodimageUrl">imageUrl</a><span class="src-sym">(</span><span class="src-var">$url</span><span class="src-sym">,&nbsp;</span><span class="src-var">$sizeId</span><span class="src-sym">)</span>.<span class="src-str">&quot;'&nbsp;width='&quot;</span>.<span class="src-var">$width</span>.<span class="src-str">&quot;'&nbsp;height='&quot;</span>.<span class="src-var">$height</span>.<span class="src-str">&quot;'&nbsp;border='0'&nbsp;alt='&quot;</span>.<span class="src-var">$alt</span>.<span class="src-str">&quot;'&nbsp;title='&quot;</span>.<span class="src-var">$alt</span>.<span class="src-str">&quot;'&nbsp;/&gt;&quot;</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a126"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a127"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a128"></a><span class="src-php">?&gt;</span></div></li>
+</ol>
+</div>
+        <div class="credit">
+		    
+	    </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+		</div>
+	</div>
+</div>
+</body>
+</html>
