@@ -32,6 +32,20 @@ h3 {
 p {
 	margin-bottom:6px;
 }
-div {
-	text-align:center;
+
+
+div.box_code {
+	width:500px;
+	padding:10px;
+	background:#E7E3D7;
+	border:#B1AEA5 1px solid;
+	-moz-border-radius:4px;
+}
+.class_function {
+	font-weight:bold;
+	color:#111899;
+}
+.phptags {
+	font-weight:bold;
+	color:red;
 }

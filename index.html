@@ -60,13 +60,12 @@
 				<p>
 					Para isso é necessário verificar se no arquivo httpd.conf  está permitida a reescrita de URLs e se esses parâmetros se encontram em parte do arquivo que controla a configuração da pasta-padrão de documentos do Apache(document root). O código deverá ser semelhante ao mostrado a seguir:
 				</p>
-				<code>
-					<Directory "C:/Arquivos de Programas/Apache Software Foundation/htdocs/">
-					Options Indexes FollowSymLinks
-					AllowOverride All
-					Order allow,deny
-					Allow from all
-					</Directory>
+					< Directory "C:/Arquivos de Programas/Apache Software Foundation/htdocs/"><br>
+					&nbsp;&nbsp;&nbsp;Options Indexes FollowSymLinks <br>
+					&nbsp;&nbsp;&nbsp;AllowOverride All <br>
+					&nbsp;&nbsp;&nbsp;Order allow,deny <br>
+					&nbsp;&nbsp;&nbsp;Allow from all <br>
+					< /Directory>
 					
 				</code>
 			</li>
@@ -187,22 +186,35 @@
 			O drumon framework dispõe de um sistema de layout onde todo site é renderizado tendo ele como base. O layout está localizado no diretório views/layout/default.php.
 		</p>
 		<p>
-			A criação do Controller, que deve seguir um padrão de escrita camelCase:
+			A criação do Controller, que deve seguir um padrão de escrita underline entre as palavras:
 		</p>
 		<p>
-			Ex: NoticiaController.php
+			Ex: home_controller.php
 		</p>
 		<p>
-			-	Onde Noticia será identificado como o nome do controller;
+			-	Onde home será identificado como o nome do controller;
 		</p>
 		<p>
-			-	NoticiaController.php conterá uma Classe também chamada de NoticiaController e que será estendida de AppController.
+			-	home_controller.php conterá uma classe chamada de HomeController e que será estendida de AppController.
 		</p>
 		<p>
 			Ex:
 		</p>
+		<div class="box_code">
+			<code>
+				<span class="phptags"><<!-- -->?php</span> <br><br>
+				&nbsp;&nbsp;&nbsp;<span class="class_function">class</span> HomeController <span class="class_function">extends</span> AppController {<br><br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="class_function">function</span> index() {<br><br>
+														
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+				&nbsp;&nbsp;&nbsp;}<br><br>
+				<span class="phptags">?></span>
+			</code>
+			
+		</div>
+		
 		<div>
-			<img src="controller.png" alt="" width="400px">
+			<!-- <img src="controller.png" alt="" width="400px"> -->
 		</div>
 		<p>
 			Dentro dos controllers estão contidas as ações, representadas por funções que serão responsáveis pelas funções e atributos adicionados na views.
@@ -210,15 +222,19 @@
 		<p>
 			Ex:
 		</p>
-		<div>
-			<img src="method_ct.png" alt="" width="300px">
+		<div class="box_code">
+			<code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="class_function">function</span> index() {<br><br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $this-><span class="class_function">add</span>('title','Desenvolvedor'); <br><br>										
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+			</code>
+			
 		</div>
 		<p>
 			Para cada controller deve ser criado uma pasta dentro do diretório views utilizando o mesmo nome do controller.
 			
 		</p>
 		<p>
-			Ex: NoticiaController.php
+			Ex: home_controller.php
 		</p>
 		<div>
 			<img src="views_list.png" alt="" width="300px">
@@ -315,10 +331,10 @@
 			Criando um controller :
 		</h4>
 		<p>
-			Para criarmos um controller é necessário definir a classe [nomedaclasse]Controller, e salvá-la em /app/controllers/[nomedaclasse]Controller.php. Também é necessário estender a classe AppController, para que todos os métodos necessários para seu controlador sejam herdados das classes básicas do Drumon.
+			Para criarmos um controller é necessário definir a classe [nomedaclasse]Controller, e salvá-la em /app/controllers/[nomedaclasse]_Controller.php. Também é necessário estender a classe AppController, para que todos os métodos necessários para seu controlador sejam herdados das classes básicas do Drumon.
 		</p>
 		<p>
-			Ex:    class NoticiaController extends AppController { }
+			Ex:    class HomeController extends AppController { }
 		</p>
 		<h4>
 			Criando ações para o controller :
@@ -336,7 +352,7 @@
 			Ex:
 		</p>
 		<code>
-			Class NoticiaController  extends AppController {
+			Class HomeController  extends AppController {
 				Public function index() {
 					$this->add(“noticia”,$noticia);
 			}
@@ -353,7 +369,7 @@
 			Recuperando variáveis passadas por $_POST e $_GET
 		</h4>
 		<p>
-			Para recuperar o valor enviado por $_GET ou $_POST basta extrair o parâmetro pela variável $this->paramsp[‘’];
+			Para recuperar o valor enviado por $_GET ou $_POST basta extrair o parâmetro pela variável $this->paramsp[ ];
 		</p>
 		<p>
 			Quando os valores porem passados por $_GET significa dizer que na rota utilizada para renderizar a views um dos parâmetros da url tem uma variável.	
@@ -362,13 +378,13 @@
 			Ex:
 		</p>
 		<p>
-			Rota:  $route['get']['/agenda/:page'] = array('Agenda','index');
+			Rota:  $route['get']['/home/:page'] = array('Home','index');
 		</p>
 		<p>
 			Onde :page será o local onde será passada a variável por parâmetro URL
 		</p>
 		<p>
-			Url = www.exemplo.com.br/agenda/09
+			Url = www.exemplo.com.br/home/09
 		</p>
 		<p>
 			Para recuperar a variável da url basta utilizar $this->params[‘page’];
