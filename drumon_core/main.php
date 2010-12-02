@@ -14,6 +14,7 @@
 	
 	$route = array();
 	$route['404'] = '404.html'; // rota padrão do erro 404
+	$route['401'] = '401.html'; // rota padrão do erro 401
 	
 	include(CORE.'/class/drumon.php');
 	include(ROOT.'/config/routes.php');
@@ -27,6 +28,38 @@
 	 * Inicia o sistema de roteamento.
 	 */
 	$request = new RequestHandler($route);
+	
+	
+	// Protege a aplicação contra CSFR.
+	$token  = dechex(mt_rand());
+	$hash   = sha1(SECRET.APP_DOMAIN.'-'.$token);
+	$signed = $token.'-'.$hash;
+	
+	// Token criado para usar nos formulários.
+	define('REQUEST_TOKEN',$signed);
+	
+	if ($request->method == 'post') {
+		$unauthorized = true;
+		
+		if (!empty($request->params['_token'])) {
+			$parts = explode('-',$request->params['_token']);
+			
+			if (count($parts) == 2) {
+		    list($token, $hash) = $parts;
+		    if ($hash == sha1(SECRET.APP_DOMAIN.'-'.$token)) {
+					$unauthorized = false;
+				}
+			}
+		}
+		
+		// Bloqueia a requisção não autorizada.
+		if($unauthorized) {
+			header("HTTP/1.0 401 Unauthorized");
+			include(ROOT.'/public/'.$route['401']);
+			die();
+		}
+	}
+	
 	
 	/**
 	 * Inicia o controlador.
