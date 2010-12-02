@@ -53,5 +53,22 @@ class ImageHelper extends Helper {
 
 		return '<img src="http://www.gravatar.com/avatar/'.$gravatarMd5.$default.'" width="56" alt="Avatar">';
 	}
+	
+	/**
+	 * Cria uma imagem FAKE com o placehold.it
+	 *
+	 * @param string $size - Dimensão da imagem, ex. 350x150
+	 * @param string $text - Adiciona um texto a imagem.
+	 * @param string $color - Seta as cores do fundo e do texto da imagem(hexadecimal), ex. 000/fff
+	 * @return string
+	 * 
+	 */
+	public function fake($size='350x150',$text=null,$color=null) {
+		$html = '';
+		if($text != null) $text = '&text='.str_replace(' ','+',$text);
+		$html = '<img src="http://placehold.it/'.$size.'/'.$color.''.$text.' ">';
+		return $html;
+	}
+	
 }
 ?>
