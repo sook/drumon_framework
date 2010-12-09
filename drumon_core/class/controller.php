@@ -69,6 +69,20 @@ abstract class Controller {
 	 * @var array
 	 */
 	protected $params = array();
+	
+	/**
+	 * Namespace do controlados
+	 *
+	 * @var string
+	 */
+	protected $namespaces;
+	
+	/**
+	 * Nome da classe
+	 *
+	 * @var string
+	 */
+	protected $class_name;
 
 	/**
 	 * Instancia um novo template com as configurações, parâmetros e idioma padrões.
@@ -77,9 +91,11 @@ abstract class Controller {
 	 * @param object $request - Instância do Request Handler.
 	 * @param array $locale - Referência da variável com os dados de internacionalização.
 	 */
-	public function __construct($request, $locale) {
-		$this->locale = $locale;
+	public function __construct($request, $locale, $namespaces, $class_name) {
 		$this->params = $request->params;
+		$this->locale = $locale;
+		$this->namespaces = $namespaces;
+		$this->class_name = $class_name;
 		$this->template = new Template();
 		$this->request = $request;
 	}
@@ -138,8 +154,8 @@ abstract class Controller {
 		$this->load_helpers();
 		$this->template->params = $this->params;
 		
-		if($content == null){
-			$view = $view[0] == '/' ? $view : '/app/views/'.Drumon::to_underscore($this->request->controller_name).'/'.$view;
+		if($content == null) {
+			$view = $view[0] == '/' ? $view : '/app/views/'.Drumon::to_underscore($this->namespaces).'/'.Drumon::to_underscore($this->class_name).'/'.$view;
 			$content = $this->template->render_page(ROOT.$view.".php");
 		}
 		
@@ -152,7 +168,7 @@ abstract class Controller {
 		
 		Event::fire('before_render',array('content' => &$content));
 		echo $content;
-		Event::fire('after_render');
+		Event::fire('before_render',array('content' => &$content));
 		die(); // Para garantir e não chamar 2 render.
 	}
 	

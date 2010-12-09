@@ -64,11 +64,26 @@
 	/**
 	 * Inicia o controlador.
 	 */
-	if($request->valid){
-		$controller_name = $request->controller_name."Controller";
-		include(ROOT.'/app/controllers/'.Drumon::to_underscore($controller_name).'.php');
-		$controller = new $controller_name($request,$locale);
+	if($request->valid) {
+		$path = ROOT.'/app/controllers/';
+		$class_parts = explode('_',$request->controller_name);
+		$file_name = $request->controller_name.'Controller';
+		$namespaces = null;
+		$last_name = $request->controller_name;
+		
+		if(count($class_parts) > 1) {
+			$last_name = array_pop($class_parts);
+			$namespaces = implode('/',$class_parts);
+			$path .= Drumon::to_underscore($namespaces).'/';
+			$file_name = $last_name.'Controller';
+		}
+		
+		include($path.Drumon::to_underscore($file_name).'.php');
+		
+		$class_name = $request->controller_name.'Controller';
+		$controller = new $class_name($request,$locale,$namespaces,$last_name);
 		$controller->execute($request->action_name);
+		
 	}else{
 		header("HTTP/1.0 404 Not Found");
 		
