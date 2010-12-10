@@ -15,7 +15,7 @@
 	define('AUTOLOAD_HELPERS','Html, Date, Text, Url');
 	
 	// Application secret used in CSRF protection.
-	define('SECRET','change-this-now');
+	define('APP_SECRET','change-this-now');
 	
 	// Plugins utilizados em sua app.
 	// define('PLUGINS','drumon_model,benchmark');

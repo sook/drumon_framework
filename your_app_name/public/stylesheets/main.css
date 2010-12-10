@@ -1,0 +1,51 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+body {
+	font: 15px Arial;
+	color: #333333;
+}
+#app {
+	width: 780px;
+	margin: auto;
+	margin-top: 20px;
+}
+
+h1 {
+	font-size: 36px;
+	font-weight: bold;
+	margin-left: -2px;
+}
+
+h1 > span{
+	color: #858585;
+}
+
+.highlight{
+	background-color: #FEFFD6;
+}
+
+h2 {
+	margin-top: 50px;
+	margin-bottom: 5px;
+	font-size: 24px;
+	font-weight: normal;
+	color: #000;
+}
+
+hr{
+	border: none;
+	border-bottom: 1px dashed #DADADA;
+	margin-bottom: 10px;
+}
+ul{
+	margin-bottom: 30px;
+}
+
+ul li{
+	font-size: 15px;
+	margin-top: 15px;
+	letter-spacing: 0.6px;
+}

@@ -32,7 +32,7 @@
 	
 	// Protege a aplicação contra CSFR.
 	$token  = dechex(mt_rand());
-	$hash   = sha1(SECRET.APP_DOMAIN.'-'.$token);
+	$hash   = sha1(APP_SECRET.APP_DOMAIN.'-'.$token);
 	$signed = $token.'-'.$hash;
 	
 	// Token criado para usar nos formulários.
@@ -46,7 +46,7 @@
 			
 			if (count($parts) == 2) {
 		    list($token, $hash) = $parts;
-		    if ($hash == sha1(SECRET.APP_DOMAIN.'-'.$token)) {
+		    if ($hash == sha1(APP_SECRET.APP_DOMAIN.'-'.$token)) {
 					$unauthorized = false;
 				}
 			}

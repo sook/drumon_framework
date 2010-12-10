@@ -1,10 +1,16 @@
-<h1>Bem vindo</h1>
+<div id="app">
+	<h1>Drumon<span>Framework</span></h1>
+	<p>Desenvolvimento <span class="highlight">rápido</span> de aplicações web.</p>
 
-<h2>Configurando o framework</h2>
-<ul>
-	<li>Configure o banco de dados em: config/enviroments/[ENV].php</li>
-	<li>Edite esta página em: views/home/index.php </li>
-	<li>As rotas estão em: config/routes.php</li>
-	<li>É necessário o mod_rewrite.</li>
-	<li>Adicionar permissão 777 nas pastas: public/modules, public/tmp, public/images</li>
-</ul>
+	<h2>Bem Vindo</h2>
+	<hr>
+	<ul>
+		<li>Todas as configurações de sua aplicação estão localizadas na pasta <span class="highlight">config/</span>.</li>
+		<li>Para sua segurança altere o APP_SECRET em <span class="highlight">config/application.php</span>.</li>
+		<li>Edite esta página em <span class="highlight">views/home/index.php</span>.</li>
+	</ul>
+	<hr>
+
+	<p>Para maiores informações acesse o <a target="_blank" title="Ir para o wiki" href="http://github.com/sook/drumon_framework/wiki/">wiki</a> ou o <a target="_blank" title="Ir para o guia" href="http://sook.github.com/drumon_framework/">guia</a> no github.</p>
+	
+</div>
