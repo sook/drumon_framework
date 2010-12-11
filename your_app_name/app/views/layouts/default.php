@@ -6,6 +6,7 @@
 		<meta http-equiv="Keywords" content=""/>
 		<meta http-equiv="Description" content=""/>
 		<meta name="Author" content=""/>
+		<meta name="csrf-token" content="<? echo REQUEST_TOKEN; ?>">
 		
 		<title>Drumon Framework - <?php echo $title; ?></title>
 		<?php echo $html->css(array('main'),'all'); ?>
