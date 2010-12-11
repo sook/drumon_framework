@@ -26,6 +26,6 @@
 	//	$route['404'] = '404.html'; //default
 	
 	// Rota para o inicio da aplicação.
-	$route['get']['/'] = array('Home','index');
+	$route['get']['/'] = array('Home','index','as'=>'home');
 	
 ?>

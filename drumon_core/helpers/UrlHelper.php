@@ -29,7 +29,6 @@ class UrlHelper extends Helper {
 		}else{
 			return APP_DOMAIN.func_get_arg(0);
 		}
-		
 	}
 	
 	

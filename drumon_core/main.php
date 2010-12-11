@@ -38,7 +38,7 @@
 	// Token criado para usar nos formulários.
 	define('REQUEST_TOKEN',$signed);
 	
-	if ($request->method == 'post') {
+	if ($request->method != 'get') {
 		$unauthorized = true;
 		
 		if (!empty($request->params['_token'])) {

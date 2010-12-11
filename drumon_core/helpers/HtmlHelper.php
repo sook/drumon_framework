@@ -69,82 +69,85 @@ class HtmlHelper extends Helper {
 	 *
 	 * @access public
 	 * @param string|array $files - Nome do(s) arquivo(s) css.
-	 * @param boolean $inline - Se true ele retorna o html para inserir o css.
-	 * @return void|string - String com o código html para adção do arquivo CSS se a opção inline estiver true.
+	 * @param string $type - Tipo de inserção all, add(default), inline.
+	 * @param string $media - Media do stylesheet.
+	 * @return void|string - String com o código html para adição do arquivo CSS se a opção for inline.
 	 */
-	function addcss($files, $inline = false, $media = 'all') {
+	function css($files, $type = 'add', $media = 'all') {
 		$files = is_array($files) ? $files : array($files);
 		
-		$result = '';
+		$_files = array();
 		foreach ($files as $file){
-			$result .= '<link rel="stylesheet" href="'.STYLESHEETS_PATH.$file.'" type="text/css" media="'.$media.'"/>';
+			$_files[] = '<link rel="stylesheet" href="'.STYLESHEETS_PATH.$file.'.css" type="text/css" media="'.$media.'"/>';
 		}
 		
-		if ($inline) return $result;
-		$this->stylesheets[] = $result;
+		if ($type == 'all') {
+			$this->stylesheets = array_merge($_files, $this->stylesheets);
+			$this->stylesheets = array_unique($this->stylesheets);
+			return implode($this->stylesheets);
+		} elseif($type == 'inline') {
+			return implode($_files);
+		} else {
+			$this->stylesheets = array_merge($this->stylesheets, $_files);
+		}
 	}
 
-	/**
-	 * Retorna o código html dos arquivos css inseridos.
-	 *
-	 * @access public
-	 * @param string|array $files - Nome do(s) arquivo(s) css.
-	 * @return string - String com o código html para adção do arquivo CSS.
-	 */
-	function showcss($files = array()) {
-		$files = is_array($files) ? $files : array($files);
-		
-		$result = '';
-		foreach ($files as $file){
-			$result.= '<link rel="stylesheet" href="'.STYLESHEETS_PATH.$file.'" type="text/css" media="all"/>';
-		}
-		
-		foreach ($this->stylesheets as $file){
-			$result.= $file;
-		}
-		
-		return $result;
-	}
-	
+
 	/**
 	 * Adiciona o arquivo javascript a ser inserido no código HTML.
 	 *
 	 * @access public
 	 * @param string|array $files - Nome do(s) arquivo(s) javascript.
-	 * @param boolean $inline - Se true ele retorna o html para inserir o javascript.
-	 * @return void|string - String com o código html para adção do arquivo JS se a opção inline estiver true.
+	 * @param string $type - Tipo de inserção all, add(default), inline.
+	 * @return void|string - String com o código html para adição do arquivo JS se a opção for inline.
 	 */
-	function addjs($files, $inline = false) {
+	function js($files, $type = 'add') {
 		$files = is_array($files) ? $files : array($files);
 
-		$result = '';
-		if ($inline) {
-			foreach ($files as $file){
-				$result.= '<script type="text/javascript" src="'.JAVASCRIPTS_PATH.$file.'"></script>';
-			}
-			return $result;
+		$_files = array();
+		foreach ($files as $file){
+			$_files[] = '<script type="text/javascript" src="'.JAVASCRIPTS_PATH.$file.'.js"></script>';
 		}
-
-		$this->javascripts = array_merge($this->javascripts, $files);
+		
+		if($type == 'all') {
+			$this->javascripts = array_merge($_files, $this->javascripts);
+			$this->javascripts = array_unique($this->javascripts);
+			return implode($this->javascripts);
+		} elseif($type == 'inline') {
+			return implode($_files);
+		} else {
+			$this->javascripts = array_merge($this->javascripts, $_files);
+		}
 	}
 	
 	
 	/**
-	 * Retorna o código html dos arquivos javascripts passados como parametro.
+	 * Cria um link com os paramentros passados.
 	 *
-	 * @access public
-	 * @param mixed $files - Nome do(s) arquivo(s) javascript.
-	 * @return string - Html da lista de javascripts.
+	 * @param string $title - Nome do link
+	 * @param string $link - Url de destino do link
+	 * @param string $options - Opções extras(confirm, method) e atributos(class,id...).
+	 * @return string
+	 * 
 	 */
-	function showjs($files = array()) {
-		$files = is_array($files) ? $files : array($files);
-		$result = '';
-		$this->javascripts = array_merge($files, $this->javascripts);
-		foreach ($this->javascripts as $file){
-			$result.= '<script type="text/javascript" src="'.JAVASCRIPTS_PATH.$file.'"></script>';
+	public function link($title, $link, $options = array()) {
+		 
+		if(array_key_exists('method', $options)) {
+			$this->addjs('drumon.'.JS_FRAMEWORK.'.js');
+			$options['data-method'] = $options['method'];
+			unset($options['method']);
 		}
-		return $result;
+		
+		if(array_key_exists('confirm', $options)) {
+			$this->addjs('drumon.'.JS_FRAMEWORK.'.js');
+			$options['data-confirm'] = $options['confirm'];
+			unset($options['confirm']);
+		}
+		
+		$html = '<a href="'.$link.'" '.$this->create_attributes($options).'>'.$title.'</a>';
+		return $html;
 	}
+	
 	
 	/**
 	 * Cria um select com a lista de opções passada.
@@ -259,9 +262,12 @@ class HtmlHelper extends Helper {
 	
 	
 	public function create_attributes($attributes) {
+		$attributes_list = array('rel','class','title','id','alt','value','name','data-method','data-confirm');
 		$data = "";
 		foreach ($attributes as $key => $value) {
-			$data .= ''.$key.'="'.$value.'" ';
+			if(in_array($key,$attributes_list)) {
+				$data .= ''.$key.'="'.$value.'" ';
+			}
 		}
 		return $data;
 	}

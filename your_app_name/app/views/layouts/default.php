@@ -8,7 +8,8 @@
 		<meta name="Author" content=""/>
 		
 		<title>Drumon Framework - <?php echo $title; ?></title>
-		<?php echo $html->showcss('main.css'); ?>
+		<?php echo $html->css(array('main'),'all'); ?>
+		<?php //echo $html->showjs(array(JS_FRAMEWORK),'all'); ?>
 	</head>
 	<body>
 		<?php echo $content; ?>
