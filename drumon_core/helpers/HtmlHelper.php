@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Drumon Framework: Build fast web applications
  * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)

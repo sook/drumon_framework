@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Drumon Framework: Build fast web applications
  * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
@@ -308,9 +308,18 @@ class TextHelper extends Helper {
 	 * @return string - O texto traduzido.
 	 * @access public
 	 */
-	function locale($key, $ucfirst = false) {
-		if($ucfirst) return ucfirst($this->locale[$key]);
-		return $this->locale[$key];
+	function translate($key, $ucfirst = false) {
+		$text = (isset($this->locale[$key])) ? $this->locale[$key] : $key;
+		if($ucfirst) $text = ucfirst($text);
+		return $text;
+	}
+	
+	/**
+	 * Atalho para o método translate.
+	 *
+	 */
+	function t($key, $ucfirst = false) {
+		return $this->translate($key,$ucfirst);
 	}
 }
 ?>
