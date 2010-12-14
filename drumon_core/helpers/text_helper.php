@@ -13,6 +13,8 @@
  */
 class TextHelper extends Helper {
 	
+	public $translations = array();
+	
 	/**
 	 * Converte um texto para o formato de slug, retirando os acentos e espaços.
 	 *
@@ -309,7 +311,20 @@ class TextHelper extends Helper {
 	 * @access public
 	 */
 	function translate($key, $ucfirst = false) {
-		$text = (isset($this->locale[$key])) ? $this->locale[$key] : $key;
+		
+		$parts = explode('.',$key);
+		$file_name = 'application';
+		
+		if(count($parts) > 1) {
+			$file_name = $parts[0];
+			$key = $parts[1];
+		}
+		
+		if (!isset($this->translations[$file_name])) {
+			$this->translations[$file_name] = include(ROOT.'/config/locales/'.LANGUAGE.'/'.$file_name.'.php');
+		}
+
+		$text = (isset($this->translations[$file_name][$key])) ? $this->translations[$file_name][$key] : implode('.',$parts);
 		if($ucfirst) $text = ucfirst($text);
 		return $text;
 	}

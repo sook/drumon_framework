@@ -91,9 +91,8 @@ abstract class Controller {
 	 * @param object $request - Instância do Request Handler.
 	 * @param array $locale - Referência da variável com os dados de internacionalização.
 	 */
-	public function __construct($request, $locale, $namespaces, $class_name) {
+	public function __construct($request, $namespaces, $class_name) {
 		$this->params = $request->params;
-		$this->locale = $locale;
 		$this->namespaces = $namespaces;
 		$this->class_name = $class_name;
 		$this->template = new Template();
@@ -231,16 +230,14 @@ abstract class Controller {
 		// Transforma a string de helpers em uma array.
 		$default_helpers = (AUTOLOAD_HELPERS === '') ? array() : explode(',',AUTOLOAD_HELPERS);
 		// Junta os helpers padrões com os helpers setados no controlador.
-		//	print_r($this->helpers);
 		$this->helpers = array_merge($this->helpers, $default_helpers);
-		//print_r($this->helpers);
 		// Adiciona os helpers na view.
 		foreach ($this->helpers as $helper) {
 			$helper = trim($helper);
 			$local = in_array($helper, $core_helpers) ? CORE : ROOT.'/app';
-			require_once $local."/helpers/".$helper."Helper.php";
+			require_once $local."/helpers/".strtolower($helper)."_helper.php";
 			$class = $helper.'Helper';
-			$this->add(strtolower($helper), new $class($this->locale,$this->request));
+			$this->add(strtolower($helper), new $class($this->request));
 		}
 
 		// Adiciona os helpers requeridos em outros helpers.

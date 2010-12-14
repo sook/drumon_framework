@@ -2,15 +2,6 @@
 /**
  * *********** BOOT ************
  */
-
-	/**
-	 * Carrega todos os arquivos necessários.
-	 */
-	if(LANGUAGE) {
-		include(ROOT.'/config/locales/'.LANGUAGE.'.php');
-	} else {
-		$locale = array();
-	}
 	
 	$route = array();
 	$route['404'] = '404.html'; // rota padrão do erro 404
@@ -81,7 +72,7 @@
 		include($path.Drumon::to_underscore($file_name).'.php');
 		
 		$class_name = $request->controller_name.'Controller';
-		$controller = new $class_name($request,$locale,$namespaces,$last_name);
+		$controller = new $class_name($request,$namespaces,$last_name);
 		$controller->execute($request->action_name);
 		
 	}else{

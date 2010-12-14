@@ -12,7 +12,10 @@
  * @package helpers
  */
 class DateHelper extends Helper {
-
+	
+	
+	var $uses = array('Text');
+	
 	/**
 	 * Retorna a data passando o formato do locale.
 	 * Veja todas as opções de formatação em {@link http://ch2.php.net/manual/pt_BR/function.strftime.php http://ch2.php.net/manual/pt_BR/function.strftime.php}.
@@ -24,7 +27,7 @@ class DateHelper extends Helper {
 	 * @return string - Data no formato padrão da locale.
 	 */
 	function show($date, $format = 'default') {
-		return strftime($this->locale['date'][$format],strtotime($date));
+		return strftime($this->text->t('date.'.$format),strtotime($date));
 	}
 	
 	/**
@@ -35,7 +38,7 @@ class DateHelper extends Helper {
 	 * @author Danillo César de Oliveira Melo
 	 */
 	function now($format = 'default') {
-			return strftime($this->locale['date'][$format]);
+			return strftime($this->text->t('date.'.$format));
 	}
 
 	/**
