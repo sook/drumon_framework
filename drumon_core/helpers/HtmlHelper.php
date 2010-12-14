@@ -150,6 +150,51 @@ class HtmlHelper extends Helper {
 	
 	
 	/**
+	 * Gera a tag form com os dados necessários para o drumon.
+	 *
+	 * @param string $url - Destino da requisição do form.
+	 * @param string $method - Método da requisição.
+	 * @param string $options - Atributos(class,id...).
+	 * @return string
+	 */
+	public function form($url, $method = "post", $options = array()) {
+		
+		$html = array();
+		
+		if (strtolower($method) === 'get') {
+			$real_method = 'get';
+			$inputs = '';
+		}else{
+			$real_method = 'post';
+			$inputs = '<input type="hidden" name="_token" value="'.REQUEST_TOKEN.'">';
+			$inputs .= '<input type="hidden" name="_method" value="'.$method.'">';
+		}
+		
+		$html[] = '<form action="'.$url.'" method="'.$real_method.'" '.$this->create_attributes($options).'>';
+		$html[] = $inputs;
+		
+		return implode($html);
+	}
+	
+	
+	/**
+	 * Atalho para a tag de form fechada. </form>
+	 *
+	 * @return string
+	 */
+	public function form_end() {
+		return '</form>';
+	}
+	
+	
+	// melhorar
+	function value($field,$data) {
+		if(isset($data[$field])) return $data[$field];
+		return '';
+	}
+	
+	
+	/**
 	 * Cria um select com a lista de opções passada.
 	 *
 	 * @param string $field_name - Nome do campo.
