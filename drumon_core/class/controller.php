@@ -16,25 +16,15 @@ abstract class Controller {
 	
 	
 	/** 
-	 * Array com as informações pertencentes a aplicação.
-	 *
-	 * @access private
-	 * @var array
-	 */
-	private	$config;
-	
-	/** 
 	 * Arquivo de template a ser usado pelo controlador.
 	 *
-	 * @access protected
 	 * @var string
 	 */
-	protected $template;
+	private $template;
 	
 	/** 
 	 * Arquivo de layout a ser usado pelo controlador, padrão default.
 	 *
-	 * @access protected
 	 * @var string
 	 */
 	protected $layout = "default";
@@ -42,26 +32,26 @@ abstract class Controller {
 	/** 
 	 * Arquivos helpers a serem usados pelo controlador.
 	 *
-	 * @access protected
 	 * @var array
 	 */
 	protected $helpers = array();
 	
-	/** 
-	 * Indica se a página será renderizada.
-	 *
-	 * @access protected
-	 * @var boolean
-	 */
-	protected $render = true;
 	
 	/** 
 	 * Contém os parâmetros passados na requisição HTTP (GET e POST).
 	 *
-	 * @access protected
 	 * @var array
 	 */
 	protected $params = array();
+	
+	
+	/** 
+	 * Variáveis que são utilizadas na view.
+	 *
+	 * @var array
+	 */
+	private $variables = array();
+	
 	
 	/**
 	 * Namespace do controlados
@@ -103,7 +93,6 @@ abstract class Controller {
 		$this->params = $request->params;
 		$this->namespaces = $namespaces;
 		$this->class_name = $class_name;
-		$this->template = new Template();
 		$this->request = $request;
 	}
 	
@@ -141,15 +130,15 @@ abstract class Controller {
 	public function after_filter() {}
 
 	/**
-	 * Adiciona valores a variáveis utilizadas no template.
+	 * Adiciona variáveis a ser utilizadas no template.
 	 *
 	 * @access public
-	 * @param String $key - Chave conteiner que se tornará uma variável no template.
-	 * @param Mixed $value - Valores que sernao adicionados a chave no template.
+	 * @param String $name - Nome da variável que será utilizada no template.
+	 * @param Mixed $value - Valor que será adicionado a variável no template.
 	 * @return void
 	 */
-	public function add($key, $value) {
-		$this->template->add($key, $value);
+	public function add($name, $value) {
+		$this->variables[$name] = $value;
 	}
 
 	/**
@@ -160,10 +149,12 @@ abstract class Controller {
 	 * @return void
 	 */
 	public function execute_render() {
-		// Carrega os helpers
-		$this->load_helpers();
+		// Inicia o sistema de template
+		$this->template = new Template($this->variables);
 		// Seta os parametros da requisição no template.
 		$this->template->params = $this->params;
+		// Carrega os helpers
+		$this->load_helpers();
 		
 		// Se não tem conteúdo setado no controller.
 		if($this->content_for_layout === null) {
@@ -177,7 +168,7 @@ abstract class Controller {
 		// Para não redenrizar layout.
 		// Setar no controller: var $layout = null;
 		if(!empty($this->layout)){
-			$this->add('content_for_layout',$html);
+			$this->template->add('content_for_layout',$html);
 			$html = $this->template->fetch(ROOT.'/app/views/layouts/'.$this->layout.'.php');
 		}
 		
@@ -260,7 +251,7 @@ abstract class Controller {
 			$local = in_array($helper, $core_helpers) ? CORE : ROOT.'/app';
 			require_once $local."/helpers/".strtolower($helper)."_helper.php";
 			$class = $helper.'Helper';
-			$this->add(strtolower($helper), new $class($this->request));
+			$this->template->add(strtolower($helper), new $class($this->request));
 		}
 
 		// Adiciona os helpers requeridos em outros helpers.

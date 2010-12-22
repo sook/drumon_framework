@@ -44,6 +44,11 @@ class Template {
 	 * @var array
 	 */
 	public $params = array();
+	
+	
+	public function __construct($variables = array()) {
+		$this->variables = $variables;
+	}
 
 	/**
 	 * Renderiza a página.
@@ -114,6 +119,7 @@ class Template {
 	public function add($name, $value) {
 		$this->variables[$name] = $value;
 	}
+	
 
 	/**
 	 * Remove uma variável do template.
