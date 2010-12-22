@@ -13,6 +13,6 @@
 		<?php //echo $html->showjs(array(JS_FRAMEWORK),'all'); ?>
 	</head>
 	<body>
-		<?php echo $content; ?>
+		<?php echo $content_for_layout; ?>
 	</body>
 </html>

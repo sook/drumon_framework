@@ -61,19 +61,27 @@
 		$file_name = $request->controller_name.'Controller';
 		$namespaces = null;
 		$last_name = $request->controller_name;
-		
+
+		// Monta o namespace
 		if(count($class_parts) > 1) {
 			$last_name = array_pop($class_parts);
 			$namespaces = implode('/',$class_parts);
 			$path .= Drumon::to_underscore($namespaces).'/';
 			$file_name = $last_name.'Controller';
 		}
-		
+
+		// Inclui o controlador.
 		include($path.Drumon::to_underscore($file_name).'.php');
-		
 		$class_name = $request->controller_name.'Controller';
+		
+		// Inicia o controlador e chama a ação.
 		$controller = new $class_name($request,$namespaces,$last_name);
-		$controller->execute($request->action_name);
+		$html = $controller->execute($request->action_name);
+
+		// Dispara os eventos e imprimi o html.
+		Event::fire('before_render',array('content' => &$html));
+		echo $html;
+		Event::fire('after_render',array('content' => &$html));
 		
 	}else{
 		header("HTTP/1.0 404 Not Found");

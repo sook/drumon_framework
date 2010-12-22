@@ -14,5 +14,5 @@
 		require(ROOT.'/plugins/'.$plugin.'/initializer.php');
 	}
 	Event::fire('on_init');
-	include(CORE.'/main.php');
+	include(CORE.'/bootstrap.php');
 ?>
