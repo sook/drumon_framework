@@ -10,7 +10,7 @@
 		
 		<title>Drumon Framework - <?php echo $title; ?></title>
 		<?php echo $html->css(array('main'),'all'); ?>
-		<?php //echo $html->showjs(array(JS_FRAMEWORK),'all'); ?>
+		<?php //echo $html->showjs(array('libs/'.JS_FRAMEWORK),'all'); ?>
 	</head>
 	<body>
 		<?php echo $content_for_layout; ?>

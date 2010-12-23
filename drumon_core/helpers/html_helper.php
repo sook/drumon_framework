@@ -133,13 +133,13 @@ class HtmlHelper extends Helper {
 	public function link($title, $link, $options = array()) {
 		 
 		if(array_key_exists('method', $options)) {
-			$this->addjs('drumon-'.JS_FRAMEWORK.'.js');
+			$this->addjs('libs/drumon-'.JS_FRAMEWORK.'.js');
 			$options['data-method'] = $options['method'];
 			unset($options['method']);
 		}
 		
 		if(array_key_exists('confirm', $options)) {
-			$this->addjs('drumon-'.JS_FRAMEWORK.'.js');
+			$this->addjs('libs/drumon-'.JS_FRAMEWORK.'.js');
 			$options['data-confirm'] = $options['confirm'];
 			unset($options['confirm']);
 		}
