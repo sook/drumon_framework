@@ -30,6 +30,14 @@ class HtmlHelper extends Helper {
 	 */
 	private $javascripts = array();
 	
+	/** 
+	 * Armazena os blocos de html a serem usados na aplicação.
+	 *
+	 * @access private
+	 * @var array
+	 */
+	private $blocks = array();
+	
 	/**
 	 * Retorna o caminho completo de uma url.
 	 *
@@ -63,13 +71,28 @@ class HtmlHelper extends Helper {
 	function image_path($image) {
 		return IMAGES_PATH.$image;
 	}
+	
+	/**
+	 * Imprimi ou inseri blocos de códigos.
+	 *
+	 * @return void|string
+	 */
+	public function block() {
+		if (func_num_args() > 1) {
+			$this->blocks[func_get_arg(0)][] = func_get_arg(1);
+		} else {
+			if (isset($this->blocks[func_get_arg(0)])) {
+				return implode($this->blocks[func_get_arg(0)]);
+			}
+		}
+	}
 
 	/**
 	 * Adiciona o arquivo css a ser inserido no código HTML.
 	 *
 	 * @access public
 	 * @param string|array $files - Nome do(s) arquivo(s) css.
-	 * @param string $type - Tipo de inserção all, add(default), inline.
+	 * @param string $type - Tipo de inserção show, add(default), inline.
 	 * @param string $media - Media do stylesheet.
 	 * @return void|string - String com o código html para adição do arquivo CSS se a opção for inline.
 	 */
@@ -81,7 +104,7 @@ class HtmlHelper extends Helper {
 			$_files[] = '<link rel="stylesheet" href="'.STYLESHEETS_PATH.$file.'.css" type="text/css" media="'.$media.'"/>';
 		}
 		
-		if ($type == 'all') {
+		if ($type == 'show') {
 			$this->stylesheets = array_merge($_files, $this->stylesheets);
 			$this->stylesheets = array_unique($this->stylesheets);
 			return implode($this->stylesheets);
@@ -98,7 +121,7 @@ class HtmlHelper extends Helper {
 	 *
 	 * @access public
 	 * @param string|array $files - Nome do(s) arquivo(s) javascript.
-	 * @param string $type - Tipo de inserção all, add(default), inline.
+	 * @param string $type - Tipo de inserção show, add(default), inline.
 	 * @return void|string - String com o código html para adição do arquivo JS se a opção for inline.
 	 */
 	function js($files, $type = 'add') {
@@ -109,7 +132,7 @@ class HtmlHelper extends Helper {
 			$_files[] = '<script type="text/javascript" src="'.JAVASCRIPTS_PATH.$file.'.js"></script>';
 		}
 		
-		if($type == 'all') {
+		if($type == 'show') {
 			$this->javascripts = array_merge($_files, $this->javascripts);
 			$this->javascripts = array_unique($this->javascripts);
 			return implode($this->javascripts);

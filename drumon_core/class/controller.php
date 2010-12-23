@@ -167,7 +167,7 @@ abstract class Controller {
 		
 		// Para não redenrizar layout.
 		// Setar no controller: var $layout = null;
-		if(!empty($this->layout)){
+		if(!empty($this->layout)) {
 			$this->template->add('content_for_layout',$html);
 			$html = $this->template->fetch(ROOT.'/app/views/layouts/'.$this->layout.'.php');
 		}
