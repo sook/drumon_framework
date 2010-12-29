@@ -127,7 +127,6 @@ class RequestHandler {
 	public function get_route($route, $app_root) {
 		
 		$this->method = (isset($_REQUEST['_method']) && strtolower($_SERVER['REQUEST_METHOD']) == 'post') ? strtolower($_REQUEST['_method']) : strtolower($_SERVER['REQUEST_METHOD']);
-
 		$subfolder = str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\','/',$app_root));
 		$uri = str_replace($subfolder,'', $_SERVER['REQUEST_URI']);
 		$uri = explode('?',$uri);

@@ -11,7 +11,7 @@
 		<title>Drumon Framework - <?php echo $title; ?></title>
 		<?php echo $html->css(array('main'),'show'); ?>
 		<?php //echo $html->js(array('libs/'.JS_FRAMEWORK,'application'),'show'); ?>
-		
+
 	</head>
 	<body>
 		<?php echo $content_for_layout; ?>

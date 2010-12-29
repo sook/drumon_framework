@@ -1,6 +1,6 @@
 <?php
 /**
- * *********** BOOT ************
+ * *********** BOOTSTRAP ************
  */
 	
 	$route = array();
@@ -19,38 +19,9 @@
 	 * Inicia o sistema de roteamento.
 	 */
 	$request = new RequestHandler($route);
-	
-	
+
 	// Protege a aplicação contra CSFR.
-	$token  = dechex(mt_rand());
-	$hash   = sha1(APP_SECRET.APP_DOMAIN.'-'.$token);
-	$signed = $token.'-'.$hash;
-	
-	// Token criado para usar nos formulários.
-	define('REQUEST_TOKEN',$signed);
-	
-	if ($request->method != 'get') {
-		$unauthorized = true;
-		
-		if (!empty($request->params['_token'])) {
-			$parts = explode('-',$request->params['_token']);
-			
-			if (count($parts) == 2) {
-		    list($token, $hash) = $parts;
-		    if ($hash == sha1(APP_SECRET.APP_DOMAIN.'-'.$token)) {
-					$unauthorized = false;
-				}
-			}
-		}
-		
-		// Bloqueia a requisção não autorizada.
-		if($unauthorized) {
-			header("HTTP/1.0 401 Unauthorized");
-			include(ROOT.'/public/'.$route['401']);
-			die();
-		}
-	}
-	
+	Drumon::fire_csrf_protection($request);
 	
 	/**
 	 * Inicia o controlador.

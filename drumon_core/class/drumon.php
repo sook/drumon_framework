@@ -13,12 +13,49 @@
 class Drumon {
 	
 	/**
+	 * Protege contra ataques do tipo CSRF.
+	 *
+	 * @param object $request 
+	 * 
+	 */
+	public static function fire_csrf_protection($request) {
+		$token  = dechex(mt_rand());
+		$hash   = sha1(APP_SECRET.APP_DOMAIN.'-'.$token);
+		$signed = $token.'-'.$hash;
+
+		// Token criado para usar nos formulários.
+		define('REQUEST_TOKEN',$signed);
+
+		if ($request->method != 'get') {
+			$unauthorized = true;
+
+			if (!empty($request->params['_token'])) {
+				$parts = explode('-',$request->params['_token']);
+
+				if (count($parts) == 2) {
+			    list($token, $hash) = $parts;
+			    if ($hash == sha1(APP_SECRET.APP_DOMAIN.'-'.$token)) {
+						$unauthorized = false;
+					}
+				}
+			}
+
+			// Bloqueia a requisção não autorizada.
+			if($unauthorized) {
+				header("HTTP/1.0 401 Unauthorized");
+				include(ROOT.'/public/'.$request->routes['401']);
+				die();
+			}
+		}
+	}
+	
+	/**
 	 * Transforma palavrasEmCamelCase para palavras_em_underscore
 	 *
 	 * @param string $camelCasedWord 
 	 * @return string
 	 */
-	function to_underscore($camelCasedWord) {
+	public static function to_underscore($camelCasedWord) {
 		$result = strtolower(preg_replace('/(?<=\\w)([A-Z])/', '_\\1', $camelCasedWord));
 		return $result;
 	}
@@ -30,7 +67,7 @@ class Drumon {
 	 * @param string $lowerCaseAndUnderscoredWord 
 	 * @return string
 	 */
-	function to_camelcase($lowerCaseAndUnderscoredWord) {
+	public static function to_camelcase($lowerCaseAndUnderscoredWord) {
 		$lowerCaseAndUnderscoredWord = ucwords(str_replace('_', ' ', $lowerCaseAndUnderscoredWord));
 		$result = str_replace(' ', '', $lowerCaseAndUnderscoredWord);
 		return $result;
