@@ -12,6 +12,31 @@
  */
 class Drumon {
 	
+	public function execute_controller($request) {
+		// Variáveis básicas para o controlador.
+		$path = ROOT.'/app/controllers/';
+		$file_name = $request->controller_name.'Controller';
+		$namespaces = null;
+		$class_name = $request->controller_name;
+		
+		// Monta o namespace
+		$class_parts = explode('_',$request->controller_name);
+		if(count($class_parts) > 1) {
+			$class_name = array_pop($class_parts);
+			$namespaces = implode('/',$class_parts);
+			$path .= Drumon::to_underscore($namespaces).'/';
+			$file_name = $class_name.'Controller';
+		}
+		
+		// Inclui o controlador.
+		include($path.Drumon::to_underscore($file_name).'.php');
+		$full_class_name = $request->controller_name.'Controller';
+		
+		// Inicia o controlador e chama a ação.
+		$controller = new $full_class_name($request,$namespaces,$class_name);
+		return $controller->execute($request->action_name);
+	}
+	
 	/**
 	 * Protege contra ataques do tipo CSRF.
 	 *
