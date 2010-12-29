@@ -11,7 +11,7 @@
 	// Carrega plugins
 	$plugins = (PLUGINS === '') ? array() : explode(',',PLUGINS);
 	foreach ($plugins as $plugin) {
-		require(ROOT.'/plugins/'.$plugin.'/initializer.php');
+		require(ROOT.'/libs/plugins/'.$plugin.'/initializer.php');
 	}
 	Event::fire('on_init');
 	include(CORE.'/bootstrap.php');

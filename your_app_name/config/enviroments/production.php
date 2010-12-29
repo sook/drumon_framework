@@ -1,6 +1,6 @@
 <?php
 	// Caminho para a pasta do core do Drumon Framework
-	define('CORE', '../drumon_core');
+	define('CORE', 'libs/drumon_core');
 	
 	
 	// Domínio de onde sua aplicação
@@ -13,8 +13,6 @@
 	define('DB_PASSWORD', '');
 	define('DB_NAME',			'');
 	define('CHARSET',			'utf8');
-	
-	
 	
 	
 	// Application Paths

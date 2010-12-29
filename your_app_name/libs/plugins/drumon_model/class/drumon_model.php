@@ -5,10 +5,10 @@
  * Licensed under GNU General Public License.
  */
 
-require(ROOT."/plugins/drumon_model/class/database.php");
-require(ROOT.'/plugins/drumon_model/class/model_behavior.php');
-require(ROOT.'/plugins/drumon_model/app_model.php');
-require(ROOT.'/plugins/drumon_model/models/site_config.php');
+require(ROOT."/libs/plugins/drumon_model/class/database.php");
+require(ROOT.'/libs/plugins/drumon_model/class/model_behavior.php');
+require(ROOT.'/libs/plugins/drumon_model/app_model.php');
+require(ROOT.'/libs/plugins/drumon_model/models/site_config.php');
 
 
 
@@ -166,7 +166,7 @@ abstract class DrumonModel {
 	 */
 	protected function imports($class) {
 		// TODO adicionel na linha abaixo tava $ coloquei $class 
-		require_once ROOT."/plugins/drumon_model/behaviors/".Drumon::to_underscore($class).".php";
+		require_once ROOT."/libs/plugins/drumon_model/behaviors/".Drumon::to_underscore($class).".php";
 
 		//Instância o objeto correspondente a classe passada.
 		$new_import = new $class(&$this);
@@ -600,7 +600,7 @@ abstract class DrumonModel {
 		if($super === null) {
 			$super = $model;
 		}
-		require ROOT.'/plugins/drumon_model/models/'.Drumon::to_underscore($super).'_module.php';
+		require ROOT.'/libs/plugins/drumon_model/models/'.Drumon::to_underscore($super).'_module.php';
 		require ROOT.'/app/models/'.Drumon::to_underscore($model).'.php';
 	}
 	
