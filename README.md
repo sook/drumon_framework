@@ -10,6 +10,7 @@ Você pode colaborar com o desenvolvimento deste projeto.
 
 Este projeto está sob licença GPL. 
 
+(Oficial) [[Google Groups|https://groups.google.com/group/drumon-framework-dev]]
 
 ## Como instalar:
 
