@@ -3,18 +3,17 @@
 	// Ambiente da aplicação (development|production)
 	define('ENV','development');
 	
-	// Linguagem da sua apicação.
-	// Sete false para desabilitar.
+	// Linguagem da sua apicação. (pt-BR|en-US|...)
 	define('LANGUAGE','pt-BR');
 	
-	// Helpers carregados automaticamente.
+	// Helpers carregados automaticamente
 	// define('AUTOLOAD_HELPERS','Html,Date,Text,Image,Movie,Paginate');
 	define('AUTOLOAD_HELPERS','Html, Date, Text, Url');
 	
 	// Segredo da aplicação para proteção contra CSRF. !ALTERE ESSE VALOR!
-	define('APP_SECRET','change-this-now');
+	define('APP_SECRET','altere-esse-valor-urgente');
 	
-	// Plugins utilizados em sua app.
+	// Plugins utilizados em sua app
 	// define('PLUGINS','drumon_model,benchmark');
 	define('PLUGINS','benchmark');
 	
@@ -23,6 +22,6 @@
 	// Mootools 1.3.0.1
 	define('JS_FRAMEWORK','jquery');
 	
-	// Configurações personalizadas de sua aplicação.
+	// Configurações personalizadas de sua aplicação
 	
 ?>

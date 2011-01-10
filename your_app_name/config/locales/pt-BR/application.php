@@ -6,4 +6,5 @@
 		'your_word' => 'Sua palavra'
 		
 	);
+	
 ?>
