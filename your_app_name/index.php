@@ -11,7 +11,7 @@
 	// Carrega plugins
 	$plugins = (PLUGINS === '') ? array() : explode(',',PLUGINS);
 	foreach ($plugins as $plugin) {
-		require(ROOT.'/libs/plugins/'.$plugin.'/initializer.php');
+		require(ROOT.'/vendor/plugins/'.$plugin.'/initializer.php');
 	}
 	
 	// Dispara o evento de inicialização do Framework
