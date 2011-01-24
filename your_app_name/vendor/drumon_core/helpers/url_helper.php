@@ -77,7 +77,7 @@ class UrlHelper extends Helper {
 	 * @access public
 	 * @return string
 	 */
-	function self() {
+	function to_here() {
 		return $_SERVER['REQUEST_URI'];
 	}
 }
