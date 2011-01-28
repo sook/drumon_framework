@@ -97,6 +97,25 @@ class Drumon {
 		$result = str_replace(' ', '', $lowerCaseAndUnderscoredWord);
 		return $result;
 	}
+	
+	
+	/**
+	 * Remove valores vazios e nulos do array.
+	 *
+	 * @param string $array 
+	 * @return array
+	 */
+	public static function array_clean($array) {
+		$clean_array = array();
+		foreach ($array as $value) {
+			if (!empty($value)) {
+				$clean_array[] = $value;
+			}
+		}
+		return $clean_array;
+	}
+	
+	
 }
 
 

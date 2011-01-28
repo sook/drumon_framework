@@ -68,12 +68,13 @@ class HtmlHelper extends Helper {
 		
 		$_files = array();
 		foreach ($files as $file){
-			$_files[] = '<link rel="stylesheet" href="'.STYLESHEETS_PATH.$file.'.css" type="text/css" media="'.$media.'"/>';
+			if (!empty($file)) {
+				$_files[] = '<link rel="stylesheet" href="'.STYLESHEETS_PATH.$file.'.css" type="text/css" media="'.$media.'"/>';
+			}
 		}
 		
 		if ($type == 'show') {
-			$this->stylesheets = array_merge($_files, $this->stylesheets);
-			$this->stylesheets = array_unique($this->stylesheets);
+			$this->stylesheets = array_unique(array_merge($_files, $this->stylesheets));
 			return implode($this->stylesheets);
 		} elseif($type == 'inline') {
 			return implode($_files);
@@ -123,13 +124,13 @@ class HtmlHelper extends Helper {
 	public function link($title, $link, $options = array()) {
 		 
 		if(array_key_exists('method', $options)) {
-			$this->js('vendor/drumon-'.JS_FRAMEWORK.'.js');
+			$this->js('vendor/drumon-'.JS_FRAMEWORK);
 			$options['data-method'] = $options['method'];
 			unset($options['method']);
 		}
 		
 		if(array_key_exists('confirm', $options)) {
-			$this->js('vendor/drumon-'.JS_FRAMEWORK.'.js');
+			$this->js('vendor/drumon-'.JS_FRAMEWORK);
 			$options['data-confirm'] = $options['confirm'];
 			unset($options['confirm']);
 		}
