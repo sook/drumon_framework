@@ -38,39 +38,6 @@ class HtmlHelper extends Helper {
 	 */
 	private $blocks = array();
 	
-	/**
-	 * Retorna o caminho completo de uma url.
-	 *
-	 * @access public
-	 * @param string $url - Caminho parcial da url.
-	 * @return string - Caminho completo da url.
-	 */
-	function url($url) {
-		return APP_DOMAIN.$url;
-	}
-
-
-	/**
-	 * Retorna pasta do módulo passado como valor.
-	 *
-	 * @access public
-	 * @param string $module - Nome do módulo a ser utilizado.
-	 * @return string - Url completa da localização do módulo.
-	 */
-	function module_path($module) {
-		return MODULES_PATH.$module;
-	}
-
-	/**
-	 * Retorna o caminho padrão das imagens concatenado ao nome da imagem.
-	 *
-	 * @access public
-	 * @param string $image - Nome da imagem.
-	 * @return string - Caminho para a imagem.
-	 */
-	function image_path($image) {
-		return IMAGES_PATH.$image;
-	}
 	
 	/**
 	 * Imprimi ou inseri blocos de códigos.
@@ -156,13 +123,13 @@ class HtmlHelper extends Helper {
 	public function link($title, $link, $options = array()) {
 		 
 		if(array_key_exists('method', $options)) {
-			$this->addjs('vendor/drumon-'.JS_FRAMEWORK.'.js');
+			$this->js('vendor/drumon-'.JS_FRAMEWORK.'.js');
 			$options['data-method'] = $options['method'];
 			unset($options['method']);
 		}
 		
 		if(array_key_exists('confirm', $options)) {
-			$this->addjs('vendor/drumon-'.JS_FRAMEWORK.'.js');
+			$this->js('vendor/drumon-'.JS_FRAMEWORK.'.js');
 			$options['data-confirm'] = $options['confirm'];
 			unset($options['confirm']);
 		}

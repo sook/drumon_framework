@@ -47,7 +47,7 @@ abstract class Helper {
 	 * @param array $locale - Referência da variável com os dados de internacionalização.
 	 * @return void
 	 */
-	public function __construct($request){
+	public function __construct($request) {
 		$this->request = $request;
 	}
 
