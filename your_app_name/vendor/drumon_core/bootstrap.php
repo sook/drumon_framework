@@ -19,9 +19,16 @@
 	 * Inicia o sistema de roteamento.
 	 */
 	$request = new RequestHandler($route);
-
+	
+	
 	// Protege a aplicação contra CSFR.
-	Drumon::fire_csrf_protection($request);
+	define('REQUEST_TOKEN',Drumon::create_request_token());
+	if(Drumon::block_csrf_protection($request)) {
+		header("HTTP/1.0 401 Unauthorized");
+		include(ROOT.'/public/'.$request->routes['401']);
+		die(); // remover o die (hora de criar o response?)
+	}
+	
 	
 	// Se requisição for válida.
 	if($request->valid) {

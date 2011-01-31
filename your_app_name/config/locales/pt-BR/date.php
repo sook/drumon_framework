@@ -4,8 +4,8 @@
 	return array(
 		'default' => '%d/%m/%Y %H:%M',
 		'in_words' => '%d de %B de %Y',
-		'months' => array(1=>'janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'),
-		'days' => array('domingo','segunda','terça','quarta','quinta','sexta','sábado')
+		'months' => array(1=>'Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'),
+		'days' => array('Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado')
 	);
 
 ?>

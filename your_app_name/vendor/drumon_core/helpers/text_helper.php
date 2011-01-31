@@ -30,14 +30,14 @@ class TextHelper extends Helper {
 		$replace = explode(",","c,ae,oe,a,e,i,o,u,a,e,i,o,u,a,e,i,o,u,y,a,e,i,o,u,a,e,i,o,u");
 		$text = str_replace($search, $replace, $text);
 
-
 		if (function_exists('iconv')) {
 			$text = @iconv('UTF-8', 'ASCII//TRANSLIT', $text);
 		}
 
-		$text = preg_replace("/[^a-zA-Z0-9 -]/", "", $text);
-		$text = strtolower($text);
+		$text = preg_replace("/[^a-zA-Z0-9 ".$space."]/", "", $text);
 		$text = str_replace(" ", $space, $text);
+		$text = preg_replace("/".$space."{2,}/",$space,$text);
+		$text = strtolower($text);
 		return $text;
 	}
 
@@ -65,12 +65,25 @@ class TextHelper extends Helper {
 	 * @param string $text - Texto a ser verificado.
 	 * @return string - Texto Modificado pelo método.
 	 */
-	function twitterify($ret) {
-	  $ret = preg_replace("#(^|[\n ])([\w]+?://[\w]+[^ \"\n\r\t< ]*)#", "\\1<a href=\"\\2\" target=\"_blank\">\\2</a>", $ret);
-	  $ret = preg_replace("#(^|[\n ])((www|ftp)\.[^ \"\t\n\r< ]*)#", "\\1<a href=\"http://\\2\" target=\"_blank\">\\2</a>", $ret);
-	  $ret = preg_replace("/@(\w+)/", "<a title= \"Twitter Profile\" href=\"http://www.twitter.com/\\1\" target=\"_blank\">@\\1</a>", $ret);
-	  $ret = preg_replace("/#(\w+)/", "<a title=\"Twitter Search\" href=\"http://search.twitter.com/search?q=\\1\" target=\"_blank\">#\\1</a>", $ret);
-		return $ret;
+	function twitterify($text) {
+	  $text = preg_replace("/@(\w+)/", "<a title= \"Twitter Profile\" href=\"http://www.twitter.com/\\1\" target=\"_blank\">@\\1</a>", $text);
+	  $text = preg_replace("/#(\w+)/", "<a title=\"Twitter Search\" href=\"http://search.twitter.com/search?q=\\1\" target=\"_blank\">#\\1</a>", $text);
+		return $text;
+	}
+	
+	/**
+	 * Adiciona links (<a href =....) a um determinado texto, encontrando texto que começa com
+	 * strings como http://.
+	 *
+	 * @param string $text - Texto a ser analisado.
+	 * @return string - Texto com inclusão de links.
+
+	 */
+	function linkfy($text) {
+		$text = preg_replace("#(^|[\n ])([\w]+?://[\w]+[^ \"\n\r\t< ]*)#", "\\1<a href=\"\\2\" target=\"_blank\">\\2</a>", $text);
+	  $text = preg_replace("#(^|[\n ])((www|ftp)\.[^ \"\t\n\r< ]*)#", "\\1<a href=\"http://\\2\" target=\"_blank\">\\2</a>", $text);
+	//	preg_replace("#http://([A-z0-9./-]+)#", '<a href="$1">$0</a>', $text);
+		return $text;
 	}
 
 	/**
@@ -92,9 +105,9 @@ class TextHelper extends Helper {
 		}
 
 		$default = array(
-			'format' => '<span class="highlight">\1</span>',
-			'html' => false
+			'format' => '<span class="highlight">\1</span>'
 		);
+		
 		$options = array_merge($default, $options);
 		extract($options);
 
@@ -104,9 +117,6 @@ class TextHelper extends Helper {
 
 			foreach ($phrase as $key => $segment) {
 				$segment = "($segment)";
-				if ($html) {
-					$segment = "(?![^<]+>)$segment(?![^<]+>)";
-				}
 
 				$with[] = (is_array($format)) ? $format[$key] : $format;
 				$replace[] = "|$segment|iu";
@@ -115,9 +125,6 @@ class TextHelper extends Helper {
 			return preg_replace($replace, $with, $text);
 		} else {
 			$phrase = "($phrase)";
-			if ($html) {
-				$phrase = "(?![^<]+>)$phrase(?![^<]+>)";
-			}
 
 			return preg_replace("|$phrase|iu", $format, $text);
 		}
@@ -125,7 +132,7 @@ class TextHelper extends Helper {
 
 
 	/**
-	* Tira de determinado texto todos os links.
+	* Remove os links de um texto.
 	*
 	* @param string $text - Texto a ser verificado.
 	* @return string - Texto sem links.
@@ -133,18 +140,6 @@ class TextHelper extends Helper {
 	*/
 	function strip_links($text) {
 		return preg_replace('|<a\s+[^>]+>|im', '', preg_replace('|<\/a>|im', '', $text));
-	}
-
-	/**
-	 * Adiciona links (<a href =....) a um determinado texto, encontrando texto que começa com
-	 * strings como http://.
-	 *
-	 * @param string $text - Texto a ser analisado.
-	 * @return string - Texto com inclusão de links.
-
-	 */
-	function linkfy($text) {
-		return preg_replace("#http://([A-z0-9./-]+)#", '<a href="$1">$0</a>', $text);
 	}
 
 

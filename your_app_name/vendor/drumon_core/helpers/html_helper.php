@@ -14,6 +14,9 @@
  */
  // TODO: Alterar nome da função para padrão CamelCase
 class HtmlHelper extends Helper {
+	
+	var $uses = array('Text');
+	
 	/** 
 	 * Armazena o nome dos arquivos css.
 	 *
@@ -221,9 +224,9 @@ class HtmlHelper extends Helper {
 		foreach ($options_list as $key => $value) {
 			$selected_on = '';
 			if ($selected == $key) {
-				$selected_on = 'selected';
+				$selected_on = ' selected';
 			}
-			$html .= '<option '.$selected_on.' value="'.$key.'">'.$value.'</option>';
+			$html .= '<option'.$selected_on.' value="'.$key.'">'.$value.'</option>';
 		}
 		$html .= '</select>';
 		return $html;
@@ -264,7 +267,7 @@ class HtmlHelper extends Helper {
 		$options = array_merge($defaults,$options);
 		
 		$data_list = array();
-		foreach ($this->locale['date']['months'] as $key => $value) {
+		foreach ($this->text->translate('date.months') as $key => $value) {
 			$selected = '';
 			$n = ($key < 10) ? '0'.$key : $key ;
 			$data_list[$n]=$value;
@@ -283,7 +286,7 @@ class HtmlHelper extends Helper {
 	 * @return string
 	 */
 	function select_date_days($field_name,$options = array()) {
-		$defaults = array('selected'=>Date('d'));
+		$defaults = array('selected' => Date('d'));
 		$options = array_merge($defaults,$options);
 		
 		$data_list = array();

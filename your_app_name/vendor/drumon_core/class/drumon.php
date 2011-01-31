@@ -37,20 +37,30 @@ class Drumon {
 		return $controller->execute($request->action_name);
 	}
 	
+	
+	/**
+	 * Gera token única para a requisição.
+	 *
+	 * @return string
+	 * 
+	 */
+	public function create_request_token() {
+		$token  = dechex(mt_rand());
+		$hash   = sha1(APP_SECRET.APP_DOMAIN.'-'.$token);
+		return $token.'-'.$hash;
+	}
+	
+	
 	/**
 	 * Protege contra ataques do tipo CSRF.
 	 *
 	 * @param object $request 
 	 * 
 	 */
-	public static function fire_csrf_protection($request) {
-		$token  = dechex(mt_rand());
-		$hash   = sha1(APP_SECRET.APP_DOMAIN.'-'.$token);
-		$signed = $token.'-'.$hash;
-
-		// Token criado para usar nos formulários.
-		define('REQUEST_TOKEN',$signed);
-
+	public static function block_csrf_protection($request) {
+		
+		$unauthorized = false;
+		
 		if ($request->method != 'get') {
 			$unauthorized = true;
 
@@ -64,14 +74,9 @@ class Drumon {
 					}
 				}
 			}
-
-			// Bloqueia a requisção não autorizada.
-			if($unauthorized) {
-				header("HTTP/1.0 401 Unauthorized");
-				include(ROOT.'/public/'.$request->routes['401']);
-				die();
-			}
 		}
+		
+		return $unauthorized;
 	}
 	
 	/**
@@ -82,6 +87,7 @@ class Drumon {
 	 */
 	public static function to_underscore($camelCasedWord) {
 		$result = strtolower(preg_replace('/(?<=\\w)([A-Z])/', '_\\1', $camelCasedWord));
+		$result = str_replace(' ', '_', $result);
 		return $result;
 	}
 	
