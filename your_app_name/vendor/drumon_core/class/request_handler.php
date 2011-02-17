@@ -30,14 +30,6 @@ class RequestHandler {
 	public $action_name;
 	
 	/** 
-	 * Stores information indicating whether it is a valid route.
-	 *
-	 * @access public
-	 * @var boolean
-	 */
-	public $valid = false;
-	
-	/** 
 	 * Array with all params in http request (GET e POST).
 	 *
 	 * @access public
@@ -80,40 +72,27 @@ class RequestHandler {
 	 */
 	public function __construct($routes, $app_root = ROOT ) {
 		$this->routes = $routes;
-		$route = $this->get_route($routes, $app_root);
+		$this->app_root = $app_root;
+		$this->method = (isset($_REQUEST['_method']) && strtolower($_SERVER['REQUEST_METHOD']) == 'post') ? strtolower($_REQUEST['_method']) : strtolower($_SERVER['REQUEST_METHOD']);
+	}
+	
+	
+	public function valid() {
+		$route = $this->get_route($this->routes, $this->app_root);
 		if(is_array($route)) {
-			if(isset($route['redirect'])){
-				if(!isset($route[0])) $route[0] = null;
-				self::redirect($route['redirect'],$route[0]);
+			if(isset($route['redirect'])) {
+				if(!isset($route[0])) { $route[0] = null; }
+				$this->redirect($route['redirect'], $route[0]);
+			}else{
+				$this->controller_name = $route[0];
+				$this->action_name = $route[1] ? $route[1] : 'index';
+				$this->params = array_merge($this->params, $_GET, $_POST);
+				if(isset($_SERVER['HTTP_REFERER'])) $this->referer = $_SERVER['HTTP_REFERER'];
+				$this->uri = $_SERVER['REQUEST_URI'];
 			}
-			
-			$this->controller_name = $route[0];
-			$this->action_name = $route[1] ? $route[1] : 'index';
-			$this->params = array_merge($this->params, $_GET, $_POST);
-			if(isset($_SERVER['HTTP_REFERER'])) $this->referer = $_SERVER['HTTP_REFERER'];
-			$this->uri = $_SERVER['REQUEST_URI'];
-			$this->valid = true;
+			return true;
 		}
-	}
-	
-	/**
-	 * Set action name
-	 *
-	 * @param string $name 
-	 * @return void
-	 */
-	public function set_action_name($name) {
-		$this->action_name = $name;
-	}
-	
-	/**
-	 * Set controller name
-	 *
-	 * @param string $name 
-	 * @return void
-	 */
-	public function set_controller_name($name) {
-		$this->controller_name = $name;
+		return false;
 	}
 
 	/**
@@ -126,7 +105,6 @@ class RequestHandler {
 	 */
 	public function get_route($route, $app_root) {
 		
-		$this->method = (isset($_REQUEST['_method']) && strtolower($_SERVER['REQUEST_METHOD']) == 'post') ? strtolower($_REQUEST['_method']) : strtolower($_SERVER['REQUEST_METHOD']);
 		$subfolder = str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\','/',$app_root));
 		$uri = str_replace($subfolder,'', $_SERVER['REQUEST_URI']);
 		$uri = explode('?',$uri);
@@ -222,7 +200,7 @@ class RequestHandler {
 	}
 	
 	
-	public function url_for($named_route,$params = array()) {
+	public function url_for($named_route, $params = array()) {
 		
 		// Junta as rotas do método com as rotas que aceitam todos os métodos.
 		$route_list = array();
@@ -232,6 +210,7 @@ class RequestHandler {
 		if(isset($this->routes[$this->method])) {
 			$route_list = array_merge($route_list, $this->routes[$this->method]);
 		}
+		
 		$path = false;
 		foreach ($route_list as $url => $route) {
 			if(isset($route['as']) && $route['as'] == $named_route ) {
@@ -259,11 +238,11 @@ class RequestHandler {
 			}
 		}
 		
-		if(!$path) die('Named route for '.$named_route.' doenst exist.');
+		if(!$path) trigger_error('Named route for '.$named_route.' doenst exist', E_USER_ERROR);
 		
 		return str_replace('\/','/',$path); ;
 	}
-
+	
 	/**
 	 * Redirecionamento para uma URL externa, com cabeçalho HTTP 302 enviados por padrão.
 	 *
@@ -275,15 +254,15 @@ class RequestHandler {
 	 * @param array $headerAfter - Headers to be sent after header("Location: some_url_address").
 	 * @return void
 	 */
-	public static function redirect($location, $code=302, $exit=true, $headerBefore=NULL, $headerAfter=NULL){
-		if($headerBefore!=NULL){
-			for($i=0;$i<sizeof($headerBefore);$i++){
+	public function redirect($location, $code = 302, $exit = true, $headerBefore = NULL, $headerAfter = NULL) {
+		if($headerBefore != NULL) {
+			for($i=0; $i < sizeof($headerBefore); $i++) {
 				header($headerBefore[$i]);
 			}
 		}
 		header("Location: $location", true, $code);
-		if($headerAfter!=NULL){
-			for($i=0;$i<sizeof($headerBefore);$i++){
+		if($headerAfter != NULL) {
+			for($i=0; $i < sizeof($headerBefore); $i++) {
 				header($headerBefore[$i]);
 			}
 		}

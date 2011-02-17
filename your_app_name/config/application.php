@@ -1,7 +1,7 @@
 <?php
 
 	// Ambiente da aplicação (development|production)
-	define('ENV','development');
+	define('ENV',isset($_SERVER['ENVIRONMENT']) ? $_SERVER['ENVIRONMENT'] : 'development');
 	
 	// Linguagem da sua apicação. (pt-BR|en-US|...)
 	define('LANGUAGE','pt-BR');

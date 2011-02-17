@@ -15,25 +15,28 @@ class Drumon {
 	public function execute_controller($request) {
 		// Variáveis básicas para o controlador.
 		$path = ROOT.'/app/controllers/';
-		$file_name = $request->controller_name.'Controller';
-		$namespaces = null;
-		$class_name = $request->controller_name;
+		$real_class_name = $request->controller_name.'Controller'; // ex. HomeController || Admin_HomeController
 		
-		// Monta o namespace
-		$class_parts = explode('_',$request->controller_name);
-		if(count($class_parts) > 1) {
+		// Quebra em partes para ver se possui namespace
+		$class_parts = explode('_', $request->controller_name);
+		
+		// Se tem namespace
+		if (count($class_parts) > 1) {
 			$class_name = array_pop($class_parts);
-			$namespaces = implode('/',$class_parts);
+			$namespaces = implode('/', $class_parts);
 			$path .= Drumon::to_underscore($namespaces).'/';
-			$file_name = $class_name.'Controller';
+			$file_name = Drumon::to_underscore($class_name.'Controller');
+		}else{
+			$namespaces = null;
+			$file_name = Drumon::to_underscore($real_class_name);
+			$class_name = $request->controller_name;
 		}
 		
 		// Inclui o controlador.
-		include($path.Drumon::to_underscore($file_name).'.php');
-		$full_class_name = $request->controller_name.'Controller';
+		include($path.$file_name.'.php');
 		
 		// Inicia o controlador e chama a ação.
-		$controller = new $full_class_name($request,$namespaces,$class_name);
+		$controller = new $real_class_name($request, $namespaces, $class_name);
 		return $controller->execute($request->action_name);
 	}
 	

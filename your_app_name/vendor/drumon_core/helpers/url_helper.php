@@ -22,13 +22,11 @@ class UrlHelper extends Helper {
 	 * @return string - Caminho completo da url.
 	 */
 	function to() {
-		if(func_num_args() === 2){
-			if(func_get_arg(0) == 'image'){
-				return $this->image(func_get_arg(1));
-			}
-		}else{
-			return APP_DOMAIN.func_get_arg(0);
+		if(func_num_args() === 2 && func_get_arg(0) == 'image') {
+			return $this->image(func_get_arg(1));
 		}
+		
+		return APP_DOMAIN.func_get_arg(0);
 	}
 	
 	
@@ -44,7 +42,7 @@ class UrlHelper extends Helper {
 		if(substr($name,0,3) === 'to_') {
 			return APP_DOMAIN.$this->request->url_for($named_route,$arguments);
 		}else{
-			trigger_error('Method '.$name.' not exist');
+			trigger_error('Method '.$name.' not exist',E_USER_ERROR);
 		}
 	}
 

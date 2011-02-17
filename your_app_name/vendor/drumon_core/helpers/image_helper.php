@@ -24,12 +24,12 @@ class ImageHelper extends Helper {
 	 * @param Array $options - Parâmetros.
 	 * @return string - Código html para inclusão de imagens.
 	 */
-	public function resize($image,$width,$height,$crop = "",$options = array()) {
+	public function resize($image, $width, $height, $crop = "", $options = array()) {
 		$img = '<img src="'.IMAGES_PATH."image.php/".substr($image,strrpos($image,"/"),strlen($image))."?width=".$width."&height=".$height."&cropratio=".$crop."&image=".$image.'" ';
 		foreach ($options as $key => $value) {
 			$img .= $key.'="'.$value.'" ';
 		}
-		$img .= ' />';
+		$img .= '/>';
 		return $img;
 	}
 
@@ -49,8 +49,7 @@ class ImageHelper extends Helper {
 		if ($email != "" && isset($email)) {
 	    $gravatarMd5 = md5($email);
 	  }
-	//"?default=" . urlencode( $default ) .
-
+		//"?default=" . urlencode( $default ) .
 		return '<img src="http://www.gravatar.com/avatar/'.$gravatarMd5.$default.'" width="56" alt="Avatar">';
 	}
 	
@@ -66,7 +65,7 @@ class ImageHelper extends Helper {
 	public function fake($size='350x150',$text=null,$color=null) {
 		$html = '';
 		if($text != null) $text = '&text='.str_replace(' ','+',$text);
-		$html = '<img src="http://placehold.it/'.$size.'/'.$color.''.$text.' ">';
+		$html = '<img src="http://placehold.it/'.$size.'/'.$color.''.$text.'">';
 		return $html;
 	}
 	
