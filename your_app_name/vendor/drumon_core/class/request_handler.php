@@ -114,78 +114,79 @@ class RequestHandler {
 		if($uri[0] === '' || $uri[0] === '/index.php') {
 			if(isset($route[$this->method]['/'])) return $route[$this->method]['/'];
 			if(isset($route['*']['/'])) return $route['*']['/'];
-		}else{
-			
-			// Junta as rotas do método com as rotas que aceitam todos os métodos.
-			$route_list = array();
-			if(isset($route['*'])) $route_list = $route['*'];
-			
-			// Pega as rotas defindas com o método requisitado e junta com o geral.
-			if(isset($route[$this->method])) {
-				$route_list = array_merge($route_list, $route[$this->method]);
-				//if($route_list != NULL) {
-				//$route_list = array_merge($route_list, $route[$this->method]);
-				//}else{
-				//$route_list = $route[$this->method];
-				//}
-			}
-			// Se não existe rota já retorna false.
-			if(empty($route_list)) return false;
-			
-			// Retorna rota se ela for estática.
-			if(isset($route_list[$uri[0]])) {
-				return $route_list[$uri[0]];
-			}else if(isset($route_list[$uri[0].'/'])) {
-				return $route_list[$uri[0].'/'];
-			}
-			
-			$uri[0] = substr($uri[0],1);
-			$uri_parts = explode('/', $uri[0]);	
-			
-			foreach ($route_list as $route => $values) {
-				$route = $this->strip_slash(substr($route,1));
-				$route_parts = explode('/', $this->strip_slash($route));
-
-				// Pula caso seja o root.
-				if(!$route) continue;
-				
-				// Pula se quantidade de partes for diferente.
-				if(sizeof($uri_parts) !== sizeof($route_parts) ) continue;
-				
-				// Pula se parte estática for diferente.
-				$static = explode(':',$route);
-				if(substr($uri[0],0,strlen($static[0]))!==$static[0]) continue;
-				
-				// Pega as variaveis dinamicas
-				preg_match_all('@:([\w]+)@', $route, $params_name, PREG_PATTERN_ORDER);
-
-				$params_name = $params_name[0];
-				
-				// Se não tem variável então pula.
-				if(!count($params_name)) continue;
-				
-				$route_regex = $route;
-				$route_regex = str_replace('/','\/',$route_regex);
-				
-				foreach ($params_name as $name) {
-					$regex = '[.a-zA-Z0-9_\+\-%]';
-					if (isset($values[$name])) $regex = $values[$name];
-					
-					// TODO: rever se vai ficar ou não o preg no lugar do str
-					//$route_regex = str_replace($name,'('.$regex.'+)',$route_regex);
-					$route_regex = preg_replace('/'.$name.'/','('.$regex.'+)',$route_regex,1);
-				}
-				
-				if(preg_match('/'.$route_regex.'/' , $uri[0], $matches) === 1){
-					array_shift($matches);
-					foreach ($params_name as $key => $value) {
-						$this->params[substr($value,1)] = $matches[$key];
-					}
-					return $values;
-				}
-			}
-			return false;
 		}
+		
+		if ($uri[0] === '' || $uri[0] === '/index.php') return array();
+			
+		// Junta as rotas do método com as rotas que aceitam todos os métodos.
+		$route_list = array();
+		if(isset($route['*'])) $route_list = $route['*'];
+		
+		// Pega as rotas defindas com o método requisitado e junta com o geral.
+		if(isset($route[$this->method])) {
+			$route_list = array_merge($route_list, $route[$this->method]);
+		}
+		// Se não existe rota já retorna false.
+		if(empty($route_list)) return false;
+		
+		
+		// Retorna rota se ela for estática.
+		if(isset($route_list[$uri[0]])) {
+			return $route_list[$uri[0]];
+		}else if(isset($route_list[$uri[0].'/'])) {
+			return $route_list[$uri[0].'/'];
+		}
+		
+		$uri[0] = substr($uri[0],1);
+		$uri_parts = explode('/', $uri[0]);	
+		
+		foreach ($route_list as $route => $values) {
+			$route = $this->strip_slash(substr($route,1));
+			$route_parts = explode('/', $this->strip_slash($route));
+
+			// Pula caso seja o root.
+			if(!$route) continue;
+			
+			// Pula se quantidade de partes for diferente.
+			if(sizeof($uri_parts) !== sizeof($route_parts) ) continue;
+			
+			// Pula se parte estática for diferente.
+			$static = explode(':',$route);
+			if(substr($uri[0],0,strlen($static[0]))!==$static[0]) continue;
+			
+			// Pega as variaveis dinamicas
+			preg_match_all('@:([\w]+)@', $route, $params_name, PREG_PATTERN_ORDER);
+
+			$params_name = $params_name[0];
+			// Se não tem variável então pula.
+			if(!count($params_name)) continue;
+			
+			$route_regex = $route;
+			$route_regex = str_replace('/','\/',$route_regex);
+			
+			foreach ($params_name as $name) {
+				$regex = '[.a-zA-Z0-9_\+\-%]';
+				if (isset($values[$name])) $regex = $values[$name];
+				// TODO: Se colocar as variaveis :id: da par colocar com str_replace
+				//$route_regex = str_replace($name,'('.$regex.'*)',$route_regex);
+				$route_regex = preg_replace('/'.$name.'/','('.$regex.'*)',$route_regex,1);
+			}
+			
+			$route_regex .= '$';
+			
+			if(preg_match('/'.$route_regex.'/' , $uri[0], $matches) === 1){
+				// Remove o primeiro valor encontrado no preg_march.
+				array_shift($matches);
+				// Se o numero de paramentros da rota for diferente da URI pula.
+				if (count($params_name) != count($matches)) continue;
+
+				foreach ($params_name as $key => $value) {
+					$this->params[substr($value,1)] = $matches[$key];
+				}
+				return $values;
+			}
+		}
+		return false;
 	}
 	
 	
@@ -194,14 +195,13 @@ class RequestHandler {
 
 		if(substr($name,-5,strlen($name)-1) === '_path') {
 			return $this->url_for($named_route,$arguments);
-		}else{
-			trigger_error('Method '.$name.' not exist');
 		}
+		
+		trigger_error('Method '.$name.' not exist', E_USER_ERROR);
 	}
 	
 	
 	public function url_for($named_route, $params = array()) {
-		
 		// Junta as rotas do método com as rotas que aceitam todos os métodos.
 		$route_list = array();
 		if(isset($this->routes['*'])) $route_list = $this->routes['*'];
