@@ -27,7 +27,7 @@ class Template {
 	 * @access public
 	 * @var boolean
 	 */
-	public $gzip = true;
+	public $gzip;
 	
 	/** 
 	 * Armazena o diretório padrão das partials.
@@ -46,21 +46,13 @@ class Template {
 	public $params = array();
 	
 	
-	public function __construct($variables = array()) {
+	public function __construct($variables = array(), $gzip = true) {
 		$this->variables = $variables;
-	}
-
-	/**
-	 * Renderiza a página.
-	 *
-	 * @param string $filename - Arquivo da página a ser renderizada.
-	 * @return string - Código fonte do template renderizado.
-	 */
-	public function render_page($filename) {
-		if($this->gzip && ini_get('zlib.output_compression') != 1){
-			ob_start('ob_gzhandler');
-		}	
-		return $this->fetch($filename);
+		$this->gzip = $gzip;
+		
+		if($this->gzip && ini_get('zlib.output_compression') != 1) {
+			ob_start('ob_gzhandler'); // TODO: se 304 Not Modified não pode usar isso.
+		}
 	}
 
 	/**
@@ -70,8 +62,7 @@ class Template {
 	 * @return void
 	 */
 	public function render($view) {
-		$view = ($view[0] === '/') ? $view : $this->fetch(ROOT.'/app/views/'.$view.'.php');
-		echo $view;
+		return ($view[0] === '/') ? $this->render_file(ROOT.$view.'.php') : $this->render_file(ROOT.'/app/views/'.$view.'.php');
 	}
 
 	/**
@@ -81,16 +72,16 @@ class Template {
 	 * @return void
 	 */
 	public function partial($view) {
-		echo $this->fetch(ROOT.'/app/views/'.$this->partial_path.$view.'.php');
+		return $this->render_file(ROOT.'/app/views/'.$this->partial_path.$view.'.php');
 	}
 
 	/**
-	 * Analisa o modelo especificado e retorna seu conteúdo.
+	 * Obtem o conteúdo do arquivo processado.
 	 *
-	 * @param   string $___filename
+	 * @param   string $filename
 	 * @return  string
 	 */
-	public function fetch($filename) {
+	public function render_file($filename) {
 		ob_start();
 		extract($this->variables, EXTR_REFS | EXTR_OVERWRITE);
 		include($filename);
@@ -108,6 +99,16 @@ class Template {
 	public function get($name)	{
 		return $this->variables[$name];
 	}
+	
+	/**
+	 * Obtém todas as variáveis.
+	 *
+	 * @param   string $name - Nome da variável.
+	 * @return  mixed - Valor da variável.
+	 */
+	public function get_all()	{
+		return $this->variables;
+	}
 
 	/**
 	 * Adiciona uma variável a view.
@@ -120,7 +121,6 @@ class Template {
 		$this->variables[$name] = $value;
 	}
 	
-
 	/**
 	 * Remove uma variável do template.
 	 *

@@ -21,7 +21,15 @@ class Event {
 	private $event_list = array();
 	
 	private function __construct() {}
-	private function __clone() {}
+	
+	/**
+	 * Throws an exception on clone
+	 *
+	 * @throws Exception
+	 */
+	public final function __clone() { 
+		throw new BadMethodCallException("Clone is not allowed"); 
+	}
 	
 	/**
 	 * Add event

@@ -36,7 +36,7 @@ class Drumon {
 		include($path.$file_name.'.php');
 		
 		// Inicia o controlador e chama a ação.
-		$controller = new $real_class_name($request, $namespaces, $class_name);
+		$controller = new $real_class_name($request, new Template(), $namespaces, $class_name);
 		return $controller->execute($request->action_name);
 	}
 	

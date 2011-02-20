@@ -1,13 +1,15 @@
-<?
+<?php
 /**
  * Drumon Framework: Build fast web applications
  * Copyright (C) 2010 Sook - Desenvolvendo inovações (http://www.sook.com.br)
  * Licensed under GNU General Public License.
+ *
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version SVN: 1
  */
 
 /**
  * Módulo para vídeo
- *
  * @author Sook contato@sook.com.br
  * @package models
  */

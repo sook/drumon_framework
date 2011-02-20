@@ -12,7 +12,7 @@
  * @abstract
  * @author Sook contato@sook.com.br
  */
-abstract class Controller {
+class Controller {
 	
 	
 	/** 
@@ -43,14 +43,6 @@ abstract class Controller {
 	 * @var array
 	 */
 	protected $params = array();
-	
-	
-	/** 
-	 * Variáveis que são utilizadas na view.
-	 *
-	 * @var array
-	 */
-	private $variables = array();
 	
 	
 	/**
@@ -89,11 +81,12 @@ abstract class Controller {
 	 * @param object $request - Instância do Request Handler.
 	 * @param array $locale - Referência da variável com os dados de internacionalização.
 	 */
-	public function __construct($request, $namespaces, $class_name) {
+	public function __construct($request, $template, $namespaces, $class_name) {
+		$this->request = $request;
 		$this->params = $request->params;
+		$this->template = $template;
 		$this->namespaces = $namespaces;
 		$this->class_name = $class_name;
-		$this->request = $request;
 	}
 	
 	/**
@@ -138,41 +131,7 @@ abstract class Controller {
 	 * @return void
 	 */
 	public function add($name, $value) {
-		$this->variables[$name] = $value;
-	}
-
-	/**
-	 * Renderiza as Views.
-	 *
-	 * @access public
-	 * @param string $content - Um conteúdo para renderizar.
-	 * @return void
-	 */
-	public function execute_render() {
-		// Inicia o sistema de template
-		$this->template = new Template($this->variables);
-		// Seta os parametros da requisição no template.
-		$this->template->params = $this->params;
-		// Carrega os helpers
-		$this->load_helpers();
-		
-		// Se não tem conteúdo setado no controller.
-		if($this->content_for_layout === null) {
-			// Se não começar com / então chama a convernção do framework.
-			if ($this->view[0] != '/') {
-				$this->view = '/app/views/'.Drumon::to_underscore($this->namespaces).'/'.Drumon::to_underscore($this->class_name).'/'.$this->view;
-			}
-			$html = $this->template->render_page(ROOT.$this->view.".php");
-		}
-		
-		// Para não redenrizar layout.
-		// Setar no controller: var $layout = null;
-		if(!empty($this->layout)) {
-			$this->template->add('content_for_layout',$html);
-			$html = $this->template->fetch(ROOT.'/app/views/layouts/'.$this->layout.'.php');
-		}
-		
-		return $html;
+		$this->template->add($name, $value);
 	}
 	
 	/**
@@ -209,17 +168,37 @@ abstract class Controller {
 	}
 
 	/**
-	 * Passa valor de status para o cabeçalho.
+	 * Renderiza as Views.
 	 *
 	 * @access public
-	 * @param string $status - Status de cabeçalho.
+	 * @param string $content - Um conteúdo para renderizar.
 	 * @return void
 	 */
-	function header($status) {
-		header($status);
+	public function execute_render() {
+		// Seta os parametros da requisição no template.
+		$this->template->params = $this->params;
+		// Carrega os helpers
+		$this->load_helpers();
+		
+		// Se não tem conteúdo setado no controller.
+		if($this->content_for_layout === null) {
+			// Se não começar com / então chama a convenção do framework.
+			if ($this->view[0] != '/') {
+				$this->view = '/app/views/'.Drumon::to_underscore($this->namespaces).'/'.Drumon::to_underscore($this->class_name).'/'.$this->view;
+			}
+			$html = $this->template->render_file(ROOT.$this->view.".php");
+		}
+		
+		// Para não redenrizar layout.
+		// Setar no controller: var $layout = null;
+		if(!empty($this->layout)) {
+			$this->template->add('content_for_layout',$html);
+			$html = $this->template->render_file(ROOT.'/app/views/layouts/'.$this->layout.'.php');
+		}
+		
+		return $html;
 	}
-
-
+	
 	/**
 	 * Seta os helpers a serem carregados.
 	 *
