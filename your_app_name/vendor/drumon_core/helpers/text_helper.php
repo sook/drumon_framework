@@ -213,7 +213,7 @@ class TextHelper extends Helper {
 		}
 		
 		if (!isset($this->translations[$file_name])) {
-			$this->translations[$file_name] = include(ROOT.'/config/locales/'.LANGUAGE.'/'.$file_name.'.php');
+			$this->translations[$file_name] = include(ROOT.'/config/locales/'.$this->language.'/'.$file_name.'.php');
 		}
 
 		$text = (isset($this->translations[$file_name][$key])) ? $this->translations[$file_name][$key] : implode('.',$parts);

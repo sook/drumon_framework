@@ -69,10 +69,12 @@ class Database {
 	 * @access public
 	 * @return void
 	 */
-	public function connect(){
-		$this->connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die("Não foi possível conectar ao banco de dados, verifique os seus dados.");
-		mysql_select_db(DB_NAME, $this->connection) or die("O banco de dados informado não existe.");
-		$this->query("SET NAMES '".CHARSET."'"); //persian support
+	public function connect() {
+		$app = App::get_instance();
+		
+		$this->connection = mysql_connect($app->config['db']['host'], $app->config['db']['user'], $app->config['db']['password']) or die("Não foi possível conectar ao banco de dados, verifique os seus dados.");
+		mysql_select_db($app->config['db']['name'], $this->connection) or die("O banco de dados informado não existe.");
+		$this->query("SET NAMES '".$app->config['db']['charset']."'"); //persian support
 	}
 
 	/**

@@ -3,7 +3,8 @@
 	class HomeController extends AppController {
 	
 		function index() {
-			$this->add('title','Bem Vindo');
+			// Gera chave para o app_secret
+			$this->add('app_secret', md5(uniqid()));
 		}
 	}
 	

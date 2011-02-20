@@ -9,7 +9,7 @@
 		<meta name="Author" content="">
 		<meta name="csrf-token" content="<? echo REQUEST_TOKEN; ?>">
 		
-		<title>Drumon Framework - <?php echo $title; ?></title>
+		<title>Drumon Framework - <? echo $html->block('title'); ?></title>
 		<?php echo $html->css(array('main'),'show'); ?>
 		<?php //echo $html->js(array('libs/'.JS_FRAMEWORK,'application'),'show'); ?>
 

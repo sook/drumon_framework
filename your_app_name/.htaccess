@@ -11,12 +11,12 @@ RewriteEngine On
 </Files>
 
 # Protect application and system files from being viewed
-RewriteRule ^(?:app|config|plugins)\b.* index.php/$0 [L]
+RewriteRule ^(?:app|config|plugins)\b.* bootstrap.php/$0 [L]
 
 # Allow any files or directories that exist to be displayed directly
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 # otherwise forward it to index.php
-RewriteRule .* index.php?/$0 [PT]
+RewriteRule .* bootstrap.php?/$0 [PT]
 #RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]

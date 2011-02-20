@@ -29,13 +29,6 @@ class Controller {
 	 */
 	protected $layout = "default";
 	
-	/** 
-	 * Arquivos helpers a serem usados pelo controlador.
-	 *
-	 * @var array
-	 */
-	protected $helpers = array();
-	
 	
 	/** 
 	 * Contém os parâmetros passados na requisição HTTP (GET e POST).
@@ -81,7 +74,8 @@ class Controller {
 	 * @param object $request - Instância do Request Handler.
 	 * @param array $locale - Referência da variável com os dados de internacionalização.
 	 */
-	public function __construct($request, $template, $namespaces, $class_name) {
+	public function __construct($app, $request, $template, $namespaces, $class_name) {
+		$this->app = $app;
 		$this->request = $request;
 		$this->params = $request->params;
 		$this->template = $template;
@@ -184,7 +178,7 @@ class Controller {
 		if($this->content_for_layout === null) {
 			// Se não começar com / então chama a convenção do framework.
 			if ($this->view[0] != '/') {
-				$this->view = '/app/views/'.Drumon::to_underscore($this->namespaces).'/'.Drumon::to_underscore($this->class_name).'/'.$this->view;
+				$this->view = '/app/views/'.App::to_underscore($this->namespaces).'/'.App::to_underscore($this->class_name).'/'.$this->view;
 			}
 			$html = $this->template->render_file(ROOT.$this->view.".php");
 		}
@@ -207,8 +201,7 @@ class Controller {
 	 * @return void
 	 */
 	public function helpers($helpers)	{
-		$helpers = is_array($helpers) ? $helpers : array($helpers);
-		$this->helpers = array_merge($this->helpers, $helpers);
+		$this->app->add_helpers($helpers);
 	}
 
 	/**
@@ -219,22 +212,19 @@ class Controller {
 	 */
 	private function load_helpers() {
 		// Helpers existentes no core.
-		$core_helpers = array('Date','Html','Image','Text','Paginate','Url');
-		// Transforma a string de helpers em uma array.
-		$default_helpers = (AUTOLOAD_HELPERS === '') ? array() : explode(',',AUTOLOAD_HELPERS);
-		// Junta os helpers padrões com os helpers setados no controlador.
-		$this->helpers = array_merge($this->helpers, $default_helpers);
+		$core_helpers = array('date','html','image','text','paginate','url');
+
 		// Adiciona os helpers na view.
-		foreach ($this->helpers as $helper) {
-			$helper = trim($helper);
+		foreach ($this->app->helpers as $helper) {
+			$helper = strtolower(trim($helper));
 			$local = in_array($helper, $core_helpers) ? CORE : ROOT.'/app';
-			require_once $local."/helpers/".strtolower($helper)."_helper.php";
-			$class = $helper.'Helper';
-			$this->template->add(strtolower($helper), new $class($this->request));
+			require_once $local."/helpers/".$helper."_helper.php";
+			$class = ucfirst($helper).'Helper';
+			$this->template->add($helper, new $class($this->request, $this->app->config['language']));
 		}
 
 		// Adiciona os helpers requeridos em outros helpers.
-		foreach ($this->helpers as $helper) {
+		foreach ($this->app->helpers as $helper) {
 			$helper = trim($helper);
 			$helper = $this->template->get(strtolower($helper));
 			foreach ($helper->uses as $name) {

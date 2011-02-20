@@ -15,15 +15,6 @@ class PaginateHelper extends Helper {
 	
 	var $uses = array('Text');
 
-	/**
-	 * Carrega a classe definindo seu idioma.
-	 *
-	 * @param string $locale - Referência da variável com os dados de internacionalização.
-	 * @access public
-	 */
-	public function __construct($request){
-		parent::__construct($request);
-	}
 
 	/**
 	 * Verifica a existência de paginação.

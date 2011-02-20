@@ -14,13 +14,15 @@
  */
 abstract class Helper {
 	
+	
+	
 	/** 
-	 * Referência da variável com os dados de internacionalização.
+	 * Língua da aplicação
 	 *
 	 * @access protected
 	 * @var array
 	 */
-	protected $locale;
+	protected $language;
 	
 	
 	
@@ -44,11 +46,12 @@ abstract class Helper {
 	 * Construtora da Classe.
 	 *
 	 * @access public
-	 * @param array $locale - Referência da variável com os dados de internacionalização.
+	 * @param array $request - Request
 	 * @return void
 	 */
-	public function __construct($request) {
+	public function __construct($request, $language) {
 		$this->request = $request;
+		$this->language = $language;
 	}
 
 	/**

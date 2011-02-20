@@ -1,7 +1,7 @@
 <?php
 
 	// Caminho para os módulos
-	if (ENV === 'production') {
+	if ($app->config['env'] === 'production') {
 		define('MODULES_PATH', APP_DOMAIN.'/public/modules/');
 	}else{
 		define('MODULES_PATH', APP_DOMAIN.'/public/modules/');
