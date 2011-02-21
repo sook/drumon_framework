@@ -14,21 +14,37 @@
 	include(CORE.'/class/template.php');
 	include(CORE.'/class/controller.php');
 	
+	// Obtem a instancia da aplicação
 	$app = App::get_instance();
+	
+	// Configurações padrões do framework
+	$app->config['app_domain']       = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']);
+	$app->config['stylesheets_path'] = $app->config['app_domain'].'/public/stylesheets/';
+	$app->config['javascripts_path'] = $app->config['app_domain'].'/public/javascripts/';
+	$app->config['images_path']      = $app->config['app_domain'].'/public/images/';
+	
 	
 	$route = array();
 	$route['404'] = '404.html'; // rota padrão do erro 404
 	$route['401'] = '401.html'; // rota padrão do erro 401
 	
 	include(ROOT.'/config/routes.php');
-	include(ROOT.'/app/controllers/app_controller.php');
 	include(ROOT.'/config/application.php');
 	include(ROOT.'/config/enviroments/'.$app->config['env'].'.php');
+	
+	// Seta as constantes mais utilizadas
+	define('APP_DOMAIN',       $app->config['app_domain']);
+	define('STYLESHEETS_PATH', $app->config['stylesheets_path']);
+	define('JAVASCRIPTS_PATH', $app->config['javascripts_path']);
+	define('IMAGES_PATH',      $app->config['images_path']);
+	define('APP_SECRET',       $app->config['app_secret']);
 	
 	// Carrega plugins
 	foreach ($app->plugins as $plugin) {
 		require_once(ROOT.'/vendor/plugins/'.$plugin.'/init.php');
 	}
+	
+	include(ROOT.'/app/controllers/app_controller.php');
 	
 	// Dispara o evento de inicialização do Framework
 	$app->fire_event('on_init');

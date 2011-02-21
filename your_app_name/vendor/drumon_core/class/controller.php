@@ -200,7 +200,7 @@ class Controller {
 	 * @param array $helpers - Helpers a serem carregados.
 	 * @return void
 	 */
-	public function helpers($helpers)	{
+	public function add_helpers($helpers)	{
 		$this->app->add_helpers($helpers);
 	}
 

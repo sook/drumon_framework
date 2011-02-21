@@ -16,7 +16,7 @@
 	$app->config['js_framework'] = 'jquery';
 	
 	// Segredo da aplicação para proteção contra CSRF. !ALTERE ESSE VALOR!
-	define('APP_SECRET','altere-esse-valor-urgente');
+	$app->config['app_secret'] = 'altere-esse-valor-urgente';
 	
 	// Configurações personalizadas de sua aplicação
 	// $app->config['key'] = 'value';

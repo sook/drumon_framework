@@ -1,12 +1,12 @@
 <?php
 	
 	// Domínio de sua aplicação
-	define('APP_DOMAIN','http://localhost/sook/drumon_framework/your_app_name/');
-	
+	//$app->config['app_domain'] = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']);
+
 	// Application Paths
-	define('STYLESHEETS_PATH', APP_DOMAIN.'/public/stylesheets/');
-	define('JAVASCRIPTS_PATH', APP_DOMAIN.'/public/javascripts/');
-	define('IMAGES_PATH',      APP_DOMAIN.'/public/images/');
+	//$app->config['stylesheets_path'] = $app->config['app_domain'].'/public/stylesheets/';
+	//$app->config['javascripts_path'] = $app->config['app_domain'].'/public/javascripts/';
+	//$app->config['images_path'] = $app->config['app_domain'].'/public/images/';
 	
 	// Configurações do banco de dados
 	$app->config['db'] = array(
