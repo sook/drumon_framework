@@ -1,5 +1,5 @@
 # Set host for production enviroment
-#SetEnvIf Host "^yourdomain.com" ENVIRONMENT=production
+#SetEnvIf Host "^(www.)?yourdomain.com" ENVIRONMENT=production
 
 # Turn on URL rewriting
 RewriteEngine On
