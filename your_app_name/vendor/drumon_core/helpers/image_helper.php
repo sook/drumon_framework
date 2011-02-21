@@ -14,32 +14,26 @@
 class ImageHelper extends Helper {
 
 	/**
-	 * Retorna código html da imagem redimensionada.
+	 * Retorna a url com a imagem alterada.
 	 *
 	 * @access public
 	 * @param String $image - Nome da imagem a ser redimensionanda.
 	 * @param String $height - Altura da imagem.
 	 * @param String $width - Largura da imagem.
 	 * @param String $crop - Local a ser cortado.
-	 * @param Array $options - Parâmetros.
-	 * @return string - Código html para inclusão de imagens.
+	 * @return string - Url formatada com o tamanho do thumb.
 	 */
-	public function resize($image, $width, $height, $crop = "", $options = array()) {
-		$img = '<img src="'.IMAGES_PATH."image.php/".substr($image,strrpos($image,"/"),strlen($image))."?width=".$width."&height=".$height."&cropratio=".$crop."&image=".$image.'" ';
-		foreach ($options as $key => $value) {
-			$img .= $key.'="'.$value.'" ';
-		}
-		$img .= '/>';
-		return $img;
+	public function resize($image, $width, $height, $crop = "") {
+		return IMAGES_PATH."image.php/".substr($image,strrpos($image,"/"),strlen($image))."?width=".$width."&height=".$height."&cropratio=".$crop."&image=".$image;
 	}
 
 	/**
-	 * Retorna imagem do site gravatar através do fornecimento do email.
+	 * Retorna url  da imagem do site gravatar através do fornecimento do email.
 	 *
 	 * @access public
 	 * @param string $email - Email para verificação de imagem.
 	 * @param string $default
-	 * @return string - Código html de imagem para visualização de imagem hospedada no gravatar.
+	 * @return string - Url com imagem do gravatar.
 	 */
 	public function gravatar($email, $default = null) {
 		$gravatarMd5 = "";
@@ -50,7 +44,8 @@ class ImageHelper extends Helper {
 	    $gravatarMd5 = md5($email);
 	  }
 		//"?default=" . urlencode( $default ) .
-		return '<img src="http://www.gravatar.com/avatar/'.$gravatarMd5.$default.'" width="56" alt="Avatar">';
+		
+		return 'http://www.gravatar.com/avatar/'.$gravatarMd5.$default;
 	}
 	
 	/**
