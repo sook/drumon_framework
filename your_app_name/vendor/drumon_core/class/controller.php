@@ -59,6 +59,13 @@ class Controller {
 	 */
 	private $view;
 	
+	/**
+	 * Nome da pasta onde a view do controller está.
+	 *
+	 * @var string
+	 */
+	private $view_folder;
+	
 	
 	/**
 	 * Conteúdo para o layout.
@@ -66,7 +73,10 @@ class Controller {
 	 * @var string
 	 */
 	private $content_for_layout = null;
-
+	
+	
+	public $http_status_code = null;
+	
 	/**
 	 * Instancia um novo template com as configurações, parâmetros e idioma padrões.
 	 *
@@ -74,13 +84,13 @@ class Controller {
 	 * @param object $request - Instância do Request Handler.
 	 * @param array $locale - Referência da variável com os dados de internacionalização.
 	 */
-	public function __construct($app, $request, $template, $namespaces, $class_name) {
+	public function __construct($app, $request, $template) {
 		$this->app = $app;
 		$this->request = $request;
 		$this->params = $request->params;
 		$this->template = $template;
-		$this->namespaces = $namespaces;
-		$this->class_name = $class_name;
+	//	$this->namespaces = $namespaces;
+	//	$this->class_name = $class_name;
 	}
 	
 	/**
@@ -90,14 +100,15 @@ class Controller {
 	 * @param string $action_name - Ação a ser executada.
 	 * @return void
 	 */
-	public function execute($action_name) {
-		$this->view = $action_name;
+	public function execute_action() {
+		$this->view_folder = $this->request->controller_name;
+		$this->view = $this->request->action_name;
+		
+		$action_name = $this->view;
 		
 		$this->before_filter();
 		$this->$action_name();
 		$this->after_filter();
-		
-		return $this->execute_render();
 	}
 
 	/**
@@ -134,8 +145,14 @@ class Controller {
 	 * @param string $view 
 	 * @return void
 	 */
-	public function render($view) {
+	public function render($view, $http_status_code = 200) {
 		$this->view = $view;
+		$this->http_status_code = $http_status_code;
+	}
+	
+	
+	public function http_status($http_status_code) {
+		$this->http_status_code = $http_status_code;
 	}
 	
 	/**
@@ -144,8 +161,9 @@ class Controller {
 	 * @param string $text 
 	 * @return void
 	 */
-	public function render_text($text) {
+	public function render_text($text, $http_status_code = 200) {
 		$this->content_for_layout = $text;
+		$this->http_status_code = $http_status_code;
 	}
 
 	/**
@@ -156,9 +174,26 @@ class Controller {
 	 * @param boolean $full - Verificador de url completa.
 	 * @return void
 	 */
-	function redirect($url,$full = false) {
+	public function redirect($url,$full = false) {
 		$url = $full ? $url : APP_DOMAIN.$url;
 		header('Location: '.$url);
+	}
+	
+	
+	public function render_erro($code, $file_name = null) {
+		$this->http_status_code = $code;
+		if (empty($file_name)) {
+			if (is_array($this->request->routes[$code])) {
+				$this->view_folder = $this->request->routes[$code][0];
+				$this->view = $this->request->routes[$code][1];
+			} else {
+				$this->layout = null;
+				$this->content_for_layout = file_get_contents(ROOT.'/public/'.$this->request->routes[$code]);
+			}
+		} else {
+			$this->layout = null;
+			$this->content_for_layout = file_get_contents(ROOT.'/public/'.$file_name);
+		}
 	}
 
 	/**
@@ -168,26 +203,25 @@ class Controller {
 	 * @param string $content - Um conteúdo para renderizar.
 	 * @return void
 	 */
-	public function execute_render() {
-		// Seta os parametros da requisição no template.
-		$this->template->params = $this->params;
-		// Carrega os helpers
-		$this->load_helpers();
+	public function execute_view() {
+		$this->template->params = $this->params; // Seta os parametros da requisição no template.
+		$this->load_helpers(); // Carrega os helpers
 		
-		// Se não tem conteúdo setado no controller.
+		// Renderiza view se não foi setado conteúdo manualmente.
 		if($this->content_for_layout === null) {
 			// Se não começar com / então chama a convenção do framework.
 			if ($this->view[0] != '/') {
-				$this->view = '/app/views/'.App::to_underscore($this->namespaces).'/'.App::to_underscore($this->class_name).'/'.$this->view;
+				$this->view = '/app/views/'.App::to_underscore(str_replace('_','/',$this->view_folder)).'/'.$this->view;
 			}
-			$html = $this->template->render_file(ROOT.$this->view.".php");
+			$this->content_for_layout = $this->template->render_file(ROOT.$this->view.".php");
 		}
-		
-		// Para não redenrizar layout.
-		// Setar no controller: var $layout = null;
+
+		// Renderiza layout se possuir.
 		if(!empty($this->layout)) {
-			$this->template->add('content_for_layout',$html);
+			$this->template->add('content_for_layout', $this->content_for_layout);
 			$html = $this->template->render_file(ROOT.'/app/views/layouts/'.$this->layout.'.php');
+		} else {
+			$html = $this->content_for_layout;
 		}
 		
 		return $html;

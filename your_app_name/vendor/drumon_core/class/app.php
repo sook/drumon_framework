@@ -64,7 +64,7 @@ class App {
 	 */
 	public static function get_instance() {
 		if (!isset(self::$instance)) {
-    		self::$instance = new App();
+				self::$instance = new App();
 		}
 		return self::$instance;
 	}
@@ -141,32 +141,131 @@ class App {
 	}
 	
 	
-	public function execute_controller($app, $request) {
-		// Variáveis básicas para o controlador.
-		$path = ROOT.'/app/controllers/';
-		$real_class_name = $request->controller_name.'Controller'; // ex. HomeController || Admin_HomeController
+	public static function run() {
+		// Obtem a instancia da aplicação
+		$app = self::get_instance();		
 		
-		// Quebra em partes para ver se possui namespace
-		$class_parts = explode('_', $request->controller_name);
+		// Configurações padrões do framework
+		$app->config['app_domain']			 = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']);
+		$app->config['stylesheets_path'] = $app->config['app_domain'].'/public/stylesheets/';
+		$app->config['javascripts_path'] = $app->config['app_domain'].'/public/javascripts/';
+		$app->config['images_path']			 = $app->config['app_domain'].'/public/images/';
 		
-		// Se tem namespace
-		if (count($class_parts) > 1) {
-			$class_name = array_pop($class_parts);
-			$namespaces = implode('/', $class_parts);
-			$path .= App::to_underscore($namespaces).'/';
-			$file_name = App::to_underscore($class_name.'Controller');
-		}else{
-			$namespaces = null;
-			$file_name = App::to_underscore($real_class_name);
-			$class_name = $request->controller_name;
+		$route = array();
+		$route['400'] = '404.html';
+		$route['401'] = '401.html';
+		$route['403'] = '404.html';
+		$route['404'] = '404.html';
+		
+		include(ROOT.'/config/routes.php');
+		include(ROOT.'/config/application.php');
+		include(ROOT.'/config/enviroments/'.$app->config['env'].'.php');
+		
+		// Seta as constantes mais utilizadas
+		define('APP_DOMAIN',			 $app->config['app_domain']);
+		define('STYLESHEETS_PATH', $app->config['stylesheets_path']);
+		define('JAVASCRIPTS_PATH', $app->config['javascripts_path']);
+		define('IMAGES_PATH',			 $app->config['images_path']);
+		
+		// Carrega plugins
+		foreach ($app->plugins as $plugin) {
+			require_once(ROOT.'/vendor/plugins/'.$plugin.'/init.php');
 		}
 		
+		// Dispara o evento de inicialização do Framework
+		$app->fire_event('on_init');
+		
+		// Inclui arquivos requeridos pelo Drumon
+		include(CORE.'/class/request_handler.php');
+		include(CORE.'/class/helper.php');
+		include(CORE.'/class/template.php');
+		include(CORE.'/class/controller.php');
+		include(ROOT.'/app/controllers/app_controller.php');
+
+
+		/**
+		 * Inicia o sistema de roteamento.
+		 */
+		$request = new RequestHandler($route);
+		
+		// Se a rota existe.
+		if ($request->valid()) {
+			$status_code = 200;
+			// Token de proteção contra CSFR
+			define('REQUEST_TOKEN', $app->create_request_token());
+			
+			// Verifica se é para bloquear
+			if($app->block_csrf_protection($request)) {
+				// se bloquear renderiza pagina de erro
+				$status_code = 401;
+				if (is_array($route['401'])) {
+					$request->controller_name = $route['401'][0];
+					$request->action_name = $route['401'][1];
+					$controller = $app->load_controller($request);
+					$html = $controller->execute_view();
+				} else {
+					$html = file_get_contents(ROOT.'/public/'.$route['401']);
+				}
+			} else {
+				// se não renderiza nornalmente
+				$controller = $app->load_controller($request);
+				$html = $controller->execute_view();
+			}
+		} else {
+			// Página não encontrada.
+			$status_code = 404;
+			if (is_array($route['404'])) {
+				$request->controller_name = $route['404'][0];
+				$request->action_name = $route['404'][1];
+				$controller = $app->load_controller($request);
+				$html = $controller->execute_view();
+			} else {
+				$html = file_get_contents(ROOT.'/public/'.$route['404']);
+			}
+		}
+		
+		// Lista de Http Status básicos
+		$status_code_list = array(
+			200 => '200 OK',
+			304 => '304 Not Modified',
+			400 => '400 Bad Request',
+			401 => '401 Unauthorized',
+			403 => '403 Forbidden',
+			404 => '404 Not Found',
+			500 => '500 Internal Server Error'
+		);
+		
+		// Seta o http status
+		$status_code = !empty($controller->http_status_code) ? $controller->http_status_code : $status_code;
+		header($_SERVER["SERVER_PROTOCOL"]." ".$status_code_list[$status_code]);
+		
+		// Imprime o conteúdo
+		$app->show_content($html);
+	}
+	
+	/**
+	 * Imprime o conteúdo do site e dispara os eventos.
+	 *
+	 * @param string $content 
+	 * @return void
+	 */
+	public function show_content($content) {
+		$this->fire_event('before_render', array('content' => &$content));
+		echo $content;
+		$this->fire_event('on_complete', array('content' => $content));
+	}
+	
+	
+	public function load_controller($request) {
+		$real_class_name = $request->controller_name.'Controller'; // ex. HomeController || Admin_HomeController
+		
 		// Inclui o controlador.
-		include($path.$file_name.'.php');
+		include(ROOT.'/app/controllers/'.App::to_underscore(str_replace('_','/',$real_class_name)).'.php');
 		
 		// Inicia o controlador e chama a ação.
-		$controller = new $real_class_name($app, $request, new Template(), $namespaces, $class_name);
-		return $controller->execute($request->action_name);
+		$controller = new $real_class_name($this, $request, new Template());
+		$controller->execute_action();
+		return $controller;
 	}
 	
 	
@@ -177,8 +276,8 @@ class App {
 	 * 
 	 */
 	public function create_request_token() {
-		$token  = dechex(mt_rand());
-		$hash   = sha1(APP_SECRET.APP_DOMAIN.'-'.$token);
+		$token	= dechex(mt_rand());
+		$hash		= sha1($this->config['app_secret'].APP_DOMAIN.'-'.$token);
 		return $token.'-'.$hash;
 	}
 	
@@ -189,7 +288,7 @@ class App {
 	 * @param object $request 
 	 * 
 	 */
-	public static function block_csrf_protection($request) {
+	public function block_csrf_protection($request) {
 		
 		$unauthorized = false;
 		
@@ -200,8 +299,8 @@ class App {
 				$parts = explode('-',$request->params['_token']);
 
 				if (count($parts) == 2) {
-			    list($token, $hash) = $parts;
-			    if ($hash == sha1(APP_SECRET.APP_DOMAIN.'-'.$token)) {
+					list($token, $hash) = $parts;
+					if ($hash == sha1($this->config['app_secret'].APP_DOMAIN.'-'.$token)) {
 						$unauthorized = false;
 					}
 				}

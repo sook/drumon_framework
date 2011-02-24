@@ -6,7 +6,7 @@ Benchmark::start('Load Time');
 
 
 
-$app->add_event('after_render','show_load_time');
+$app->add_event('on_complete','show_load_time');
 
 function show_load_time() {
 	echo '<style type="text/css">
