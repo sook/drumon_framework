@@ -166,6 +166,7 @@ class App {
 		define('STYLESHEETS_PATH', $app->config['stylesheets_path']);
 		define('JAVASCRIPTS_PATH', $app->config['javascripts_path']);
 		define('IMAGES_PATH',			 $app->config['images_path']);
+		define('LANGUAGE',			   $app->config['language']);
 		
 		// Carrega plugins
 		foreach ($app->plugins as $plugin) {
@@ -349,5 +350,30 @@ class App {
 		}
 		return $clean_array;
 	}
+}
+
+$_translations = array();
+
+/**
+ * Traduz um texto com o sistema de internacionalização.
+ *
+ * @param string $text 
+ * @return string
+ */
+function t($text) {
+	$parts = explode('.',$text);
+	$file_name = 'application';
+	
+	if(count($parts) > 1) {
+		$file_name = $parts[0];
+		$text = $parts[1];
+	}
+	
+	if (!isset($_translations[$file_name])) {
+		$_translations[$file_name] = include(ROOT.'/config/locales/'.LANGUAGE.'/'.$file_name.'.php');
+	}
+
+	$text = (isset($_translations[$file_name][$text])) ? $_translations[$file_name][$text] : implode('.',$parts);
+	return $text;
 }
 ?>

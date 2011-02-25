@@ -198,35 +198,11 @@ class TextHelper extends Helper {
 	 * Traduz o Texto usando a variável de internacionalização locale.
 	 *
 	 * @param string $key - Chave da palavra no arquivo de locale.
-	 * @param boolean $ucfirst
 	 * @return string - O texto traduzido.
 	 * @access public
 	 */
-	function translate($key, $ucfirst = false) {
-		
-		$parts = explode('.',$key);
-		$file_name = 'application';
-		
-		if(count($parts) > 1) {
-			$file_name = $parts[0];
-			$key = $parts[1];
-		}
-		
-		if (!isset($this->translations[$file_name])) {
-			$this->translations[$file_name] = include(ROOT.'/config/locales/'.$this->language.'/'.$file_name.'.php');
-		}
-
-		$text = (isset($this->translations[$file_name][$key])) ? $this->translations[$file_name][$key] : implode('.',$parts);
-		if($ucfirst) $text = ucfirst($text);
-		return $text;
-	}
-	
-	/**
-	 * Atalho para o método translate.
-	 *
-	 */
-	function t($key, $ucfirst = false) {
-		return $this->translate($key,$ucfirst);
+	function translate($text) {
+		return t($text);
 	}
 }
 ?>
