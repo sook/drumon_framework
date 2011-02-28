@@ -21,7 +21,7 @@ class UrlHelper extends Helper {
 	 * @param string $url - Caminho parcial da url.
 	 * @return string - Caminho completo da url.
 	 */
-	function to() {
+	public function to() {
 		if(func_num_args() === 2 && func_get_arg(0) == 'image') {
 			return $this->image(func_get_arg(1));
 		}
@@ -54,7 +54,7 @@ class UrlHelper extends Helper {
 	 * @param string $module - Nome do módulo a ser utilizado.
 	 * @return string - Url completa da localização do módulo.
 	 */
-	function module($module) {
+	public function module($module) {
 		return MODULES_PATH.$module;
 	}
 
@@ -65,7 +65,7 @@ class UrlHelper extends Helper {
 	 * @param string $image - Nome da imagem.
 	 * @return string - Caminho para a imagem.
 	 */
-	function image($image) {
+	public function image($image) {
 		return IMAGES_PATH.$image;
 	}
 	
@@ -75,7 +75,7 @@ class UrlHelper extends Helper {
 	 * @access public
 	 * @return string
 	 */
-	function to_here() {
+	public function to_here() {
 		return $_SERVER['REQUEST_URI'];
 	}
 }

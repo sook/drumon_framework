@@ -23,7 +23,7 @@ class TextHelper extends Helper {
 	 * @param string $space - Caractere usado no lugar do espaço (default: -).
 	 * @return string -  Texto formatado.
 	 */
-	function to_slug($text, $space = "-") {
+	public function to_slug($text, $space = "-") {
 		$text = trim($text);
 
 		$search = explode(",","ç,æ,œ,á,é,í,ó,ú,à,è,ì,ò,ù,ä,ë,ï,ö,ü,ÿ,â,ê,î,ô,û,å,e,i,ø,u");
@@ -48,7 +48,7 @@ class TextHelper extends Helper {
 	 * @param string $text - Texto a ser verificado.
 	 * @return string - Texto Modificado pelo método.
 	 */
-	function twitterify($text) {
+	public function twitterify($text) {
 	  $text = preg_replace("/@(\w+)/", "<a title= \"Twitter Profile\" href=\"http://www.twitter.com/\\1\" target=\"_blank\">@\\1</a>", $text);
 	  $text = preg_replace("/#(\w+)/", "<a title=\"Twitter Search\" href=\"http://search.twitter.com/search?q=\\1\" target=\"_blank\">#\\1</a>", $text);
 		return $text;
@@ -62,7 +62,7 @@ class TextHelper extends Helper {
 	 * @return string - Texto com inclusão de links.
 
 	 */
-	function linkfy($text) {
+	public function linkfy($text) {
 		$text = preg_replace("#(^|[\n ])([\w]+?://[\w]+[^ \"\n\r\t< ]*)#", "\\1<a href=\"\\2\" target=\"_blank\">\\2</a>", $text);
 	  $text = preg_replace("#(^|[\n ])((www|ftp)\.[^ \"\t\n\r< ]*)#", "\\1<a href=\"http://\\2\" target=\"_blank\">\\2</a>", $text);
 	//	preg_replace("#http://([A-z0-9./-]+)#", '<a href="$1">$0</a>', $text);
@@ -82,7 +82,7 @@ class TextHelper extends Helper {
 	 * - `format` O pedaço de html com que a frase será destaque
 	 * - `html` Se for verdade, irá ignorar todas as tags HTML, garantindo que apenas o texto correto é destaque.
 	 */
-	function highlight($text, $phrase, $options = array()) {
+	public function highlight($text, $phrase, $options = array()) {
 		if (empty($phrase)) {
 			return $text;
 		}
@@ -121,7 +121,7 @@ class TextHelper extends Helper {
 	* @return string - Texto sem links.
 	* @access public
 	*/
-	function strip_links($text) {
+	public function strip_links($text) {
 		return preg_replace('|<a\s+[^>]+>|im', '', preg_replace('|<\/a>|im', '', $text));
 	}
 
@@ -135,7 +135,7 @@ class TextHelper extends Helper {
 	 * @return string
 	 * 
 	 */
-	function truncate($text, $max, $options = array()) {
+	public function truncate($text, $max, $options = array()) {
 		$options = array_merge(array('end'=>'...', 'exact' => true), $options);
 		if (strlen($text) > $max) {
 			$text = substr($text, 0, $max);
@@ -157,7 +157,7 @@ class TextHelper extends Helper {
 	 * @return string - Texto com as modificações.
 	 * @access public
 	 */
-	function excerpt($text, $phrase, $radius = 100, $ending = '...') {
+	public function excerpt($text, $phrase, $radius = 100, $ending = '...') {
 		if (empty($text) or empty($phrase)) {
 			return $this->truncate($text, $radius * 2, array('end'=>$ending));
 		}
@@ -201,7 +201,7 @@ class TextHelper extends Helper {
 	 * @return string - O texto traduzido.
 	 * @access public
 	 */
-	function translate($text) {
+	public function translate($text) {
 		return t($text);
 	}
 }

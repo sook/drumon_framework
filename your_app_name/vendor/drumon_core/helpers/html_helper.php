@@ -66,7 +66,7 @@ class HtmlHelper extends Helper {
 	 * @param string $media - Media do stylesheet.
 	 * @return void|string - String com o código html para adição do arquivo CSS se a opção for inline.
 	 */
-	function css($files, $type = 'add', $media = 'all') {
+	public function css($files, $type = 'add', $media = 'all') {
 		$files = is_array($files) ? $files : array($files);
 		
 		$_files = array();
@@ -95,7 +95,7 @@ class HtmlHelper extends Helper {
 	 * @param string $type - Tipo de inserção show, add(default), inline.
 	 * @return void|string - String com o código html para adição do arquivo JS se a opção for inline.
 	 */
-	function js($files, $type = 'add') {
+	public function js($files, $type = 'add') {
 		$files = is_array($files) ? $files : array($files);
 
 		$_files = array();
@@ -182,7 +182,7 @@ class HtmlHelper extends Helper {
 	
 	
 	// melhorar
-	function value($field,$data) {
+	public function value($field,$data) {
 		if(isset($data[$field])) return $data[$field];
 		return '';
 	}
@@ -241,7 +241,7 @@ class HtmlHelper extends Helper {
 	 * @param string $end_year - Ano de fim.
 	 * @param string $options - Veja select para mais detalhes.
 	 */
-	function select_date_years($field_name,$start_year,$end_year,$options = array()) {
+	public function select_date_years($field_name,$start_year,$end_year,$options = array()) {
 		$defaults = array('selected'=>Date('Y'));
 		$options = array_merge($defaults,$options);
 		
@@ -262,7 +262,7 @@ class HtmlHelper extends Helper {
 	 * @param array $options - Veja select para mais detalhes.
 	 * @return string
 	 */
-	function select_date_months($field_name, $options = array()) {
+	public function select_date_months($field_name, $options = array()) {
 		$defaults = array('selected'=>Date('m'));
 		$options = array_merge($defaults,$options);
 		
@@ -285,7 +285,7 @@ class HtmlHelper extends Helper {
 	 * @param array $options - Veja select para mais detalhes.
 	 * @return string
 	 */
-	function select_date_days($field_name,$options = array()) {
+	public function select_date_days($field_name,$options = array()) {
 		$defaults = array('selected' => Date('d'));
 		$options = array_merge($defaults,$options);
 		
