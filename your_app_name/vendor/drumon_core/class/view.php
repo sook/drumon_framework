@@ -6,12 +6,12 @@
  */
 
 /**
- * Classe para trabalhar com arquivos de template onde todas as views mais complexas podem utilizar para facilitar na mudança de layout.
+ * Classe para trabalhar com as views do Drumon Framework
  *
  * @package class
  * @author Sook contato@sook.com.br
  */
-class Template {
+class View {
 	
 	/** 
 	 * Variáveis incluídas para serem utilizadas na view.

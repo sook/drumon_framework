@@ -9,4 +9,6 @@
 	
 	include('class/drumon_model.php');
 	
+	// Adiciona o helper de paginação
+	$app->add_helpers('paginate', PLUGINS_PATH.'/drumon_model/helpers');
 ?>

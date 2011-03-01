@@ -75,8 +75,21 @@ class App {
 	 * @param string|array $helpers 
 	 * @return void
 	 */
-	public function add_helpers($helpers) {
-		$helpers = is_array($helpers) ? $helpers : array($helpers);
+	public function add_helpers($helpers_names, $custom_paths = null) {
+		// Helpers existentes no core.
+		$core_helpers = array('date','html','image','text','url','movie');
+
+		$helpers = array();
+		$helpers_names = is_array($helpers_names) ? $helpers_names : array($helpers_names);
+		foreach ($helpers_names as $helper_name) {
+			$helper_name = strtolower(trim($helper_name));
+			$local = in_array($helper_name, $core_helpers) ? CORE.'/helpers' : ROOT.'/app/helpers';
+			if ($custom_paths) {
+				$local = $custom_paths;
+			}
+			$helpers[$helper_name] = $local."/".$helper_name."_helper.php";
+		}
+		
 		$this->helpers = array_merge($this->helpers, $helpers);
 	}
 	
@@ -166,6 +179,7 @@ class App {
 		define('STYLESHEETS_PATH', $app->config['stylesheets_path']);
 		define('JAVASCRIPTS_PATH', $app->config['javascripts_path']);
 		define('IMAGES_PATH',			 $app->config['images_path']);
+		define('PLUGINS_PATH',			     ROOT.'/vendor/plugins');
 		define('LANGUAGE',			   $app->config['language']);
 		
 		// Carrega plugins
@@ -179,7 +193,7 @@ class App {
 		// Inclui arquivos requeridos pelo Drumon
 		include(CORE.'/class/request_handler.php');
 		include(CORE.'/class/helper.php');
-		include(CORE.'/class/template.php');
+		include(CORE.'/class/view.php');
 		include(CORE.'/class/controller.php');
 		include(ROOT.'/app/controllers/app_controller.php');
 
@@ -264,7 +278,7 @@ class App {
 		include(ROOT.'/app/controllers/'.App::to_underscore(str_replace('_','/',$real_class_name)).'.php');
 		
 		// Inicia o controlador e chama a ação.
-		$controller = new $real_class_name($this, $request, new Template());
+		$controller = new $real_class_name($this, $request, new View());
 		$controller->execute_action();
 		return $controller;
 	}

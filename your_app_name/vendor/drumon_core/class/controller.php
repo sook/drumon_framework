@@ -16,11 +16,11 @@ class Controller {
 	
 	
 	/** 
-	 * Arquivo de template a ser usado pelo controlador.
+	 * Objeto da classe view usado pelo controller.
 	 *
 	 * @var string
 	 */
-	private $template;
+	private $view;
 	
 	/** 
 	 * Arquivo de layout a ser usado pelo controlador, padrão default.
@@ -29,14 +29,12 @@ class Controller {
 	 */
 	protected $layout = "default";
 	
-	
 	/** 
 	 * Contém os parâmetros passados na requisição HTTP (GET e POST).
 	 *
 	 * @var array
 	 */
 	protected $params = array();
-	
 	
 	/**
 	 * Namespace do controlados
@@ -57,7 +55,7 @@ class Controller {
 	 *
 	 * @var string
 	 */
-	private $view;
+	private $view_name;
 	
 	/**
 	 * Nome da pasta onde a view do controller está.
@@ -66,7 +64,6 @@ class Controller {
 	 */
 	private $view_folder;
 	
-	
 	/**
 	 * Conteúdo para o layout.
 	 *
@@ -74,23 +71,25 @@ class Controller {
 	 */
 	private $content_for_layout = null;
 	
-	
+	/**
+	 * Http Status Code to response.
+	 *
+	 * @var string
+	 */
 	public $http_status_code = null;
 	
 	/**
-	 * Instancia um novo template com as configurações, parâmetros e idioma padrões.
+	 * Instancia um novo view com as configurações, parâmetros e idioma padrões.
 	 *
 	 * @access public
 	 * @param object $request - Instância do Request Handler.
 	 * @param array $locale - Referência da variável com os dados de internacionalização.
 	 */
-	public function __construct($app, $request, $template) {
+	public function __construct($app, $request, $view) {
 		$this->app = $app;
 		$this->request = $request;
 		$this->params = $request->params;
-		$this->template = $template;
-	//	$this->namespaces = $namespaces;
-	//	$this->class_name = $class_name;
+		$this->view = $view;
 	}
 	
 	/**
@@ -102,9 +101,9 @@ class Controller {
 	 */
 	public function execute_action() {
 		$this->view_folder = $this->request->controller_name;
-		$this->view = $this->request->action_name;
+		$this->view_name = $this->request->action_name;
 		
-		$action_name = $this->view;
+		$action_name = $this->view_name;
 		
 		$this->before_filter();
 		$this->$action_name();
@@ -128,15 +127,15 @@ class Controller {
 	public function after_filter() {}
 
 	/**
-	 * Adiciona variáveis a ser utilizadas no template.
+	 * Adiciona variáveis a ser utilizadas no view.
 	 *
 	 * @access public
-	 * @param String $name - Nome da variável que será utilizada no template.
-	 * @param Mixed $value - Valor que será adicionado a variável no template.
+	 * @param String $name - Nome da variável que será utilizada no view.
+	 * @param Mixed $value - Valor que será adicionado a variável no view.
 	 * @return void
 	 */
 	public function add($name, $value) {
-		$this->template->add($name, $value);
+		$this->view->add($name, $value);
 	}
 	
 	/**
@@ -145,8 +144,8 @@ class Controller {
 	 * @param string $view 
 	 * @return void
 	 */
-	public function render($view, $http_status_code = 200) {
-		$this->view = $view;
+	public function render($view_name, $http_status_code = 200) {
+		$this->view_name = $view_name;
 		$this->http_status_code = $http_status_code;
 	}
 	
@@ -185,7 +184,7 @@ class Controller {
 		if (empty($file_name)) {
 			if (is_array($this->request->routes[$code])) {
 				$this->view_folder = $this->request->routes[$code][0];
-				$this->view = $this->request->routes[$code][1];
+				$this->view_name = $this->request->routes[$code][1];
 			} else {
 				$this->layout = null;
 				$this->content_for_layout = file_get_contents(ROOT.'/public/'.$this->request->routes[$code]);
@@ -204,22 +203,22 @@ class Controller {
 	 * @return void
 	 */
 	public function execute_view() {
-		$this->template->params = $this->params; // Seta os parametros da requisição no template.
+		$this->view->params = $this->params; // Seta os parametros da requisição no view.
 		$this->load_helpers(); // Carrega os helpers
 		
 		// Renderiza view se não foi setado conteúdo manualmente.
 		if($this->content_for_layout === null) {
 			// Se não começar com / então chama a convenção do framework.
-			if ($this->view[0] != '/') {
-				$this->view = '/app/views/'.App::to_underscore(str_replace('_','/',$this->view_folder)).'/'.$this->view;
+			if ($this->view_name[0] != '/') {
+				$this->view_name = '/app/views/'.App::to_underscore(str_replace('_','/',$this->view_folder)).'/'.$this->view_name;
 			}
-			$this->content_for_layout = $this->template->render_file(ROOT.$this->view.".php");
+			$this->content_for_layout = $this->view->render_file(ROOT.$this->view_name.".php");
 		}
 
 		// Renderiza layout se possuir.
 		if(!empty($this->layout)) {
-			$this->template->add('content_for_layout', $this->content_for_layout);
-			$html = $this->template->render_file(ROOT.'/app/views/layouts/'.$this->layout.'.php');
+			$this->view->add('content_for_layout', $this->content_for_layout);
+			$html = $this->view->render_file(ROOT.'/app/views/layouts/'.$this->layout.'.php');
 		} else {
 			$html = $this->content_for_layout;
 		}
@@ -234,8 +233,8 @@ class Controller {
 	 * @param array $helpers - Helpers a serem carregados.
 	 * @return void
 	 */
-	public function add_helpers($helpers)	{
-		$this->app->add_helpers($helpers);
+	public function add_helpers($helpers, $custom_paths = false)	{
+		$this->app->add_helpers($helpers, $custom_paths);
 	}
 
 	/**
@@ -245,25 +244,20 @@ class Controller {
 	 * @return void
 	 */
 	private function load_helpers() {
-		// Helpers existentes no core.
-		$core_helpers = array('date','html','image','text','paginate','url');
-
 		// Adiciona os helpers na view.
-		foreach ($this->app->helpers as $helper) {
-			$helper = strtolower(trim($helper));
-			$local = in_array($helper, $core_helpers) ? CORE : ROOT.'/app';
-			require_once $local."/helpers/".$helper."_helper.php";
-			$class = ucfirst($helper).'Helper';
-			$this->template->add($helper, new $class($this->request, $this->app->config['language']));
+		foreach ($this->app->helpers as $helper_name => $helper_path) {
+			require_once $helper_path;
+			$class = ucfirst($helper_name).'Helper';
+			$this->view->add($helper_name, new $class($this->request, $this->app->config['language']));
 		}
-
+		
 		// Adiciona os helpers requeridos em outros helpers.
-		foreach ($this->app->helpers as $helper) {
-			$helper = trim($helper);
-			$helper = $this->template->get(strtolower($helper));
+		foreach ($this->app->helpers as $helper_name => $helper_path) {
+			$helper_name = trim($helper_name);
+			$helper = $this->view->get(strtolower($helper_name));
 			foreach ($helper->uses as $name) {
 				$name = strtolower($name);
-				$helper->$name = $this->template->get($name);
+				$helper->$name = $this->view->get($name);
 			}
 		}
 	}
