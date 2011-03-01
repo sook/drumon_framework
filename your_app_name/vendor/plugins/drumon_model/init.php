@@ -11,4 +11,8 @@
 	
 	// Adiciona o helper de paginação
 	$app->add_helpers('paginate', PLUGINS_PATH.'/drumon_model/helpers');
+	
+	// Adiciona internacionalização
+	$app->translations_cache['plugin:drumon_model:pagination'] = include(PLUGINS_PATH.'/drumon_model/locales/'.LANGUAGE.'/pagination.php');
+	
 ?>

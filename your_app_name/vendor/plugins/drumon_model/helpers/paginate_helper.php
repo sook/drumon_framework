@@ -136,7 +136,7 @@ class PaginateHelper extends Helper {
 	public function _prev($page,$options) {
 		$defaults = array('show'=>true);
 		$options = array_merge($defaults, $options);
-		$text = isset($options['text']) ? $options['text'] : t('pagination.prev_page');
+		$text = isset($options['text']) ? $options['text'] : t('plugin:drumon_model:pagination.prev_page');
 
 		if($this->has_prev($page)) {
 			return '<a class="prev_page" href="'.$this->previous_url($page,$options['url']).'" title="'.$text.'">'.$text.'</a>';
@@ -203,7 +203,7 @@ class PaginateHelper extends Helper {
 	public function _next($page,$options) {
 		$defaults = array('show'=>true);
 		$options = array_merge($defaults, $options);
-		$text = isset($options['text']) ? $options['text'] : t('pagination.next_page');
+		$text = isset($options['text']) ? $options['text'] : t('plugin:drumon_model:pagination.next_page');
 
 		if($this->has_next($page)) {
 			return '<a class="next_page" href="'.$this->next_url($page,$options['url']).'" title="'.$text.'">'.$text.'</a>';
@@ -233,7 +233,7 @@ class PaginateHelper extends Helper {
 		$init = $offset + 1;
 		$end = $offset + $records;
 		
-		$translated = t('pagination.page_info');
+		$translated = t('plugin:drumon_model:pagination.page_info');
 		
 		if ($page->total_pages < 2) {
 			

@@ -42,6 +42,14 @@ class App {
 	 */
 	public $helpers = array();
 	
+	
+	/**
+	 * Guarda as traduções requesitadas pelo usuário.
+	 *
+	 * @var string
+	 */
+	public $translations_cache = array();
+	
 	/**
 	 * Block object initialization
 	 *
@@ -366,7 +374,6 @@ class App {
 	}
 }
 
-$_translations = array();
 
 /**
  * Traduz um texto com o sistema de internacionalização.
@@ -375,6 +382,10 @@ $_translations = array();
  * @return string
  */
 function t($text) {
+	$app = App::get_instance();
+	
+	$app->translations_cache;
+	
 	$parts = explode('.',$text);
 	$file_name = 'application';
 	
@@ -383,11 +394,11 @@ function t($text) {
 		$text = $parts[1];
 	}
 	
-	if (!isset($_translations[$file_name])) {
-		$_translations[$file_name] = include(ROOT.'/config/locales/'.LANGUAGE.'/'.$file_name.'.php');
+	if (!isset($app->translations_cache[$file_name])) {
+		$app->translations_cache[$file_name] = include(ROOT.'/config/locales/'.LANGUAGE.'/'.$file_name.'.php');
 	}
 
-	$text = (isset($_translations[$file_name][$text])) ? $_translations[$file_name][$text] : implode('.',$parts);
+	$text = (isset($app->translations_cache[$file_name][$text])) ? $app->translations_cache[$file_name][$text] : implode('.',$parts);
 	return $text;
 }
 ?>
