@@ -384,8 +384,6 @@ class App {
 function t($text) {
 	$app = App::get_instance();
 	
-	$app->translations_cache;
-	
 	$parts = explode('.',$text);
 	$file_name = 'application';
 	
