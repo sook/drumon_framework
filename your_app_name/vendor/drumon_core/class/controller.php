@@ -79,6 +79,20 @@ class Controller {
 	public $http_status_code = null;
 	
 	/**
+	 * Lista de ações que serão executadas antes da ação principal
+	 *
+	 * @var array
+	 */
+	public $before_action = array();
+	
+	/**
+	 * Lista de ações que serão executadas depois da ação principal
+	 *
+	 * @var string
+	 */
+	public $after_action = array();
+	
+	/**
 	 * Instancia um novo view com as configurações, parâmetros e idioma padrões.
 	 *
 	 * @access public
@@ -105,9 +119,42 @@ class Controller {
 		
 		$action_name = $this->view_name;
 		
-		$this->before_filter();
+		// Junta os hooks do app_controller com os do controller atual.
+		$app_controller_vars = get_class_vars('AppController');
+		$this->before_action = array_merge($app_controller_vars['before_action'], $this->before_action);
+		$this->after_action = array_merge($app_controller_vars['after_action'], $this->after_action);
+		
+		// Executa os before_actions
+		$this->execute_methods($this->before_action);
+		// Executa a action principal
 		$this->$action_name();
-		$this->after_filter();
+		// Executa os after_actions
+		$this->execute_methods($this->after_action);
+	}
+	
+	
+	/**
+	 * Executa os métodos adicionados no before e after action.
+	 *
+	 * @param array $methods 
+	 * @return void
+	 */
+	private function execute_methods($methods) {
+		foreach ($methods as $key => $value) {
+			if (is_array($value)) {
+				if (isset($value['only'])) {
+					if ($this->request->action_name === $value['only']) {
+						call_user_func(array($this,$key));
+					}
+				} elseif(isset($value['except'])) {
+					if ($this->request->action_name !== $value['except']) {
+						call_user_func(array($this,$key));
+					}
+				}
+			} else {
+				call_user_func(array($this,$value));
+			}
+		}
 	}
 
 	/**
@@ -173,11 +220,16 @@ class Controller {
 	 * @param boolean $full - Verificador de url completa.
 	 * @return void
 	 */
-	public function redirect($url,$full = false) {
-		$url = $full ? $url : APP_DOMAIN.$url;
+	public function redirect($uri, $flash = array()) {
+		if ($uri[0] === '/') {
+			$uri = APP_DOMAIN.$uri;
+			// Salva o flash na sessão.
+			foreach ($flash as $key => $value) {
+				$_SESSION['flash'][$key] = $value;
+			}
+		}
 		header('Location: '.$url);
 	}
-	
 	
 	public function render_erro($code, $file_name = null) {
 		$this->http_status_code = $code;
