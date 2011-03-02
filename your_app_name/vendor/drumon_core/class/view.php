@@ -139,5 +139,25 @@ class View {
 	public function remove_all()	{
 		$this->variables = array();
 	}
+	
+	// TODO: rever sistema de seção e flash depois.
+	public function flash($key) {
+		
+		if (!isset($_SESSION)) {
+			session_start();
+		}
+		
+		if (!isset($_SESSION['flash'])) {
+			$_SESSION['flash'] = array();
+		}
+		
+		if (isset($_SESSION['flash'][$key])) {
+			$value = $_SESSION['flash'][$key];
+			unset($_SESSION['flash'][$key]);
+			return $value;
+		}else{
+			return false;
+		}
+	}
 }
 ?>

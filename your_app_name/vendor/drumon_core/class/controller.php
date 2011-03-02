@@ -214,12 +214,18 @@ class Controller {
 	public function redirect($uri, $flash = array()) {
 		if ($uri[0] === '/') {
 			$uri = APP_DOMAIN.$uri;
+			
+			// TODO: Rever sistema de seção depois
+			if (!isset($_SESSION)) {
+				session_start();
+			}
 			// Salva o flash na sessão.
 			foreach ($flash as $key => $value) {
 				$_SESSION['flash'][$key] = $value;
 			}
+			
 		}
-		header('Location: '.$url);
+		header('Location: '.$uri);
 	}
 	
 	public function render_erro($code, $file_name = null) {
