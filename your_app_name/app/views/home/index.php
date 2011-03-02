@@ -9,6 +9,7 @@
 	<ul>
 		<li>Todas as configurações de sua aplicação estão localizadas na pasta <span class="highlight">config/</span>.</li>
 		<li>Para sua segurança altere o APP_SECRET em <span class="highlight">config/application.php</span> para <span class="highlight"><?php echo $app_secret?></span>.</li>
+		<li>Altere a permissão da pasta <span class="highlight">public/images/cache</span> para 777 para usar o ImageHelper.</li>
 		<li>Edite esta página em <span class="highlight">app/views/home/index.php</span>.</li>
 	</ul>
 	<hr>

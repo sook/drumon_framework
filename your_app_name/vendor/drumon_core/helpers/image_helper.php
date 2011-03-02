@@ -14,17 +14,31 @@
 class ImageHelper extends Helper {
 
 	/**
-	 * Retorna a url com a imagem alterada.
+	 * Retorna a url com os dados para o timthumb. (http://www.binarymoon.co.uk/projects/timthumb/)
 	 *
 	 * @access public
 	 * @param String $image - Nome da imagem a ser redimensionanda.
 	 * @param String $height - Altura da imagem.
 	 * @param String $width - Largura da imagem.
-	 * @param String $crop - Local a ser cortado.
+	 * @param array $options - Opções extras do timthumb.
 	 * @return string - Url formatada com o tamanho do thumb.
 	 */
-	public function resize($image, $width, $height, $crop = "") {
-		return IMAGES_PATH."image.php/".substr($image,strrpos($image,"/"),strlen($image))."?width=".$width."&height=".$height."&cropratio=".$crop."&image=".$image;
+	public function resize($image_src, $width, $height, $options = array()) {
+		$image = IMAGES_PATH.'thumb.php?src='.$image_src.'';
+		
+		if ($width) {
+			$image .= "&w=".$width;
+		}
+		
+		if ($height) {
+			$image .= "&h=".$height;
+		}
+		
+		foreach ($options as $key => $value) {
+			$image .='&'.$key.'='.$value;
+		}
+		
+		return $image;
 	}
 
 	/**
@@ -57,10 +71,10 @@ class ImageHelper extends Helper {
 	 * @return string
 	 * 
 	 */
-	public function fake($size='350x150',$text=null,$color=null) {
+	public function fake($width = 350, $height = 150,$text=null,$color=null) {
 		$html = '';
 		if($text != null) $text = '&text='.str_replace(' ','+',$text);
-		$html = '<img src="http://placehold.it/'.$size.'/'.$color.''.$text.'">';
+		$html = '<img src="http://placehold.it/'.$width.'x'.$height.'/'.$color.''.$text.'">';
 		return $html;
 	}
 	
