@@ -79,6 +79,13 @@ class Controller {
 	public $http_status_code = null;
 	
 	/**
+	 * Lista de helpers usados na view.
+	 *
+	 * @var array
+	 */
+	public $helpers = array();
+	
+	/**
 	 * Lista de ações que serão executadas antes da ação principal
 	 *
 	 * @var array
@@ -158,22 +165,6 @@ class Controller {
 	}
 
 	/**
-	 * Executada antes de qualquer ação no controlador.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function before_filter() {}
-
-	/**
-	 * Executada posteriormente a qualquer ação no controlador.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function after_filter() {}
-
-	/**
 	 * Adiciona variáveis a ser utilizadas no view.
 	 *
 	 * @access public
@@ -217,7 +208,7 @@ class Controller {
 	 *
 	 * @access public
 	 * @param string $url - Url de destino.
-	 * @param boolean $full - Verificador de url completa.
+	 * @param array $flash - Adiciona uma mensagem na sessão flash.
 	 * @return void
 	 */
 	public function redirect($uri, $flash = array()) {
@@ -277,17 +268,6 @@ class Controller {
 		
 		return $html;
 	}
-	
-	/**
-	 * Seta os helpers a serem carregados.
-	 *
-	 * @access public
-	 * @param array $helpers - Helpers a serem carregados.
-	 * @return void
-	 */
-	public function add_helpers($helpers, $custom_paths = false)	{
-		$this->app->add_helpers($helpers, $custom_paths);
-	}
 
 	/**
 	 * Carrega os helpers e adiciona os helpers na view.
@@ -296,6 +276,11 @@ class Controller {
 	 * @return void
 	 */
 	private function load_helpers() {
+		// Adiciona helpers setados no controller na app.
+		$app_controller_vars = get_class_vars('AppController');
+		$controller_helpers = array_merge($app_controller_vars['helpers'], $this->helpers);
+		$this->app->add_helpers($controller_helpers);
+		
 		// Adiciona os helpers na view.
 		foreach ($this->app->helpers as $helper_name => $helper_path) {
 			require_once $helper_path;
