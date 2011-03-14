@@ -252,6 +252,9 @@ class Controller {
 	 * @return void
 	 */
 	public function execute_view() {
+		// Se setado para não redenrizar então para.
+		if ($this->view_name === false) { return; }
+		
 		$this->view->params = $this->params; // Seta os parametros da requisição no view.
 		$this->load_helpers(); // Carrega os helpers
 		
@@ -265,7 +268,7 @@ class Controller {
 		}
 
 		// Renderiza layout se possuir.
-		if(!empty($this->layout)) {
+		if($this->layout) {
 			$this->view->add('content_for_layout', $this->content_for_layout);
 			$html = $this->view->render_file(ROOT.'/app/views/layouts/'.$this->layout.'.php');
 		} else {
