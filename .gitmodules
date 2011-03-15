@@ -1,3 +1,0 @@
-[submodule "your_app_name/vendor/plugins/drumon_model"]
-	path = your_app_name/vendor/plugins/drumon_model
-	url = git@github.com:sook/drumon_model.git
