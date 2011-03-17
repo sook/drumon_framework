@@ -10,8 +10,8 @@
 		<meta name="csrf-token" content="<? echo REQUEST_TOKEN; ?>">
 		
 		<title>Drumon Framework - <? echo $html->block('title'); ?></title>
-		<?php echo $html->css(array('main'),'show'); ?>
-		<?php //echo $html->js(array('libs/'.JS_FRAMEWORK,'application'),'show'); ?>
+		<?php echo $html->css(array('main'), 'header-only'); ?>
+		<?php //echo $html->js(array('libs/'.JS_FRAMEWORK,'application'),'on-header'); ?>
 
 	</head>
 	<body>

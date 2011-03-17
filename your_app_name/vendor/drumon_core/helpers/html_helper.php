@@ -76,9 +76,9 @@ class HtmlHelper extends Helper {
 			}
 		}
 		
-		if ($type == 'show') {
+		if ($type == 'header-only') {
 			$this->stylesheets = array_unique(array_merge($_files, $this->stylesheets));
-			return implode($this->stylesheets);
+			return implode("\n",$this->stylesheets);
 		} elseif($type == 'inline') {
 			return implode($_files);
 		} else {
@@ -103,10 +103,10 @@ class HtmlHelper extends Helper {
 			$_files[] = '<script type="text/javascript" src="'.JAVASCRIPTS_PATH.$file.'.js"></script>';
 		}
 		
-		if($type == 'show') {
+		if($type == 'header-only') {
 			$this->javascripts = array_merge($_files, $this->javascripts);
 			$this->javascripts = array_unique($this->javascripts);
-			return implode($this->javascripts);
+			return implode("\n",$this->javascripts);
 		} elseif($type == 'inline') {
 			return implode($_files);
 		} else {
