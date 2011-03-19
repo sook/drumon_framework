@@ -6,83 +6,97 @@
  */
 
 /**
- * Classe abstrata que fornece suporte a classe base do controlador.
+ * A classe Controller permite que seja adicionada a lógica de recebimento as requisições do usuário e provém
+ * funcionalidades básicas, como renderizar redirecionamentos, contato com os models e recebimento de dados do usuário
+ * para envio às views.
  *
  * @package class
- * @abstract
- * @author Sook contato@sook.com.br
  */
 class Controller {
 	
-	
 	/** 
-	 * Arquivo de template a ser usado pelo controlador.
+	 * Arquivo de template a ser utilizado pelo controller.
 	 *
+	 * @access private
 	 * @var string
 	 */
 	private $template;
 	
 	/** 
-	 * Arquivo de layout a ser usado pelo controlador, padrão default.
+	 * Arquivo de layout a ser usado pelo controller.
 	 *
+	 * @access protected
 	 * @var string
 	 */
 	protected $layout = "default";
-	
-	
+		
 	/** 
-	 * Contém os parâmetros passados na requisição HTTP (GET e POST).
+	 * Contém os parâmetros passados na requisição HTTP (GET,POST,PUT,DELETE).
 	 *
+	 * @access protected
 	 * @var array
 	 */
 	protected $params = array();
 	
 	
-	/**
-	 * Namespace do controlados
+	/** 
+	 * TODO : Rever esse usabilidade.
+	 * Namespace do controller.
 	 *
+	 * @access protected
 	 * @var string
 	 */
 	protected $namespaces;
 	
 	/**
-	 * Nome da classe
+	 * TODO : Rever esse usabilidade.
+	 * Nome da classe.
 	 *
+	 * @access protected
 	 * @var string
 	 */
 	protected $class_name;
 	
 	/**
-	 * Nome da view a ser renderizada.
+	 * Nome da view a ser renderizada, recebe o nome da requisição no controller.
 	 *
+	 * @access private
 	 * @var string
 	 */
 	private $view;
 	
 	/**
-	 * Nome da pasta onde a view do controller está.
+	 * Nome da pasta da view referente a requisição no controller.
 	 *
+	 * @access private
 	 * @var string
 	 */
 	private $view_folder;
 	
 	
 	/**
-	 * Conteúdo para o layout.
+	 * Conteúdo a ser introduzido no layout.
 	 *
+	 * @access private
 	 * @var string
 	 */
 	private $content_for_layout = null;
 	
-	
+	/**
+	 * Código de status do Http.
+	 *
+	 * @access public
+	 * @var string
+	 */
 	public $http_status_code = null;
 	
 	/**
-	 * Instancia um novo template com as configurações, parâmetros e idioma padrões.
+	 * TODO: Rever documentação adequada a esse construtor.
 	 *
 	 * @access public
-	 * @param object $request - Instância do Request Handler.
-	 * @param array $locale - Referência da variável com os dados de internacionalização.
+	 * @param object $app - 
+	 * @param object $request - 
+	 * @param object $template - 
 	 */
 	public function __construct($app, $request, $template) {
 		$this->app = $app;
