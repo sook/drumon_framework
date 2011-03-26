@@ -1,6 +1,6 @@
 <?php
 
-	class HomeController extends AppController {
+	class PagesController extends AppController {
 	
 		function index() {
 			// Gera chave para o app_secret
