@@ -241,7 +241,7 @@ class HtmlHelper extends Helper {
 	 * @param string $end_year - Ano de fim.
 	 * @param string $options - Veja select para mais detalhes.
 	 */
-	public function select_date_years($field_name,$start_year,$end_year,$options = array()) {
+	public function select_date_years($field_name, $start_year, $end_year, $options = array()) {
 		$defaults = array('selected'=>Date('Y'));
 		$options = array_merge($defaults,$options);
 		
@@ -250,7 +250,7 @@ class HtmlHelper extends Helper {
 			$data_list[$i]=$i;
 		}
 		
-		$html = $this->select($field_name,$data_list,$options);
+		$html = $this->select($field_name, $data_list, $options);
 		return $html;
 	}
 	
@@ -273,7 +273,7 @@ class HtmlHelper extends Helper {
 			$data_list[$n]=$value;
 		}
 	
-		$html = $this->select($field_name,$data_list,$options);
+		$html = $this->select($field_name, $data_list, $options);
 		return $html;
 	}
 	
@@ -285,7 +285,7 @@ class HtmlHelper extends Helper {
 	 * @param array $options - Veja select para mais detalhes.
 	 * @return string
 	 */
-	public function select_date_days($field_name,$options = array()) {
+	public function select_date_days($field_name, $options = array()) {
 		$defaults = array('selected' => Date('d'));
 		$options = array_merge($defaults,$options);
 		
@@ -295,7 +295,7 @@ class HtmlHelper extends Helper {
 			$data_list[$n]=$n;
 		}
 
-		$html = $this->select($field_name,$data_list,$options);
+		$html = $this->select($field_name, $data_list, $options);
 		return $html;
 	}
 	

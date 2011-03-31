@@ -483,7 +483,7 @@
 			}
 			
 			if (isset($this->__query['limit']) && isset($this->__query['offset'])) {
-				$sql[] = ', '.$this->__query['offset'];
+				$sql[] = ' OFFSET '.$this->__query['offset'];
 			}
 			
 			return implode($sql);
@@ -592,10 +592,10 @@
 		 */
 		public function find($ids, $object = false) {
 			if (is_array($ids)) {
-				$this->where($this->primary_key.' IN ('.implode(',',$ids).')');
+				$this->where($this->table_name.'.'.$this->primary_key.' IN ('.implode(',',$ids).')');
 				return $this->all($object);
 			} else {
-				$this->where($this->primary_key.' = '.$ids);
+				$this->where($this->table_name.'.'.$this->primary_key.' = '.$ids);
 				$result = $this->all($object);
 				return $result[0];
 			}
@@ -619,7 +619,7 @@
 		 * @return mixed
 		 */
 		public function first($object = false) {
-			return $this->limit(1)->order($this->primary_key.' ASC')->one($object);
+			return $this->limit(1)->order($this->table_name.'.'.$this->primary_key.' ASC')->one($object);
 		}
 		
 		/**
@@ -629,7 +629,7 @@
 		 * @return mixed
 		 */
 		public function last($object = false) {
-			return $this->limit(1)->order($this->primary_key.' DESC')->one($object);
+			return $this->limit(1)->order($this->table_name.'.'.$this->primary_key.' DESC')->one($object);
 		}
 		
 		/**
@@ -655,7 +655,7 @@
 		 */
 		public function all($object = false) {
 			$sql = $this->generate_sql();
-			
+			echo $sql;
 			// Limpa a query
 			if ($this->__reset) {
 					$this->clear_query();

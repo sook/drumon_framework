@@ -86,7 +86,7 @@ class Paginate extends Behavior {
 		$from = (($this->current_page-1) * $this->per_page);
 		
 		// Busca registros
-		$this->records = $model->select('*')->limit($from)->offset($this->per_page)->all($object);
+		$this->records = $model->select('*')->limit($this->per_page)->offset($from)->all($object);
 		return $this;
 	}
 	
