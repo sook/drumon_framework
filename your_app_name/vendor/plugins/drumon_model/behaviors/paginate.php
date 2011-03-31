@@ -54,11 +54,12 @@ class Paginate extends Behavior {
 	public $records;
 
 	/**
-	 * .
+	 * Inicia a paginação no modelo 
 	 *
 	 * @access public
-	 * @param int $pages - Quantidade de páginas.
-	 * @param array $params - Parâmetros a serem utilizados pela cláusula WHERE.
+	 * @param int $model - Instancia do model.
+	 * @param int $page - Página atual.
+	 * @param int $object - Retorna objetos da classe chamada.
 	 * @return object - Objeto do tipo página.
 	 */
 	function page(&$model, $page = 1, $object = false) {
@@ -76,17 +77,15 @@ class Paginate extends Behavior {
 			$this->records = false;
 			return $this;
 		}
-
 		// Calcula o total de páginas
 		$this->total_pages = ceil($this->total_records / $this->per_page);
-		// Altera a página de visualização
-		$page = $page > $this->total_pages ? $this->total_pages : $page;
-		$this->current_page = $page;
+		// Altera a página atual
+		$this->current_page = $page > $this->total_pages ? $this->total_pages : $page;
 		// Verifica de onde irá iniciar a listagem dos registros
-		$from = (($this->current_page-1) * $this->per_page);
+		$offset = (($this->current_page-1) * $this->per_page);
 		
 		// Busca registros
-		$this->records = $model->select('*')->limit($this->per_page)->offset($from)->all($object);
+		$this->records = $model->select('*')->limit($this->per_page)->offset($offset)->all($object);
 		return $this;
 	}
 	
