@@ -11,7 +11,7 @@
 		
 		<title>Drumon Framework - <? echo $html->block('title'); ?></title>
 		<?php echo $html->css(array('main'), 'header-only'); ?>
-		<?php //echo $html->js(array('libs/'.JS_FRAMEWORK,'application'),'on-header'); ?>
+		<?php //echo $html->js(array('libs/'.JS_FRAMEWORK,'application'),'header-only'); ?>
 
 	</head>
 	<body>

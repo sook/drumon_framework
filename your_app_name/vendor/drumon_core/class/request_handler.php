@@ -202,15 +202,15 @@ class RequestHandler {
 	
 	
 	public function url_for($named_route, $params = array()) {
-		// Junta as rotas do método com as rotas que aceitam todos os métodos.
-		$route_list = array();
-		if(isset($this->routes['*'])) $route_list = $this->routes['*'];
-		
-		// Pega as rotas defindas com o método requisitado e junta com o geral.
-		if(isset($this->routes[$this->method])) {
-			$route_list = array_merge($route_list, $this->routes[$this->method]);
-		}
-		
+		if (isset($this->routes['*']) && $path = $this->find_route($this->routes['*'],$named_route,$params)) {
+		}elseif(isset($this->routes['get']) && $path = $this->find_route($this->routes['get'],$named_route,$params)){
+		}elseif(isset($this->routes['put']) && $path = $this->find_route($this->routes['put'],$named_route,$params)){
+		}elseif(isset($this->routes['post']) && $path = $this->find_route($this->routes['post'],$named_route,$params)){}
+		if(!$path) trigger_error('Named route for '.$named_route.' doenst exist', E_USER_ERROR);
+		return str_replace('\/','/',$path); ;
+	}
+	
+	public function find_route($route_list,$named_route, $params = array()) {
 		$path = false;
 		foreach ($route_list as $url => $route) {
 			if(isset($route['as']) && $route['as'] == $named_route ) {
@@ -237,10 +237,7 @@ class RequestHandler {
 				}
 			}
 		}
-		
-		if(!$path) trigger_error('Named route for '.$named_route.' doenst exist', E_USER_ERROR);
-		
-		return str_replace('\/','/',$path); ;
+		return $path;
 	}
 	
 	/**

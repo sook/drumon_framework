@@ -189,6 +189,7 @@ class App {
 		define('IMAGES_PATH',			 $app->config['images_path']);
 		define('PLUGINS_PATH',			     ROOT.'/vendor/plugins');
 		define('LANGUAGE',			   $app->config['language']);
+		define('JS_FRAMEWORK',     $app->config['js_framework']);
 		
 		// Carrega plugins
 		foreach ($app->plugins as $plugin) {

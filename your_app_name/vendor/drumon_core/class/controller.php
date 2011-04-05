@@ -226,6 +226,7 @@ class Controller {
 			
 		}
 		header('Location: '.$uri);
+		exit;
 	}
 	
 	public function render_erro($code, $file_name = null) {

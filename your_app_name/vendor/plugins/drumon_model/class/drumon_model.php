@@ -655,7 +655,7 @@
 		 */
 		public function all($object = false) {
 			$sql = $this->generate_sql();
-			echo $sql;
+
 			// Limpa a query
 			if ($this->__reset) {
 					$this->clear_query();
