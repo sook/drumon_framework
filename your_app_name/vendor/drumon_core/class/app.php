@@ -130,7 +130,7 @@ class App {
 	 * @param array $params 
 	 * @return void
 	 */
-	public function fire_event($name, $params = null) {
+	public function fire_event($name, $params = array()) {
 		if(array_key_exists($name,$this->event_list)){
 			foreach ($this->event_list[$name] as $callback) {
 				call_user_func_array($callback, &$params);
@@ -372,6 +372,14 @@ class App {
 			}
 		}
 		return $clean_array;
+	}
+	
+	public static function to_select($list, $key, $value) {
+		$result = array();
+		foreach ($list as $item) {
+			$result[$item[$key]] = $item[$value];
+		}
+		return $result;
 	}
 }
 

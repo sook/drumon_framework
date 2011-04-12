@@ -273,7 +273,7 @@
 				$values[] = '`'.$key.'` = :'.$key.'';
 			}
 			
-			$query = 'UPDATE `'.$this->table_name.'` SET '.implode(', ',$values).' WHERE id = '.$id;
+			$query = 'UPDATE `'.$this->table_name.'` SET '.implode(', ',$values).' WHERE `'.$this->primary_key.'` = '.$id;
 			return $this->__connection->prepare($query)->execute($data);
 		}
 		
@@ -285,12 +285,12 @@
 		 */
 		public function delete($ids = null) {
 			if (is_null($ids) && isset($this->id)) {
-				$result = $this->__connection->exec("DELETE FROM `".$this->table_name."` WHERE id = ".$this->id);
+				$result = $this->__connection->exec('DELETE FROM `'.$this->table_name.'` WHERE `'.$this->primary_key.'` = '.$this->id);
 			} else {
 				if(is_array($ids)) {
-					$result = $this->__connection->exec("DELETE FROM `".$this->table_name."` WHERE id IN (".implode(',',$ids).")");
+					$result = $this->__connection->exec('DELETE FROM `'.$this->table_name.'` WHERE `'.$this->primary_key.'` IN ('.implode(',',$ids).')');
 				} else {
-					$result = $this->__connection->exec("DELETE FROM `".$this->table_name."` WHERE id = ".$ids);
+					$result = $this->__connection->exec('DELETE FROM `'.$this->table_name.'` WHERE `'.$this->primary_key.'` = '.$ids);
 				}
 			}
 			return $result;
@@ -304,6 +304,21 @@
 		public function delete_all() {
 			$this->__query['action'] = 'delete';
 			return $this->__connection->exec($this->generate_sql());
+		}
+		
+		
+		public function increment($id, $column, $value = 1) {
+			if (is_int($value)) {
+				return $this->__connection->exec('UPDATE `'.$this->table_name.'` SET `'.$column.'` = `'.$column.'` + '.$value.' WHERE `'.$this->primary_key.'` = '.$id);
+			}
+			return false;
+		}
+		
+		public function decrement($id, $column, $value = 1) {
+			if (is_int($value)) {
+				return $this->__connection->exec('UPDATE `'.$this->table_name.'` SET `'.$column.'` = `'.$column.'` - '.$value.' WHERE `'.$this->primary_key.'` = '.$id);
+			}
+			return false;
 		}
 		
 		/**
