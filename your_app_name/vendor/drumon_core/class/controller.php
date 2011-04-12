@@ -272,6 +272,7 @@ class Controller {
 		if($this->layout) {
 			$this->view->add('content_for_layout', $this->content_for_layout);
 			$html = $this->view->render_file(ROOT.'/app/views/layouts/'.$this->layout.'.php');
+			$this->app->fire_event('after_render_layout', array('layout' => &$html));
 		} else {
 			$html = $this->content_for_layout;
 		}

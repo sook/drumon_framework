@@ -127,13 +127,13 @@ class App {
 	 * Dispara evento na aplicação
 	 *
 	 * @param string $name 
-	 * @param string $params 
+	 * @param array $params 
 	 * @return void
 	 */
 	public function fire_event($name, $params = null) {
 		if(array_key_exists($name,$this->event_list)){
 			foreach ($this->event_list[$name] as $callback) {
-				call_user_func_array($callback, array(&$params));
+				call_user_func_array($callback, &$params);
 			}
 		}
 	}
@@ -274,7 +274,7 @@ class App {
 	 * @return void
 	 */
 	public function show_content($content) {
-		$this->fire_event('before_render', array('content' => &$content));
+		$this->fire_event('before_show', array('content' => &$content));
 		echo $content;
 		$this->fire_event('on_complete', array('content' => $content));
 	}

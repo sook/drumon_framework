@@ -4,12 +4,10 @@
 include('class/benchmark.php');
 Benchmark::start('Load Time');
 
+$app->add_event('after_render_layout','show_load_time');
 
-
-$app->add_event('on_complete','show_load_time');
-
-function show_load_time() {
-	echo '<style type="text/css">
+function show_load_time($layout) {
+	$layout .= '<style type="text/css">
 				div.cms_debug{
 				background-color: white;
 				position: fixed;
@@ -26,11 +24,11 @@ function show_load_time() {
 			}
 		</style>';
 	Benchmark::stop('Load Time');
-	echo '<div class="cms_debug">';
+	$layout .= '<div class="cms_debug">';
 	foreach (Benchmark::get_totals() as $total) {
-		echo $total.'<br>';
+		$layout .= $total.'<br>';
 	}
-	echo '</div>';
+	$layout .= '</div>';
 }
 
 ?>
