@@ -18,6 +18,6 @@
 	);
 	
 	// Adiciona plugin de benchmark
-	$app->add_plugins('benchmark');
+	$app->add_plugins('debug');
 	
 ?>
