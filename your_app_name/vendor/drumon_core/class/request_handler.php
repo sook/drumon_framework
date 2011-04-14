@@ -274,7 +274,7 @@ class RequestHandler {
 	 * @return string - String sem a barra (/).
 	 */
 	protected function strip_slash($str) {
-		if($str[strlen($str)-1]==='/'){
+		if($str[strlen($str)-1]==='/') {
 			$str = substr($str,0,-1);
 		}
 		return $str;

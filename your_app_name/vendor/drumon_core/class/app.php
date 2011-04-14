@@ -77,97 +77,13 @@ class App {
 		return self::$instance;
 	}
 	
-	/**
-	 * Adiciona helpers que serão usados na aplicação
-	 *
-	 * @param string|array $helpers 
-	 * @return void
-	 */
-	public function add_helpers($helpers_names, $custom_paths = null) {
-		// Helpers existentes no core.
-		$core_helpers = array('date','html','image','text','url','movie');
-
-		$helpers = array();
-		$helpers_names = is_array($helpers_names) ? $helpers_names : array($helpers_names);
-		foreach ($helpers_names as $helper_name) {
-			$helper_name = strtolower(trim($helper_name));
-			$local = in_array($helper_name, $core_helpers) ? CORE.'/helpers' : ROOT.'/app/helpers';
-			if ($custom_paths) {
-				$local = $custom_paths;
-			}
-			$helpers[$helper_name] = $local."/".$helper_name."_helper.php";
-		}
-		
-		$this->helpers = array_merge($this->helpers, $helpers);
-	}
-	
-	/**
-	 * Adiciona plugins que serão usados na aplicação
-	 *
-	 * @param string|array $plugins 
-	 * @return void
-	 */
-	public function add_plugins($plugins) {
-		$plugins = is_array($plugins) ? $plugins : array($plugins);
-		$this->plugins = array_merge($this->plugins, $plugins);
-	}
-	
-	/**
-	 * Adiciona evento na aplicação
-	 *
-	 * @param string $name 
-	 * @param string|array $callback 
-	 * @return void
-	 */
-	public function add_event($name, $callback) {
-		$this->event_list[$name][] = $callback;
-	}
-	
-	/**
-	 * Dispara evento na aplicação
-	 *
-	 * @param string $name 
-	 * @param array $params 
-	 * @return void
-	 */
-	public function fire_event($name, $params = array()) {
-		if(array_key_exists($name,$this->event_list)){
-			foreach ($this->event_list[$name] as $callback) {
-				call_user_func_array($callback, &$params);
-			}
-		}
-	}
-	
-	/**
-	 * Adiciona variável de configuração da app
-	 *
-	 * @param string $name 
-	 * @param mix $value 
-	 * @return void
-	 */
-	public static function add_config($name, $value) {
-		$app = self::get_instance();
-		return $app->config[$name] = $value;
-	}
-	
-	/**
-	 * Retorna a variável setada na app
-	 *
-	 * @param string $name 
-	 * @return mix
-	 */
-	public static function get_config($name) {
-		$app = self::get_instance();
-		return $app->config[$name];
-	}
-	
 	
 	public static function run() {
 		// Obtem a instancia da aplicação
 		$app = self::get_instance();		
 		
 		// Configurações padrões do framework
-		$app->config['app_domain']			 = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']);
+		$app->config['app_domain']			 = App::strip_slash('http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']));
 		$app->config['stylesheets_path'] = $app->config['app_domain'].'/public/stylesheets/';
 		$app->config['javascripts_path'] = $app->config['app_domain'].'/public/javascripts/';
 		$app->config['images_path']			 = $app->config['app_domain'].'/public/images/';
@@ -265,6 +181,90 @@ class App {
 		
 		// Imprime o conteúdo
 		$app->show_content($html);
+	}
+	
+	/**
+	 * Adiciona helpers que serão usados na aplicação
+	 *
+	 * @param string|array $helpers 
+	 * @return void
+	 */
+	public function add_helpers($helpers_names, $custom_paths = null) {
+		// Helpers existentes no core.
+		$core_helpers = array('date','html','image','text','url','movie');
+
+		$helpers = array();
+		$helpers_names = is_array($helpers_names) ? $helpers_names : array($helpers_names);
+		foreach ($helpers_names as $helper_name) {
+			$helper_name = strtolower(trim($helper_name));
+			$local = in_array($helper_name, $core_helpers) ? CORE.'/helpers' : ROOT.'/app/helpers';
+			if ($custom_paths) {
+				$local = $custom_paths;
+			}
+			$helpers[$helper_name] = $local."/".$helper_name."_helper.php";
+		}
+		
+		$this->helpers = array_merge($this->helpers, $helpers);
+	}
+	
+	/**
+	 * Adiciona plugins que serão usados na aplicação
+	 *
+	 * @param string|array $plugins 
+	 * @return void
+	 */
+	public function add_plugins($plugins) {
+		$plugins = is_array($plugins) ? $plugins : array($plugins);
+		$this->plugins = array_merge($this->plugins, $plugins);
+	}
+	
+	/**
+	 * Adiciona evento na aplicação
+	 *
+	 * @param string $name 
+	 * @param string|array $callback 
+	 * @return void
+	 */
+	public function add_event($name, $callback) {
+		$this->event_list[$name][] = $callback;
+	}
+	
+	/**
+	 * Dispara evento na aplicação
+	 *
+	 * @param string $name 
+	 * @param array $params 
+	 * @return void
+	 */
+	public function fire_event($name, $params = array()) {
+		if(array_key_exists($name,$this->event_list)){
+			foreach ($this->event_list[$name] as $callback) {
+				call_user_func_array($callback, &$params);
+			}
+		}
+	}
+	
+	/**
+	 * Adiciona variável de configuração da app
+	 *
+	 * @param string $name 
+	 * @param mix $value 
+	 * @return void
+	 */
+	public static function add_config($name, $value) {
+		$app = self::get_instance();
+		return $app->config[$name] = $value;
+	}
+	
+	/**
+	 * Retorna a variável setada na app
+	 *
+	 * @param string $name 
+	 * @return mix
+	 */
+	public static function get_config($name) {
+		$app = self::get_instance();
+		return $app->config[$name];
 	}
 	
 	/**
@@ -380,6 +380,20 @@ class App {
 			$result[$item[$key]] = $item[$value];
 		}
 		return $result;
+	}
+	
+	/**
+	 * Remove the slash(/) from the last char.
+	 *
+	 * @access public
+	 * @param string $str - String com (/) a ser alterada.
+	 * @return string - String sem a barra (/).
+	 */
+	public static function strip_slash($str) {
+		if($str[strlen($str)-1]==='/') {
+			$str = substr($str,0,-1);
+		}
+		return $str;
 	}
 }
 
