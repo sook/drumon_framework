@@ -24,21 +24,7 @@ class TextHelper extends Helper {
 	 * @return string -  Texto formatado.
 	 */
 	public function to_slug($text, $space = "-") {
-		$text = trim($text);
-
-		$search = explode(",","ç,æ,œ,á,é,í,ó,ú,à,è,ì,ò,ù,ä,ë,ï,ö,ü,ÿ,â,ê,î,ô,û,å,e,i,ø,u");
-		$replace = explode(",","c,ae,oe,a,e,i,o,u,a,e,i,o,u,a,e,i,o,u,y,a,e,i,o,u,a,e,i,o,u");
-		$text = str_replace($search, $replace, $text);
-
-		if (function_exists('iconv')) {
-			$text = @iconv('UTF-8', 'ASCII//TRANSLIT', $text);
-		}
-
-		$text = preg_replace("/[^a-zA-Z0-9 ".$space."]/", "", $text);
-		$text = str_replace(" ", $space, $text);
-		$text = preg_replace("/".$space."{2,}/",$space,$text);
-		$text = strtolower($text);
-		return $text;
+		return App::to_slug($text, $space);
 	}
 
 	/**

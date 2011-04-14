@@ -270,9 +270,9 @@
 				$values[]  = ':'.$key.'';
 			}
 
-			$query = 'INSERT INTO `'.$this->table_name.'` ('.implode(',',$columns).') VALUES ('.implode(',',$values).')';
-			$saved = $this->__connection->prepare($query)->execute($this->__data);
+			$sql = 'INSERT INTO `'.$this->table_name.'` ('.implode(',',$columns).') VALUES ('.implode(',',$values).')';
 			
+			$saved = $this->__connection->prepare($sql)->execute($this->__data);
 			if ($saved) {
 				$this->id = $this->__connection->lastInsertId();
 			}
@@ -320,12 +320,12 @@
 		 */
 		public function delete($ids = null) {
 			if (is_null($ids) && isset($this->id)) {
-				$result = $this->__connection->exec('DELETE FROM `'.$this->table_name.'` WHERE `'.$this->primary_key.'` = '.$this->id);
+				$result = $this->exec('DELETE FROM `'.$this->table_name.'` WHERE `'.$this->primary_key.'` = '.$this->id);
 			} else {
 				if(is_array($ids)) {
-					$result = $this->__connection->exec('DELETE FROM `'.$this->table_name.'` WHERE `'.$this->primary_key.'` IN ('.implode(',',$ids).')');
+					$result = $this->exec('DELETE FROM `'.$this->table_name.'` WHERE `'.$this->primary_key.'` IN ('.implode(',',$ids).')');
 				} else {
-					$result = $this->__connection->exec('DELETE FROM `'.$this->table_name.'` WHERE `'.$this->primary_key.'` = '.$ids);
+					$result = $this->exec('DELETE FROM `'.$this->table_name.'` WHERE `'.$this->primary_key.'` = '.$ids);
 				}
 			}
 			return $result;
@@ -351,7 +351,7 @@
 		 */
 		public function increment($id, $column, $value = 1) {
 			if (is_int($value)) {
-				return $this->__connection->exec('UPDATE `'.$this->table_name.'` SET `'.$column.'` = `'.$column.'` + '.$value.' WHERE `'.$this->primary_key.'` = "'.$id.'"');
+				return $this->exec('UPDATE `'.$this->table_name.'` SET `'.$column.'` = `'.$column.'` + '.$value.' WHERE `'.$this->primary_key.'` = "'.$id.'"');
 			}
 			return false;
 		}
@@ -366,9 +366,13 @@
 		 */
 		public function decrement($id, $column, $value = 1) {
 			if (is_int($value)) {
-				return $this->__connection->exec('UPDATE `'.$this->table_name.'` SET `'.$column.'` = `'.$column.'` - '.$value.' WHERE `'.$this->primary_key.'` = "'.$id.'"');
+				return $this->exec('UPDATE `'.$this->table_name.'` SET `'.$column.'` = `'.$column.'` - '.$value.' WHERE `'.$this->primary_key.'` = "'.$id.'"');
 			}
 			return false;
+		}
+		
+		public function exec($sql) {
+			return $this->__connection->exec($sql);
 		}
 		
 		/**
@@ -579,18 +583,6 @@
 		}
 		
 		/**
-		 * Clear all query data from object
-		 *
-		 * @return object
-		 */
-		public function clear_query() {
-			$this->__query = array(
-				'action' => 'select',
-				'select' => '*'
-			);
-		}
-		
-		/**
 		 * Return number of the all query records
 		 *
 		 * @param string $column 
@@ -745,14 +737,14 @@
 		public function all($object = false) {
 			$sql = $this->generate_sql();
 
-			// Limpa a query
-			if ($this->__reset) {
-					$this->clear_query();
-					$this->__reset = true;
-			}
-			
 			$stmt = $this->__connection->prepare($sql);
 			$stmt->execute($this->__statements);
+			
+			// Limpa a query
+			if ($this->__reset) {
+				$this->clear_query();
+				$this->__reset = true;
+			}
 
 			if ($object) {
 				$model_list = $stmt->fetchALL(PDO::FETCH_CLASS, get_class($this));
@@ -760,6 +752,21 @@
 				$model_list = $stmt->fetchALL(PDO::FETCH_ASSOC);
 			}
 			return $model_list;
+		}
+		
+		/**
+		 * Clear all query data from object
+		 *
+		 * @return object
+		 */
+		public function clear_query() {
+			// Limpa a query.
+			$this->__query = array(
+				'action' => 'select',
+				'select' => '*'
+			);
+			// Limpa os dados da query.
+			$this->__statements = array();
 		}
 		
 		/**
@@ -802,6 +809,7 @@
 				} else {
 					$keys[] = '/[?]/';
 				}
+				$params[$key] = "'".$value."'";
 			}
 			$query = preg_replace($keys, $params, $query, 1, $count);
 			return $query;
