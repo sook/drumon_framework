@@ -81,6 +81,20 @@
 		private $__data = array();
 		
 		/**
+		 * Accesibles vars on mass assignment.
+		 *
+		 * @var array
+		 */
+		protected $attr_accessible = array();
+		
+		/**
+		 * Protected vars on mass assignment.
+		 *
+		 * @var array
+		 */
+		protected $attr_protected = array();
+		
+		/**
 		 * Connect to database and load behaviors
 		 *
 		 * @param array $data 
@@ -232,8 +246,17 @@
 		public function create($data = array(), $only_columns = array()) {
 			
 			// Remove os campos a não serem salvos.
-			foreach ($only_columns as $column) {
-				unset($data[$column]);
+			$only_columns = ($only_columns) ? $only_columns : $this->attr_accessible;
+			if ($only_columns) {
+				foreach ($data as $key => $value) {
+					if (!in_array($key,$only_columns)) {
+						unset($data[$key]);
+					}
+				}
+			} else {
+				foreach ($this->attr_protected as $column) {
+					unset($data[$column]);
+				}
 			}
 			
 			$this->__data = array_merge($this->__data, $data);
@@ -263,9 +286,19 @@
 		 * @return boolean
 		 */
 		public function update($id, $data = array(), $only_columns = array()) {
+			
 			// Remove os campos a não serem salvos.
-			foreach ($only_columns as $column) {
-				unset($data[$column]);
+			$only_columns = ($only_columns) ? $only_columns : $this->attr_accessible;
+			if ($only_columns) {
+				foreach ($data as $key => $value) {
+					if (!in_array($key,$only_columns)) {
+						unset($data[$key]);
+					}
+				}
+			} else {
+				foreach ($this->attr_protected as $column) {
+					unset($data[$column]);
+				}
 			}
 			
 			$values = array();
@@ -306,17 +339,32 @@
 			return $this->__connection->exec($this->generate_sql());
 		}
 		
-		
+		/**
+		 * Increment a value from one int field
+		 *
+		 * @param mixed $id 
+		 * @param string $column 
+		 * @param int $value 
+		 * @return boolean
+		 */
 		public function increment($id, $column, $value = 1) {
 			if (is_int($value)) {
-				return $this->__connection->exec('UPDATE `'.$this->table_name.'` SET `'.$column.'` = `'.$column.'` + '.$value.' WHERE `'.$this->primary_key.'` = '.$id);
+				return $this->__connection->exec('UPDATE `'.$this->table_name.'` SET `'.$column.'` = `'.$column.'` + '.$value.' WHERE `'.$this->primary_key.'` = "'.$id.'"');
 			}
 			return false;
 		}
 		
+		/**
+		 * Decrement a value from one int field
+		 *
+		 * @param mixed $id 
+		 * @param string $column 
+		 * @param int $value 
+		 * @return boolean
+		 */
 		public function decrement($id, $column, $value = 1) {
 			if (is_int($value)) {
-				return $this->__connection->exec('UPDATE `'.$this->table_name.'` SET `'.$column.'` = `'.$column.'` - '.$value.' WHERE `'.$this->primary_key.'` = '.$id);
+				return $this->__connection->exec('UPDATE `'.$this->table_name.'` SET `'.$column.'` = `'.$column.'` - '.$value.' WHERE `'.$this->primary_key.'` = "'.$id.'"');
 			}
 			return false;
 		}
