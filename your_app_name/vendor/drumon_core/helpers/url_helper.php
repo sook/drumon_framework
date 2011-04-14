@@ -31,7 +31,7 @@ class UrlHelper extends Helper {
 	
 	
 	/**
-	 * Create custom methods on demand.
+	 * Create custom methods on demand. (named routes)
 	 *
 	 * @param string $name 
 	 * @param string $arguments 

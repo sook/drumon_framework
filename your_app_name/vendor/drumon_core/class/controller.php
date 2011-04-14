@@ -208,25 +208,47 @@ class Controller {
 	 *
 	 * @access public
 	 * @param string $url - Url de destino.
-	 * @param array $flash - Adiciona uma mensagem na sessão flash.
 	 * @return void
 	 */
-	public function redirect($uri, $flash = array()) {
+	public function redirect($uri) {
 		if ($uri[0] === '/') {
 			$uri = APP_DOMAIN.$uri;
-			
-			// TODO: Rever sistema de seção depois
-			if (!isset($_SESSION)) {
-				session_start();
-			}
-			// Salva o flash na sessão.
-			foreach ($flash as $key => $value) {
-				$_SESSION['flash'][$key] = $value;
-			}
-			
 		}
+		
 		header('Location: '.$uri);
 		exit;
+	}
+	
+	
+	/**
+	 * Create custom methods on demand. (named routes for redirect)
+	 *
+	 * @param string $name 
+	 * @param string $arguments 
+	 * @return string
+	 */
+	public function __call($name, $arguments) {
+		$named_route = str_replace('redirect_to_','',$name);
+		if(substr($name,0,12) === 'redirect_to_') {
+			$this->redirect(APP_DOMAIN.$this->request->url_for($named_route, $arguments));
+		}else{
+			trigger_error('Method '.$name.' not exist', E_USER_ERROR);
+		}
+	}
+	
+	/**
+	 * Seta uma mensagem para ser acessada em outra página mesmo depois de um redirecionamento.
+	 *
+	 * @param string $key 
+	 * @param string $value 
+	 * @return void
+	 */
+	public function flash($key, $value) {
+		// TODO: Rever sistema de seção depois.
+		if (!isset($_SESSION)) {
+			session_start();
+		}
+		$_SESSION['flash'][$key] = $value;
 	}
 	
 	public function render_erro($code, $file_name = null) {

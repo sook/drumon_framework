@@ -94,6 +94,8 @@
 		 */
 		protected $attr_protected = array();
 		
+		
+		protected $column_names = array();
 		/**
 		 * Connect to database and load behaviors
 		 *
@@ -776,7 +778,7 @@
 		 * @return string
 		 */
 		public function to_sql() {
-			return $this->interpolateQuery($this->generate_sql(), $this->__statements);
+			return $this->interpolate_query($this->generate_sql(), $this->__statements);
 		}
 		
 		/**
@@ -790,7 +792,7 @@
 		 *
 		 * @author http://stackoverflow.com/questions/210564/pdo-prepared-statements/1376838#1376838
 		 */
-		public static function interpolateQuery($query, $params) {
+		public static function interpolate_query($query, $params) {
 			$keys = array();
 
 			# build a regular expression for each parameter
@@ -803,6 +805,27 @@
 			}
 			$query = preg_replace($keys, $params, $query, 1, $count);
 			return $query;
+		}
+		
+		public function get_column_names(){ 
+
+			#$sql = "SELECT column_name FROM information_schema.columns WHERE table_name = '".$this->table_name."' AND table_schema = '".Connection::get_instance()->config['database']."'";
+			$sql = 'SHOW COLUMNS FROM ' . $this->table_name; 
+
+			$stmt = $this->__connection->prepare($sql); 
+
+			try {     
+				if($stmt->execute()){ 
+					$raw_column_data = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+					//print_r($raw_column_data);
+					foreach($raw_column_data as $outer_key => $array){ 
+						$this->column_names[$array['Field']] = $array; 
+					} 
+				} 
+				return $this->column_names; 
+			} catch (Exception $e){ 
+				return $e->getMessage(); //return exception 
+			}         
 		}
 		
 		/**
