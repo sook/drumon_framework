@@ -336,14 +336,38 @@
 		 * Add SQL conditions for query
 		 *
 		 * $user->where('deleted = 1')->all();
-		 * $user->where('name = ?',array('mark'))->all();
+		 * $user->where('name = ?',array('Mark'))->all();
+		 * $user->where(array('name' => 'Mark'))->all();
 		 *
 		 * @param string $value 
 		 * @param array $params 
 		 * @return object
 		 */
-		public function where($value, $params = array()) {
-			$this->__statements = array_merge($this->__statements,$params);
+		public function where($where, $params = array()) {
+			
+			// Se where é um array então faz query simples com = ou IN se for o valor for um array.
+			if (is_array($where)) {
+				
+				$where_new = array();
+				$params_new = array();
+				foreach ($where as $key => $value) {
+					// Se for array usa IN
+					if (is_array($value)) {
+						$where_new[] = $key.' IN ('.implode(',', array_fill(0, count($value), '?')).')';
+						foreach ($value as $v) {
+							$params_new[] = $v;
+						}
+					} else {
+						// Se não for array usa =
+						$where_new[] = $key.' = ?';
+						$params_new[] = $value;
+					}
+				}
+				$where = implode(' AND ', $where_new);
+				$params = $params_new;
+			}
+			
+			$this->__statements = array_merge($this->__statements, $params);
 			
 			if (isset($this->__query['conditions'])) {
 				$this->__query['conditions'] .= ' AND ';
@@ -351,7 +375,7 @@
 				$this->__query['conditions'] = '';
 			}
 			
-			$this->__query['conditions'] .= '('.$value.')';
+			$this->__query['conditions'] .= '('.$where.')';
 			return $this;
 		}
 		
