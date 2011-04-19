@@ -96,6 +96,21 @@
 		
 		
 		protected $column_names = array();
+		
+		
+		protected $before_create = array();
+		protected $before_save = array();
+		protected $before_update = array();
+		protected $before_delete = array();
+
+		protected $after_create = array();
+		protected $after_save = array();
+		protected $after_update = array();
+		protected $after_delete = array();
+
+		protected function after_initialize() {}
+		
+		
 		/**
 		 * Connect to database and load behaviors
 		 *
@@ -105,6 +120,7 @@
 			//$this->__data = $data; // removi pq ele resetava na hora de criar os objetos via pdo
 			$this->__connection = Connection::get_instance()->pdo;
 			$this->add_behaviors($this->behaviors);
+			$this->after_initialize();
 		}
 		
 		/**
@@ -226,6 +242,10 @@
 			$this->__data[$name] = $value;
 		}
 		
+		public function is_new() {
+			return !(isset($this->__data[$this->primary_key]));
+		}
+		
 		/**
 		 * Save or update a record
 		 *
@@ -234,8 +254,17 @@
 		 * @return boolean
 		 */
 		public function save($data = array(), $only_columns = array()) {
+			// Executa os métodos antes do update ou create.
+			
+			
 			// TODO: melhorar esse update para ir somente os campos que foram alterados.
-			return (isset($this->__data[$this->primary_key])) ? $this->update($this->__data[$this->primary_key], array_merge($this->__data, $data)) : $this->create($data, $only_columns);
+			return ($this->is_new()) ? $this->create($data, $only_columns) : $this->update($this->__data[$this->primary_key], array_merge($this->__data, $data));
+			
+			if ($result) {
+				//$this->fire_hooks('after_save');
+			}
+			
+			//return $result;
 		}
 		
 		/**
@@ -246,7 +275,7 @@
 		 * @return boolean
 		 */
 		public function create($data = array(), $only_columns = array()) {
-			
+
 			// Remove os campos a não serem salvos.
 			$only_columns = ($only_columns) ? $only_columns : $this->attr_accessible;
 			if ($only_columns) {
@@ -262,6 +291,11 @@
 			}
 			
 			$this->__data = array_merge($this->__data, $data);
+			
+			// Executa os métodos de before_create
+			$this->fire_hooks('before_create');
+			$this->fire_hooks('before_save');
+
 			$values = array(); 
 			$columns = array();
 			
@@ -273,8 +307,10 @@
 			$sql = 'INSERT INTO `'.$this->table_name.'` ('.implode(',',$columns).') VALUES ('.implode(',',$values).')';
 			
 			$saved = $this->__connection->prepare($sql)->execute($this->__data);
+			
 			if ($saved) {
 				$this->id = $this->__connection->lastInsertId();
+				$this->fire_hooks('after_create');
 			}
 			return $saved;
 		}
@@ -288,7 +324,6 @@
 		 * @return boolean
 		 */
 		public function update($id, $data = array(), $only_columns = array()) {
-			
 			// Remove os campos a não serem salvos.
 			$only_columns = ($only_columns) ? $only_columns : $this->attr_accessible;
 			if ($only_columns) {
@@ -303,42 +338,89 @@
 				}
 			}
 			
+			$this->__data = array_merge($this->__data, $data);
+			
+			// Executa os métodos de before_update
+			$this->fire_hooks('before_update');
+			$this->fire_hooks('before_save');
+			
 			$values = array();
 			foreach ($data as $key => $value) {
 				$values[] = '`'.$key.'` = :'.$key.'';
 			}
 			
 			$query = 'UPDATE `'.$this->table_name.'` SET '.implode(', ',$values).' WHERE `'.$this->primary_key.'` = '.$id;
-			return $this->__connection->prepare($query)->execute($data);
+			
+			$result = $this->__connection->prepare($query)->execute($data);
+			
+			// Se salvou então executa os métodos
+			if ($result) {
+				$this->fire_hooks('after_update');
+			}
+				
+			return $result;
 		}
 		
 		/**
 		 * Delete a record
 		 *
-		 * @param int|array $ids 
+		 * @param int|array $ids
+		 * @param boolean $fire_callbacks  
 		 * @return int Number of records deleted
 		 */
-		public function delete($ids = null) {
-			if (is_null($ids) && isset($this->id)) {
-				$result = $this->exec('DELETE FROM `'.$this->table_name.'` WHERE `'.$this->primary_key.'` = '.$this->id);
+		public function delete($ids = null, $fire_callbacks = true) {
+			
+			if (is_null($ids) && isset($this->id)) {				
+				//$result = $this->exec('DELETE FROM `'.$this->table_name.'` WHERE `'.$this->primary_key.'` = '.$this->id);
+				// TODO: desse jeito ele chama 2 vezes o modelo, uma pelo usuário outra pelo drumonmodel
+				$result = $this->where(array($this->primary_key => $this->id))->delete_all($fire_callbacks);
 			} else {
-				if(is_array($ids)) {
-					$result = $this->exec('DELETE FROM `'.$this->table_name.'` WHERE `'.$this->primary_key.'` IN ('.implode(',',$ids).')');
-				} else {
-					$result = $this->exec('DELETE FROM `'.$this->table_name.'` WHERE `'.$this->primary_key.'` = '.$ids);
-				}
+				$result = $this->where(array($this->primary_key => $ids))->delete_all($fire_callbacks);
 			}
+			
 			return $result;
 		}
 		
 		/**
 		 * Delete all record found in query
 		 *
+		 * @param boolean $fire_callbacks  
 		 * @return int Number of records deleted
 		 */
-		public function delete_all() {
+		public function delete_all($fire_callbacks = true) {
+			
+			// Deleta os registros sem chamar os callbacks
+			if (!$fire_callbacks) {
+				$this->__query['action'] = 'delete';
+				$result = $this->__connection->exec($this->generate_sql());
+				$this->clear_query();
+				return $result;
+			}
+			
+			// Pega os registros que vão ser deletados
+			$records = $this->no_reset()->all(true);
+			
+			// Executa os before_deletes do model
+			foreach ($records as $record) {
+				$record->fire_hooks('before_delete');
+			}
+
 			$this->__query['action'] = 'delete';
-			return $this->__connection->exec($this->generate_sql());
+			$stmt = $this->__connection->prepare($this->generate_sql());
+			$stmt->execute($this->__statements);
+			$result = $stmt->rowCount();
+			
+			// Limpa a query
+			$this->clear_query();
+			
+			// Se foi deletado então executa os hooks
+			if ($result) {
+				foreach ($records as $record) {
+					$record->fire_hooks('after_delete');
+				}
+			}
+			
+			return $result;
 		}
 		
 		/**
@@ -369,6 +451,12 @@
 				return $this->exec('UPDATE `'.$this->table_name.'` SET `'.$column.'` = `'.$column.'` - '.$value.' WHERE `'.$this->primary_key.'` = "'.$id.'"');
 			}
 			return false;
+		}
+		
+		public function fire_hooks($hook_name) {
+			foreach ($this->$hook_name as $hook) {
+				$this->$hook();
+			}
 		}
 		
 		public function exec($sql) {
