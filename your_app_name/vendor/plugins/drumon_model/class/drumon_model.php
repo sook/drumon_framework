@@ -455,7 +455,7 @@
 		
 		public function fire_hooks($hook_name) {
 			foreach ($this->$hook_name as $hook) {
-				$this->$hook();
+				call_user_func(array($this, $hook));
 			}
 		}
 		
