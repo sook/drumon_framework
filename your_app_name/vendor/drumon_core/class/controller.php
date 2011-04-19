@@ -37,13 +37,6 @@ class Controller {
 	protected $params = array();
 	
 	/**
-	 * Namespace do controlados
-	 *
-	 * @var string
-	 */
-	protected $namespaces;
-	
-	/**
 	 * Nome da classe
 	 *
 	 * @var string

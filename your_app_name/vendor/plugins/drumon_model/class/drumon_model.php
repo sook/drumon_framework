@@ -94,20 +94,74 @@
 		 */
 		protected $attr_protected = array();
 		
-		
+		/**
+		 * Column name list from table.
+		 *
+		 * @var array
+		 */
 		protected $column_names = array();
 		
-		
+		/**
+		 * List of methods fired before a record is created.
+		 *
+		 * @var array
+		 */
 		protected $before_create = array();
+		
+		/**
+		 * List of methods fired before a record is saved. (create or update)
+		 *
+		 * @var array
+		 */
 		protected $before_save = array();
+		
+		/**
+		 * List od methods fired before a record is updated.
+		 *
+		 * @var array
+		 */
 		protected $before_update = array();
+		
+		/**
+		 * List of methods fired before delete a record.
+		 *
+		 * @var array
+		 */
 		protected $before_delete = array();
-
+		
+		/**
+		 * List of methods fired after a record is created.
+		 *
+		 * @var array
+		 */
 		protected $after_create = array();
+		
+		/**
+		 * List of methods fired after a record is saved. (create or update)
+		 *
+		 * @var string
+		 */
 		protected $after_save = array();
+		
+		/**
+		 * List of methods fired after a record is updated.
+		 *
+		 * @var array
+		 */
 		protected $after_update = array();
+		
+		/**
+		 * List of methods fired after delete a record.
+		 *
+		 * @var array
+		 */
 		protected $after_delete = array();
-
+		
+		/**
+		 * Always after initialize a object this method is fired.
+		 *
+		 * @return void
+		 */
 		protected function after_initialize() {}
 		
 		
@@ -117,7 +171,7 @@
 		 * @param array $data 
 		 */
 		public function __construct($data = array()) {
-			//$this->__data = $data; // removi pq ele resetava na hora de criar os objetos via pdo
+			$this->__data = array_merge($this->__data, $data);
 			$this->__connection = Connection::get_instance()->pdo;
 			$this->add_behaviors($this->behaviors);
 			$this->after_initialize();
@@ -242,6 +296,11 @@
 			$this->__data[$name] = $value;
 		}
 		
+		/**
+		 * Verify if record is new (is not on database)
+		 *
+		 * @return boolean
+		 */
 		public function is_new() {
 			return !(isset($this->__data[$this->primary_key]));
 		}
@@ -254,17 +313,8 @@
 		 * @return boolean
 		 */
 		public function save($data = array(), $only_columns = array()) {
-			// Executa os métodos antes do update ou create.
-			
-			
 			// TODO: melhorar esse update para ir somente os campos que foram alterados.
 			return ($this->is_new()) ? $this->create($data, $only_columns) : $this->update($this->__data[$this->primary_key], array_merge($this->__data, $data));
-			
-			if ($result) {
-				//$this->fire_hooks('after_save');
-			}
-			
-			//return $result;
 		}
 		
 		/**
@@ -324,7 +374,7 @@
 		 * @return boolean
 		 */
 		public function update($id, $data = array(), $only_columns = array()) {
-			// Remove os campos a não serem salvos.
+			// Remove the fields that will not be saved.
 			$only_columns = ($only_columns) ? $only_columns : $this->attr_accessible;
 			if ($only_columns) {
 				foreach ($data as $key => $value) {
@@ -340,7 +390,7 @@
 			
 			$this->__data = array_merge($this->__data, $data);
 			
-			// Executa os métodos de before_update
+			// Fire all methods for before_update
 			$this->fire_hooks('before_update');
 			$this->fire_hooks('before_save');
 			
@@ -353,7 +403,7 @@
 			
 			$result = $this->__connection->prepare($query)->execute($data);
 			
-			// Se salvou então executa os métodos
+			// If saved then fire all hooks.
 			if ($result) {
 				$this->fire_hooks('after_update');
 			}
@@ -365,7 +415,7 @@
 		 * Delete a record
 		 *
 		 * @param int|array $ids
-		 * @param boolean $fire_callbacks  
+		 * @param boolean $fire_callbacks 
 		 * @return int Number of records deleted
 		 */
 		public function delete($ids = null, $fire_callbacks = true) {
@@ -389,7 +439,7 @@
 		 */
 		public function delete_all($fire_callbacks = true) {
 			
-			// Deleta os registros sem chamar os callbacks
+			// Delete all records without fire callbacks.
 			if (!$fire_callbacks) {
 				$this->__query['action'] = 'delete';
 				$result = $this->__connection->exec($this->generate_sql());
@@ -397,10 +447,10 @@
 				return $result;
 			}
 			
-			// Pega os registros que vão ser deletados
+			// Find all records that will be deleted.
 			$records = $this->no_reset()->all(true);
 			
-			// Executa os before_deletes do model
+			// Fire all before_delete callbacks.
 			foreach ($records as $record) {
 				$record->fire_hooks('before_delete');
 			}
@@ -410,10 +460,10 @@
 			$stmt->execute($this->__statements);
 			$result = $stmt->rowCount();
 			
-			// Limpa a query
+			// Clear object to next action.
 			$this->clear_query();
 			
-			// Se foi deletado então executa os hooks
+			// If deleted then fire all after_delete callbacks
 			if ($result) {
 				foreach ($records as $record) {
 					$record->fire_hooks('after_delete');
@@ -453,12 +503,24 @@
 			return false;
 		}
 		
+		/**
+		 * Call methods attached on hooks.
+		 *
+		 * @param string $hook_name 
+		 * @return void
+		 */
 		public function fire_hooks($hook_name) {
 			foreach ($this->$hook_name as $hook) {
 				call_user_func(array($this, $hook));
 			}
 		}
 		
+		/**
+		 * Execute a SQL expression.
+		 *
+		 * @param string $sql 
+		 * @return mixed
+		 */
 		public function exec($sql) {
 			return $this->__connection->exec($sql);
 		}
@@ -903,7 +965,12 @@
 			return $query;
 		}
 		
-		public function get_column_names(){ 
+		/**
+		 * Get all colunm names from current table
+		 *
+		 * @return array
+		 */
+		public function get_column_names() { 
 
 			#$sql = "SELECT column_name FROM information_schema.columns WHERE table_name = '".$this->table_name."' AND table_schema = '".Connection::get_instance()->config['database']."'";
 			$sql = 'SHOW COLUMNS FROM ' . $this->table_name; 
@@ -913,14 +980,13 @@
 			try {     
 				if($stmt->execute()){ 
 					$raw_column_data = $stmt->fetchAll(PDO::FETCH_ASSOC); 
-					//print_r($raw_column_data);
 					foreach($raw_column_data as $outer_key => $array){ 
 						$this->column_names[$array['Field']] = $array; 
 					} 
 				} 
 				return $this->column_names; 
 			} catch (Exception $e){ 
-				return $e->getMessage(); //return exception 
+				return $e->getMessage();
 			}         
 		}
 		
