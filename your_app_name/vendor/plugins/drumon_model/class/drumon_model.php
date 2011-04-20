@@ -203,7 +203,6 @@
 		 * @param string $method 
 		 * @param string $args 
 		 * @return void
-		 * @author Danillo César de Oliveira Melo
 		 */
 		public function __call($method, $args) {
 			// Verifica se realmente existe o método desejado
@@ -234,7 +233,6 @@
 		 *
 		 * @param string $name 
 		 * @return void
-		 * @author Danillo César de Oliveira Melo
 		 */
 		public function __get($name) {
 			if (isset($this->__data[$name])) {
@@ -686,11 +684,23 @@
 		}
 		
 		/**
+		 * Default scope for your model
+		 *
+		 * @return void
+		 */
+		public function default_scope() {
+			return $this;
+		}
+		
+		/**
 		 * Create a SQL from all query data
 		 *
 		 * @return string
 		 */
 		public function generate_sql() {
+			
+			$this->default_scope();
+			
 			$action = 'SELECT '.$this->__query['select'];
 			
 			// Ação de deletar
