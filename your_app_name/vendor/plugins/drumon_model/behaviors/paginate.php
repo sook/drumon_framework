@@ -11,7 +11,7 @@
  * @package models
  * @subpackage behaviors
  */
-class Paginate extends Behavior {
+class Paginate extends Behavior implements ArrayAccess, Iterator, Countable {
 
 	/** 
 	 * Armazena o total de registros.
@@ -86,6 +86,7 @@ class Paginate extends Behavior {
 		
 		// Busca registros
 		$this->records = $model->select('*')->limit($this->per_page)->offset($offset)->all($object);
+
 		return $this;
 	}
 	
@@ -178,5 +179,52 @@ class Paginate extends Behavior {
 	function has_page() {
 		return ($this->getLastPage() > 1) ? true : false;
 	}
+	
+	
+	public function offsetExists($offset) {
+		return isset($this->records[$offset]);
+	}
+	
+	public function offsetGet($offset) {
+		return $this->records[$offset];
+	}
+	
+	public function offsetSet($offset,$value) {
+		$this->records[$offset] = $value;
+	}
+	
+	public function offsetUnset($offset) {
+		unset($this->records[$offset]);
+	}
+	
+	public function count() {
+		return count($this->records);
+	}
+	
+	
+	public function rewind() {
+		reset($this->records);
+	}
+
+	public function current() {
+		return current($this->records);
+	}
+
+	public function key() {
+		return key($this->records);
+	}
+
+	public function next() {
+		return next($this->records);
+	}
+
+	public function valid() {
+		return key($this->records) !== null;
+	}   
+	
+	
+	
+	
+	
 }
 ?>
