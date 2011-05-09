@@ -70,8 +70,12 @@ class Paginate extends Behavior implements ArrayAccess, Iterator, Countable {
 		
 		// Pega o numero de registro por página.
 		$this->per_page = empty($this->per_page) ? $model->per_page: $this->per_page;
+		
+		// Pega os dados da query
+		$query_cache = $model->get_query();
+		
 		// Total de registros no banco do módulo passado com parametro
-		$this->total_records = $model->no_reset()->count();
+		$this->total_records = $model->count();
 		// Retorna false caso não encontre nada.
 		if($this->total_records == 0) {
 			$this->records = false;
@@ -84,8 +88,11 @@ class Paginate extends Behavior implements ArrayAccess, Iterator, Countable {
 		// Verifica de onde irá iniciar a listagem dos registros
 		$offset = (($this->current_page-1) * $this->per_page);
 		
+		// Seta os dados da query
+		$model->set_query($query_cache);
+		
 		// Busca registros
-		$this->records = $model->select('*')->limit($this->per_page)->offset($offset)->all($object);
+		$this->records = $model->limit($this->per_page)->offset($offset)->all($object);
 
 		return $this;
 	}
@@ -220,11 +227,6 @@ class Paginate extends Behavior implements ArrayAccess, Iterator, Countable {
 
 	public function valid() {
 		return key($this->records) !== null;
-	}   
-	
-	
-	
-	
-	
+	}
 }
 ?>

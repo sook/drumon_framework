@@ -60,13 +60,6 @@
 		private $__statements = array();
 		
 		/**
-		 * Reset query after finish if true
-		 *
-		 * @var string
-		 */
-		private $__reset = true;
-		
-		/**
 		 * PDO connection instance
 		 *
 		 * @var object
@@ -79,6 +72,8 @@
 		 * @var string
 		 */
 		private $__data = array();
+		
+		public $__return_empty = false;
 		
 		/**
 		 * Accesibles vars on mass assignment.
@@ -292,6 +287,30 @@
 		 */
 		public function write_attribute($name, $value) {
 			$this->__data[$name] = $value;
+		}
+		
+		/**
+		 * Get current sql query
+		 *
+		 * @param string $key 
+		 * @return array|string
+		 */
+		public function get_query($key = false) {
+			if ($key) {
+				return $this->__query[$key];
+			} else {
+				return $this->__query;
+			}
+		}
+		
+		/**
+		 * Set current sql query
+		 *
+		 * @param string $query 
+		 * @return void
+		 */
+		public function set_query($query) {
+			$this->__query = $query;
 		}
 		
 		/**
@@ -895,16 +914,17 @@
 		 * @return mixed
 		 */
 		public function all($object = false) {
+			
+			if ($this->__return_empty) {
+				return array();
+			}
+			
 			$sql = $this->generate_sql();
 
 			$stmt = $this->__connection->prepare($sql);
 			$stmt->execute($this->__statements);
 			
-			// Limpa a query
-			if ($this->__reset) {
-				$this->clear_query();
-				$this->__reset = true;
-			}
+			$this->clear_query();
 
 			if ($object) {
 				$model_list = $stmt->fetchALL(PDO::FETCH_CLASS, get_class($this));
@@ -927,16 +947,6 @@
 			);
 			// Limpa os dados da query.
 			$this->__statements = array();
-		}
-		
-		/**
-		 * No reset current query after execute
-		 *
-		 * @return object
-		 */
-		public function no_reset() {
-			$this->__reset = false;
-			return $this;
 		}
 		
 		/**
