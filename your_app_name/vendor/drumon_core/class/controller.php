@@ -172,7 +172,7 @@ class Controller {
 				call_user_func(array($this,$value));
 			}
 		}
-	}
+	} 
 
 	/**
 	 * Adiciona variáveis a ser utilizadas no view.
