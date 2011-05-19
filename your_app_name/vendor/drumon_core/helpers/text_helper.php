@@ -6,52 +6,51 @@
  */
 
 /**
- * Helper para trabalhar com texto.
+ * Text manipulation.
  *
  * @author Sook contato@sook.com.br.
- * @package helpers
+ * @package drumon_core
+ * @subpackage	drumon_core.helpers
  */
 class TextHelper extends Helper {
 	
 	public $translations = array();
 	
 	/**
-	 * Converte um texto para o formato de slug, retirando os acentos e espaços.
+	 * Converts a text format for the slug, removing accents and spaces.
 	 *
 	 * @access public
-	 * @param string $text - Texto a ser formatado.
-	 * @param string $space - Caractere usado no lugar do espaço (default: -).
-	 * @return string -  Texto formatado.
+	 * @param string $text Text to be formatted.
+	 * @param string $space Character used instead of special characters.
+	 * @return string Formatted text.
 	 */
 	public function to_slug($text, $space = "-") {
 		return App::to_slug($text, $space);
 	}
 
 	/**
-	 * Procura Tags de usuário twitter e hasttags para consulta no twitter e adiciona link na tag encontrada.
+	 * Search usernames and consultation for hashtags on twitter and add the link tags found.
 	 *
 	 * @access public
-	 * @param string $text - Texto a ser verificado.
-	 * @return string - Texto Modificado pelo método.
+	 * @param string $text Text to be formatted.
+	 * @return string Formatted text.
 	 */
 	public function twitterify($text) {
-	  $text = preg_replace("/@(\w+)/", "<a title= \"Twitter Profile\" href=\"http://www.twitter.com/\\1\" target=\"_blank\">@\\1</a>", $text);
-	  $text = preg_replace("/#(\w+)/", "<a title=\"Twitter Search\" href=\"http://search.twitter.com/search?q=\\1\" target=\"_blank\">#\\1</a>", $text);
+		$text = preg_replace("/@(\w+)/", "<a title= \"Twitter Profile\" href=\"http://www.twitter.com/\\1\" target=\"_blank\">@\\1</a>", $text);
+		$text = preg_replace("/#(\w+)/", "<a title=\"Twitter Search\" href=\"http://search.twitter.com/search?q=\\1\" target=\"_blank\">#\\1</a>", $text);
 		return $text;
 	}
 	
 	/**
-	 * Adiciona links (<a href =....) a um determinado texto, encontrando texto que começa com
-	 * strings como http://.
+	 * Adds links (<a href =....) a given text, finding text that begins with strings such as http://.
 	 *
-	 * @param string $text - Texto a ser analisado.
-	 * @return string - Texto com inclusão de links.
-
+	 * @access public
+	 * @param string $text Text to be formatted.
+	 * @return string Text with adding links.
 	 */
 	public function linkfy($text) {
 		$text = preg_replace("#(^|[\n ])([\w]+?://[\w]+[^ \"\n\r\t< ]*)#", "\\1<a href=\"\\2\" target=\"_blank\">\\2</a>", $text);
-	  $text = preg_replace("#(^|[\n ])((www|ftp)\.[^ \"\t\n\r< ]*)#", "\\1<a href=\"http://\\2\" target=\"_blank\">\\2</a>", $text);
-	//	preg_replace("#http://([A-z0-9./-]+)#", '<a href="$1">$0</a>', $text);
+		$text = preg_replace("#(^|[\n ])((www|ftp)\.[^ \"\t\n\r< ]*)#", "\\1<a href=\"http://\\2\" target=\"_blank\">\\2</a>", $text);
 		return $text;
 	}
 
