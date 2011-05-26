@@ -210,7 +210,9 @@ class Paginate extends Behavior implements ArrayAccess, Iterator, Countable {
 	
 	
 	public function rewind() {
-		reset($this->records);
+		if ($this->records) {
+			reset($this->records);
+		}
 	}
 
 	public function current() {
@@ -226,7 +228,11 @@ class Paginate extends Behavior implements ArrayAccess, Iterator, Countable {
 	}
 
 	public function valid() {
-		return key($this->records) !== null;
+		if ($this->records) {
+			return key($this->records) !== null;
+		} else {
+			return false;
+		}
 	}
 }
 ?>

@@ -210,11 +210,11 @@ class HtmlHelper extends Helper {
 		
 		if (isset($options['include_blank'])) {
 			if($options['include_blank'] === true) {
-				$include_blank = '<option></option>';
+				$include_blank = '<option value=""></option>';
 			}else if($options['include_blank'] === false){
 				$include_blank = '';
 			}else{
-			$include_blank = '<option>'.$options['include_blank'].'</option>';
+			$include_blank = '<option value="">'.$options['include_blank'].'</option>';
 			}
 			unset($options['include_blank']);
 		}
@@ -223,7 +223,7 @@ class HtmlHelper extends Helper {
 		$html .= $include_blank;
 		foreach ($options_list as $key => $value) {
 			$selected_on = '';
-			if ($selected == $key) {
+			if ($selected === $key) {
 				$selected_on = ' selected';
 			}
 			$html .= '<option'.$selected_on.' value="'.$key.'">'.$value.'</option>';
@@ -296,6 +296,15 @@ class HtmlHelper extends Helper {
 		}
 
 		$html = $this->select($field_name, $data_list, $options);
+		return $html;
+	}
+	
+	public function show_select_date($field_name, $options = array()) {
+		$options = array_merge(array('start_year'=>Date('Y')-120,'end_year'=>Date('Y')),$options);
+		
+		$html = $this->select_date_days($field_name.'[day]',$options);
+		$html .= $this->select_date_months($field_name.'[month]',$options);
+		$html .= $this->select_date_years($field_name.'[year]',$options['start_year'],$options['end_year'],$options);
 		return $html;
 	}
 	
