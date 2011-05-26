@@ -147,21 +147,24 @@ class HtmlHelper extends Helper {
 	 * Gera a tag form com os dados necessários para o drumon.
 	 *
 	 * @param string $url - Destino da requisição do form.
-	 * @param string $method - Método da requisição.
 	 * @param string $options - Atributos(class,id...).
 	 * @return string
 	 */
-	public function form($url, $method = "post", $options = array()) {
-		
+	public function form($url, $options = array()) {
+		$options = array_merge(array('method' => 'post', 'file' => false), $options);
 		$html = array();
 		
-		if (strtolower($method) === 'get') {
+		if (strtolower($options['method']) === 'get') {
 			$real_method = 'get';
 			$inputs = '';
 		}else{
 			$real_method = 'post';
 			$inputs = '<input type="hidden" name="_token" value="'.REQUEST_TOKEN.'">';
-			$inputs .= '<input type="hidden" name="_method" value="'.$method.'">';
+			$inputs .= '<input type="hidden" name="_method" value="'.$options['method'].'">';
+		}
+		
+		if ($options['file']) {
+			$options['enctype'] = "multipart/form-data";
 		}
 		
 		$html[] = '<form action="'.$url.'" method="'.$real_method.'" '.$this->create_attributes($options).'>';
@@ -310,7 +313,7 @@ class HtmlHelper extends Helper {
 	
 	
 	public function create_attributes($attributes) {
-		$attributes_list = array('rel','class','title','id','alt','value','name','data-method','data-confirm');
+		$attributes_list = array('rel','class','title','id','alt','value','name','data-method','data-confirm','enctype');
 		$data = "";
 		foreach ($attributes as $key => $value) {
 			if(in_array($key,$attributes_list)) {
