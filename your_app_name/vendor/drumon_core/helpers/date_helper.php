@@ -6,7 +6,7 @@
  */
 
 /**
- * Helper para trabalhar com data.
+ * Support for handling dates.
  *
  * @author Sook contato@sook.com.br
  * @package helpers
