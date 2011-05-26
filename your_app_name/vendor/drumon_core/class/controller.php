@@ -269,11 +269,11 @@ class Controller {
 				$this->view_name = $this->request->routes[$code][1];
 			} else {
 				$this->layout = null;
-				$this->content_for_layout = file_get_contents(ROOT.'/public/'.$this->request->routes[$code]);
+				$this->content_for_layout = file_get_contents(APP_PATH.'/public/'.$this->request->routes[$code]);
 			}
 		} else {
 			$this->layout = null;
-			$this->content_for_layout = file_get_contents(ROOT.'/public/'.$file_name);
+			$this->content_for_layout = file_get_contents(APP_PATH.'/public/'.$file_name);
 		}
 	}
 
@@ -297,13 +297,13 @@ class Controller {
 			if ($this->view_name[0] != '/') {
 				$this->view_name = '/app/views/'.App::to_underscore(str_replace('_','/',$this->view_folder)).'/'.$this->view_name;
 			}
-			$this->content_for_layout = $this->view->render_file(ROOT.$this->view_name.".php");
+			$this->content_for_layout = $this->view->render_file(APP_PATH.$this->view_name.".php");
 		}
 
 		// Renderiza layout se possuir.
 		if($this->layout) {
 			$this->view->add('content_for_layout', $this->content_for_layout);
-			$html = $this->view->render_file(ROOT.'/app/views/layouts/'.$this->layout.'.php');
+			$html = $this->view->render_file(APP_PATH.'/app/views/layouts/'.$this->layout.'.php');
 			$this->app->fire_event('after_render_layout', array('layout' => &$html));
 		} else {
 			$html = $this->content_for_layout;

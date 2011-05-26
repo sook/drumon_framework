@@ -94,22 +94,22 @@ class App {
 		$route['403'] = '404.html';
 		$route['404'] = '404.html';
 		
-		include(ROOT.'/config/routes.php');
-		include(ROOT.'/config/application.php');
-		include(ROOT.'/config/enviroments/'.$app->config['env'].'.php');
+		include(APP_PATH.'/config/routes.php');
+		include(APP_PATH.'/config/application.php');
+		include(APP_PATH.'/config/enviroments/'.$app->config['env'].'.php');
 		
 		// Seta as constantes mais utilizadas
 		define('APP_DOMAIN',			 $app->config['app_domain']);
 		define('STYLESHEETS_PATH', $app->config['stylesheets_path']);
 		define('JAVASCRIPTS_PATH', $app->config['javascripts_path']);
 		define('IMAGES_PATH',			 $app->config['images_path']);
-		define('PLUGINS_PATH',			     ROOT.'/vendor/plugins');
+		define('PLUGINS_PATH',			     APP_PATH.'/vendor/plugins');
 		define('LANGUAGE',			   $app->config['language']);
 		define('JS_FRAMEWORK',     $app->config['js_framework']);
 		
 		// Carrega plugins
 		foreach ($app->plugins as $plugin) {
-			require_once(ROOT.'/vendor/plugins/'.$plugin.'/init.php');
+			require_once(APP_PATH.'/vendor/plugins/'.$plugin.'/init.php');
 		}
 		
 		// Dispara o evento de inicialização do Framework
@@ -120,7 +120,7 @@ class App {
 		include(CORE.'/class/helper.php');
 		include(CORE.'/class/view.php');
 		include(CORE.'/class/controller.php');
-		include(ROOT.'/app/controllers/app_controller.php');
+		include(APP_PATH.'/app/controllers/app_controller.php');
 
 
 		/**
@@ -144,7 +144,7 @@ class App {
 					$controller = $app->load_controller($request);
 					$html = $controller->execute_view();
 				} else {
-					$html = file_get_contents(ROOT.'/public/'.$route['401']);
+					$html = file_get_contents(APP_PATH.'/public/'.$route['401']);
 				}
 			} else {
 				// se não renderiza nornalmente
@@ -160,7 +160,7 @@ class App {
 				$controller = $app->load_controller($request);
 				$html = $controller->execute_view();
 			} else {
-				$html = file_get_contents(ROOT.'/public/'.$route['404']);
+				$html = file_get_contents(APP_PATH.'/public/'.$route['404']);
 			}
 		}
 		
@@ -197,7 +197,7 @@ class App {
 		$helpers_names = is_array($helpers_names) ? $helpers_names : array($helpers_names);
 		foreach ($helpers_names as $helper_name) {
 			$helper_name = strtolower(trim($helper_name));
-			$local = in_array($helper_name, $core_helpers) ? CORE.'/helpers' : ROOT.'/app/helpers';
+			$local = in_array($helper_name, $core_helpers) ? CORE.'/helpers' : APP_PATH.'/app/helpers';
 			if ($custom_paths) {
 				$local = $custom_paths;
 			}
@@ -284,7 +284,7 @@ class App {
 		$real_class_name = $request->controller_name.'Controller'; // ex. HomeController || Admin_HomeController
 		
 		// Inclui o controlador.
-		include(ROOT.'/app/controllers/'.App::to_underscore(str_replace('_','/',$real_class_name)).'.php');
+		include(APP_PATH.'/app/controllers/'.App::to_underscore(str_replace('_','/',$real_class_name)).'.php');
 		
 		// Inicia o controlador e chama a ação.
 		$controller = new $real_class_name($this, $request, new View());
@@ -442,7 +442,7 @@ function t($text) {
 	}
 	
 	if (!isset($app->translations_cache[$file_name])) {
-		$app->translations_cache[$file_name] = include(ROOT.'/config/locales/'.LANGUAGE.'/'.$file_name.'.php');
+		$app->translations_cache[$file_name] = include(APP_PATH.'/config/locales/'.LANGUAGE.'/'.$file_name.'.php');
 	}
 
 	$text = (isset($app->translations_cache[$file_name][$text])) ? $app->translations_cache[$file_name][$text] : implode('.',$parts);

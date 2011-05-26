@@ -62,7 +62,7 @@ class View {
 	 * @return void
 	 */
 	public function render($view) {
-		return ($view[0] === '/') ? $this->render_file(ROOT.$view.'.php') : $this->render_file(ROOT.'/app/views/'.$view.'.php');
+		return ($view[0] === '/') ? $this->render_file(APP_PATH.$view.'.php') : $this->render_file(APP_PATH.'/app/views/'.$view.'.php');
 	}
 
 	/**
@@ -72,7 +72,7 @@ class View {
 	 * @return void
 	 */
 	public function partial($view) {
-		return $this->render_file(ROOT.'/app/views/'.$this->partial_path.$view.'.php');
+		return $this->render_file(APP_PATH.'/app/views/'.$this->partial_path.$view.'.php');
 	}
 
 	/**

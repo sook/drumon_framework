@@ -16,7 +16,7 @@
 	
 	
 	function auto_load_model($model_name) {
-		$file = ROOT.'/app/models/'.App::to_underscore($model_name).'.php';
+		$file = APP_PATH.'/app/models/'.App::to_underscore($model_name).'.php';
 		if (file_exists($file)) {
 			require $file;
 		}

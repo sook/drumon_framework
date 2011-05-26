@@ -67,18 +67,18 @@ class RequestHandler {
 	 * Carrega a rota através da função get_route
 	 *
 	 * @param array $route - Rota para redirecionamento de página.
-	 * @param string $app_root - Endereço da pasta app do site.
+	 * @param string $app_path - Endereço da pasta app do site.
 	 * @access public
 	 */
-	public function __construct($routes, $app_root = ROOT ) {
+	public function __construct($routes, $app_path = APP_PATH ) {
 		$this->routes = $routes;
-		$this->app_root = $app_root;
+		$this->app_path = $app_path;
 		$this->method = (isset($_REQUEST['_method']) && strtolower($_SERVER['REQUEST_METHOD']) == 'post') ? strtolower($_REQUEST['_method']) : strtolower($_SERVER['REQUEST_METHOD']);
 	}
 	
 	
 	public function valid() {
-		$route = $this->get_route($this->routes, $this->app_root);
+		$route = $this->get_route($this->routes, $this->app_path);
 		if(is_array($route)) {
 			if(isset($route['redirect'])) {
 				if(!isset($route[0])) { $route[0] = null; }
@@ -99,13 +99,13 @@ class RequestHandler {
 	 * Search for a valid route.
 	 *
 	 * @access public
-	 * @param string $app_root - Endereço da pasta app do site.
+	 * @param string $app_path - Endereço da pasta app do site.
 	 * @param array $route - Rota para redirecionamento de página.
 	 * @return mixed - False, se não existir rota / Array com a Lista de Rotas.
 	 */
-	public function get_route($route, $app_root) {
+	public function get_route($route, $app_path) {
 		
-		$subfolder = str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\','/',$app_root));
+		$subfolder = str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\','/',$app_path));
 		$uri = str_replace($subfolder,'', $_SERVER['REQUEST_URI']);
 		$uri = explode('?',$uri);
 		$uri[0] = $this->strip_slash($uri[0]);
