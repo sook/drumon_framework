@@ -116,10 +116,10 @@ class App {
 		$app->fire_event('on_init');
 		
 		// Inclui arquivos requeridos pelo Drumon
-		include(CORE.'/class/request_handler.php');
-		include(CORE.'/class/helper.php');
-		include(CORE.'/class/view.php');
-		include(CORE.'/class/controller.php');
+		include(CORE_PATH.'/class/request_handler.php');
+		include(CORE_PATH.'/class/helper.php');
+		include(CORE_PATH.'/class/view.php');
+		include(CORE_PATH.'/class/controller.php');
 		include(APP_PATH.'/app/controllers/app_controller.php');
 
 
@@ -197,7 +197,7 @@ class App {
 		$helpers_names = is_array($helpers_names) ? $helpers_names : array($helpers_names);
 		foreach ($helpers_names as $helper_name) {
 			$helper_name = strtolower(trim($helper_name));
-			$local = in_array($helper_name, $core_helpers) ? CORE.'/helpers' : APP_PATH.'/app/helpers';
+			$local = in_array($helper_name, $core_helpers) ? CORE_PATH.'/helpers' : APP_PATH.'/app/helpers';
 			if ($custom_paths) {
 				$local = $custom_paths;
 			}
