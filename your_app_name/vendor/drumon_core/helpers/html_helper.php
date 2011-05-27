@@ -226,7 +226,7 @@ class HtmlHelper extends Helper {
 		$html .= $include_blank;
 		foreach ($options_list as $key => $value) {
 			$selected_on = '';
-			if ($selected === $key) {
+			if ( (string) $selected === (string) $key) {
 				$selected_on = ' selected';
 			}
 			$html .= '<option'.$selected_on.' value="'.$key.'">'.$value.'</option>';

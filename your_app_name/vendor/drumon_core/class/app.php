@@ -131,26 +131,14 @@ class App {
 		// Se a rota existe.
 		if ($request->valid()) {
 			$status_code = 200;
+			
 			// Token de proteção contra CSFR
 			define('REQUEST_TOKEN', $app->create_request_token());
 			
-			// Verifica se é para bloquear
-			if($app->block_csrf_protection($request)) {
-				// se bloquear renderiza pagina de erro
-				$status_code = 401;
-				if (is_array($route['401'])) {
-					$request->controller_name = $route['401'][0];
-					$request->action_name = $route['401'][1];
-					$controller = $app->load_controller($request);
-					$html = $controller->execute_view();
-				} else {
-					$html = file_get_contents(APP_PATH.'/public/'.$route['401']);
-				}
-			} else {
-				// se não renderiza nornalmente
-				$controller = $app->load_controller($request);
-				$html = $controller->execute_view();
-			}
+			// se não renderiza nornalmente
+			$controller = $app->load_controller($request);
+			$html = $controller->execute_view();
+
 		} else {
 			// Página não encontrada.
 			$status_code = 404;

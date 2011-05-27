@@ -370,8 +370,8 @@
 			$this->__data = array_merge($this->__data, $data);
 			
 			// Executa os métodos de before_create
-			$this->fire_hooks('before_create');
-			$this->fire_hooks('before_save');
+			if ($this->fire_hooks('before_create') === false) { return false; }
+			if ($this->fire_hooks('before_save') === false) { return false; }
 
 			$values = array(); 
 			$columns = array();
@@ -418,8 +418,8 @@
 			$this->__data = array_merge($this->__data, $data);
 			
 			// Fire all methods for before_update
-			$this->fire_hooks('before_update');
-			$this->fire_hooks('before_save');
+			if ($this->fire_hooks('before_update') === false) { return false; }
+			if ($this->fire_hooks('before_save') === false) { return false; }
 			
 			$values = array();
 			foreach ($data as $key => $value) {

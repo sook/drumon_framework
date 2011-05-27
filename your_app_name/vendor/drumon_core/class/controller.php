@@ -93,6 +93,13 @@ class Controller {
 	public $after_action = array();
 	
 	/**
+	 * Proteção contra CSRF ligada.
+	 *
+	 * @var boolean
+	 */
+	public $csrf_protection = true;
+	
+	/**
 	 * Instancia um novo view com as configurações, parâmetros e idioma padrões.
 	 *
 	 * @access public
@@ -114,6 +121,15 @@ class Controller {
 	 * @return void
 	 */
 	public function execute_action() {
+		
+		// Se for uma requisição perigosa renderinza uma página de erro
+		if($this->csrf_protection && $this->app->block_csrf_protection($this->request)) {
+			$this->http_status_code = 401;
+			$this->layout = false;
+			$this->view_name = '/public/'.$this->request->routes['401'];
+			return ;
+		}
+		
 		$this->view_folder = $this->request->controller_name;
 		$this->view_name = $this->request->action_name;
 		
@@ -193,7 +209,7 @@ class Controller {
 	 * @return void
 	 */
 	public function render($view_name, $http_status_code = 200) {
-		$this->view_name = $view_name;
+		$this->view_name = $view_name.'.php';
 		$this->http_status_code = $http_status_code;
 	}
 	
@@ -295,9 +311,9 @@ class Controller {
 		if($this->content_for_layout === null) {
 			// Se não começar com / então chama a convenção do framework.
 			if ($this->view_name[0] != '/') {
-				$this->view_name = '/app/views/'.App::to_underscore(str_replace('_','/',$this->view_folder)).'/'.$this->view_name;
+				$this->render('/app/views/'.App::to_underscore(str_replace('_','/',$this->view_folder)).'/'.$this->view_name);
 			}
-			$this->content_for_layout = $this->view->render_file(APP_PATH.$this->view_name.".php");
+			$this->content_for_layout = $this->view->render_file(APP_PATH.$this->view_name);
 		}
 
 		// Renderiza layout se possuir.
