@@ -303,10 +303,8 @@ class PaginateHelper extends Helper {
 		return substr($s1, 0, strpos($s1, $s2));
 	}
 }
-?>
 
 
-<?php
 /**
  * Query String Management Class
  *
