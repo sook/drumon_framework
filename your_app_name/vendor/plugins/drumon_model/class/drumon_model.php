@@ -475,13 +475,14 @@
 			}
 			
 			// Find all records that will be deleted.
-			$records = $this->no_reset()->all(true);
+			$query_tmp = $this->get_query();
+			$records = $this->all(true);
 			
 			// Fire all before_delete callbacks.
 			foreach ($records as $record) {
 				$record->fire_hooks('before_delete');
 			}
-
+			$this->set_query($query_tmp);
 			$this->__query['action'] = 'delete';
 			$stmt = $this->__connection->prepare($this->generate_sql());
 			$stmt->execute($this->__statements);

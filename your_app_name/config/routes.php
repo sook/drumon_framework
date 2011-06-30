@@ -1,4 +1,5 @@
 <?php
+
 	//  Rota basica
 	// 	$route['get']['/blog'] = array('Blog','index');
 	//	
@@ -16,10 +17,11 @@
 	// 	$route['*']['/twitter'] = array('redirect'=>'http://twitter.com');
 	// 	$route['*']['/twitter'] = array('redirect'=>'http://twitter.com',302);
 	//	
-	//	Rora para a página não encontrada 404
+	//	Rota para a página não encontrada 404
 	//	$route['404'] = array('Error','error_404');
 	//	ou
 	//	$route['404'] = '404.html'; //default
+	
 	
 	// Rota para o inicio da aplicação
 	$route['get']['/'] = array('Pages','index', 'as'=>'home'); // $url->to_home();

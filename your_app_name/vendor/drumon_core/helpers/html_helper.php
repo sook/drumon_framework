@@ -272,8 +272,8 @@ class HtmlHelper extends Helper {
 		$data_list = array();
 		foreach ($this->text->translate('date.months') as $key => $value) {
 			$selected = '';
-			$n = ($key < 10) ? '0'.$key : $key ;
-			$data_list[$n]=$value;
+//			$n = ($key < 10) ? '0'.$key : $key ;
+			$data_list[$key]=$value;
 		}
 	
 		$html = $this->select($field_name, $data_list, $options);
@@ -295,7 +295,7 @@ class HtmlHelper extends Helper {
 		$data_list = array();
 		for ($i=1; $i <= 31; $i++) {
 			$n = ($i < 10) ? '0'.$i : $i ;
-			$data_list[$n]=$n;
+			$data_list[$i]=$n;
 		}
 
 		$html = $this->select($field_name, $data_list, $options);
