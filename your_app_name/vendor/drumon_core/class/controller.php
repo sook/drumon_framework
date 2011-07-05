@@ -162,12 +162,12 @@ class Controller {
 					if (is_array($value['only'])) {
 						foreach ($value['only'] as $only) {
 							if ($this->request->action_name === $only) {
-								call_user_func(array($this,$key));
+								call_user_func(array($this, $key));
 							}
 						}
 					} else {
 						if ($this->request->action_name === $value['only']) {
-							call_user_func(array($this,$key));
+							call_user_func(array($this, $key));
 						}
 					}
 					
@@ -180,7 +180,7 @@ class Controller {
 						}
 					} else {
 						if ($this->request->action_name !== $value['except']) {
-							call_user_func(array($this,$key));
+							call_user_func(array($this, $key));
 						}
 					}
 				}
@@ -209,7 +209,7 @@ class Controller {
 	 * @return void
 	 */
 	public function render($view_name, $http_status_code = 200) {
-		$this->view_name = $view_name.'.php';
+		$this->view_name = $view_name;
 		$this->http_status_code = $http_status_code;
 	}
 	
@@ -313,10 +313,10 @@ class Controller {
 			if ($this->view_name[0] != '/') {
 				$this->render('/app/views/'.App::to_underscore(str_replace('_','/',$this->view_folder)).'/'.$this->view_name);
 			}
-			$this->content_for_layout = $this->view->render_file(APP_PATH.$this->view_name);
+			$this->content_for_layout = $this->view->render_file(APP_PATH.$this->view_name.'.php');
 		}
 
-		// Renderiza layout se possuir.
+		// Renderiza o layout se possuir.
 		if($this->layout) {
 			$this->view->add('content_for_layout', $this->content_for_layout);
 			$html = $this->view->render_file(APP_PATH.'/app/views/layouts/'.$this->layout.'.php');

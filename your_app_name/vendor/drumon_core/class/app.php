@@ -103,7 +103,7 @@ class App {
 		define('STYLESHEETS_PATH', $app->config['stylesheets_path']);
 		define('JAVASCRIPTS_PATH', $app->config['javascripts_path']);
 		define('IMAGES_PATH',			 $app->config['images_path']);
-		define('PLUGINS_PATH',			     APP_PATH.'/vendor/plugins');
+		define('PLUGINS_PATH',		 APP_PATH.'/vendor/plugins');
 		define('LANGUAGE',			   $app->config['language']);
 		define('JS_FRAMEWORK',     $app->config['js_framework']);
 		
@@ -134,8 +134,7 @@ class App {
 			
 			// Token de proteção contra CSFR
 			define('REQUEST_TOKEN', $app->create_request_token());
-			
-			// se não renderiza nornalmente
+		
 			$controller = $app->load_controller($request);
 			$html = $controller->execute_view();
 
@@ -164,11 +163,36 @@ class App {
 		);
 		
 		// Seta o http status
+		// TODO: Deixar status code somente na view do controller
 		$status_code = !empty($controller->http_status_code) ? $controller->http_status_code : $status_code;
 		header($_SERVER["SERVER_PROTOCOL"]." ".$status_code_list[$status_code]);
 		
 		// Imprime o conteúdo
 		$app->show_content($html);
+	}
+	
+	/**
+	 * Imprime o conteúdo do site e dispara os eventos.
+	 *
+	 * @param string $content 
+	 * @return void
+	 */
+	public function show_content($content) {
+		$this->fire_event('before_show', array('content' => &$content));
+		echo $content;
+		$this->fire_event('on_complete', array('content' => $content));
+	}
+	
+	public function load_controller($request) {
+		$real_class_name = $request->controller_name.'Controller'; // ex. HomeController || Admin_HomeController
+		
+		// Inclui o controlador.
+		include(APP_PATH.'/app/controllers/'.App::to_underscore(str_replace('_','/',$real_class_name)).'.php');
+		
+		// Inicia o controlador e chama a ação.
+		$controller = new $real_class_name($this, $request, new View());
+		$controller->execute_action();
+		return $controller;
 	}
 	
 	/**
@@ -253,31 +277,6 @@ class App {
 	public static function get_config($name) {
 		$app = self::get_instance();
 		return $app->config[$name];
-	}
-	
-	/**
-	 * Imprime o conteúdo do site e dispara os eventos.
-	 *
-	 * @param string $content 
-	 * @return void
-	 */
-	public function show_content($content) {
-		$this->fire_event('before_show', array('content' => &$content));
-		echo $content;
-		$this->fire_event('on_complete', array('content' => $content));
-	}
-	
-	
-	public function load_controller($request) {
-		$real_class_name = $request->controller_name.'Controller'; // ex. HomeController || Admin_HomeController
-		
-		// Inclui o controlador.
-		include(APP_PATH.'/app/controllers/'.App::to_underscore(str_replace('_','/',$real_class_name)).'.php');
-		
-		// Inicia o controlador e chama a ação.
-		$controller = new $real_class_name($this, $request, new View());
-		$controller->execute_action();
-		return $controller;
 	}
 	
 	

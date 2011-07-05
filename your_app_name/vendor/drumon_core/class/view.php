@@ -76,7 +76,7 @@ class View {
 	}
 
 	/**
-	 * Obtem o conteúdo do arquivo processado.
+	 * Obtém o conteúdo do arquivo processado.
 	 *
 	 * @param   string $filename
 	 * @return  string
