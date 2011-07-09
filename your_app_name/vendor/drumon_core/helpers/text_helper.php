@@ -186,8 +186,8 @@ class TextHelper extends Helper {
 	 * @return string - O texto traduzido.
 	 * @access public
 	 */
-	public function translate($text) {
-		return t($text);
+	public function translate($key, $options = array()) {
+		return t($key, $options);
 	}
 }
 ?>

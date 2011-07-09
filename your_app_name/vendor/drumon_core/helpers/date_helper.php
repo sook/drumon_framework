@@ -27,7 +27,7 @@ class DateHelper extends Helper {
 	 * @return string - Data no formato padrão da locale.
 	 */
 	public function show($date, $format = 'default') {
-		return strftime(t('date.'.$format),strtotime($date));
+		return strftime(t('formats.'.$format, array('from'=>'date')),strtotime($date));
 	}
 	
 	/**
@@ -38,7 +38,7 @@ class DateHelper extends Helper {
 	 * @author Danillo César de Oliveira Melo
 	 */
 	public function now($format = 'default') {
-			return strftime(t('date.'.$format));
+			return strftime(t('formats.'.$format, array('from'=>'date')));
 	}
 
 	/**

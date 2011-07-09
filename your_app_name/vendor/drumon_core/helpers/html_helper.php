@@ -266,11 +266,11 @@ class HtmlHelper extends Helper {
 	 * @return string
 	 */
 	public function select_date_months($field_name, $options = array()) {
-		$defaults = array('selected'=>Date('m'));
+		$defaults = array('selected' => Date('m'));
 		$options = array_merge($defaults,$options);
 		
 		$data_list = array();
-		foreach ($this->text->translate('date.months') as $key => $value) {
+		foreach ($this->text->translate('months', array('from' => 'date')) as $key => $value) {
 			$selected = '';
 //			$n = ($key < 10) ? '0'.$key : $key ;
 			$data_list[$key]=$value;

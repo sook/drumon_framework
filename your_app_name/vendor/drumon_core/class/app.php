@@ -412,27 +412,59 @@ class App {
 
 
 /**
- * Traduz um texto com o sistema de internacionalização.
+ * Translate text to defined language using lazy loading.
  *
- * @param string $text 
+ * @param string $key 
+ * @param array $options
  * @return string
  */
-function t($text) {
+function t($key, $options = array()) {
+	// Merge options with defaults
+	$options = array_merge(array('from' => 'application'), $options);
+	
+	// Load translation file
 	$app = App::get_instance();
-	
-	$parts = explode('.',$text);
-	$file_name = 'application';
-	
-	if(count($parts) > 1) {
-		$file_name = $parts[0];
-		$text = $parts[1];
+	if (!isset($app->translations_cache[$options['from']])) {
+		$app->translations_cache[$options['from']] = include(APP_PATH.'/config/locales/'.LANGUAGE.'/'.$options['from'].'.php');
 	}
 	
-	if (!isset($app->translations_cache[$file_name])) {
-		$app->translations_cache[$file_name] = include(APP_PATH.'/config/locales/'.LANGUAGE.'/'.$file_name.'.php');
+	// Setup important variables
+	$translations = $app->translations_cache[$options['from']];
+	$keys = explode('.',$key);
+	$end_key = end($keys);
+	$text = $options['from'].'.'.$key;
+	
+	// Get last array key values
+	foreach ($keys as $key) {
+		$is_end = $key == $end_key;
+		if (isset($translations[$key])) {
+			if (is_array($translations[$key]) && !$is_end) {
+				$translations = $translations[$key];
+			}
+		}
+	}
+	
+	// Get correct pluralization translation word
+	if (isset($options['count'])) {
+		if (isset($translations[$end_key][$options['count']])) {
+			$text = $translations[$end_key][$options['count']];
+		} elseif (isset($translations[$end_key]['*'])) {
+			$text = str_replace("{count}", $options['count'], $translations[$end_key]['*']);
+		} else {
+			$text .= '.*';
+		}
+	} else {
+		// Get translation value
+		$text = isset($translations[$end_key]) ? $translations[$end_key] : $text;
+	}
+	
+	// Replace variables words
+	foreach ($options as $key => $value) {
+		if ($key != 'from' && $key != 'count') {
+			$text = str_replace('{'.$key.'}', $value, $text);
+		}
 	}
 
-	$text = (isset($app->translations_cache[$file_name][$text])) ? $app->translations_cache[$file_name][$text] : implode('.',$parts);
 	return $text;
 }
 ?>
