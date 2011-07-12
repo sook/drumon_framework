@@ -1,6 +1,6 @@
 <?php
 	
-	// Domínio de sua aplicação
+	// Your application domain
 	//$app->config['app_domain'] = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']);
 	
 	// Application Paths
@@ -8,7 +8,7 @@
 	//$app->config['javascripts_path'] = $app->config['app_domain'].'/public/javascripts/';
 	//$app->config['images_path'] = $app->config['app_domain'].'/public/images/';
 	
-	// Configurações do banco de dados
+	// Database configuration
 	$app->config['db'] = array(
 		'host' => 'localhost',
 		'user' => 'root',
@@ -17,7 +17,7 @@
 		'charset' => 'utf8'
 	);
 	
-	// Adiciona plugin de benchmark
+	// Add plugins to your application
 	$app->add_plugins('debug');
 	
 ?>

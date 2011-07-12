@@ -43,9 +43,14 @@
 		 */
 		public function connect($config) {
 			$this->config = array_merge($this->config, $config);
-			$driver_options = array( PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES '.$this->config['charset'] );
-			$this->pdo = new PDO("mysql:host=".$this->config['host'].";dbname=".$this->config['database']."", $this->config['user'], $this->config['password'],$driver_options);
-			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+			$driver_options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES ' . $this->config['charset']);
+			try {
+				$this->pdo = new PDO("mysql:host=".$this->config['host'].";dbname=".$this->config['database']."", $this->config['user'], $this->config['password'],$driver_options);
+				$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+			} catch (PDOException $e) {
+				echo $e->getMessage();
+				die();
+			}
 		}
 		
 		/**
