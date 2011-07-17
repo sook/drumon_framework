@@ -126,7 +126,7 @@ class App {
 		/**
 		 * Inicia o sistema de roteamento.
 		 */
-		$request = new RequestHandler($route);
+		$request = new RequestHandler($route, APP_PATH);
 		
 		// Se a rota existe.
 		if ($request->valid()) {
