@@ -12,6 +12,11 @@
  */
 class App {
 	
+	/**
+	 * Application object instance
+	 *
+	 * @var object
+	 */
 	private static $instance;
 	
 	/**
@@ -42,9 +47,8 @@ class App {
 	 */
 	public $helpers = array();
 	
-	
 	/**
-	 * Guarda as traduções requesitadas pelo usuário.
+	 * Cache all translations for application
 	 *
 	 * @var string
 	 */
@@ -89,16 +93,14 @@ class App {
 		$app->config['images_path']			 = $app->config['app_domain'].'/public/images/';
 		
 		$route = array();
-		$route['400'] = '404.html';
-		$route['401'] = '401.html';
-		$route['403'] = '404.html';
-		$route['404'] = '404.html';
+		$route['404'] = array('RequestError::error_404');
+		$route['401'] = array('RequestError::error_401');
 		
 		include(APP_PATH.'/config/routes.php');
 		include(APP_PATH.'/config/application.php');
 		include(APP_PATH.'/config/enviroments/'.$app->config['env'].'.php');
 		
-		// Seta as constantes mais utilizadas
+		// Set most used configurations, for rapid access.
 		define('APP_DOMAIN',			 $app->config['app_domain']);
 		define('STYLESHEETS_PATH', $app->config['stylesheets_path']);
 		define('JAVASCRIPTS_PATH', $app->config['javascripts_path']);
@@ -107,93 +109,49 @@ class App {
 		define('LANGUAGE',			   $app->config['language']);
 		define('JS_FRAMEWORK',     $app->config['js_framework']);
 		
-		// Carrega plugins
+		// Load application plugins
 		foreach ($app->plugins as $plugin) {
 			require_once(APP_PATH.'/vendor/plugins/'.$plugin.'/init.php');
 		}
 		
-		// Dispara o evento de inicialização do Framework
+		// Fire on_init event
 		$app->fire_event('on_init');
 		
 		// Inclui arquivos requeridos pelo Drumon
-		include(CORE_PATH.'/class/request_handler.php');
+		include(CORE_PATH.'/class/request.php');
+		include(CORE_PATH.'/class/response.php');
 		include(CORE_PATH.'/class/helper.php');
 		include(CORE_PATH.'/class/view.php');
 		include(CORE_PATH.'/class/controller.php');
 		include(APP_PATH.'/app/controllers/app_controller.php');
+		
+		// Token de proteção contra CSFR
+		define('REQUEST_TOKEN', $app->create_request_token());
 
-
-		/**
-		 * Inicia o sistema de roteamento.
-		 */
-		$request = new RequestHandler($route, APP_PATH);
-		
-		// Se a rota existe.
-		if ($request->valid()) {
-			$status_code = 200;
-			
-			// Token de proteção contra CSFR
-			define('REQUEST_TOKEN', $app->create_request_token());
-		
-			$controller = $app->load_controller($request);
-			$html = $controller->execute_view();
-
-		} else {
-			// Página não encontrada.
-			$status_code = 404;
-			if (is_array($route['404'])) {
-				$request->controller_name = $route['404'][0];
-				$request->action_name = $route['404'][1];
-				$controller = $app->load_controller($request);
-				$html = $controller->execute_view();
-			} else {
-				$html = file_get_contents(APP_PATH.'/public/'.$route['404']);
-			}
-		}
-		
-		// Lista de Http Status básicos
-		$status_code_list = array(
-			200 => '200 OK',
-			304 => '304 Not Modified',
-			400 => '400 Bad Request',
-			401 => '401 Unauthorized',
-			403 => '403 Forbidden',
-			404 => '404 Not Found',
-			500 => '500 Internal Server Error'
-		);
-		
-		// Seta o http status
-		// TODO: Deixar status code somente na view do controller
-		$status_code = !empty($controller->http_status_code) ? $controller->http_status_code : $status_code;
-		header($_SERVER["SERVER_PROTOCOL"]." ".$status_code_list[$status_code]);
-		
-		// Imprime o conteúdo
-		$app->show_content($html);
+		// Initialize request
+		$request = new Request($route, APP_PATH);
+		$request->validate();
+		// Proccess controller and action
+		$app->proccess_controller($request);
 	}
 	
-	/**
-	 * Imprime o conteúdo do site e dispara os eventos.
-	 *
-	 * @param string $content 
-	 * @return void
-	 */
-	public function show_content($content) {
-		$this->fire_event('before_show', array('content' => &$content));
-		echo $content;
-		$this->fire_event('on_complete', array('content' => $content));
-	}
 	
-	public function load_controller($request) {
+	public function proccess_controller($request) 
+	{
+		$core_controllers = array('RequestError' => CORE_PATH.'/class/' );
+		$controller_path = (isset($core_controllers[$request->controller_name])) ? $core_controllers[$request->controller_name] : APP_PATH.'/app/controllers/';
+		
 		$real_class_name = $request->controller_name.'Controller'; // ex. HomeController || Admin_HomeController
+		require_once($controller_path.App::to_underscore(str_replace('_', '/', $real_class_name)).'.php');
+		$controller = new $real_class_name($this, $request, new Response(), new View());
 		
-		// Inclui o controlador.
-		include(APP_PATH.'/app/controllers/'.App::to_underscore(str_replace('_','/',$real_class_name)).'.php');
+		$response = $controller->process();
+		$this->fire_event('on_complete');
 		
-		// Inicia o controlador e chama a ação.
-		$controller = new $real_class_name($this, $request, new View());
-		$controller->execute_action();
-		return $controller;
+		echo $response;
 	}
+	
+	
 	
 	/**
 	 * Adiciona helpers que serão usados na aplicação
@@ -249,7 +207,7 @@ class App {
 	 * @return void
 	 */
 	public function fire_event($name, $params = array()) {
-		if(array_key_exists($name,$this->event_list)){
+		if (array_key_exists($name, $this->event_list)) {
 			foreach ($this->event_list[$name] as $callback) {
 				call_user_func_array($callback, &$params);
 			}
@@ -418,7 +376,8 @@ class App {
  * @param array $options
  * @return string
  */
-function t($key, $options = array()) {
+function t($key, $options = array())
+{
 	// Merge options with defaults
 	$options = array_merge(array('from' => 'application'), $options);
 	

@@ -136,7 +136,7 @@ class PaginateHelper extends Helper {
 	public function _prev($page,$options) {
 		$defaults = array('show'=>true);
 		$options = array_merge($defaults, $options);
-		$text = isset($options['text']) ? $options['text'] : t('plugin:drumon_model:pagination.prev_page');
+		$text = isset($options['text']) ? $options['text'] : t('prev_page', array('from' => 'plugin:drumon_model:pagination'));
 
 		if($this->has_prev($page)) {
 			return '<a class="prev_page" href="'.$this->previous_url($page,$options['url']).'" title="'.$text.'">'.$text.'</a>';
@@ -203,7 +203,7 @@ class PaginateHelper extends Helper {
 	public function _next($page,$options) {
 		$defaults = array('show'=>true);
 		$options = array_merge($defaults, $options);
-		$text = isset($options['text']) ? $options['text'] : t('plugin:drumon_model:pagination.next_page');
+		$text = isset($options['text']) ? $options['text'] : t('next_page', array('from' => 'plugin:drumon_model:pagination'));
 
 		if($this->has_next($page)) {
 			return '<a class="next_page" href="'.$this->next_url($page,$options['url']).'" title="'.$text.'">'.$text.'</a>';
@@ -233,7 +233,7 @@ class PaginateHelper extends Helper {
 		$init = $offset + 1;
 		$end = $offset + $records;
 		
-		$translated = t('plugin:drumon_model:pagination.page_info');
+		$translated = t('page_info', array('from'=>'plugin:drumon_model:pagination'));
 		
 		if ($page->total_pages < 2) {
 			
@@ -245,11 +245,11 @@ class PaginateHelper extends Helper {
 	        echo $translated['1'];
 	        break;
 	    default;
-	        echo $this->sprintf2($translated['all'],array('value'=>$page->total_records));
+	        echo $this->sprintf2($translated['all'], array('value'=>$page->total_records));
 	        break;
 			}
 		} else {
-			echo $this->sprintf2($translated['range'],array('from'=>$init,'to'=>$end,'all'=>$page->total_records));
+			echo $this->sprintf2($translated['range'], array('from'=>$init,'to'=>$end,'all'=>$page->total_records));
 		}
 	}
 

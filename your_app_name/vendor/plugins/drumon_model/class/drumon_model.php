@@ -169,6 +169,7 @@
 			$this->__data = array_merge($this->__data, $data);
 			$this->__connection = Connection::get_instance()->pdo;
 			$this->add_behaviors($this->behaviors);
+			$this->default_scope();
 			$this->after_initialize();
 		}
 		
@@ -309,7 +310,7 @@
 			if ($key) {
 				return $this->__query[$key];
 			} else {
-				return $this->__query;
+				return array('query' => $this->__query, 'statements' => $this->__statements);
 			}
 		}
 		
@@ -319,8 +320,9 @@
 		 * @param string $query 
 		 * @return void
 		 */
-		public function set_query($query) {
-			$this->__query = $query;
+		public function set_query($values) {
+			$this->__query = $values['query'];
+			$this->__statements = $values['statements'];
 		}
 		
 		/**
@@ -388,6 +390,7 @@
 			if ($saved) {
 				$this->id = $this->__connection->lastInsertId();
 				$this->fire_hooks('after_create');
+				$this->fire_hooks('after_save');
 			}
 			return $saved;
 		}
@@ -433,6 +436,7 @@
 			// If saved then fire all hooks.
 			if ($result) {
 				$this->fire_hooks('after_update');
+				$this->fire_hooks('after_save');
 			}
 				
 			return $result;
@@ -510,6 +514,7 @@
 		 * @return boolean
 		 */
 		public function increment($id, $column, $value = 1) {
+			$value = (int) $value;
 			if (is_int($value)) {
 				return $this->exec('UPDATE `'.$this->table_name.'` SET `'.$column.'` = `'.$column.'` + '.$value.' WHERE `'.$this->primary_key.'` = "'.$id.'"');
 			}
@@ -525,6 +530,7 @@
 		 * @return boolean
 		 */
 		public function decrement($id, $column, $value = 1) {
+			$value = (int) $value;
 			if (is_int($value)) {
 				return $this->exec('UPDATE `'.$this->table_name.'` SET `'.$column.'` = `'.$column.'` - '.$value.' WHERE `'.$this->primary_key.'` = "'.$id.'"');
 			}
@@ -576,7 +582,6 @@
 		 * @return object
 		 */
 		public function where($where, $params = array()) {
-			
 			// Se where é um array então faz query simples com = ou IN se for o valor for um array.
 			if (is_array($where)) {
 				
@@ -729,7 +734,7 @@
 		 */
 		public function generate_sql() {
 			
-			$this->default_scope();
+			//$this->default_scope();
 			
 			$action = 'SELECT '.$this->__query['select'];
 			
@@ -958,6 +963,8 @@
 			);
 			// Limpa os dados da query.
 			$this->__statements = array();
+			
+			$this->default_scope();
 		}
 		
 		/**

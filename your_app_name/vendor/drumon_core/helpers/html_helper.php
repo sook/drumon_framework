@@ -66,7 +66,7 @@ class HtmlHelper extends Helper {
 	 * @param string $media - Media do stylesheet.
 	 * @return void|string - String com o código html para adição do arquivo CSS se a opção for inline.
 	 */
-	public function css($files, $type = 'add', $media = 'all') {
+	public function css($files, $block = 'header', $media = 'all') {
 		$files = is_array($files) ? $files : array($files);
 		
 		$_files = array();
@@ -76,14 +76,33 @@ class HtmlHelper extends Helper {
 			}
 		}
 		
-		if ($type == 'header-only') {
-			$this->stylesheets = array_unique(array_merge($_files, $this->stylesheets));
-			return implode("\n",$this->stylesheets);
-		} elseif($type == 'inline') {
+		if($block == 'inline') {
 			return implode($_files);
 		} else {
-			$this->stylesheets = array_merge($this->stylesheets, $_files);
+			if (!isset($this->stylesheets[$block])) {
+				$this->stylesheets[$block] = array();
+			}
+			$this->stylesheets[$block] = array_merge($this->stylesheets[$block], $_files);
 		}
+	}
+	
+	public function styles($files, $block = 'header', $media = 'all') {
+		
+		$files = is_array($files) ? $files : array($files);
+
+		$_files = array();
+		foreach ($files as $file) {
+			if (!empty($file)) {
+				$_files[] = '<link rel="stylesheet" href="'.STYLESHEETS_PATH.$file.'.css" type="text/css" media="'.$media.'"/>';
+			}
+		}
+		
+		if (!isset($this->stylesheets[$block])) {
+			$this->stylesheets[$block] = array();
+		}
+		
+		$this->stylesheets[$block] = array_unique(array_merge($_files, $this->stylesheets[$block]));
+		return implode("\n", $this->stylesheets[$block]);
 	}
 
 
@@ -95,7 +114,7 @@ class HtmlHelper extends Helper {
 	 * @param string $type - Tipo de inserção show, add(default), inline.
 	 * @return void|string - String com o código html para adição do arquivo JS se a opção for inline.
 	 */
-	public function js($files, $type = 'add') {
+	public function js($files, $block = 'header') {
 		$files = is_array($files) ? $files : array($files);
 
 		$_files = array();
@@ -103,16 +122,37 @@ class HtmlHelper extends Helper {
 			$_files[] = '<script type="text/javascript" src="'.JAVASCRIPTS_PATH.$file.'.js"></script>';
 		}
 		
-		if($type == 'header-only') {
-			$this->javascripts = array_merge($_files, $this->javascripts);
-			$this->javascripts = array_unique($this->javascripts);
-			return implode("\n",$this->javascripts);
-		} elseif($type == 'inline') {
+		if($block == 'inline') {
 			return implode($_files);
 		} else {
-			$this->javascripts = array_merge($this->javascripts, $_files);
+			if (!isset($this->javascripts[$block])) {
+				$this->javascripts[$block] = array();
+			}
+			$this->javascripts[$block] = array_merge($this->javascripts[$block], $_files);
 		}
 	}
+	
+	public function scripts($files, $block = 'header') {
+		
+		$files = is_array($files) ? $files : array($files);
+
+		$_files = array();
+		foreach ($files as $file) {
+			if (!empty($file)) {
+				$_files[] = '<script type="text/javascript" src="'.JAVASCRIPTS_PATH.$file.'.js"></script>';
+			}
+		}
+		
+		if (!isset($this->javascripts[$block])) {
+			$this->javascripts[$block] = array();
+		}
+		
+		$this->javascripts[$block] = array_unique(array_merge($_files, $this->javascripts[$block]));
+		return implode("\n", $this->javascripts[$block]);
+	}
+	
+	
+	
 	
 	
 	/**

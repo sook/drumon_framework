@@ -14,18 +14,6 @@
  */
 abstract class Helper {
 	
-	
-	
-	/** 
-	 * Língua da aplicação
-	 *
-	 * @access protected
-	 * @var array
-	 */
-	protected $language;
-	
-	
-	
 	/** 
 	 * Referência ao objeto request.
 	 *
@@ -49,9 +37,8 @@ abstract class Helper {
 	 * @param array $request - Request
 	 * @return void
 	 */
-	public function __construct($request, $language) {
+	public function __construct(&$request) {
 		$this->request = $request;
-		$this->language = $language;
 	}
 
 	/**

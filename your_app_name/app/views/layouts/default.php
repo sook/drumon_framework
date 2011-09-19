@@ -7,11 +7,12 @@
 		<meta name="Keywords" content="">
 		<meta name="Description" content="">
 		<meta name="Author" content="">
-		<meta name="csrf-token" content="<? echo REQUEST_TOKEN; ?>">
+		<meta name="csrf-token" content="<?php echo REQUEST_TOKEN; ?>">
 		
-		<title>Drumon Framework - <? echo $html->block('title'); ?></title>
-		<?php echo $html->css(array('main'), 'header-only'); ?>
-		<?php //echo $html->js(array('libs/'.JS_FRAMEWORK,'application'),'header-only'); ?>
+		<title>Drumon Framework - <?php echo $html->block('title'); ?></title>
+		
+		<?php echo $html->styles(array('main')); ?>
+		<?php echo $html->scripts(array('libs/'.JS_FRAMEWORK, 'application')); ?>
 
 	</head>
 	<body>

@@ -1,10 +1,13 @@
 <?php
-	// Caminho para a pasta raiz do projeto
+
+	// Application paths
 	define('APP_PATH', dirname(__FILE__));
 	define('CORE_PATH', APP_PATH.'/vendor/drumon_core');
 
-	// Classe principal do framework
+	// Application class
 	include(CORE_PATH.'/class/app.php');
-	// Roda a aplicação
+	
+	// Run application
 	App::run();
+	
 ?>

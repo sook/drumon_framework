@@ -14,7 +14,7 @@
  */
 class Controller {
 	
-	
+	private $app;
 	/** 
 	 * Objeto da classe view usado pelo controller.
 	 *
@@ -37,39 +37,11 @@ class Controller {
 	protected $params = array();
 	
 	/**
-	 * Nome da classe
-	 *
-	 * @var string
-	 */
-	protected $class_name;
-	
-	/**
-	 * Nome da view a ser renderizada.
-	 *
-	 * @var string
-	 */
-	private $view_name;
-	
-	/**
-	 * Nome da pasta onde a view do controller está.
-	 *
-	 * @var string
-	 */
-	private $view_folder;
-	
-	/**
 	 * Conteúdo para o layout.
 	 *
 	 * @var string
 	 */
 	private $content_for_layout = null;
-	
-	/**
-	 * Http Status Code to response.
-	 *
-	 * @var string
-	 */
-	public $http_status_code = null;
 	
 	/**
 	 * Lista de helpers usados na view.
@@ -99,6 +71,9 @@ class Controller {
 	 */
 	public $csrf_protection = true;
 	
+	public $response;
+	public $request;
+	
 	/**
 	 * Instancia um novo view com as configurações, parâmetros e idioma padrões.
 	 *
@@ -106,9 +81,10 @@ class Controller {
 	 * @param object $request - Instância do Request Handler.
 	 * @param array $locale - Referência da variável com os dados de internacionalização.
 	 */
-	public function __construct($app, $request, $view) {
+	public function __construct(&$app, &$request, &$response, &$view) {
 		$this->app = $app;
 		$this->request = $request;
+		$this->response = $response;
 		$this->params = $request->params;
 		$this->view = $view;
 	}
@@ -120,23 +96,25 @@ class Controller {
 	 * @param string $action_name - Ação a ser executada.
 	 * @return void
 	 */
-	public function execute_action() {
+	public function process()
+	{
+		$this->response->charset = $this->app->config['charset'];
 		
 		// Se for uma requisição perigosa renderinza uma página de erro
 		if($this->csrf_protection && $this->app->block_csrf_protection($this->request)) {
-			$this->http_status_code = 401;
-			$this->layout = false;
-			$this->view_name = '/public/'.$this->request->routes['401'];
-			return ;
+			$this->request->params['_token'] = REQUEST_TOKEN;
+			$this->render_error(401);
 		}
 		
-		$this->view_folder = $this->request->controller_name;
-		$this->view_name = $this->request->action_name;
+		// Set default view to render
+		$action_name = $this->request->action_name;
+		$this->view->params = $this->params;
+		$this->render(App::to_underscore(str_replace('_', '/', $this->request->controller_name)) . '/' . $this->request->action_name);
 		
-		$action_name = $this->view_name;
+		// Get AppController variables.
+		$app_controller_vars = get_class_vars('AppController');
 		
 		// Junta os hooks do app_controller com os do controller atual.
-		$app_controller_vars = get_class_vars('AppController');
 		$this->before_action = array_merge($app_controller_vars['before_action'], $this->before_action);
 		$this->after_action = array_merge($app_controller_vars['after_action'], $this->after_action);
 		
@@ -146,8 +124,16 @@ class Controller {
 		$this->$action_name();
 		// Executa os after_actions
 		$this->execute_methods($this->after_action);
+		
+		// Adiciona helpers setados no controller na app.
+		$this->app->add_helpers(array_merge($app_controller_vars['helpers'], $this->helpers));
+		
+		// Set response body
+		$this->response->body = $this->view->process($this->layout, $this->content_for_layout, $this->app->helpers, $this->request);
+		
+		// Return a Response object
+		return $this->response;
 	}
-	
 	
 	/**
 	 * Executa os métodos adicionados no before e after action.
@@ -175,7 +161,7 @@ class Controller {
 					if (is_array($value['except'])) {
 						foreach ($value['except'] as $except) {
 							if ($this->request->action_name !== $except) {
-								call_user_func(array($this,$key));
+								call_user_func(array($this, $key));
 							}
 						}
 					} else {
@@ -209,13 +195,8 @@ class Controller {
 	 * @return void
 	 */
 	public function render($view_name, $http_status_code = 200) {
-		$this->view_name = $view_name;
-		$this->http_status_code = $http_status_code;
-	}
-	
-	
-	public function http_status($http_status_code) {
-		$this->http_status_code = $http_status_code;
+		$this->view->view_file_path = $view_name.'.php';
+		$this->response->http_status_code = $http_status_code;
 	}
 	
 	/**
@@ -226,7 +207,11 @@ class Controller {
 	 */
 	public function render_text($text, $http_status_code = 200) {
 		$this->content_for_layout = $text;
-		$this->http_status_code = $http_status_code;
+		$this->response->http_status_code = $http_status_code;
+	}
+	
+	public function get_view() {
+		return $this->view;
 	}
 
 	/**
@@ -236,13 +221,20 @@ class Controller {
 	 * @param string $url - Url de destino.
 	 * @return void
 	 */
-	public function redirect($uri) {
-		if ($uri[0] === '/') {
-			$uri = APP_DOMAIN.$uri;
+	public function redirect($location, $code = 302, $exit = true) {
+		
+		if (is_array($location)) {
+			$this->request->controller_name = $location['controller'];
+			$this->request->action_name = $location['action'];
+			$this->app->proccess_controller($this->request);
+			exit;
 		}
 		
-		header('Location: '.$uri);
-		exit;
+		if ($location[0] === '/') {
+			$location = APP_DOMAIN . $location;
+		}
+		
+		$this->request->redirect($location, $code, $exit);
 	}
 	
 	
@@ -274,88 +266,24 @@ class Controller {
 		if (!isset($_SESSION)) {
 			session_start();
 		}
+		
 		$_SESSION['flash'][$key] = $value;
 	}
 	
-	public function render_erro($code, $file_name = null) {
-		$this->http_status_code = $code;
-		if (empty($file_name)) {
-			if (is_array($this->request->routes[$code])) {
-				$this->view_folder = $this->request->routes[$code][0];
-				$this->view_name = $this->request->routes[$code][1];
-			} else {
-				$this->layout = null;
-				$this->content_for_layout = file_get_contents(APP_PATH.'/public/'.$this->request->routes[$code]);
-			}
-		} else {
+	public function render_error($code, $file_name = null) {
+		
+		$this->response->http_status_code = $code;
+		
+		if (!empty($file_name)) {
 			$this->layout = null;
-			$this->content_for_layout = file_get_contents(APP_PATH.'/public/'.$file_name);
+			$this->view->view_file_path = $file_name;
+			return;
 		}
+		
+		list($controller_name, $action_name) = explode('::', $this->request->routes[$code][0]);
+		$this->redirect(array('controller' => $controller_name, 'action' => $action_name));
+		
 	}
-
-	/**
-	 * Renderiza as Views.
-	 *
-	 * @access public
-	 * @param string $content - Um conteúdo para renderizar.
-	 * @return void
-	 */
-	public function execute_view() {
-		// Se setado para não redenrizar então para.
-		if ($this->view_name === false) { return; }
-		
-		$this->view->params = $this->params; // Seta os parametros da requisição no view.
-		$this->load_helpers(); // Carrega os helpers
-		
-		// Renderiza view se não foi setado conteúdo manualmente.
-		if($this->content_for_layout === null) {
-			// Se não começar com / então chama a convenção do framework.
-			if ($this->view_name[0] != '/') {
-				$this->render('/app/views/'.App::to_underscore(str_replace('_','/',$this->view_folder)).'/'.$this->view_name);
-			}
-			$this->content_for_layout = $this->view->render_file(APP_PATH.$this->view_name.'.php');
-		}
-
-		// Renderiza o layout se possuir.
-		if($this->layout) {
-			$this->view->add('content_for_layout', $this->content_for_layout);
-			$html = $this->view->render_file(APP_PATH.'/app/views/layouts/'.$this->layout.'.php');
-			$this->app->fire_event('after_render_layout', array('layout' => &$html));
-		} else {
-			$html = $this->content_for_layout;
-		}
-		
-		return $html;
-	}
-
-	/**
-	 * Carrega os helpers e adiciona os helpers na view.
-	 *
-	 * @access private
-	 * @return void
-	 */
-	private function load_helpers() {
-		// Adiciona helpers setados no controller na app.
-		$app_controller_vars = get_class_vars('AppController');
-		$controller_helpers = array_merge($app_controller_vars['helpers'], $this->helpers);
-		$this->app->add_helpers($controller_helpers);
-		
-		// Adiciona os helpers na view.
-		foreach ($this->app->helpers as $helper_name => $helper_path) {
-			require_once $helper_path;
-			$class = ucfirst($helper_name).'Helper';
-			$this->view->add($helper_name, new $class($this->request, $this->app->config['language']));
-		}
-		
-		// Adiciona os helpers requeridos em outros helpers.
-		foreach ($this->app->helpers as $helper_name => $helper_path) {
-			$helper_name = trim($helper_name);
-			$helper = $this->view->get(strtolower($helper_name));
-			foreach ($helper->uses as $name) {
-				$name = strtolower($name);
-				$helper->$name = $this->view->get($name);
-			}
-		}
-	}
+	
 }
 ?>

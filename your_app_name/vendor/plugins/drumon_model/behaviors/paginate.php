@@ -76,6 +76,7 @@ class Paginate extends Behavior implements ArrayAccess, Iterator, Countable {
 		
 		// Total de registros no banco do módulo passado com parametro
 		$this->total_records = $model->count();
+
 		// Retorna false caso não encontre nada.
 		if($this->total_records == 0) {
 			$this->records = false;

@@ -2,6 +2,7 @@
 
 // Inicio Benchmark
 include('class/benchmark.php');
+
 Benchmark::start('Load Time');
 
 $app->add_event('after_render_layout','show_load_time');

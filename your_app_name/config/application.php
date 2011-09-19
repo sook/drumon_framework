@@ -6,8 +6,11 @@
 	// Linguagem da sua apicação. (pt-BR|en-US|...)
 	$app->config['language'] = 'pt-BR';
 	
+	// Set application charset
+	$app->config['charset'] = 'utf-8';
+	
 	// Plugins utilizados em sua aplicação
-	//$app->add_plugins('drumon_model');
+	$app->add_plugins('drumon_model');
 	
 	// Javascript framework. (mootools|jquery)
 	$app->config['js_framework'] = 'jquery';
