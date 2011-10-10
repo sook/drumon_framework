@@ -6,71 +6,83 @@
  */
 
 /**
- * Classe para trabalhar com as views do Drumon Framework
+ * View class
  *
  * @package class
- * @author Sook contato@sook.com.br
  */
 class View {
 	
 	/** 
-	 * Variáveis incluídas para serem utilizadas na view.
+	 * Variables used in views
 	 *
-	 * @access private
 	 * @var array
 	 */
 	private $variables = array();
 	
 	/** 
-	 * Se tiver true comprime o conteúdo do html usando Gzip.
+	 * Gzip result if true
 	 *
-	 * @access public
-	 * @var boolean
+	 * @var bool
 	 */
 	public $gzip;
 	
 	
 	/** 
-	 * Contém os parâmetros passados na requisição HTTP (GET e POST).
+	 * List of params from HTTP request (GET, POST, PUT, DELETE)
 	 *
-	 * @access public
 	 * @var array
 	 */
 	public $params = array();
 	
-	
+	/**
+	 * File to render a view
+	 *
+	 * @var string
+	 */
 	public $view_file_path;
 	
-	
-	public function __construct($variables = array(), $gzip = true)
-	{
+	/**
+	 * Setup new view
+	 *
+	 * @param string $variables 
+	 * @param string $gzip 
+	 */
+	public function __construct($variables = array(), $gzip = true) {
 		$this->variables = $variables;
 		$this->gzip = $gzip;
 	}
 	
-	public function process($layout, $content_for_layout, $helpers = array(), &$request = null)
-	{
+	/**
+	 * Proccess render
+	 *
+	 * @param string $layout 
+	 * @param string $content_for_layout 
+	 * @param string $helpers 
+	 * @param object $request 
+	 * @return string rendered view
+	 */
+	public function process($layout, $content_for_layout, $helpers = array(), &$request = null) {
 		if ($this->gzip && ini_get('zlib.output_compression') != 1) {
-			ob_start('ob_gzhandler'); // TODO: se 304 Not Modified não pode usar isso.
+			ob_start('ob_gzhandler'); // TODO: if 304 Not Modified dont use this
 		}
 		
 		if ($this->view_file_path === false) { return; }
 		
 		$this->load_helpers($helpers, $request);
 		
-		// Renderiza view se não foi setado conteúdo manualmente.
+		// Render view if dont have content
 		if ($content_for_layout === null) {
 			// Se não começar com / então chama a convenção do framework.
 			if ($this->view_file_path[0] != '/') {
-				$this->view_file_path = '/app/views/'.$this->view_file_path;
+				$this->view_file_path = '/app/views/' . $this->view_file_path;
 			}
 			$content_for_layout = $this->render_file(APP_PATH . $this->view_file_path);
 		}
 
-		// Renderiza o layout se possuir.
+		// Render layout
 		if ($layout) {
-			$this->add('content_for_layout', $content_for_layout.PHP_EOL);
-			$html = $this->render_file(APP_PATH.'/app/views/layouts/'.$layout.'.php');
+			$this->add('content_for_layout', $content_for_layout . PHP_EOL);
+			$html = $this->render_file(APP_PATH . '/app/views/layouts/' . $layout . '.php');
 			
 			$app = App::get_instance();
 			$app->fire_event('after_render_layout', array('layout' => &$html));
@@ -82,24 +94,22 @@ class View {
 	}
 
 	/**
-	 * Helper para renderizar uma view dentro do template.
+	 * Render other view inside view
 	 *
-	 * @param string $view - Nome da view a ser renderizada.
-	 * @return void
+	 * @param string $view 
+	 * @return string
 	 */
-	public function render($view)
-	{
-		return ($view[0] === '/') ? $this->render_file(APP_PATH.$view.'.php') : $this->render_file(APP_PATH.'/app/views/'.$view.'.php');
+	public function render($view) {
+		return ($view[0] === '/') ? $this->render_file(APP_PATH . $view . '.php') : $this->render_file(APP_PATH . '/app/views/' . $view . '.php');
 	}
 
 	/**
-	 * Obtém o conteúdo do arquivo processado.
+	 * Render one file and return your content
 	 *
 	 * @param   string $filename
 	 * @return  string
 	 */
-	public function render_file($filename)
-	{
+	public function render_file($filename) {
 		ob_start();
 		extract($this->variables, EXTR_REFS | EXTR_OVERWRITE);
 		include($filename);
@@ -109,30 +119,30 @@ class View {
 	}
 
 	/**
-	 * Obtém uma variável adicionada na view.
+	 * Get view variable 
 	 *
-	 * @param   string $name - Nome da variável.
-	 * @return  mixed - Valor da variável.
+	 * @param   string $name
+	 * @return  mixed
 	 */
 	public function get($name) {
 		return $this->variables[$name];
 	}
 	
 	/**
-	 * Obtém todas as variáveis.
+	 * Get all view variables
 	 *
-	 * @param   string $name - Nome da variável.
-	 * @return  mixed - Valor da variável.
+	 * @param string $name
+	 * @return  mixed
 	 */
-	public function get_all()	{
+	public function get_all() {
 		return $this->variables;
 	}
 
 	/**
-	 * Adiciona uma variável a view.
+	 * Add one variable to view
 	 *
-	 * @param string $name - Nome da variável.
-	 * @param mixed $value - Valor a ser atribuído a variável.
+	 * @param string $name
+	 * @param mixed $value
 	 * @return void
 	 */
 	public function add($name, $value) {
@@ -140,9 +150,9 @@ class View {
 	}
 	
 	/**
-	 * Remove uma variável do template.
+	 * Remove one variable from view
 	 *
-	 * @param string $name - Índice de $variables a ser limpo
+	 * @param string $name
 	 * @return void
 	 */
 	public function remove($name) {
@@ -150,15 +160,21 @@ class View {
 	}
 
 	/**
-	 * Remove todas as variáveis do template.
+	 * Remove all view variables
 	 *
 	 * @return void
 	 */
-	public function remove_all()	{
+	public function remove_all() {
 		$this->variables = array();
 	}
 	
 	// TODO: rever sistema de seção e flash depois.
+	/**
+	 * Get flash session
+	 *
+	 * @param string $key Key name
+	 * @return mixed
+	 */
 	public function flash($key) {
 		
 		if (!isset($_SESSION)) {
@@ -178,7 +194,12 @@ class View {
 		}
 	}
 	
-	
+	/**
+	 * Check if flash session exist
+	 *
+	 * @param string $key 
+	 * @return bool
+	 */
 	public function check_flash($key) {
 	  if (!isset($_SESSION)) {
 	    session_start();
@@ -187,9 +208,8 @@ class View {
 	}
 	
 	/**
-	 * Carrega os helpers e adiciona os helpers na view.
+	 * Load helpers and set on view
 	 *
-	 * @access private
 	 * @return void
 	 */
 	private function load_helpers($helpers, &$request) {

@@ -1,6 +1,6 @@
 <?php
 
-// Inicio Benchmark
+// Start Benchmark
 include('class/benchmark.php');
 
 Benchmark::start('Load Time');

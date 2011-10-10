@@ -12,10 +12,12 @@
 		<title>Drumon Framework - <?php echo $html->block('title'); ?></title>
 		
 		<?php echo $html->styles(array('main')); ?>
-		<?php echo $html->scripts(array('libs/'.JS_FRAMEWORK, 'application')); ?>
-
+		<?php echo $html->scripts(array('libs/'. JS_FRAMEWORK, 'application')); ?>
+		
 	</head>
+	
 	<body>
 		<?php echo $content_for_layout; ?>
 	</body>
+	
 </html>

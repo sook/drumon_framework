@@ -1,5 +1,10 @@
 <?php
-
+	
+	/**
+	 * Default request error controller
+	 *
+	 * @package class
+	 */
 	class RequestErrorController extends AppController {
 		
 		public $layout = null;

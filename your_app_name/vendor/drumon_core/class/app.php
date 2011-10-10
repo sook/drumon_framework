@@ -6,7 +6,7 @@
  */
 
 /**
- * Classe com métodos essências para funcionamento do Drumon Framework
+ * Core Application for Drumon Framework
  *
  * @package class
  */
@@ -15,7 +15,7 @@ class App {
 	/**
 	 * Application object instance
 	 *
-	 * @var object
+	 * @var App
 	 */
 	private static $instance;
 	
@@ -81,16 +81,20 @@ class App {
 		return self::$instance;
 	}
 	
-	
+	/**
+	 * Run Application
+	 *
+	 * @return void
+	 */
 	public static function run() {
-		// Obtem a instancia da aplicação
+		// Get application object
 		$app = self::get_instance();		
 		
-		// Configurações padrões do framework
-		$app->config['app_domain']			 = App::strip_slash('http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']));
-		$app->config['stylesheets_path'] = $app->config['app_domain'].'/public/stylesheets/';
-		$app->config['javascripts_path'] = $app->config['app_domain'].'/public/javascripts/';
-		$app->config['images_path']			 = $app->config['app_domain'].'/public/images/';
+		// Default configurations
+		$app->config['app_domain']			 = App::remove_last_slash('http://' . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']));
+		$app->config['stylesheets_path'] = $app->config['app_domain'] . '/public/stylesheets/';
+		$app->config['javascripts_path'] = $app->config['app_domain'] . '/public/javascripts/';
+		$app->config['images_path']			 = $app->config['app_domain'] . '/public/images/';
 		
 		$route = array();
 		$route['404'] = array('RequestError::error_404');
@@ -98,7 +102,7 @@ class App {
 		
 		include(APP_PATH.'/config/routes.php');
 		include(APP_PATH.'/config/application.php');
-		include(APP_PATH.'/config/enviroments/'.$app->config['env'].'.php');
+		include(APP_PATH.'/config/enviroments/'.$app->config['env'] . '.php');
 		
 		// Set most used configurations, for rapid access.
 		define('APP_DOMAIN',			 $app->config['app_domain']);
@@ -111,21 +115,21 @@ class App {
 		
 		// Load application plugins
 		foreach ($app->plugins as $plugin) {
-			require_once(APP_PATH.'/vendor/plugins/'.$plugin.'/init.php');
+			require_once(APP_PATH.'/vendor/plugins/' . $plugin . '/init.php');
 		}
 		
 		// Fire on_init event
 		$app->fire_event('on_init');
 		
-		// Inclui arquivos requeridos pelo Drumon
-		include(CORE_PATH.'/class/request.php');
-		include(CORE_PATH.'/class/response.php');
-		include(CORE_PATH.'/class/helper.php');
-		include(CORE_PATH.'/class/view.php');
-		include(CORE_PATH.'/class/controller.php');
-		include(APP_PATH.'/app/controllers/app_controller.php');
+		// Required files for Drumon
+		include(CORE_PATH . '/class/request.php');
+		include(CORE_PATH . '/class/response.php');
+		include(CORE_PATH . '/class/helper.php');
+		include(CORE_PATH . '/class/view.php');
+		include(CORE_PATH . '/class/controller.php');
+		include(APP_PATH  . '/app/controllers/app_controller.php');
 		
-		// Token de proteção contra CSFR
+		// Token protection against CSFR
 		define('REQUEST_TOKEN', $app->create_request_token());
 
 		// Initialize request
@@ -135,9 +139,13 @@ class App {
 		$app->proccess_controller($request);
 	}
 	
-	
-	public function proccess_controller($request) 
-	{
+	/**
+	 * Proccess controller, action and show response
+	 *
+	 * @param obj $request 
+	 * @return void
+	 */
+	public function proccess_controller($request) {
 		$core_controllers = array('RequestError' => CORE_PATH.'/class/' );
 		$controller_path = (isset($core_controllers[$request->controller_name])) ? $core_controllers[$request->controller_name] : APP_PATH.'/app/controllers/';
 		
@@ -151,34 +159,32 @@ class App {
 		echo $response;
 	}
 	
-	
-	
 	/**
-	 * Adiciona helpers que serão usados na aplicação
+	 * Add helpers to use on application
 	 *
 	 * @param string|array $helpers 
 	 * @return void
 	 */
 	public function add_helpers($helpers_names, $custom_paths = null) {
-		// Helpers existentes no core.
+		// List of core Helpers
 		$core_helpers = array('date','html','image','text','url','movie');
 
 		$helpers = array();
 		$helpers_names = is_array($helpers_names) ? $helpers_names : array($helpers_names);
 		foreach ($helpers_names as $helper_name) {
 			$helper_name = strtolower(trim($helper_name));
-			$local = in_array($helper_name, $core_helpers) ? CORE_PATH.'/helpers' : APP_PATH.'/app/helpers';
+			$local = in_array($helper_name, $core_helpers) ? CORE_PATH . '/helpers' : APP_PATH . '/app/helpers';
 			if ($custom_paths) {
 				$local = $custom_paths;
 			}
-			$helpers[$helper_name] = $local."/".$helper_name."_helper.php";
+			$helpers[$helper_name] = $local . "/" . $helper_name . "_helper.php";
 		}
 		
 		$this->helpers = array_merge($this->helpers, $helpers);
 	}
 	
 	/**
-	 * Adiciona plugins que serão usados na aplicação
+	 * Add plugins to use on application
 	 *
 	 * @param string|array $plugins 
 	 * @return void
@@ -189,7 +195,7 @@ class App {
 	}
 	
 	/**
-	 * Adiciona evento na aplicação
+	 * Add event to application
 	 *
 	 * @param string $name 
 	 * @param string|array $callback 
@@ -200,7 +206,7 @@ class App {
 	}
 	
 	/**
-	 * Dispara evento na aplicação
+	 * Fire added events on application
 	 *
 	 * @param string $name 
 	 * @param array $params 
@@ -215,19 +221,19 @@ class App {
 	}
 	
 	/**
-	 * Adiciona variável de configuração da app
+	 * Set application configuration
 	 *
 	 * @param string $name 
 	 * @param mix $value 
 	 * @return void
 	 */
-	public static function add_config($name, $value) {
+	public static function set_config($name, $value) {
 		$app = self::get_instance();
 		return $app->config[$name] = $value;
 	}
 	
 	/**
-	 * Retorna a variável setada na app
+	 * Get application configuration
 	 *
 	 * @param string $name 
 	 * @return mix
@@ -239,25 +245,25 @@ class App {
 	
 	
 	/**
-	 * Gera token única para a requisição.
+	 * Generate unique token for CSRF protection
 	 *
 	 * @return string
 	 * 
 	 */
 	public function create_request_token() {
 		$token	= dechex(mt_rand());
-		$hash		= sha1($this->config['app_secret'].APP_DOMAIN.'-'.$token);
-		return $token.'-'.$hash;
+		$hash		= sha1($this->config['app_secret'] . APP_DOMAIN . '-' . $token);
+		return $token . '-' . $hash;
 	}
 	
 	
 	/**
-	 * Protege contra ataques do tipo CSRF.
+	 * Check if can block request against CSRF
 	 *
 	 * @param object $request 
-	 * 
+	 * @return bool
 	 */
-	public function block_csrf_protection($request) {
+	public function block_request($request) {
 		
 		$unauthorized = false;
 		
@@ -265,11 +271,11 @@ class App {
 			$unauthorized = true;
 
 			if (!empty($request->params['_token'])) {
-				$parts = explode('-',$request->params['_token']);
+				$parts = explode('-', $request->params['_token']);
 
 				if (count($parts) == 2) {
 					list($token, $hash) = $parts;
-					if ($hash == sha1($this->config['app_secret'].APP_DOMAIN.'-'.$token)) {
+					if ($hash == sha1($this->config['app_secret'] . APP_DOMAIN . '-' . $token)) {
 						$unauthorized = false;
 					}
 				}
@@ -280,7 +286,7 @@ class App {
 	}
 	
 	/**
-	 * Transforma palavrasEmCamelCase para palavras_em_underscore
+	 * Turn CamelCaseWords to underscore_words
 	 *
 	 * @param string $camelCasedWord 
 	 * @return string
@@ -292,7 +298,7 @@ class App {
 	}
 	
 	/**
-	 * Transforma palavras_em_underscore em PalavrasEmCamelCase
+	 * Turn underscore_words to CamelCaseWords
 	 *
 	 * @param string $lowerCaseAndUnderscoredWord 
 	 * @return string
@@ -304,12 +310,12 @@ class App {
 	}
 	
 	/**
-	 * Converte um texto para o formato de slug, retirando os acentos e espaços.
+	 * Convert string to slug
 	 *
 	 * @access public
-	 * @param string $text - Texto a ser formatado.
-	 * @param string $space - Caractere usado no lugar do espaço (default: -).
-	 * @return string -  Texto formatado.
+	 * @param string $text - String to convert.
+	 * @param string $space - Character used beetween words (default: -).
+	 * @return string
 	 */
 	public function to_slug($text, $space = "-") {
 		$text = trim($text);
@@ -319,7 +325,7 @@ class App {
 		$text = str_replace($search, $replace, $text);
 
 		if (function_exists('iconv')) {
-			$text = @iconv('UTF-8', 'ASCII//TRANSLIT', $text);
+			$text = iconv('UTF-8', 'ASCII//TRANSLIT', $text);
 		}
 
 		$text = preg_replace("/[^a-zA-Z0-9 ".$space."]/", "", $text);
@@ -330,7 +336,7 @@ class App {
 	}
 	
 	/**
-	 * Remove valores vazios e nulos do array.
+	 * Remove NULL and empty values from array
 	 *
 	 * @param string $array 
 	 * @return array
@@ -345,6 +351,14 @@ class App {
 		return $clean_array;
 	}
 	
+	/**
+	 * Convert array to html helper select format
+	 *
+	 * @param string $list 
+	 * @param string $key 
+	 * @param string $value 
+	 * @return array
+	 */
 	public static function to_select($list, $key, $value) {
 		$result = array();
 		foreach ($list as $item) {
@@ -357,14 +371,14 @@ class App {
 	 * Remove the slash(/) from the last char.
 	 *
 	 * @access public
-	 * @param string $str - String com (/) a ser alterada.
-	 * @return string - String sem a barra (/).
+	 * @param string $value
+	 * @return string
 	 */
-	public static function strip_slash($str) {
-		if($str[strlen($str)-1]==='/') {
-			$str = substr($str,0,-1);
+	public static function remove_last_slash($value) {
+		if($value[strlen($value)-1] === '/') {
+			$value = substr($value, 0, -1);
 		}
-		return $str;
+		return $value;
 	}
 }
 
@@ -376,8 +390,7 @@ class App {
  * @param array $options
  * @return string
  */
-function t($key, $options = array())
-{
+function t($key, $options = array()) {
 	// Merge options with defaults
 	$options = array_merge(array('from' => 'application'), $options);
 	

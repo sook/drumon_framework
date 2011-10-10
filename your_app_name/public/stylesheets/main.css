@@ -3,10 +3,12 @@
 	padding: 0;
 	list-style-type: none;
 }
+
 body {
 	font: 15px Arial;
 	color: #333333;
 }
+
 #app {
 	width: 780px;
 	margin: auto;
@@ -19,7 +21,7 @@ h1 {
 	margin-left: -2px;
 }
 
-h1 > span{
+h1 > span {
 	color: #858585;
 }
 
@@ -35,16 +37,17 @@ h2 {
 	color: #000;
 }
 
-hr{
+hr {
 	border: none;
 	border-bottom: 1px dashed #DADADA;
 	margin-bottom: 10px;
 }
-ul{
+
+ul {
 	margin-bottom: 30px;
 }
 
-ul li{
+ul li {
 	font-size: 15px;
 	margin-top: 15px;
 	letter-spacing: 0.6px;

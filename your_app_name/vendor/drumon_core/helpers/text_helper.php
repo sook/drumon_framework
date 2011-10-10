@@ -8,45 +8,39 @@
 /**
  * Text manipulation.
  *
- * @author Sook contato@sook.com.br.
  * @package drumon_core
  * @subpackage	drumon_core.helpers
  */
 class TextHelper extends Helper {
-	
-	public $translations = array();
-	
+
 	/**
-	 * Converts a text format for the slug, removing accents and spaces.
+	 * Converts a text format for the slug, removing accents and spaces
 	 *
-	 * @access public
-	 * @param string $text Text to be formatted.
-	 * @param string $space Character used instead of special characters.
-	 * @return string Formatted text.
+	 * @param string $text Text to be formatted
+	 * @param string $space Character used instead of special characters
+	 * @return string
 	 */
 	public function to_slug($text, $space = "-") {
 		return App::to_slug($text, $space);
 	}
 
 	/**
-	 * Search usernames and consultation for hashtags on twitter and add the link tags found.
+	 * Search usernames and consultation for hashtags on twitter and add the link tags found
 	 *
-	 * @access public
-	 * @param string $text Text to be formatted.
-	 * @return string Formatted text.
+	 * @param string $text Text to be formatted
+	 * @return string
 	 */
 	public function twitterify($text) {
 		$text = preg_replace("/@(\w+)/", "<a title= \"Twitter Profile\" href=\"http://www.twitter.com/\\1\" target=\"_blank\">@\\1</a>", $text);
 		$text = preg_replace("/#(\w+)/", "<a title=\"Twitter Search\" href=\"http://search.twitter.com/search?q=\\1\" target=\"_blank\">#\\1</a>", $text);
 		return $text;
 	}
-	
+
 	/**
-	 * Adds links (<a href =....) a given text, finding text that begins with strings such as http://.
+	 * Adds links (<a href =....) a given text, finding text that begins with strings such as http://
 	 *
-	 * @access public
-	 * @param string $text Text to be formatted.
-	 * @return string Text with adding links.
+	 * @param string $text Text to be formatted
+	 * @return string
 	 */
 	public function linkfy($text) {
 		$text = preg_replace("#(^|[\n ])([\w]+?://[\w]+[^ \"\n\r\t< ]*)#", "\\1<a href=\"\\2\" target=\"_blank\">\\2</a>", $text);
@@ -55,19 +49,18 @@ class TextHelper extends Helper {
 	}
 
 	/**
-	 * Destaca uma determinada frase em um texto.
+	 * Highlight words in text
 	 *
-	 * @access public
-	 * @param string $text - Text to search the phrase in.
-	 * @param string $phrase - The phrase that will be searched.
-	 * @param array $options - An array of html attributes and options.
-	 * @return string - The highlighted text.
+	 * @param string $text Text to search the phrase in
+	 * @param string $phrase The phrase that will be searched
+	 * @param array $options An array of html attributes and options (optional)
+	 * @return string
 	 * ### Options:
 	 *
-	 * - `format` O pedaço de html com que a frase será destaque
-	 * - `html` Se for verdade, irá ignorar todas as tags HTML, garantindo que apenas o texto correto é destaque.
+	 * - `format` text replace format (<span class="highlight">\1</span>)
 	 */
 	public function highlight($text, $phrase, $options = array()) {
+
 		if (empty($phrase)) {
 			return $text;
 		}
@@ -75,9 +68,8 @@ class TextHelper extends Helper {
 		$default = array(
 			'format' => '<span class="highlight">\1</span>'
 		);
-		
+
 		$options = array_merge($default, $options);
-		extract($options);
 
 		if (is_array($phrase)) {
 			$replace = array();
@@ -86,7 +78,7 @@ class TextHelper extends Helper {
 			foreach ($phrase as $key => $segment) {
 				$segment = "($segment)";
 
-				$with[] = (is_array($format)) ? $format[$key] : $format;
+				$with[] = (is_array($options['format'])) ? $options['format'][$key] : $options['format'];
 				$replace[] = "|$segment|iu";
 			}
 
@@ -94,85 +86,83 @@ class TextHelper extends Helper {
 		} else {
 			$phrase = "($phrase)";
 
-			return preg_replace("|$phrase|iu", $format, $text);
+			return preg_replace("|$phrase|iu", $options['format'], $text);
 		}
 	}
 
 
 	/**
-	* Remove os links de um texto.
+	* Remove links from text
 	*
-	* @param string $text - Texto a ser verificado.
-	* @return string - Texto sem links.
-	* @access public
+	* @param string $text
+	* @return string
 	*/
 	public function strip_links($text) {
 		return preg_replace('|<a\s+[^>]+>|im', '', preg_replace('|<\/a>|im', '', $text));
 	}
 
 	/**
-	 * Corta uma string com o comprimento de $max e substitui o último caracteres
-	 * com o fim se o texto for maior que o comprimento.
+	 * Truncate text
 	 *
-	 * @param string $text 
-	 * @param int $max 
-	 * @param array $options 
+	 * @param string $text
+	 * @param int $max character number
+	 * @param array $options (end, exact)
 	 * @return string
-	 * 
+	 *
 	 */
 	public function truncate($text, $max, $options = array()) {
-		$options = array_merge(array('end'=>'...', 'exact' => true), $options);
+		$options = array_merge(array('end' => '...', 'exact' => true), $options);
 		if (strlen($text) > $max) {
 			$text = substr($text, 0, $max);
 			if (!$options['exact']) {
-				$text = substr($text,0,strrpos($text," "));
+				$text = substr($text,0,strrpos($text, " "));
 			}
 			$text .= $options['end'];
 		}
 		return $text;
 	}
-	
+
 	/**
-	 * Extrai um trecho do texto em torno da frase com um número de caracteres de cada lado determinado pelo raio.
+	 * Text excerpt
 	 *
-	 * @param string $text - Texto a ser analisado.
-	 * @param string $phrase - Frase para extração.
-	 * @param integer $radius - Tamanho padrão de caracteres excedentes.
-	 * @param string $ending - Texto padrão para fechamento do texto analisado.
-	 * @return string - Texto com as modificações.
-	 * @access public
+	 * @param string $text
+	 * @param string $search_text
+	 * @param integer $radius
+	 * @param string $ending
+	 * @return string
 	 */
-	public function excerpt($text, $phrase, $radius = 100, $ending = '...') {
-		if (empty($text) or empty($phrase)) {
-			return $this->truncate($text, $radius * 2, array('end'=>$ending));
+	public function excerpt($text, $search_text, $radius = 100, $ending = '...') {
+
+		if (empty($text) or empty($search_text)) {
+			return $this->truncate($text, $radius * 2, array('end' => $ending));
 		}
 
-		$phraseLen = mb_strlen($phrase);
-		if ($radius < $phraseLen) {
-			$radius = $phraseLen;
+		$search_text_lenght = mb_strlen($search_text);
+		if ($radius < $search_text_lenght) {
+			$radius = $search_text_lenght;
 		}
 
-		$pos = mb_strpos(mb_strtolower($text), mb_strtolower($phrase));
+		$pos = mb_strpos(mb_strtolower($text), mb_strtolower($search_text));
 
 		$startPos = 0;
 		if ($pos > $radius) {
 			$startPos = $pos - $radius;
 		}
 
-		$textLen = mb_strlen($text);
+		$text_lenght = mb_strlen($text);
 
-		$endPos = $pos + $phraseLen + $radius;
-		if ($endPos >= $textLen) {
-			$endPos = $textLen;
+		$endPos = $pos + $search_text_lenght + $radius;
+		if ($endPos >= $text_lenght) {
+			$endPos = $text_lenght;
 		}
 
 		$excerpt = mb_substr($text, $startPos, $endPos - $startPos);
 		if ($startPos != 0) {
-			$excerpt = substr_replace($excerpt, $ending, 0, $phraseLen);
+			$excerpt = substr_replace($excerpt, $ending, 0, $search_text_lenght);
 		}
 
-		if ($endPos != $textLen) {
-			$excerpt = substr_replace($excerpt, $ending, -$phraseLen);
+		if ($endPos != $text_lenght) {
+			$excerpt = substr_replace($excerpt, $ending, -$search_text_lenght);
 		}
 
 		return $excerpt;
@@ -180,11 +170,10 @@ class TextHelper extends Helper {
 
 
 	/**
-	 * Traduz o Texto usando a variável de internacionalização locale.
+	 * Translate text using i18n system
 	 *
-	 * @param string $key - Chave da palavra no arquivo de locale.
-	 * @return string - O texto traduzido.
-	 * @access public
+	 * @param string $key
+	 * @return string
 	 */
 	public function translate($key, $options = array()) {
 		return t($key, $options);

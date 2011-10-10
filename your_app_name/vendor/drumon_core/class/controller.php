@@ -6,80 +6,98 @@
  */
 
 /**
- * Classe abstrata que fornece suporte a classe base do controlador.
+ * Main controller class
  *
  * @package class
- * @abstract
- * @author Sook contato@sook.com.br
  */
 class Controller {
-	
-	private $app;
-	/** 
-	 * Objeto da classe view usado pelo controller.
+
+	/**
+	 * Main Application object
 	 *
-	 * @var string
+	 * @var App
+	 */
+	private $app;
+
+	/**
+	 * View object
+	 *
+	 * @var View
 	 */
 	private $view;
-	
-	/** 
-	 * Arquivo de layout a ser usado pelo controlador, padrão default.
+
+	/**
+	 * Request object
+	 *
+	 * @var Request
+	 */
+	public $request;
+
+	/**
+	 * Response object
+	 *
+	 * @var Response
+	 */
+	public $response;
+
+	/**
+	 * Current application layout (default: default)
 	 *
 	 * @var string
 	 */
 	protected $layout = "default";
-	
-	/** 
-	 * Contém os parâmetros passados na requisição HTTP (GET e POST).
+
+	/**
+	 * List of params from HTTP request (GET, POST, PUT, DELETE)
 	 *
 	 * @var array
 	 */
 	protected $params = array();
-	
+
 	/**
-	 * Conteúdo para o layout.
+	 * Content for layout
 	 *
 	 * @var string
 	 */
 	private $content_for_layout = null;
-	
+
 	/**
-	 * Lista de helpers usados na view.
+	 * List of helpers
 	 *
 	 * @var array
 	 */
 	public $helpers = array();
-	
+
 	/**
-	 * Lista de ações que serão executadas antes da ação principal
+	 * List of actions to fire before one action
 	 *
 	 * @var array
 	 */
 	public $before_action = array();
-	
+
 	/**
-	 * Lista de ações que serão executadas depois da ação principal
+	 * List of actions to fire after one action
 	 *
 	 * @var string
 	 */
 	public $after_action = array();
-	
+
 	/**
-	 * Proteção contra CSRF ligada.
+	 * CSRF protection status (default: true)
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	public $csrf_protection = true;
-	
-	public $response;
-	public $request;
-	
+
+
 	/**
-	 * Instancia um novo view com as configurações, parâmetros e idioma padrões.
+	 * Setup a new application controller
 	 *
-	 * @access public
-	 * @param object $request - Instância do Request Handler.
-	 * @param array $locale - Referência da variável com os dados de internacionalização.
+	 * @param string $app App object
+	 * @param string $request Request object
+	 * @param string $response Response object
+	 * @param string $view View object
+	 * @return void
 	 */
 	public function __construct(&$app, &$request, &$response, &$view) {
 		$this->app = $app;
@@ -88,57 +106,54 @@ class Controller {
 		$this->params = $request->params;
 		$this->view = $view;
 	}
-	
+
 	/**
-	 * Executa ação carregando helpers, ações de filtro e renderiza a view referente a ação.
+	 * Proccess controller
 	 *
-	 * @access public
-	 * @param string $action_name - Ação a ser executada.
-	 * @return void
+	 * @return object Response
 	 */
-	public function process()
-	{
+	public function process() {
 		$this->response->charset = $this->app->config['charset'];
-		
-		// Se for uma requisição perigosa renderinza uma página de erro
-		if($this->csrf_protection && $this->app->block_csrf_protection($this->request)) {
+
+		// Protect from CSRF
+		if($this->csrf_protection && $this->app->block_request($this->request)) {
 			$this->request->params['_token'] = REQUEST_TOKEN;
 			$this->render_error(401);
 		}
-		
+
 		// Set default view to render
 		$action_name = $this->request->action_name;
 		$this->view->params = $this->params;
 		$this->render(App::to_underscore(str_replace('_', '/', $this->request->controller_name)) . '/' . $this->request->action_name);
-		
-		// Get AppController variables.
+
+		// Get AppController variables
 		$app_controller_vars = get_class_vars('AppController');
-		
-		// Junta os hooks do app_controller com os do controller atual.
+
+		// Merge AppController hooks with active controller
 		$this->before_action = array_merge($app_controller_vars['before_action'], $this->before_action);
 		$this->after_action = array_merge($app_controller_vars['after_action'], $this->after_action);
-		
-		// Executa os before_actions
+
+		// Execute before_actions
 		$this->execute_methods($this->before_action);
-		// Executa a action principal
+		// Execute main action
 		$this->$action_name();
-		// Executa os after_actions
+		// Execute after_actions
 		$this->execute_methods($this->after_action);
-		
-		// Adiciona helpers setados no controller na app.
+
+		// Add helpers in controller to App instace
 		$this->app->add_helpers(array_merge($app_controller_vars['helpers'], $this->helpers));
-		
+
 		// Set response body
 		$this->response->body = $this->view->process($this->layout, $this->content_for_layout, $this->app->helpers, $this->request);
-		
+
 		// Return a Response object
 		return $this->response;
 	}
-	
+
 	/**
-	 * Executa os métodos adicionados no before e after action.
+	 * Fire all methods added on before and after hooks
 	 *
-	 * @param array $methods 
+	 * @param array $methods
 	 * @return void
 	 */
 	private function execute_methods($methods) {
@@ -156,7 +171,7 @@ class Controller {
 							call_user_func(array($this, $key));
 						}
 					}
-					
+
 				} elseif(isset($value['except'])) {
 					if (is_array($value['except'])) {
 						foreach ($value['except'] as $except) {
@@ -174,91 +189,101 @@ class Controller {
 				call_user_func(array($this,$value));
 			}
 		}
-	} 
+	}
 
 	/**
-	 * Adiciona variáveis a ser utilizadas no view.
+	 * Add variables to view
 	 *
-	 * @access public
-	 * @param String $name - Nome da variável que será utilizada no view.
-	 * @param Mixed $value - Valor que será adicionado a variável no view.
+	 * @param string $name view variable name
+	 * @param mixed $value
 	 * @return void
 	 */
 	public function add($name, $value) {
 		$this->view->add($name, $value);
 	}
-	
+
 	/**
-	 * Define a view a ser renderizada.
+	 * Set a view to render
 	 *
-	 * @param string $view 
+	 * @param string $view
 	 * @return void
 	 */
 	public function render($view_name, $http_status_code = 200) {
 		$this->view->view_file_path = $view_name.'.php';
 		$this->response->http_status_code = $http_status_code;
 	}
-	
+
 	/**
-	 * Seta o texto para ser renderizado como conteúdo.
+	 * Render one text
 	 *
-	 * @param string $text 
+	 * @param string $text
 	 * @return void
 	 */
 	public function render_text($text, $http_status_code = 200) {
 		$this->content_for_layout = $text;
 		$this->response->http_status_code = $http_status_code;
 	}
-	
+
+	/**
+	 * Get object view
+	 *
+	 * @return View
+	 */
 	public function get_view() {
 		return $this->view;
 	}
 
 	/**
-	 * Redireciona para url especificada.
+	 * Redirect to one URL or other controller
 	 *
-	 * @access public
-	 * @param string $url - Url de destino.
+	 * Examples:
+	 *
+	 * $this->redirect('http://github.com');
+	 * $this->redirect(array('controller'=>'users','action'=>'index'));
+	 *
+	 * @param string|array $location
+	 * @param int $code
+	 * @param bool $exit
 	 * @return void
 	 */
 	public function redirect($location, $code = 302, $exit = true) {
-		
+
 		if (is_array($location)) {
 			$this->request->controller_name = $location['controller'];
 			$this->request->action_name = $location['action'];
 			$this->app->proccess_controller($this->request);
 			exit;
 		}
-		
+
 		if ($location[0] === '/') {
 			$location = APP_DOMAIN . $location;
 		}
-		
+
 		$this->request->redirect($location, $code, $exit);
 	}
-	
-	
+
+
 	/**
-	 * Create custom methods on demand. (named routes for redirect)
+	 * Create custom methods on demand to named redirect
 	 *
-	 * @param string $name 
-	 * @param string $arguments 
-	 * @return string
+	 * @param string $name
+	 * @param string $arguments
+	 * @return void
 	 */
 	public function __call($name, $arguments) {
-		$named_route = str_replace('redirect_to_','',$name);
-		if(substr($name,0,12) === 'redirect_to_') {
-			$this->redirect(APP_DOMAIN.$this->request->url_for($named_route, $arguments));
-		}else{
-			trigger_error('Method '.$name.' not exist', E_USER_ERROR);
+		$named_route = str_replace('redirect_to_', '', $name);
+		if (substr($name, 0, 12) === 'redirect_to_') {
+			$this->redirect(APP_DOMAIN . $this->request->url_for($named_route, $arguments));
+		} else {
+			trigger_error('Method ' . $name . ' not exist', E_USER_ERROR);
 		}
 	}
-	
+
 	/**
-	 * Seta uma mensagem para ser acessada em outra página mesmo depois de um redirecionamento.
+	 * Set a flash message
 	 *
-	 * @param string $key 
-	 * @param string $value 
+	 * @param string $key
+	 * @param string $value
 	 * @return void
 	 */
 	public function flash($key, $value) {
@@ -266,24 +291,31 @@ class Controller {
 		if (!isset($_SESSION)) {
 			session_start();
 		}
-		
+
 		$_SESSION['flash'][$key] = $value;
 	}
-	
+
+	/**
+	 * Render an error
+	 *
+	 * @param string $code
+	 * @param string $file_name filename with the view (optional)
+	 * @return void
+	 */
 	public function render_error($code, $file_name = null) {
-		
+
 		$this->response->http_status_code = $code;
-		
+
 		if (!empty($file_name)) {
 			$this->layout = null;
 			$this->view->view_file_path = $file_name;
 			return;
 		}
-		
+
 		list($controller_name, $action_name) = explode('::', $this->request->routes[$code][0]);
 		$this->redirect(array('controller' => $controller_name, 'action' => $action_name));
-		
+
 	}
-	
+
 }
 ?>

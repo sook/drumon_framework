@@ -1,7 +1,7 @@
 <?php
 	
 	/**
-	 * Class to handler Http responses
+	 * Class to handler HTTP responses
 	 *
 	 */
 	class Response {
@@ -93,8 +93,8 @@
 		 *
 		 * @return string
 		 */
-		public function __toString()
-		{
+		public function __toString() {
+			
 			// Set default Content-Type if not exist
 			if (!isset($this->headers['Content-Type'])) {
 				$this->headers['Content-Type'] = 'text/html; charset='.$this->charset;

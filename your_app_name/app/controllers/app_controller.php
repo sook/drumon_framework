@@ -2,7 +2,7 @@
 
 	class AppController extends Controller {
 		
-		// Helpers carregados em todos os controllers.
+		// Load Helpers in all controllers
 		var $helpers = array('html','date','text','url');
 		
 	}

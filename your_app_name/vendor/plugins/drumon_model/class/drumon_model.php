@@ -62,7 +62,7 @@
 		/**
 		 * PDO connection instance
 		 *
-		 * @var object
+		 * @var PDO
 		 */
 		protected $__connection;
 		
@@ -263,7 +263,7 @@
 		 * Create isset for undefined variables
 		 *
 		 * @param string $name 
-		 * @return boolean
+		 * @return bool
 		 */
 		public function __isset($name) {
 	  	return isset($this->__data[$name]);
@@ -328,7 +328,7 @@
 		/**
 		 * Verify if record is new (is not on database)
 		 *
-		 * @return boolean
+		 * @return bool
 		 */
 		public function is_new() {
 			return !(isset($this->__data[$this->primary_key]));
@@ -339,7 +339,7 @@
 		 *
 		 * @param array $data 
 		 * @param array $only_columns 
-		 * @return boolean
+		 * @return bool
 		 */
 		public function save($data = array(), $only_columns = array()) {
 			// TODO: melhorar esse update para ir somente os campos que foram alterados.
@@ -351,7 +351,7 @@
 		 *
 		 * @param array $data 
 		 * @param array $only_columns 
-		 * @return boolean
+		 * @return bool
 		 */
 		public function create($data = array(), $only_columns = array()) {
 
@@ -401,7 +401,7 @@
 		 * @param int $id 
 		 * @param array $data 
 		 * @param array $only_columns 
-		 * @return boolean
+		 * @return bool
 		 */
 		public function update($id, $data = array(), $only_columns = array()) {
 			// Remove the fields that will not be saved.
@@ -446,7 +446,7 @@
 		 * Delete a record
 		 *
 		 * @param int|array $ids
-		 * @param boolean $fire_callbacks 
+		 * @param bool $fire_callbacks 
 		 * @return int Number of records deleted
 		 */
 		public function delete($ids = null, $fire_callbacks = true) {
@@ -465,7 +465,7 @@
 		/**
 		 * Delete all record found in query
 		 *
-		 * @param boolean $fire_callbacks  
+		 * @param bool $fire_callbacks  
 		 * @return int Number of records deleted
 		 */
 		public function delete_all($fire_callbacks = true) {
@@ -511,7 +511,7 @@
 		 * @param mixed $id 
 		 * @param string $column 
 		 * @param int $value 
-		 * @return boolean
+		 * @return bool
 		 */
 		public function increment($id, $column, $value = 1) {
 			$value = (int) $value;
@@ -527,7 +527,7 @@
 		 * @param mixed $id 
 		 * @param string $column 
 		 * @param int $value 
-		 * @return boolean
+		 * @return bool
 		 */
 		public function decrement($id, $column, $value = 1) {
 			$value = (int) $value;
@@ -706,7 +706,7 @@
 		 * Check if one o more records exists.
 		 *
 		 * @param int|array $ids 
-		 * @return boolean
+		 * @return bool
 		 */
 		public function exists($ids = null) {
 			$this->select($this->primary_key);
@@ -844,7 +844,7 @@
 		 *
 		 * @param string $sql 
 		 * @param array $statement 
-		 * @param boolean $object 
+		 * @param bool $object 
 		 * @return mixed
 		 */
 		public function find_by_sql($sql, $statement = array(), $object = false) {

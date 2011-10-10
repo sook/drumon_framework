@@ -11,14 +11,14 @@
 		/**
 		 * Connection instance
 		 *
-		 * @var object
+		 * @var Connection
 		 */
 		private static $instance;
 		
 		/**
 		 * PDO Object
 		 *
-		 * @var object
+		 * @var PDO
 		 */
 		public $pdo;
 		
@@ -56,7 +56,7 @@
 		/**
 		 * Get a singleton instance of Connection<object>
 		 *
-		 * @return object
+		 * @return Connection
 		 */
 		public static function get_instance() {
 			if (self::$instance === null) {

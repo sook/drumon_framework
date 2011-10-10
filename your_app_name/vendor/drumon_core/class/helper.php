@@ -6,35 +6,30 @@
  */
 
 /**
- * Helpers do framework.
+ * Main Helper class
  *
  * @package class
- * @abstract
- * @author Sook contato@sook.com.br
  */
 abstract class Helper {
 	
 	/** 
-	 * Referência ao objeto request.
+	 * Request object
 	 *
-	 * @access protected
-	 * @var object
+	 * @var Request
 	 */
 	protected $request;
 	
 	/** 
-	 * Lista de outros helpers que vão ser utilizados no helper atual.
+	 * List helpers used on another helper
 	 *
-	 * @access public 
 	 * @var array
 	 */
 	public $uses = array();
 	
 	/**
-	 * Construtora da Classe.
+	 * Setup class
 	 *
-	 * @access public
-	 * @param array $request - Request
+	 * @param object $request Request object
 	 * @return void
 	 */
 	public function __construct(&$request) {
@@ -42,15 +37,15 @@ abstract class Helper {
 	}
 
 	/**
-	 * Substitui os parâmetros de uma string pelos valores de um array de hash.
+	 * Replace string params with hash array values
 	 *
-	 * @access public
-	 * @param string $str - 
-	 * @param array $vars -
-	 * @param string $char -
+	 * @deprecated
+	 * @param string $str
+	 * @param array $vars
+	 * @param string $char
 	 * @return string - 
 	 */
-	public function sprintf2($str='', $vars=array(), $char='%') {
+	public function sprintf2($str = '', $vars = array(), $char = '%') {
 	    if (!$str) return '';
 	    if (count($vars) > 0) {
 	        foreach ($vars as $k => $v) {

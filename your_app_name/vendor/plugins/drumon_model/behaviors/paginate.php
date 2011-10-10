@@ -128,7 +128,7 @@ class Paginate extends Behavior implements ArrayAccess, Iterator, Countable {
 	 * Retorna qual é a próxima página.
 	 *
 	 * @access public
-	 * @return boolean - True se o número de páginas for maior que a página atual.
+	 * @return bool - True se o número de páginas for maior que a página atual.
 	 */
 	function has_nextPage() {
 		if( count($this->getPages()) > $this->current_page) {
@@ -141,7 +141,7 @@ class Paginate extends Behavior implements ArrayAccess, Iterator, Countable {
 	 * Verifica a existência de página anterior.
 	 *
 	 * @access public
-	 * @return boolean - True se a pagina atual for maior que 1.
+	 * @return bool - True se a pagina atual for maior que 1.
 	 */
 	function has_prevPage() {
 		return ($this->current_page > 1)? true : false;
@@ -182,7 +182,7 @@ class Paginate extends Behavior implements ArrayAccess, Iterator, Countable {
 	 * Verifica a existência de paginação.
 	 *
 	 * @access public
-	 * @return boolean - True se a ultima página for maior que 1, False se não.
+	 * @return bool - True se a ultima página for maior que 1, False se não.
 	 */
 	function has_page() {
 		return ($this->getLastPage() > 1) ? true : false;

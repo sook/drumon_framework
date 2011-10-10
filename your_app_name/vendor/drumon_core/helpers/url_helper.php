@@ -7,34 +7,47 @@
 
 
 /**
- * Helper para trabalhar com URL.
+ * Url Helper
  *
- * @author Sook contato@sook.com.br
  * @package helpers
  */
 class UrlHelper extends Helper {
-	
+
 	/**
-	 * Retorna o caminho completo de uma url.
+	 * Return Full URL path
 	 *
-	 * @access public
-	 * @param string $url - Caminho parcial da url.
-	 * @return string - Caminho completo da url.
+	 * @param string $url
+	 * @return string
 	 */
-	public function to() {
-		if(func_num_args() === 2 && func_get_arg(0) == 'image') {
-			return $this->image(func_get_arg(1));
-		}
-		
-		return APP_DOMAIN.func_get_arg(0);
+	public function to($url) {
+		return APP_DOMAIN . $url;
 	}
-	
-	
+
+	/**
+	 * Return active page url
+	 *
+	 * @return string
+	 */
+	public function to_here() {
+		return $_SERVER['REQUEST_URI'];
+	}
+
+	/**
+	 * Return image url
+	 *
+	 * @param string $image
+	 * @param $image_path
+	 * @return string
+	 */
+	public function to_image($image, $image_path = IMAGES_PATH) {
+		return $image_path . $image;
+	}
+
 	/**
 	 * Create custom methods on demand. (named routes)
 	 *
-	 * @param string $name 
-	 * @param string $arguments 
+	 * @param string $name
+	 * @param string $arguments
 	 * @return string
 	 */
 	public function __call($name, $arguments) {
@@ -50,33 +63,13 @@ class UrlHelper extends Helper {
 	/**
 	 * Retorna pasta do módulo passado como valor.
 	 *
-	 * @access public
 	 * @param string $module - Nome do módulo a ser utilizado.
 	 * @return string - Url completa da localização do módulo.
+	 * @ignore
 	 */
 	public function module($module) {
-		return MODULES_PATH.$module;
+		return MODULES_PATH . $module;
 	}
 
-	/**
-	 * Retorna o caminho padrão das imagens concatenado ao nome da imagem.
-	 *
-	 * @access public
-	 * @param string $image - Nome da imagem.
-	 * @return string - Caminho para a imagem.
-	 */
-	public function image($image) {
-		return IMAGES_PATH.$image;
-	}
-	
-	/**
-	 * Retorna o caminho da página atual
-	 *
-	 * @access public
-	 * @return string
-	 */
-	public function to_here() {
-		return $_SERVER['REQUEST_URI'];
-	}
 }
 ?>

@@ -6,70 +6,68 @@
  */
 
 /**
- * Helper para trabalhar com imagens
+ * List of methods to help work with image in views
  *
- * @author Sook contato@sook.com.br
  * @package helpers
  */
 class ImageHelper extends Helper {
 
 	/**
-	 * Retorna a url com os dados para o timthumb. (http://www.binarymoon.co.uk/projects/timthumb/)
+	 * Return url with timthumb options (http://www.binarymoon.co.uk/projects/timthumb/)
 	 *
-	 * @access public
-	 * @param String $image - Nome da imagem a ser redimensionanda.
-	 * @param String $height - Altura da imagem.
-	 * @param String $width - Largura da imagem.
-	 * @param array $options - Opções extras do timthumb.
-	 * @return string - Url formatada com o tamanho do thumb.
+	 * @param String $image_src
+	 * @param String $width
+	 * @param String $height
+	 * @param array $options extra timthumb options (optional)
+	 * @return string
 	 */
 	public function resize($image_src, $width, $height, $options = array()) {
-		$image = IMAGES_PATH.'thumb.php?src='.$image_src.'';
-		
-		if ($width) {
+		$image = IMAGES_PATH . 'thumb.php?src=' . $image_src;
+
+		if (!empty($width)) {
 			$image .= "&w=".$width;
 		}
-		
-		if ($height) {
+
+		if (!empty($height)) {
 			$image .= "&h=".$height;
 		}
-		
+
 		foreach ($options as $key => $value) {
-			$image .='&'.$key.'='.$value;
+			$image .= '&' . $key . '=' . $value;
 		}
-		
+
 		return $image;
 	}
 
 	/**
-	 * Retorna url  da imagem do site gravatar através do fornecimento do email.
+	 * Return url image from gravatar service
 	 *
-	 * @access public
-	 * @param string $email - Email para verificação de imagem.
-	 * @param string $default
-	 * @return string - Url com imagem do gravatar.
+	 * @link http://www.gravatar.com
+	 *
+	 * @param string $email
+	 * @param string $default (optional)
+	 * @return string
 	 */
 	public function gravatar($email, $default = null) {
 		$gravatarMd5 = "";
 
-		$default = ($default != null) ? "?default=".urlencode( $default ) : '';
+		$default = ($default != null) ? "?default=" . urlencode( $default ) : '';
 
 		if ($email != "" && isset($email)) {
 	    $gravatarMd5 = md5($email);
 	  }
-		//"?default=" . urlencode( $default ) .
-		
-		return 'http://www.gravatar.com/avatar/'.$gravatarMd5.$default;
+
+		return 'http://www.gravatar.com/avatar/' . $gravatarMd5 . $default;
 	}
-	
+
 	/**
 	 * Cria uma imagem FAKE com o placehold.it
 	 *
-	 * @param string $size - Dimensão da imagem, ex. 350x150
-	 * @param string $text - Adiciona um texto a imagem.
-	 * @param string $color - Seta as cores do fundo e do texto da imagem(hexadecimal), ex. 000/fff
+	 * @param string $size image size ex. 350x150
+	 * @param string $text text for image (optional)
+	 * @param string $color background color / text color. ex. 000/fff (optional)
 	 * @return string
-	 * 
+	 *
 	 */
 	public function fake($width = 350, $height = 150,$text=null,$color=null) {
 		$html = '';
@@ -77,6 +75,5 @@ class ImageHelper extends Helper {
 		$html = '<img src="http://placehold.it/'.$width.'x'.$height.'/'.$color.''.$text.'">';
 		return $html;
 	}
-	
 }
 ?>

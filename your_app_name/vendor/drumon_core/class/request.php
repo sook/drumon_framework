@@ -76,8 +76,7 @@ class Request {
 	 * @param array $routes Route list
 	 * @param string $app_path Application folder path.
 	 */
-	public function __construct($routes, $app_path) 
-	{
+	public function __construct($routes, $app_path) {
 		$this->routes = $routes;
 		$this->app_path = $app_path;
 		$this->method = (isset($_REQUEST['_method']) && strtolower($_SERVER['REQUEST_METHOD']) == 'post') ? strtolower($_REQUEST['_method']) : strtolower($_SERVER['REQUEST_METHOD']);
@@ -88,8 +87,7 @@ class Request {
 	 *
 	 * @return void
 	 */
-	public function validate()
-	{
+	public function validate() {
 		if (!$route = $this->find_request_route()) {
 			list($this->controller_name, $this->action_name) = explode('::', $this->routes['404'][0]);
 			return $this->valid;
@@ -117,8 +115,7 @@ class Request {
 	 * @access public
 	 * @return array - Route data
 	 */
-	public function find_request_route()
-	{
+	public function find_request_route() {
 		$app_folder = str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\','/', $this->app_path));
 		$request_route = explode('?', str_replace($app_folder, '', $_SERVER['REQUEST_URI']));
 		$request_route = $this->remove_last_slash($request_route[0]);
@@ -220,8 +217,7 @@ class Request {
 	 * @param string $params 
 	 * @return string
 	 */
-	public function url_for($named_route, $params = array())
-	{
+	public function url_for($named_route, $params = array()) {
 		if (isset($this->routes['*']) && $path = $this->find_named_route($this->routes['*'], $named_route, $params)) {
 		} elseif (isset($this->routes['get']) && $path = $this->find_named_route($this->routes['get'], $named_route, $params)) {
 		} elseif (isset($this->routes['put']) && $path = $this->find_named_route($this->routes['put'], $named_route, $params)) {
@@ -238,8 +234,7 @@ class Request {
 	 * @param string $params 
 	 * @return string
 	 */
-	public function find_named_route($route_list, $named_route, $params = array())
-	{
+	public function find_named_route($route_list, $named_route, $params = array()) {
 		$path = false;
 		
 		foreach ($route_list as $url => $route) {
@@ -277,11 +272,10 @@ class Request {
 	 *
 	 * @param string $location URL of the redirect location
 	 * @param code $code HTTP status code to be sent with the header
-	 * @param boolean $exit To end the application
+	 * @param bool $exit To end the application
 	 * @return void
 	 */
-	public function redirect($location, $code = 302, $exit = true)
-	{
+	public function redirect($location, $code = 302, $exit = true) {
 		header("Location: $location", true, $code);
 		if ($exit) die;
 	}
@@ -292,8 +286,7 @@ class Request {
 	 * @param string $string
 	 * @return string
 	 */
-	protected function remove_last_slash($string)
-	{
+	protected function remove_last_slash($string) {
 		
 		if ($string[strlen($string)-1] === '/') {
 			$string = substr($string, 0, -1);
