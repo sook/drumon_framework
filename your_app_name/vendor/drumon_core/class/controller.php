@@ -209,7 +209,7 @@ class Controller {
 	 * @return void
 	 */
 	public function render($view_name, $http_status_code = 200) {
-		$this->view->view_file_path = $view_name.'.php';
+		$this->view->view_file_path = $view_name;
 		$this->response->http_status_code = $http_status_code;
 	}
 
