@@ -76,7 +76,7 @@ class View {
 			if ($this->view_file_path[0] != '/') {
 				$this->view_file_path = '/app/views/' . $this->view_file_path;
 			}
-			$content_for_layout = $this->render_file(APP_PATH . $this->view_file_path);
+			$content_for_layout = $this->render_file(APP_PATH . $this->view_file_path.'.php');
 		}
 
 		// Render layout
