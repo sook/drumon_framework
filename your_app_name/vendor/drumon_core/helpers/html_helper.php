@@ -262,10 +262,16 @@ class HtmlHelper extends Helper {
 
 		$html = "";
 		$selected = '';
+		$disables = array();
 
 		if (isset($options['selected'])) {
 			$selected = $options['selected'];
 			unset($options['selected']);
+		}
+
+		if (isset($options['disabled'])) {
+			$disables = is_array($options['disabled']) ? $options['disabled'] : array($options['disabled']);
+			unset($options['disabled']);
 		}
 
 		if (isset($options['include_blank'])) {
@@ -286,7 +292,11 @@ class HtmlHelper extends Helper {
 			if ((string) $selected === (string) $key) {
 				$selected_on = ' selected';
 			}
-			$html .= '<option'.$selected_on.' value="'.$key.'">'.$value.'</option>';
+			$disabled = '';
+			if (in_array($key, $disables)) {
+				$disabled = ' disabled="disabled"';
+			}
+			$html .= '<option'.$selected_on.' value="'.$key.'"'.$disabled.'>'.$value.'</option>';
 		}
 		$html .= '</select>';
 
@@ -385,7 +395,7 @@ class HtmlHelper extends Helper {
 	 * @return string
 	 */
 	public function create_attributes($attributes) {
-		$attributes_list = array('rel','class','title','id','alt','value','name','data-method','data-confirm','enctype');
+		$attributes_list = array('rel','class','title','id','alt','value','name','data-method','data-confirm','enctype','disabled','checked');
 		$data = "";
 
 		foreach ($attributes as $key => $value) {
