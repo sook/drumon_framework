@@ -161,10 +161,8 @@ class Controller {
 			if (is_array($value)) {
 				if (isset($value['only'])) {
 					if (is_array($value['only'])) {
-						foreach ($value['only'] as $only) {
-							if ($this->request->action_name === $only) {
-								call_user_func(array($this, $key));
-							}
+						if (in_array($this->request->action_name, $value['only'])) {
+							call_user_func(array($this, $key));
 						}
 					} else {
 						if ($this->request->action_name === $value['only']) {
@@ -174,10 +172,8 @@ class Controller {
 
 				} elseif(isset($value['except'])) {
 					if (is_array($value['except'])) {
-						foreach ($value['except'] as $except) {
-							if ($this->request->action_name !== $except) {
-								call_user_func(array($this, $key));
-							}
+						if (!in_array($this->request->action_name, $value['except'])) {
+							call_user_func(array($this, $key));
 						}
 					} else {
 						if ($this->request->action_name !== $value['except']) {
