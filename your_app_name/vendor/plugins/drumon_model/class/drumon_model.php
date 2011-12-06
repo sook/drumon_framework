@@ -237,26 +237,7 @@
 				return $this->$method_name();
 			}
 			
-			if (isset($this->__data[$name])) {
-				return $this->__data[$name];
-			}
-			// if (isset($this->__data[$name])) {
-			// 	if (method_exists($this, 'get_'.$name)) {
-			// 		$method_name = 'get_'.$name;
-			// 		return $this->$method_name();
-			// 	}
-			// 	return $this->__data[$name];
-			// }
-			
-			$trace = debug_backtrace();
-			
-			trigger_error(
-				'Undefined property: ' . $name .
-				' in ' . $trace[0]['file'] .
-				' on line ' . $trace[0]['line'],
-				E_USER_NOTICE
-			);
-			//return null;
+			return $this->__data[$name];
 		}
 		
 		/**
@@ -298,6 +279,11 @@
 		 */
 		public function write_attribute($name, $value) {
 			$this->__data[$name] = $value;
+		}
+
+
+		public function read_all_attributes() {
+			return $this->__data;
 		}
 		
 		/**
@@ -342,8 +328,12 @@
 		 * @return bool
 		 */
 		public function save($data = array(), $only_columns = array()) {
-			// TODO: melhorar esse update para ir somente os campos que foram alterados.
-			return ($this->is_new()) ? $this->create($data, $only_columns) : $this->update($this->__data[$this->primary_key], array_merge($this->__data, $data));
+			if ($this->is_new()) {
+				return $this->create($data, $only_columns);
+			} else {
+				// TODO: melhorar esse update para ir somente os campos que foram alterados.
+				$this->update($this->__data[$this->primary_key], array_merge($this->__data, $data));
+			}
 		}
 		
 		/**
@@ -421,20 +411,28 @@
 			$this->__data = array_merge($this->__data, $data);
 			
 			// Fire all methods for before_update
+			// TODO: se for update vindo do save funciona já tem os dados
+			$record = $this->find($id, true);
+			$this->__data = array_merge($record->read_all_attributes(), $this->__data);
 			if ($this->fire_hooks('before_update') === false) { return false; }
 			if ($this->fire_hooks('before_save') === false) { return false; }
-			
+
 			$values = array();
-			foreach ($data as $key => $value) {
-				$values[] = '`'.$key.'` = :'.$key.'';
+			foreach ($this->__data as $key => $value) {
+				$values[] = '`' . $key . '` = :' . $key . '';
 			}
 			
-			$query = 'UPDATE `'.$this->table_name.'` SET '.implode(', ',$values).' WHERE `'.$this->primary_key.'` = '.$id;
+			$query = 'UPDATE `' . $this->table_name . '` SET ' . implode(', ',$values) . ' WHERE `' . $this->primary_key . '` = ' . $id;
 			
-			$result = $this->__connection->prepare($query)->execute($data);
+			
+			$result = $this->__connection->prepare($query)->execute($this->__data);
 			
 			// If saved then fire all hooks.
 			if ($result) {
+				// TODO: se for update vindo do save já tem os dados
+				// Melhorar fire
+				$record = $this->find($id, true);
+				$this->__data = $record->read_all_attributes();
 				$this->fire_hooks('after_update');
 				$this->fire_hooks('after_save');
 			}
@@ -486,6 +484,7 @@
 			foreach ($records as $record) {
 				$record->fire_hooks('before_delete');
 			}
+
 			$this->set_query($query_tmp);
 			$this->__query['action'] = 'delete';
 			$stmt = $this->__connection->prepare($this->generate_sql());
@@ -871,9 +870,9 @@
 				$this->where($this->table_name.'.'.$this->primary_key.' IN ('.implode(',',$ids).')');
 				return $this->all($object);
 			} else {
-				$this->where($this->table_name.'.'.$this->primary_key.' = '.$ids);
-				$result = $this->all($object);
-				return $result[0];
+				$this->where($this->table_name.'.'.$this->primary_key.' = "'.$ids.'"');
+				$result = $this->first($object);
+				return $result;
 			}
 		}
 		

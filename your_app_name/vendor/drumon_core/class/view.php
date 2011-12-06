@@ -213,11 +213,11 @@ class View {
 	 * @return void
 	 */
 	private function load_helpers($helpers, &$request) {
-		
+
 		// Adiciona os helpers na view.
 		foreach ($helpers as $helper_name => $helper_path) {
 			require_once $helper_path;
-			$class = ucfirst($helper_name).'Helper';
+			$class = App::to_camelcase($helper_name) . 'Helper';
 			$this->add($helper_name, new $class($request));
 		}
 		
