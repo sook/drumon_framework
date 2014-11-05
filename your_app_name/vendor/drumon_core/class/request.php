@@ -116,9 +116,13 @@ class Request {
 	 * @return array - Route data
 	 */
 	public function find_request_route() {
-		$app_folder = str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\','/', $this->app_path));
-		$request_route = explode('?', str_replace($app_folder, '', $_SERVER['REQUEST_URI']));
-		$request_route = $this->remove_last_slash($request_route[0]);
+		$root = dirname($_SERVER['SCRIPT_NAME']);
+		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+		if ($root !== '/') {
+	            $path = str_replace($root, '', $path);
+	        }
+	
+		$request_route = $path;
 
 		// Fast root match
 		if ($request_route === '' || $request_route === '/index.php') {
