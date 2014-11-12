@@ -128,8 +128,6 @@ class Request {
         	}
 
 		$request_route = $path;
-	
-		$request_route = $path;
 
 		// Fast root match
 		if ($request_route === '' || $request_route === '/index.php') {
