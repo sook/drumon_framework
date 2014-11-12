@@ -118,9 +118,16 @@ class Request {
 	public function find_request_route() {
 		$root = dirname($_SERVER['SCRIPT_NAME']);
 		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
 		if ($root !== '/') {
-	            $path = str_replace($root, '', $path);
-	        }
+            		$path = str_replace($root, '', $path);
+        	}
+
+        	if ($path !== '/') {
+        		$path = $this->remove_last_slash($path);
+        	}
+
+		$request_route = $path;
 	
 		$request_route = $path;
 
